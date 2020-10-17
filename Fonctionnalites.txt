@@ -1,0 +1,17 @@
+Personnage :
+- Se déplacer (haut, bas, gauche, droite) ou attendre
+- Sous-classes de personnages
+- Attaquer un monstre
+
+Labyrinthe :
+- Labyrinthe généré par défaut (labyrinthe 1)
+- Labyrinthe généré avec un fichier (labyrinthe 2)
+- Labyrinthe généré aléatoirement (labyrinthe 3)
+- Plusieurs niveux de labyrinthe
+- Cases du labyrinthe avec des effets.
+
+Monstre :
+- Se déplacer aléatoirement (mouvement 1)
+- Se déplacer de manière intelligente (mouvement 2)
+- Sous-classes de monstres
+- Attaquer un personnage
