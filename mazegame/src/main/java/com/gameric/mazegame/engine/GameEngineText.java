@@ -1,19 +1,44 @@
 package com.gameric.mazegame.engine;
 
+import java.util.Scanner;
+
 public class GameEngineText {
 
 	private Game game;
-	private GameController gameController;
 	
-	public GameEngineText(Game game, GameController gameController) {
+	public GameEngineText(Game game) {
 		this.game = game;
-		this.gameController = gameController;
 	}
 	
 	public void run() throws InterruptedException {
-		
+		Scanner scanner = new Scanner(System.in);
+				
 		while (!this.game.isFinished()) {
-			Cmd c = this.gameController.getCommand();
+			System.out.println("Ecrire Commande (Q/D/Z/S/W) :");
+			
+			char scan = scanner.next().charAt(0);
+			Cmd c = Cmd.IDLE;
+			
+			switch (scan) {
+			case 'q':
+			case 'Q':
+				c = Cmd.LEFT;
+				break;
+			case 'd':
+			case 'D':
+				c = Cmd.RIGHT;
+				break;
+			case 's':
+			case 'S':
+				c = Cmd.DOWN;
+				break;
+			case 'z':
+			case 'Z':
+				c = Cmd.LEFT;
+				break;
+			}
+						
+			this.game.evolve(c);
 			Thread.sleep(100);
 		}
 	}
