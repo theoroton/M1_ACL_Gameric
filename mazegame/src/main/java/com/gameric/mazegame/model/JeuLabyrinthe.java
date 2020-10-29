@@ -5,7 +5,10 @@ import com.gameric.mazegame.engine.Game;
 
 public class JeuLabyrinthe implements Game {
 	
+	private Labyrinthe labyrinthe;
+	
 	public JeuLabyrinthe() {
+		labyrinthe = new Labyrinthe();
 	}
 
 	@Override
@@ -16,5 +19,9 @@ public class JeuLabyrinthe implements Game {
 	public boolean isFinished() {
 		return false;
 	}
+
+	public Labyrinthe getLabyrinthe() {
+		return labyrinthe;
+	}	
 
 }
