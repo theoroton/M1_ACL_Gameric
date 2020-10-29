@@ -2,6 +2,8 @@ package com.gameric.mazegame.engine;
 
 import java.util.Scanner;
 
+import com.gameric.mazegame.model.JeuLabyrinthe;
+
 public class GameEngineText {
 
 	private Game game;
@@ -14,7 +16,7 @@ public class GameEngineText {
 		Scanner scanner = new Scanner(System.in);
 				
 		while (!this.game.isFinished()) {
-			System.out.println("Ecrire Commande (Q/D/Z/S/W) :");
+			System.out.println("\nEcrire Commande (Q/D/Z/S/W) :");
 			
 			char scan = scanner.next().charAt(0);
 			Cmd c = Cmd.IDLE;
@@ -34,11 +36,11 @@ public class GameEngineText {
 				break;
 			case 'z':
 			case 'Z':
-				c = Cmd.LEFT;
+				c = Cmd.UP;
 				break;
 			}
-						
-			this.game.evolve(c);
+									
+			this.game.evolve(c);			
 			Thread.sleep(100);
 		}
 	}
