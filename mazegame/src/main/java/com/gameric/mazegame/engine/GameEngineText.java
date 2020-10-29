@@ -16,7 +16,7 @@ public class GameEngineText {
 		Scanner scanner = new Scanner(System.in);
 				
 		while (!this.game.isFinished()) {
-			System.out.println("\nEcrire Commande (Q/D/Z/S/W) :");
+			System.out.println("Ecrire Commande (Q/D/Z/S/W) :");
 			
 			char scan = scanner.next().charAt(0);
 			Cmd c = Cmd.IDLE;
@@ -41,6 +41,7 @@ public class GameEngineText {
 			}
 									
 			this.game.evolve(c);			
+			System.out.println("");
 			Thread.sleep(100);
 		}
 	}
