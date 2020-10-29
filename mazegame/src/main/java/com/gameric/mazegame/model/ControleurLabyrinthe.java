@@ -12,29 +12,21 @@ public class ControleurLabyrinthe implements GameController {
 	public ControleurLabyrinthe() {
 		this.commandeEnCours = Cmd.IDLE;
 	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyPressed(KeyEvent e) {}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.commandeEnCours = Cmd.IDLE;	
 	}
 
 	@Override
 	public Cmd getCommand() {
-		// TODO Auto-generated method stub
-		return null;
+		return commandeEnCours;
 	}
 
 }
