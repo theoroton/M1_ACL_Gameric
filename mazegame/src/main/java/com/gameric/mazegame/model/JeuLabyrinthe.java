@@ -9,8 +9,7 @@ public class JeuLabyrinthe implements Game {
 	}
 
 	@Override
-	public void evolve(Cmd userCmd) {
-		System.out.println(userCmd);	
+	public void evolve(Cmd userCmd) {	
 	}
 
 	@Override
