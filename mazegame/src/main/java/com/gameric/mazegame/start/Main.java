@@ -1,24 +1,20 @@
 package com.gameric.mazegame.start;
 
-import com.gameric.mazegame.engine.GameEngineGraphical;
-import com.gameric.mazegame.model.PacmanController;
-import com.gameric.mazegame.model.PacmanGame;
-import com.gameric.mazegame.model.PacmanPainter;
+import com.gameric.mazegame.engine.GameEngineText;
+import com.gameric.mazegame.model.JeuLabyrinthe;
 
 /**
- * lancement du moteur avec le jeu
+ * Lancement du moteur avec le jeu
  */
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		// creation du jeu particulier et de son afficheur
-		PacmanGame game = new PacmanGame("helpFilePacman.txt");
-		PacmanPainter painter = new PacmanPainter();
-		PacmanController controller = new PacmanController();
+		//Création du jeu
+		JeuLabyrinthe game = new JeuLabyrinthe();
 
-		// classe qui lance le moteur de jeu generique
-		GameEngineGraphical engine = new GameEngineGraphical(game, painter, controller);
+		//Lancement du moteur graphique
+		GameEngineText engine = new GameEngineText(game);
 		engine.run();
 	}
 
