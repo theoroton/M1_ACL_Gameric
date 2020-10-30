@@ -39,7 +39,7 @@ public class Personnage{
 	 * @return Retourne 1 si le déplacement est possible et que la position a été mise à jour,
 	 * 0 sinon.
 	 */
-	void deplacer(int dx, int dy){
+	public void deplacer(int dx, int dy){
 		boolean valide = true;
 		int new_x = pos_x + dx;
 		int new_y = pos_y + dy;
@@ -60,7 +60,7 @@ public class Personnage{
 		}
 	}
 	
-	String getPosition(){
+	public String getPosition(){
 		return "(" + pos_x + "," +  pos_y + ")";
 	}
 
