@@ -24,8 +24,8 @@ public class JeuLabyrinthe implements Game {
 	 * On initialise un labyrinthe et le personnage du joueur
 	 */
 	public JeuLabyrinthe() {
-		labyrinthe = new Labyrinthe();
-		personnage = new Personnage(labyrinthe);
+		labyrinthe = new Labyrinthe(5, 5);
+		personnage = new Personnage();
 	}
 
 	/**

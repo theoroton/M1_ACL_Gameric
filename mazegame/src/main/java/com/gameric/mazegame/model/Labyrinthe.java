@@ -10,25 +10,35 @@ public class Labyrinthe {
 	/**
 	 * Largeur du labyrinthe
 	 */
-	private int largeur;
+	private static int largeur;
 	/**
 	 * Hauteur du labyrinthe
 	 */
-	private int hauteur;
+	private static int hauteur;
 	
 	/**
 	 * Constructeur d'un labyrinthe par défaut
 	 */
 	public Labyrinthe() {
 		largeur = 10;
-		hauteur = 8;
+		hauteur = 10;
+	}
+	
+	/**
+	 * Constructeur d'un labyrinthe en précisant sa taille
+	 * @param l : largeur du labyrinthe
+	 * @param h : hauteur du labyrinthe
+	 */
+	public Labyrinthe(int l, int h) {
+		largeur = l;
+		hauteur = h;
 	}
 
 	/**
 	 * Méthode getter de l'attribut largeur
 	 * @return largeur du labyrinthe
 	 */
-	public int getLargeur() {
+	public static int getLargeur() {
 		return largeur;
 	}
 
@@ -36,7 +46,7 @@ public class Labyrinthe {
 	 * Méthode getter de l'attribut hauteur
 	 * @return hauteur du labyrinthe
 	 */
-	public int getHauteur() {
+	public static int getHauteur() {
 		return hauteur;
 	}
 	
