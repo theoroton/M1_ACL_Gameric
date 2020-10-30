@@ -10,9 +10,9 @@ public class Personnage{
 	//Attributs
 	
 	//Points de vie du personnage
-	int pointsVie = 100;
+	//int pointsVie = 100;
 	//Dégats du personnage
-	int degats = 10;		
+	//int degats = 10;		
 	int pos_x;
 	int pos_y;
 	
@@ -63,6 +63,15 @@ public class Personnage{
 	String getPosition(){
 		return "(" + pos_x + "," +  pos_y + ")";
 	}
+
+	public int getPos_x() {
+		return pos_x;
+	}
+
+	public int getPos_y() {
+		return pos_y;
+	}
+	
 }
 
 
