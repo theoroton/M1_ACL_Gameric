@@ -1,5 +1,7 @@
 package com.gameric.mazegame.engine;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import com.gameric.mazegame.model.JeuLabyrinthe;
@@ -37,27 +39,41 @@ public class GameEngineText {
 		//Boucle du jeu
 		while (!this.game.isFinished()) {
 			System.out.println("Ecrire Commande (Q/D/Z/S/W) :");
-			
+					
 			//On récupère le caractère qui correspond à la commande du joueur
-			char scan = scanner.next().charAt(0);
-			Cmd c = Cmd.IDLE;
+			String scan = scanner.next();
 			
+			//Caractères acceptés
+			String[] commandes = new String[] {"q","d","z","s","w","Q","D","Z","S","W"};
+			List<String> list = Arrays.asList(commandes);
+			
+			//Si le caractère ne correspond à aucune commande, on le redemande au joueur
+			while (!list.contains(scan)) {
+				System.out.println("ERREUR COMMANDE\n");
+				System.out.println("Ecrire Commande (Q/D/Z/S/W) :");
+				
+				//On récupère le caractère qui correspond à la commande du joueur
+				scan = scanner.next();
+			}
+			
+			Cmd c = Cmd.IDLE;
+				
 			//On récupère la commande correspondant au caractère entré
 			switch (scan) {
-			case 'q':
-			case 'Q':
+			case "q":
+			case "Q":
 				c = Cmd.LEFT;
 				break;
-			case 'd':
-			case 'D':
+			case "d":
+			case "D":
 				c = Cmd.RIGHT;
 				break;
-			case 's':
-			case 'S':
+			case "s":
+			case "S":
 				c = Cmd.DOWN;
 				break;
-			case 'z':
-			case 'Z':
+			case "z":
+			case "Z":
 				c = Cmd.UP;
 				break;
 			}
