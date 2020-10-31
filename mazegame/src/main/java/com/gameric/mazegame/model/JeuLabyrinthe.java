@@ -24,8 +24,8 @@ public class JeuLabyrinthe implements Game {
 	 * On initialise un labyrinthe et le personnage du joueur
 	 */
 	public JeuLabyrinthe() {
-		labyrinthe = new Labyrinthe(5, 5);
 		personnage = new Personnage();
+		labyrinthe = new Labyrinthe(personnage);
 	}
 
 	/**
@@ -56,9 +56,6 @@ public class JeuLabyrinthe implements Game {
 			personnage.deplacer(1, 0);
 			break;
 		}
-
-		//Affichage de la position du personnage après une commande
-		System.out.println("Personnage " + personnage.getPosition());
 	}
 
 	/**
