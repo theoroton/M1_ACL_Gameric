@@ -56,7 +56,7 @@ public class DessinLabyrinthe implements GamePainter {
 	 * Méthode qui dessine l'image du jeu
 	 */
 	public void draw(BufferedImage image) {
-		//On récupère le personange du jeu
+		//On récupère le personnage du jeu
 		Personnage personnage = jeu.getPersonnage();
 		//On récupère le labyrinthe du jeu
 		Labyrinthe labyrinthe = jeu.getLabyrinthe();
