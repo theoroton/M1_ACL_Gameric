@@ -53,6 +53,7 @@ public class Patrouille implements StrategieDeplacement{
 				newPosition.setPy(0);
 				break;
 		}
+		
 		if(l.getCase(newPosition.getPx(),newPosition.getPy()).getClass() == Mur.class || !checkBordures(newPosition)) {
 			System.out.println("Erreur Patrouille Monstre");
 		} else {
