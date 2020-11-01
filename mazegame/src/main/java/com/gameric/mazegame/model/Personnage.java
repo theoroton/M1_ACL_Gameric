@@ -63,11 +63,6 @@ public class Personnage{
 		}
 	}
 	
-	public int attaque() {
-		//
-		return 0;
-	}
-	
 	//Getters
 	public String getStringPosition(){
 		return "(" + position.getPx() + "," +  position.getPy() + ")";
