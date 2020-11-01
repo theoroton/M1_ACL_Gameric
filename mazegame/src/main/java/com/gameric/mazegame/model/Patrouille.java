@@ -11,6 +11,19 @@ import com.gameric.mazegame.engine.Cmd;
 
 public class Patrouille implements StrategieDeplacement{
 	Monstre m;
+	Labyrinthe l;
+	Case newPosition;
+	
+	public boolean checkBordures(Case position) {
+		int x = position.getPx();
+		int y = position.getPy();
+		if(x > 0 && y > 0 && x < Labyrinthe.getLargeur() && y < Labyrinthe.getHauteur()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public void deplacer() {
 		String[] choix = {"UP", "RIGHT", "DOWN", "LEFT"};
         m.setDirection(choix[(int)(4 * Math.random())]);
@@ -18,23 +31,32 @@ public class Patrouille implements StrategieDeplacement{
 			//Commande UP
 			case "UP":
 				//le monstre se déplace de 1 vers le haut (0,1)
-				m.setPosition(0, 1);
+				newPosition.setPx(0);
+				newPosition.setPy(1);
 				break;
 			//Commande DOWN
 			case "DOWN":
 				//le monstre se déplace de 1 vers le bas (0,-1)
-				m.setPosition(0, -1);
+				newPosition.setPx(0);
+				newPosition.setPy(-1);
 				break;
 			//Commande LEFT
 			case "LEFT":
 				//le monstre se déplace de 1 vers la gauche (-1,0)
-				m.setPosition(-1, 0);
+				newPosition.setPx(-1);
+				newPosition.setPy(0);
 				break;
 			//Commande RIGHT
 			case "RIGHT":
 				//le monstre se déplace de 1 vers la droite (1,0)
-				m.setPosition(1, 0);
+				newPosition.setPx(1);
+				newPosition.setPy(0);
 				break;
+		}
+		if(l.getCase(newPosition.getPx(),newPosition.getPy()).getClass() == Mur.class || !checkBordures(newPosition)) {
+			System.out.println("Erreur Patrouille Monstre");
+		} else {
+			m.setPosition(newPosition.getPx(), newPosition.getPy());
 		}
 	}
 }
