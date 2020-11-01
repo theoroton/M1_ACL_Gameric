@@ -22,9 +22,9 @@ public class Personnage{
 	}
 	
 	public Personnage(int x, int y){
-		if((x > 0) && (x < Labyrinthe.getLargeur()))	pos_x = x;
+		if((x > 0) && (x < Labyrinthe.getLargeur()-1))	pos_x = x;
 		else 						pos_x = 1;
-		if((y > 0) && (y < Labyrinthe.getHauteur()))	pos_y = y;
+		if((y > 0) && (y < Labyrinthe.getHauteur()-1))	pos_y = y;
 		else 						pos_y = 1;
 	}
 	
@@ -44,8 +44,8 @@ public class Personnage{
 		int new_x = pos_x + dx;
 		int new_y = pos_y + dy;
 		
-		if((new_x > 0) && (new_x < Labyrinthe.getLargeur())){
-			if( (new_y > 0) && (new_y < Labyrinthe.getHauteur()) ){
+		if((new_x > 0) && (new_x < Labyrinthe.getLargeur()-1)){
+			if( (new_y > 0) && (new_y < Labyrinthe.getHauteur()-1) ){
 				pos_x = new_x;
 				pos_y = new_y;
 			} else {

@@ -1,6 +1,8 @@
 package com.gameric.mazegame.start;
 
-import com.gameric.mazegame.engine.GameEngineText;
+import com.gameric.mazegame.engine.GameEngineGraphical;
+import com.gameric.mazegame.model.ControleurLabyrinthe;
+import com.gameric.mazegame.model.DessinLabyrinthe;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 
 /**
@@ -11,10 +13,12 @@ public class Main {
 	public static void main(String[] args) throws InterruptedException {
 
 		//Création du jeu
-		JeuLabyrinthe game = new JeuLabyrinthe();
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		DessinLabyrinthe dessin = new DessinLabyrinthe(jeu);
+		ControleurLabyrinthe controleur = new ControleurLabyrinthe();
 
 		//Lancement du moteur graphique
-		GameEngineText engine = new GameEngineText(game);
+		GameEngineGraphical engine = new GameEngineGraphical(jeu, dessin, controleur);
 		engine.run();
 	}
 
