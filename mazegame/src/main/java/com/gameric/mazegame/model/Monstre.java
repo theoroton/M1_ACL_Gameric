@@ -28,7 +28,7 @@ public abstract class Monstre {
 	/**
 	 * La direction de déplacement du monstre
 	 */
-	private int direction = 0;
+	private String direction;
 	/**
 	 * Est-ce que le monstre a la possibilite de traverser les murs ou non
 	 */
@@ -37,7 +37,9 @@ public abstract class Monstre {
 	 * La distance sur laquelle le monstre peux voir le Personnage
 	 */
 	private int vision = 3;
-	//private Case position;
+	private Case position;
+	
+	private static StrategieDeplacement strategie;
 	
 	/**
 	 * Méthode getter de l'attribut pointsVie
@@ -95,13 +97,13 @@ public abstract class Monstre {
 	 * Méthode getter de l'attribut direction
 	 * @return La direction de déplacement du monstre
 	 */
-	public int getDirection() {
+	public String getDirection() {
 		return direction;
 	}
 	/**
 	 * @param direction
 	 */
-	public void setDirection(int direction) {
+	public void setDirection(String direction) {
 		this.direction = direction;
 	}
 	/**
@@ -129,16 +131,21 @@ public abstract class Monstre {
 	public void setVision(int vision) {
 		this.vision = vision;
 	}
-	/*public Case getPosition() {
+	
+	public Case getPosition() {
 		return position;
 	}
-	public void setPosition(Case position) {
-		this.position = position;
-	}*/
+	
+	public void setPosition(int x, int y) {
+		this.position.setPx(x);
+		this.position.setPy(y);
+	}
 	/**
 	 * Méthode qui gère le déplacement de monstre
 	 */
-	public abstract void deplacer();
+	public void deplacerMonstre(StrategieDeplacement strategie) {
+		strategie.deplacer();
+	}
 
 	//pour v2
 	//public abstract void attaquer(Personnage p);
