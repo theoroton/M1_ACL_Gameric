@@ -1,5 +1,10 @@
 package com.gameric.mazegame.model;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * 
  * @author Théo Roton
@@ -45,6 +50,7 @@ public class Labyrinthe {
 	
 	/**
 	 * Constructeur d'un labyrinthe par défaut
+	 * @param p : personnage joueur du labyrinthe
 	 */
 	public Labyrinthe(Personnage p) {
 		largeur = 10;
@@ -59,6 +65,7 @@ public class Labyrinthe {
 	 * Constructeur d'un labyrinthe par défaut en précisant sa taille
 	 * @param l : largeur du labyrinthe
 	 * @param h : hauteur du labyrinthe
+	 * @param p : personnage joueur du labyrinthe
 	 */
 	public Labyrinthe(int l, int h, Personnage p) {
 		largeur = l;
@@ -67,6 +74,20 @@ public class Labyrinthe {
 		
 		//Génération du labyrinthe par défaut
 		genererLabyrintheDefaut();
+	}
+	
+	/**
+	 * Constructeur d'un labyrinthe à partir d'un fichier
+	 * @param p : personnage joueur du labyrinthe
+	 * @param fichier : fichier qui va permettre de construire le labyrinthe
+	 */
+	public Labyrinthe(Personnage p, String fichier) {
+		largeur = 12;
+		hauteur = 12;
+		personnage_laby = p;
+		
+		//Génération du labyrinthe à partir du fichier donné
+		genererLabyrinthe(fichier);
 	}
 	
 	/**
@@ -97,6 +118,67 @@ public class Labyrinthe {
 		//Ajout de l'entrée et de la sortie
 		cases[yEntree][xEntree] = new CaseEntree(xEntree,yEntree);
 		cases[ySortie][xSortie] = new CaseSortie(xSortie,ySortie);
+	}
+	
+	/**
+	 * Méthode qui permet de générer le labyrinthe à partir d'un fichier
+	 * @param fichier : fichier de génération du labyrinthe
+	 */
+	private void genererLabyrinthe(String fichier) {
+		//Tableau des cases du labyrinthe
+		cases = new Case[hauteur][largeur];
+		
+		try {
+			//Récupération du fichier
+			BufferedReader fichLab = new BufferedReader(new FileReader("./src/main/ressources/"+fichier));
+			String ligne;
+			Case cas;
+			//Position en x
+			int i = 0;
+			//Position en y
+			int j = 0;
+			
+			//Pour chaque ligne du fichier
+			while ((ligne = fichLab.readLine()) != null && j < hauteur) {
+				//On découpe la ligne courante en un tableau de caractères
+				char[] caracts = ligne.toCharArray();
+				i = 0;
+				
+				//Pour chaque caractère
+				while (i < largeur) {
+					char c = caracts[i];
+					//Si le caractère est un X, on crée un Mur à cette position
+					if (c == 'X') {
+						cas = new Mur(i,j);
+					//Si le caractère est un E, on crée une CaseEntree à cette position
+					} else if (c == 'E') {
+						cas = new CaseEntree(i, j);
+						xEntree = i;
+						yEntree = j;
+					//Si le caractère est un S, on crée une CaseSortie à cette position
+					} else if (c == 'S') {
+						cas = new CaseSortie(i,j);
+						xSortie = i;
+						ySortie = j;
+					//Sinon on crée une CaseVide à cette position
+					} else {
+						cas = new CaseVide(i, j);
+					}
+					 
+					//On ajoute la case créer au tableau des cases
+					cases[j][i] = cas;
+					//On augmente de 1 le x
+					i++;
+				}
+				//On augmente de 1 le y
+				j++;
+			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichier non trouvé");
+		} catch (IOException e) {
+			System.out.println("Erreur de flux");
+		}
 	}
 
 	/**
@@ -140,6 +222,38 @@ public class Labyrinthe {
 	 */
 	public Case getCase(int x, int y) {
 		return cases[y][x];
+	}
+
+	/**
+	 * Méthode getter de l'attribut xEntree
+	 * @return position en X de l'entrée
+	 */
+	public int getxEntree() {
+		return xEntree;
+	}
+
+	/**
+	 * Méthode getter de l'attribut yEntree
+	 * @return position en Y de l'entrée
+	 */
+	public int getyEntree() {
+		return yEntree;
+	}
+
+	/**
+	 * Méthode getter de l'attribut xSortie
+	 * @return position en X de la sortie
+	 */
+	public int getxSortie() {
+		return xSortie;
+	}
+
+	/**
+	 * Méthode getter de l'attribut ySortie
+	 * @return position en Y de la sortie
+	 */
+	public int getySortie() {
+		return ySortie;
 	}
 	
 }

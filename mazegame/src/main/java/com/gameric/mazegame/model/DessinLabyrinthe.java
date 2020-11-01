@@ -25,7 +25,7 @@ public class DessinLabyrinthe implements GamePainter {
 	/**
 	 * Taille d'une case
 	 */
-	private final static int TAILLE_CASE = 15;
+	private final static int TAILLE_CASE = 20;
 	
 	/**
 	 * Jeu à afficher
@@ -54,7 +54,7 @@ public class DessinLabyrinthe implements GamePainter {
 		Graphics2D crayon = (Graphics2D) image.getGraphics();
 		//On dessine le personnage en bleu
 		crayon.setColor(Color.BLUE);
-		crayon.fillOval(personnage.getPos_x()*TAILLE_CASE, personnage.getPos_y()*TAILLE_CASE, TAILLE_CASE-2, TAILLE_CASE-2);
+		crayon.fillOval(personnage.getPos_x()*TAILLE_CASE, personnage.getPos_y()*TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
 		
 		int hauteur = Labyrinthe.getHauteur();
 		int largeur = Labyrinthe.getLargeur();
