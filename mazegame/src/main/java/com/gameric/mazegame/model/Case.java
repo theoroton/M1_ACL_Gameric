@@ -41,4 +41,22 @@ public abstract class Case {
 	public int getPy() {
 		return py;
 	}
+
+	/**
+	 * Méthode setter de l'attribut px
+	 * @param px : nouvelle position X de la case
+	 */
+	public void setPx(int px) {
+		this.px = px;
+	}
+
+	/**
+	 * Méthode setter de l'attribut py
+	 * @param py : nouvelle position Y de la case
+	 */
+	public void setPy(int py) {
+		this.py = py;
+	}
+	
+	
 }
