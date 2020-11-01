@@ -12,6 +12,7 @@ import com.gameric.mazegame.engine.Cmd;
 public class Patrouille implements StrategieDeplacement{
 	Monstre m;
 	Labyrinthe l;
+	Personnage p;
 	Case newPosition;
 	
 	public boolean checkBordures(Case position) {
@@ -54,7 +55,8 @@ public class Patrouille implements StrategieDeplacement{
 				break;
 		}
 		
-		if(l.getCase(newPosition.getPx(),newPosition.getPy()).getClass() == Mur.class || !checkBordures(newPosition)) {
+		if(l.getCase(newPosition.getPx(),newPosition.getPy()).getClass() == Mur.class || !checkBordures(newPosition) 
+				|| newPosition.getPx() != p.getPos_x() && newPosition.getPy() != p.getPos_y()) {
 			System.out.println("Erreur Patrouille Monstre");
 		} else {
 			m.setPosition(newPosition.getPx(), newPosition.getPy());
