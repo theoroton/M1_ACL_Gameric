@@ -26,7 +26,7 @@ public class Labyrinthe {
 	/**
 	 * Tableau des cases du labyrinthe
 	 */
-	private Case[][] cases;
+	private static Case[][] cases;
 	
 	/**
 	 * Position x de l'entrée
@@ -240,7 +240,7 @@ public class Labyrinthe {
 	 * @param y : position y de la case
 	 * @return Case correspondant à la position
 	 */
-	public Case getCase(int x, int y) {
+	public static Case getCase(int x, int y) {
 		return cases[y][x];
 	}
 

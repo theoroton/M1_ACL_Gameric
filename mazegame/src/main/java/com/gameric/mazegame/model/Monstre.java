@@ -41,6 +41,10 @@ public class Monstre {
 	
 	private static StrategieDeplacement strategie;
 	
+	public Monstre(int x, int y) {
+		position = Labyrinthe.getCase(x,y);
+	}
+	
 	/**
 	 * Méthode getter de l'attribut pointsVie
 	 * @return La nombre actuel des points de la vie du monstre
