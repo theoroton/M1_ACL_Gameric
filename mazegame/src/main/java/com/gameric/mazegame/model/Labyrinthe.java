@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -49,6 +51,11 @@ public class Labyrinthe {
 	private Personnage personnage_laby;
 	
 	/**
+	 * Liste des monstres du labyrinthe
+	 */
+	private List<Monstre> monstres;
+	
+	/**
 	 * Constructeur d'un labyrinthe par défaut
 	 * @param p : personnage joueur du labyrinthe
 	 */
@@ -56,6 +63,7 @@ public class Labyrinthe {
 		largeur = 10;
 		hauteur = 10;
 		personnage_laby = p;
+		monstres = new ArrayList<Monstre>();
 		
 		//Génération du labyrinthe par défaut
 		genererLabyrintheDefaut();
@@ -71,6 +79,7 @@ public class Labyrinthe {
 		largeur = l;
 		hauteur = h;
 		personnage_laby = p;
+		monstres = new ArrayList<Monstre>();
 		
 		//Génération du labyrinthe par défaut
 		genererLabyrintheDefaut();
@@ -85,6 +94,7 @@ public class Labyrinthe {
 		largeur = 12;
 		hauteur = 12;
 		personnage_laby = p;
+		monstres = new ArrayList<Monstre>();
 		
 		//Génération du labyrinthe à partir du fichier donné
 		genererLabyrinthe(fichier);
@@ -160,6 +170,9 @@ public class Labyrinthe {
 						cas = new CaseSortie(i,j);
 						xSortie = i;
 						ySortie = j;
+					//Si le caractère est un M, on ajoute à monstre au labyrinthe à cette position
+					} else if (c == 'M') {
+						ajouterMonstre(i,j);
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
@@ -179,6 +192,11 @@ public class Labyrinthe {
 		} catch (IOException e) {
 			System.out.println("Erreur de flux");
 		}
+	}
+
+	private void ajouterMonstre(int i, int j) {
+		
+		
 	}
 
 	/**
@@ -254,6 +272,14 @@ public class Labyrinthe {
 	 */
 	public int getySortie() {
 		return ySortie;
+	}
+
+	/**
+	 * Méthode getter de l'attribut monstres
+	 * @return monstres du labyrinthe
+	 */
+	public List<Monstre> getMonstres() {
+		return monstres;
 	}
 	
 }
