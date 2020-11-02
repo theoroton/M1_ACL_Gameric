@@ -7,7 +7,7 @@ package com.gameric.mazegame.model;
  *
  */
 
-public abstract class Monstre {
+public class Monstre {
 	
 	/**
 	 * La nombre des points de la vie du monstre
@@ -20,23 +20,23 @@ public abstract class Monstre {
 	/**
 	 * La vitesse de déplacement du monstre
 	 */
-	private int vitesse = 1;
+	//private int vitesse = 1;
 	/**
 	 * La distance de l'attaque du monstre
 	 */
-	private int portee = 1;
+	//private int portee = 1;
 	/**
 	 * La direction de déplacement du monstre
 	 */
-	private String direction;
+	//private String direction;
 	/**
 	 * Est-ce que le monstre a la possibilite de traverser les murs ou non
 	 */
-	private boolean traverserMur = false;
+	//private boolean traverserMur = false;
 	/**
 	 * La distance sur laquelle le monstre peux voir le Personnage
 	 */
-	private int vision = 3;
+	//private int vision = 3;
 	private Case position;
 	
 	private static StrategieDeplacement strategie;
