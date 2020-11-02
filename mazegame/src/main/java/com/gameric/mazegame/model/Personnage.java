@@ -9,26 +9,25 @@ public class Personnage{
 	
 	//Attributs
 	
-	//Points de vie du personnage
-	//int pointsVie = 100;
-	//Dégats du personnage
-	//int degats = 10;		
-	int pos_x;
-	int pos_y;
+	int pointsVie = 100;	//Points de vie du personnage
+	int degats = 10;		//Dégats du personnage	
+	Case position;			//Position du personnage
 	
-	//Constructeur
-	public Personnage(){
-		pos_x = pos_y = 1;
+	//Constructeurs
+	public Personnage(){					//Sans argument
+		position = new Case(1,1);
 	}
 	
-	public Personnage(int x, int y){
+	public Personnage(int x, int y){		//Via deux entiers x et y
+		int pos_x, pos_y;
+		
 		if((x > 0) && (x < Labyrinthe.getLargeur()-1))	pos_x = x;
 		else 						pos_x = 1;
 		if((y > 0) && (y < Labyrinthe.getHauteur()-1))	pos_y = y;
 		else 						pos_y = 1;
+		
+		position = Labyrinthe.getCase(x,y);
 	}
-	
-	
 	
 	//Méthodes
 	
@@ -40,19 +39,19 @@ public class Personnage{
 	 * 0 sinon.
 	 */
 	public void deplacer(int dx, int dy){
-		boolean valide = true;
-		int new_x = pos_x + dx;
-		int new_y = pos_y + dy;
+		boolean valide = false;
+		int new_x = position.getPx() + dx;
+		int new_y = position.getPy() + dy;
 		
 		if((new_x > 0) && (new_x < Labyrinthe.getLargeur()-1)){
 			if( (new_y > 0) && (new_y < Labyrinthe.getHauteur()-1) ){
-				pos_x = new_x;
-				pos_y = new_y;
-			} else {
-				valide = false;
+				Case new_position = Labyrinthe.getCase(new_x,new_y);
+				if(new_position != null) {
+					//Ajouter la méthode pour tester si une case est vide et libre
+					position = new_position;
+					valide = true;
+				}
 			}
-		} else{
-			valide = false;
 		}
 		
 		if (!valide) {
@@ -60,16 +59,21 @@ public class Personnage{
 		}
 	}
 	
-	public String getPosition(){
-		return "(" + pos_x + "," +  pos_y + ")";
+	//Getters
+	public String getStringPosition(){
+		return "(" + position.getPx() + "," +  position.getPy() + ")";
+	}
+	
+	public Case getPosition() {
+		return position;
 	}
 
 	public int getPos_x() {
-		return pos_x;
+		return position.getPx();
 	}
 
 	public int getPos_y() {
-		return pos_y;
+		return position.getPy();
 	}
 	
 }
