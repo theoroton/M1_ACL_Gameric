@@ -3,10 +3,10 @@ X          X
 X          S
 X          X
 X          X
-E   XX     X
+E   XX M   X
 X   XX     X
 X          X
 X          X
 X          X
-X          X
+X      M   X
 XXXXXXXXXXXX
