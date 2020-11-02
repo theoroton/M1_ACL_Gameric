@@ -17,6 +17,7 @@ public class TestLabyrinthe {
 	 * - la taille du labyrinthe
 	 * - la position de la case d'entrée
 	 * - la position de la case de sortie
+	 * - la position du personnage
 	 */
 	@Test
 	public void testLabyrintheDefault() {
@@ -40,6 +41,10 @@ public class TestLabyrinthe {
 		assertEquals("La position Y de la case sortie n'est pas celle attendue", 8, labyrinthe.getySortie());
 		//Test du type de la case à la position de la sortie
 		assertEquals("La case à la position de la sortie n'est pas un objet de type 'CaseSortie'", CaseSortie.class, labyrinthe.getCase(9, 8).getClass());
+		
+		//Test de la position du personnage (attendue : (0,1))
+		assertEquals("La position X du personnage n'est pas celle attendue", 0, personnage.getPos_x());
+		assertEquals("La position Y du personnage n'est pas celle attendue", 1, personnage.getPos_y());
 	}
 	
 	/**
@@ -48,6 +53,7 @@ public class TestLabyrinthe {
 	 * - la taille du labyrinthe
 	 * - la position de la case d'entrée
 	 * - la position de la case de sortie
+	 * - la position du personnage
 	 */
 	@Test
 	public void testLabyrintheDefaultTaille() {
@@ -71,6 +77,10 @@ public class TestLabyrinthe {
 		assertEquals("La position Y de la case sortie n'est pas celle attendue", 6, labyrinthe.getySortie());
 		//Test du type de la case à la position de la sortie
 		assertEquals("La case à la position de la sortie n'est pas un objet de type 'CaseSortie'", CaseSortie.class, labyrinthe.getCase(11, 6).getClass());
+		
+		//Test de la position du personnage (attendue : (0,1))
+		assertEquals("La position X du personnage n'est pas celle attendue", 0, personnage.getPos_x());
+		assertEquals("La position Y du personnage n'est pas celle attendue", 1, personnage.getPos_y());
 	}
 	
 	/**
@@ -79,6 +89,8 @@ public class TestLabyrinthe {
 	 * - la taille du labyrinthe
 	 * - la position de la case d'entrée
 	 * - la position de la case de sortie
+	 * - la position du personnage
+	 * - le nombre de monstres
 	 */
 	@Test
 	public void testLabyrintheFichierTest() {
@@ -102,5 +114,58 @@ public class TestLabyrinthe {
 		assertEquals("La position Y de la case sortie n'est pas celle attendue", 2, labyrinthe.getySortie());
 		//Test du type de la case à la position de la sortie
 		assertEquals("La case à la position de la sortie n'est pas un objet de type 'CaseSortie'", CaseSortie.class, labyrinthe.getCase(11, 2).getClass());
+		
+		//Test de la position du personnage (attendue : (0,5))
+		assertEquals("La position X du personnage n'est pas celle attendue", 0, personnage.getPos_x());
+		assertEquals("La position Y du personnage n'est pas celle attendue", 5, personnage.getPos_y());
+		
+		//Test du nombre de monstres (attendu : 0)
+		assertEquals("Le nombre de monstre n'est pas celui attendu", 0, labyrinthe.getMonstres().size());
+	}
+	
+	/**
+	 * Test de la création d'un labyrinthe en lisant le fichier "test_monstres.txt".
+	 * On test :
+	 * - la taille du labyrinthe
+	 * - la position de la case d'entrée
+	 * - la position de la case de sortie
+	 * - la position du personnage
+	 * - le nombre de monstres et leurs positions
+	 */
+	@Test
+	public void testLabyrintheFichierTestMonstre() {
+		//Création du personnage
+		Personnage personnage = new Personnage();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_monstres.txt");	
+		
+		//Test de la taille du labyrinthe (attendue : 12 * 12)
+		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, Labyrinthe.getLargeur());
+		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 12, Labyrinthe.getHauteur());
+		
+		//Test de la position de la case d'entrée (attendue : (0,6))
+		assertEquals("La position X de la case entrée n'est pas celle attendue", 0, labyrinthe.getxEntree());
+		assertEquals("La position Y de la case entrée n'est pas celle attendue", 5, labyrinthe.getyEntree());
+		//Test du type de la case à la position de l'entrée 
+		assertEquals("La case à la position de l'entrée n'est pas un objet de type 'CaseEntree'", CaseEntree.class, labyrinthe.getCase(0, 5).getClass());
+
+		//Test de la position de la case de sortie (attendue : (11,2))
+		assertEquals("La position X de la case sortie n'est pas celle attendue", 11, labyrinthe.getxSortie());
+		assertEquals("La position Y de la case sortie n'est pas celle attendue", 2, labyrinthe.getySortie());
+		//Test du type de la case à la position de la sortie
+		assertEquals("La case à la position de la sortie n'est pas un objet de type 'CaseSortie'", CaseSortie.class, labyrinthe.getCase(11, 2).getClass());
+		
+		//Test de la position du personnage (attendue : (0,5))
+		assertEquals("La position X du personnage n'est pas celle attendue", 0, personnage.getPos_x());
+		assertEquals("La position Y du personnage n'est pas celle attendue", 5, personnage.getPos_y());
+		
+		//Test du nombre de monstres (attendu : 2)
+		assertEquals("Le nombre de monstre n'est pas celui attendu", 2, labyrinthe.getMonstres().size());
+		//Test de la position du premier monstre (attendue : (7,5))
+		assertEquals("La position X du premier monstre n'est pas celle attendue", 7, labyrinthe.getMonstres().get(0).getPos_x());
+		assertEquals("La position Y du premier monstre n'est pas celle attendue", 5, labyrinthe.getMonstres().get(0).getPos_y());
+		//Test de la position du deuxième monstre (attendue : (7,10))
+		assertEquals("La position X du premier monstre n'est pas celle attendue", 7, labyrinthe.getMonstres().get(1).getPos_x());
+		assertEquals("La position Y du premier monstre n'est pas celle attendue", 10, labyrinthe.getMonstres().get(1).getPos_y());
 	}
 }

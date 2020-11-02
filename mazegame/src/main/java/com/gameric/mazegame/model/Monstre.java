@@ -150,6 +150,14 @@ public class Monstre {
 	public void deplacerMonstre(StrategieDeplacement strategie) {
 		strategie.deplacer();
 	}
+	
+	public int getPos_x() {
+		return position.getPx();
+	}
+
+	public int getPos_y() {
+		return position.getPy();
+	}
 
 	//pour v2
 	//public abstract void attaquer(Personnage p);

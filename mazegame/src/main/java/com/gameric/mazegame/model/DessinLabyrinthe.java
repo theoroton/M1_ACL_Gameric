@@ -80,6 +80,7 @@ public class DessinLabyrinthe implements GamePainter {
 			}
 		}
 		
+		//On dessine les monstres
 		crayon.setColor(Color.RED);
 		for (Monstre m : labyrinthe.getMonstres()) {
 			crayon.fillOval(m.getPosition().getPx()*TAILLE_CASE + TAILLE_PLACEPERSO, 

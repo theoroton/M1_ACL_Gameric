@@ -14,10 +14,9 @@ public class Personnage{
 	Case position;			//Position du personnage
 	
 	//Constructeurs
-	public Personnage(){					//Sans argument
-		position = new Case(1,1);
+	public Personnage(){
 	}
-	
+
 	public Personnage(int x, int y){		//Via deux entiers x et y
 		int pos_x, pos_y;
 		
@@ -76,6 +75,9 @@ public class Personnage{
 		return position.getPy();
 	}
 	
+	public void setPosition(int x, int y) {
+		position = Labyrinthe.getCase(x, y);
+	}
 }
 
 

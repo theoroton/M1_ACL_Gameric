@@ -128,6 +128,9 @@ public class Labyrinthe {
 		//Ajout de l'entrée et de la sortie
 		cases[yEntree][xEntree] = new CaseEntree(xEntree,yEntree);
 		cases[ySortie][xSortie] = new CaseSortie(xSortie,ySortie);
+		
+		//Placement du personnage dans le labyrinthe
+		placerPersonnage();
 	}
 	
 	/**
@@ -169,10 +172,7 @@ public class Labyrinthe {
 					} else if (c == 'S') {
 						cas = new CaseSortie(i,j);
 						xSortie = i;
-						ySortie = j;
-					//Si le caractère est un M, on ajoute à monstre au labyrinthe à cette position
-					} else if (c == 'M') {
-						ajouterMonstre(i,j);
+						ySortie = j;				
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
@@ -180,12 +180,19 @@ public class Labyrinthe {
 					 
 					//On ajoute la case créer au tableau des cases
 					cases[j][i] = cas;
+					
+					//Si le caractère est un M, on ajoute un monstre au labyrinthe à cette position
+					if (c == 'M') {
+						ajouterMonstre(i,j);
+					}
+					
 					//On augmente de 1 le x
 					i++;
 				}
 				//On augmente de 1 le y
 				j++;
 			}
+			placerPersonnage();
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichier non trouvé");
@@ -194,10 +201,47 @@ public class Labyrinthe {
 		}
 	}
 
-	private void ajouterMonstre(int i, int j) {
-		cases [j][i] = new CaseVide(i,j);
-		Monstre m = new Monstre(i,j);
+	/**
+	 * Méthode qui permet de placer le personnage dans le labyrinthe à
+	 * la position de la case d'entrée
+	 */
+	private void placerPersonnage() {
+		personnage_laby.setPosition(xEntree, yEntree);	
+	}
+
+	/**
+	 * Méthode qui permet de créer et placer un monstre
+	 * @param x : position en X du monstre
+	 * @param y : position en Y du monstre
+	 */
+	private void ajouterMonstre(int x, int y) {
+		//Création du monstre à la position donnée
+		Monstre m = new Monstre(x,y);
+		//Ajout du monstre à la liste des monstres du labyrinthe
 		monstres.add(m);
+	}
+	
+	/**
+	 * Méthode qui permet d'indiquer si une case vide est occupée
+	 * @param x : position X de la case
+	 * @param y : position Y de la case
+	 * @return true si la case est occupée, false sinon
+	 */
+	public boolean estCaseOccupee(int x, int y) {
+		boolean res = false;
+		
+		if (personnage_laby.getPosition() == cases[y][x]) {
+			res = true;
+		} else {
+			for (Monstre m : monstres) {
+				if (m.getPosition() == cases[y][x]) {
+					res = true;
+					break;
+				}
+			}
+		}
+		
+		return res;
 	}
 
 	/**
