@@ -27,8 +27,8 @@ public class TestLabyrinthe {
 		Labyrinthe labyrinthe = new Labyrinthe(personnage);	
 		
 		//Test de la taille du labyrinthe (attendue : 10 * 10)
-		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 10, Labyrinthe.getLargeur());
-		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 10, Labyrinthe.getHauteur());
+		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 10, labyrinthe.getLargeur());
+		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 10, labyrinthe.getHauteur());
 		
 		//Test de la position de la case d'entrée (attendue : (0,1))
 		assertEquals("La position X de la case entrée n'est pas celle attendue", 0, labyrinthe.getxEntree());
@@ -63,8 +63,8 @@ public class TestLabyrinthe {
 		Labyrinthe labyrinthe = new Labyrinthe(12,8,personnage);	
 		
 		//Test de la taille du labyrinthe (attendue : 12 * 8)
-		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, Labyrinthe.getLargeur());
-		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 8, Labyrinthe.getHauteur());
+		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getLargeur());
+		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 8, labyrinthe.getHauteur());
 		
 		//Test de la position de la case d'entrée (attendue : (0,1))
 		assertEquals("La position X de la case entrée n'est pas celle attendue", 0, labyrinthe.getxEntree());
@@ -100,8 +100,8 @@ public class TestLabyrinthe {
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");	
 		
 		//Test de la taille du labyrinthe (attendue : 12 * 12)
-		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, Labyrinthe.getLargeur());
-		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 12, Labyrinthe.getHauteur());
+		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getLargeur());
+		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getHauteur());
 		
 		//Test de la position de la case d'entrée (attendue : (0,6))
 		assertEquals("La position X de la case entrée n'est pas celle attendue", 0, labyrinthe.getxEntree());
@@ -140,8 +140,8 @@ public class TestLabyrinthe {
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_monstres.txt");	
 		
 		//Test de la taille du labyrinthe (attendue : 12 * 12)
-		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, Labyrinthe.getLargeur());
-		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 12, Labyrinthe.getHauteur());
+		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getLargeur());
+		assertEquals("La hauteur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getHauteur());
 		
 		//Test de la position de la case d'entrée (attendue : (0,6))
 		assertEquals("La position X de la case entrée n'est pas celle attendue", 0, labyrinthe.getxEntree());
@@ -167,5 +167,33 @@ public class TestLabyrinthe {
 		//Test de la position du deuxième monstre (attendue : (7,10))
 		assertEquals("La position X du premier monstre n'est pas celle attendue", 7, labyrinthe.getMonstres().get(1).getPos_x());
 		assertEquals("La position Y du premier monstre n'est pas celle attendue", 10, labyrinthe.getMonstres().get(1).getPos_y());
+	}
+	
+	/**
+	 * Test de la méthode estCaseOccupee
+	 */
+	@Test
+	public void testEstCaseOccupee() {
+		//Création du personnage
+		Personnage personnage1 = new Personnage();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe1 = new Labyrinthe(personnage1,"test.txt");	
+		
+		//Test si la case du joueur est occupée (attendu : true)
+		assertEquals("La case devrait être occupée", true, labyrinthe1.estCaseOccupee(0, 5));
+		//Test si la case en position (1,6) est occupée (attendu : false)
+		assertEquals("La case devrait être libre", false, labyrinthe1.estCaseOccupee(1, 6));
+		
+		//Création du personnage
+		Personnage personnage2 = new Personnage();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe2 = new Labyrinthe(personnage2,"test_monstres.txt");	
+		
+		//Test si la case du joueur est occupée (attendu : true)
+		assertEquals("La case devrait être occupée", true, labyrinthe2.estCaseOccupee(0, 5));
+		//Test si la case en position (1,6) est occupée (attendu : false)
+		assertEquals("La case devrait être libre", false, labyrinthe2.estCaseOccupee(1, 6));
+		//Test si la case du premier monstre est occupée (attendu : true)
+		assertEquals("La case devrait être occupée", true, labyrinthe2.estCaseOccupee(7, 5));
 	}
 }

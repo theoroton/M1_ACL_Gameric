@@ -48,8 +48,8 @@ public class DessinLabyrinthe implements GamePainter {
 	 */
 	public DessinLabyrinthe(JeuLabyrinthe j) {
 		jeu = j;
-		WIDTH = (Labyrinthe.getLargeur())*TAILLE_CASE;
-		HEIGHT = (Labyrinthe.getHauteur())*TAILLE_CASE;
+		WIDTH = (j.getLabyrinthe().getLargeur())*TAILLE_CASE;
+		HEIGHT = (j.getLabyrinthe().getHauteur())*TAILLE_CASE;
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class DessinLabyrinthe implements GamePainter {
 						personnage.getPos_y()*TAILLE_CASE + TAILLE_PLACEPERSO, 
 						TAILLE_PERSO, TAILLE_PERSO);
 		
-		int hauteur = Labyrinthe.getHauteur();
-		int largeur = Labyrinthe.getLargeur();
+		int hauteur = labyrinthe.getHauteur();
+		int largeur = labyrinthe.getLargeur();
 		//On dessine les murs du jeu en noir
 		crayon.setColor(Color.BLACK);
 		for (int i=0; i<hauteur; i++) {

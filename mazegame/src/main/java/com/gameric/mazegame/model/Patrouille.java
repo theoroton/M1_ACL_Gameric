@@ -18,7 +18,7 @@ public class Patrouille implements StrategieDeplacement{
 	public boolean checkBordures(Case position) {
 		int x = position.getPx();
 		int y = position.getPy();
-		if(x > 0 && y > 0 && x < Labyrinthe.getLargeur() && y < Labyrinthe.getHauteur()) {
+		if(x > 0 && y > 0 && x < l.getLargeur() && y < l.getHauteur()) {
 			return true;
 		} else {
 			return false;

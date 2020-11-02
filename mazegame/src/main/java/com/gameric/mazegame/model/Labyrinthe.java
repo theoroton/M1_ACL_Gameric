@@ -17,16 +17,16 @@ public class Labyrinthe {
 	/**
 	 * Largeur du labyrinthe
 	 */
-	private static int largeur;
+	private int largeur;
 	/**
 	 * Hauteur du labyrinthe
 	 */
-	private static int hauteur;
+	private int hauteur;
 	
 	/**
 	 * Tableau des cases du labyrinthe
 	 */
-	private static Case[][] cases;
+	private Case[][] cases;
 	
 	/**
 	 * Position x de l'entrée
@@ -63,6 +63,7 @@ public class Labyrinthe {
 		largeur = 10;
 		hauteur = 10;
 		personnage_laby = p;
+		p.setLabyrinthe(this);
 		monstres = new ArrayList<Monstre>();
 		
 		//Génération du labyrinthe par défaut
@@ -79,6 +80,7 @@ public class Labyrinthe {
 		largeur = l;
 		hauteur = h;
 		personnage_laby = p;
+		p.setLabyrinthe(this);
 		monstres = new ArrayList<Monstre>();
 		
 		//Génération du labyrinthe par défaut
@@ -94,6 +96,7 @@ public class Labyrinthe {
 		largeur = 12;
 		hauteur = 12;
 		personnage_laby = p;
+		p.setLabyrinthe(this);
 		monstres = new ArrayList<Monstre>();
 		
 		//Génération du labyrinthe à partir du fichier donné
@@ -216,7 +219,7 @@ public class Labyrinthe {
 	 */
 	private void ajouterMonstre(int x, int y) {
 		//Création du monstre à la position donnée
-		Monstre m = new Monstre(x,y);
+		Monstre m = new Monstre(x,y, this);
 		//Ajout du monstre à la liste des monstres du labyrinthe
 		monstres.add(m);
 	}
@@ -230,9 +233,11 @@ public class Labyrinthe {
 	public boolean estCaseOccupee(int x, int y) {
 		boolean res = false;
 		
+		//Si la case est occupée par le personnage, on renvoi true
 		if (personnage_laby.getPosition() == cases[y][x]) {
 			res = true;
 		} else {
+			//Si la case est occupée par un des monstres, on renvoi true
 			for (Monstre m : monstres) {
 				if (m.getPosition() == cases[y][x]) {
 					res = true;
@@ -257,7 +262,7 @@ public class Labyrinthe {
 	 * Méthode getter de l'attribut largeur
 	 * @return largeur du labyrinthe
 	 */
-	public static int getLargeur() {
+	public int getLargeur() {
 		return largeur;
 	}
 
@@ -265,7 +270,7 @@ public class Labyrinthe {
 	 * Méthode getter de l'attribut hauteur
 	 * @return hauteur du labyrinthe
 	 */
-	public static int getHauteur() {
+	public int getHauteur() {
 		return hauteur;
 	}
 	
@@ -283,7 +288,7 @@ public class Labyrinthe {
 	 * @param y : position y de la case
 	 * @return Case correspondant à la position
 	 */
-	public static Case getCase(int x, int y) {
+	public Case getCase(int x, int y) {
 		return cases[y][x];
 	}
 
