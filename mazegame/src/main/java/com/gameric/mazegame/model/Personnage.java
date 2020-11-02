@@ -26,11 +26,7 @@ public class Personnage{
 		if((y > 0) && (y < Labyrinthe.getHauteur()-1))	pos_y = y;
 		else 						pos_y = 1;
 		
-		position = new Case(pos_x,pos_y);
-	}
-	
-	public Personnage(Case pos) {			//Via une Case
-		position = new Case(pos);
+		position = Labyrinthe.getCase(x,y);
 	}
 	
 	//Méthodes
