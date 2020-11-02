@@ -172,6 +172,7 @@ public class Labyrinthe {
 						ySortie = j;
 					//Si le caractère est un M, on ajoute à monstre au labyrinthe à cette position
 					} else if (c == 'M') {
+						cas = new CaseVide(i,j);
 						ajouterMonstre(i,j);
 					//Sinon on crée une CaseVide à cette position
 					} else {
@@ -195,8 +196,9 @@ public class Labyrinthe {
 	}
 
 	private void ajouterMonstre(int i, int j) {
-		
-		
+		Monstre m = new Monstre();
+		monstres.add(m);
+		System.out.println(m.getPosition());
 	}
 
 	/**
