@@ -7,7 +7,7 @@ package com.gameric.mazegame.model;
  *
  */
 
-public abstract class Monstre {
+public class Monstre {
 	
 	/**
 	 * La nombre des points de la vie du monstre
