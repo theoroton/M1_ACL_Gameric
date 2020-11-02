@@ -42,7 +42,7 @@ public class Monstre {
 	private static StrategieDeplacement strategie;
 	
 	public Monstre(int x, int y) {
-		position = Labyrinthe.getCase(x,y);
+		position = Labyrinthe.getCase(x,y); 
 	}
 	
 	/**

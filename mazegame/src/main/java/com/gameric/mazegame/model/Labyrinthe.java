@@ -142,7 +142,7 @@ public class Labyrinthe {
 			//Récupération du fichier
 			BufferedReader fichLab = new BufferedReader(new FileReader("./src/main/ressources/"+fichier));
 			String ligne;
-			Case cas;
+			Case cas = null;
 			//Position en x
 			int i = 0;
 			//Position en y
@@ -172,7 +172,6 @@ public class Labyrinthe {
 						ySortie = j;
 					//Si le caractère est un M, on ajoute à monstre au labyrinthe à cette position
 					} else if (c == 'M') {
-						cas = new CaseVide(i,j);
 						ajouterMonstre(i,j);
 					//Sinon on crée une CaseVide à cette position
 					} else {
@@ -196,9 +195,9 @@ public class Labyrinthe {
 	}
 
 	private void ajouterMonstre(int i, int j) {
-		Monstre m = new Monstre();
+		cases [j][i] = new CaseVide(i,j);
+		Monstre m = new Monstre(i,j);
 		monstres.add(m);
-		System.out.println(m.getPosition());
 	}
 
 	/**
