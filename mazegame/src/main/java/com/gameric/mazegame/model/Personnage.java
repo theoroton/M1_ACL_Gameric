@@ -12,21 +12,21 @@ public class Personnage{
 	int pointsVie = 100;	//Points de vie du personnage
 	int degats = 10;		//Dégats du personnage	
 	Case position;			//Position du personnage
+	Labyrinthe labyrinthe;
 	
 	//Constructeurs
-	public Personnage(){					//Sans argument
-		position = new Case(1,1);
+	public Personnage(){
 	}
-	
+
 	public Personnage(int x, int y){		//Via deux entiers x et y
 		int pos_x, pos_y;
 		
-		if((x > 0) && (x < Labyrinthe.getLargeur()-1))	pos_x = x;
+		if((x > 0) && (x < labyrinthe.getLargeur()-1))	pos_x = x;
 		else 						pos_x = 1;
-		if((y > 0) && (y < Labyrinthe.getHauteur()-1))	pos_y = y;
+		if((y > 0) && (y < labyrinthe.getHauteur()-1))	pos_y = y;
 		else 						pos_y = 1;
 		
-		position = Labyrinthe.getCase(x,y);
+		position = labyrinthe.getCase(x,y);
 	}
 	
 	//Méthodes
@@ -43,13 +43,16 @@ public class Personnage{
 		int new_x = position.getPx() + dx;
 		int new_y = position.getPy() + dy;
 		
-		if((new_x > 0) && (new_x < Labyrinthe.getLargeur()-1)){
-			if( (new_y > 0) && (new_y < Labyrinthe.getHauteur()-1) ){
-				Case new_position = Labyrinthe.getCase(new_x,new_y);
-				if(new_position != null) {
-					//Ajouter la méthode pour tester si une case est vide et libre
-					position = new_position;
-					valide = true;
+		if((new_x > 0) && (new_x < labyrinthe.getLargeur()-1)){			//Vérification: 0 < x < largeur
+			if( (new_y > 0) && (new_y < labyrinthe.getHauteur()-1) ){	//Vérification: 0 < y < hauteur
+				Case new_position = labyrinthe.getCase(new_x,new_y);
+				if(new_position != null) {								//Vérification: Case existante
+					if(new_position.getClass() == CaseVide.class){		//Vérification: CaseVide
+						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
+							position = new_position;
+							valide = true;
+						}
+					}
 				}
 			}
 		}
@@ -76,7 +79,24 @@ public class Personnage{
 		return position.getPy();
 	}
 	
+	public void setPosition(int x, int y) {
+		position = labyrinthe.getCase(x, y);
+	}
+
+	public void setLabyrinthe(Labyrinthe labyrinthe) {
+		this.labyrinthe = labyrinthe;
+	}
+
+	public int getPointsVie() {
+		return pointsVie;
+	}
+
+	public void setPointsVie(int pointsVie) {
+		this.pointsVie = pointsVie;
+	}
+
+	public boolean estMort() {
+		return pointsVie <= 0;
+	}
+	
 }
-
-
-
