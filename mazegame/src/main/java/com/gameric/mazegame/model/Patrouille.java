@@ -56,8 +56,8 @@ public class Patrouille implements StrategieDeplacement{
 		
 		if (checkBordures(x,y,monstre.getLabyrinthe())) {
 			if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class)) {
+				monstre.setPosition(x, y);
 				if(monstre.getLabyrinthe().estCaseOccupee(x, y) && monstre.getLabyrinthe().getCase(x,y) == p.getPosition()) {
-					monstre.setPosition(x, y);
 					p.setPointsVie(p.getPointsVie() - monstre.getDegats());
 					if(p.getPointsVie() < 0) {
 						System.out.println("Joueur etait tue");
