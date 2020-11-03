@@ -24,8 +24,8 @@ public class Patrouille implements StrategieDeplacement{
 			return false;
 		}
 	}
-	
-	public void deplacer() {
+	@Override
+	public void deplacer(Monstre monstre) {
 		String[] choix = {"UP", "RIGHT", "DOWN", "LEFT"};
         m.setDirection(choix[(int)(4 * Math.random())]);
 		switch (m.getDirection()) {

@@ -9,6 +9,6 @@ package com.gameric.mazegame.model;
 
 public interface StrategieDeplacement {
 
-	public void deplacer();
+	public void deplacer(Monstre monstre);
 	
 }
