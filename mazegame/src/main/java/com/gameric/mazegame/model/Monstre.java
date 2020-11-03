@@ -162,8 +162,7 @@ public class Monstre {
 	 * @param y
 	 */
 	public void setPosition(int x, int y) {
-		this.position.setPx(x);
-		this.position.setPy(y);
+		position = labyrinthe.getCase(x, y);
 	}
 	/**
 	 * Méthode qui gère le déplacement de monstre
