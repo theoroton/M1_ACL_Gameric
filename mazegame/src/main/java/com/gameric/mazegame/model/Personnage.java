@@ -39,12 +39,11 @@ public class Personnage{
 	 * 0 sinon.
 	 */
 	public void deplacer(int dx, int dy){
-		boolean valide = false;
 		int new_x = position.getPx() + dx;
 		int new_y = position.getPy() + dy;
 		
-		if((new_x > 0) && (new_x < labyrinthe.getLargeur()-1)){			//Vérification: 0 < x < largeur
-			if( (new_y > 0) && (new_y < labyrinthe.getHauteur()-1) ){	//Vérification: 0 < y < hauteur
+		if((new_x >= 0) && (new_x < labyrinthe.getLargeur())){			//Vérification: 0 < x < largeur
+			if( (new_y >= 0) && (new_y < labyrinthe.getHauteur()) ){	//Vérification: 0 < y < hauteur
 				Case new_position = labyrinthe.getCase(new_x,new_y);
 				if(new_position != null) {								//Vérification: Case existante
 
@@ -52,25 +51,20 @@ public class Personnage{
 						//Vérification: CaseVide
 						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
 							position = new_position;
-							valide = true;
 						}
 						else {											//S'il y a collision
 							for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
-								if(m.getPos_x == new_x) {						//On cherche celui se trouvant sur la case ou on veut aller
-									if(m.getPos_y == new_y) {
+								if(m.getPos_x() == new_x) {						//On cherche celui se trouvant sur la case ou on veut aller
+									if(m.getPos_y() == new_y) {
 										pointsVie = pointsVie - m.getDegats();	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
+										System.out.println("Points de vie : " + pointsVie);
 									}
 								}
-							}
-							valide = true;										//Le personnage ne va pas sur la case car elle est occupée par le monstre
+							}									//Le personnage ne va pas sur la case car elle est occupée par le monstre
 						}
 					}
 				}
 			}
-		}
-		
-		if (!valide) {
-			System.out.println("ERREUR DEPLACEMENT");
 		}
 	}
 	

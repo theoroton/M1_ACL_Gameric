@@ -60,6 +60,7 @@ public class Patrouille implements StrategieDeplacement{
 					monstre.setPosition(x, y);
 				} else if(monstre.getLabyrinthe().getCase(x,y) == p.getPosition()) {
 					p.setPointsVie(p.getPointsVie() - monstre.getDegats());
+					System.out.println("Points de vie : " + p.getPointsVie());
 				}
 			}
 		}

@@ -144,9 +144,17 @@ public class Labyrinthe {
 		//Tableau des cases du labyrinthe
 		cases = new Case[hauteur][largeur];
 		
+		String directory = System.getProperty("user.dir");
+		String[] split = directory.split("\\\\", 0); 
+		if (split[split.length-1].equals("mazegame")) {
+			directory = "./src/main/resources/";
+		} else if (split[split.length-1].equals("target")) {
+			directory = "./classes/";
+		}
+		
 		try {
 			//Récupération du fichier
-			BufferedReader fichLab = new BufferedReader(new FileReader("./src/main/ressources/"+fichier));
+			BufferedReader fichLab = new BufferedReader(new FileReader(directory+fichier));
 			String ligne;
 			Case cas = null;
 			//Position en x
