@@ -38,12 +38,12 @@ public class JeuLabyrinthe implements Game {
 		//Commande UP
 		case UP:
 			//le personnage se déplace de 1 vers le haut (0,1)
-			personnage.deplacer(0, 1);
+			personnage.deplacer(0, -1);
 			break;
 		//Commande DOWN
 		case DOWN:
 			//le personnage se déplace de 1 vers le bas (0,-1)
-			personnage.deplacer(0, -1);
+			personnage.deplacer(0, 1);
 			break;
 		//Commande LEFT
 		case LEFT:
