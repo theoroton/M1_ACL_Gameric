@@ -56,6 +56,10 @@ public class JeuLabyrinthe implements Game {
 			personnage.deplacer(1, 0);
 			break;
 		}
+		
+		for (Monstre m : labyrinthe.getMonstres()) {
+			m.deplacerMonstre();
+		}
 	}
 
 	/**
