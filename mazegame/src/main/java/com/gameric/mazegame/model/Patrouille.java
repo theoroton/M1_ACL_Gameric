@@ -12,7 +12,6 @@ import com.gameric.mazegame.engine.Cmd;
 public class Patrouille implements StrategieDeplacement{
 	//Monstre m;
 	//Labyrinthe l;
-	//Personnage p;
 	String direction;
 	//Case newPosition;
 	//et il faut récupérer une case du labyrinthe plutôt que de changer le x et le y
@@ -27,6 +26,7 @@ public class Patrouille implements StrategieDeplacement{
 	
 	@Override
 	public void deplacer(Monstre monstre) {
+		Personnage p = monstre.getLabyrinthe().getPersonnage_laby();
 		String[] choix = {"UP", "RIGHT", "DOWN", "LEFT"};
 		direction = choix[(int)(4 * Math.random())];
 		int x = monstre.getPos_x();
@@ -56,7 +56,13 @@ public class Patrouille implements StrategieDeplacement{
 		
 		if (checkBordures(x,y,monstre.getLabyrinthe())) {
 			if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class)) {
-				monstre.setPosition(x, y);
+				if(monstre.getLabyrinthe().estCaseOccupee(x, y) && monstre.getLabyrinthe().getCase(x,y) == p.getPosition()) {
+					monstre.setPosition(x, y);
+					p.setPointsVie(p.getPointsVie() - monstre.getDegats());
+					if(p.getPointsVie() < 0) {
+						System.out.println("Joueur etait tue");
+					}
+				}
 			}
 		}
 	}
