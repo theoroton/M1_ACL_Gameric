@@ -13,9 +13,11 @@ public class Patrouille implements StrategieDeplacement{
 	Monstre m;
 	Labyrinthe l;
 	Personnage p;
+	String direction;
 	Case newPosition;
+	//et il faut récupérer une case du labyrinthe plutôt que de changer le x et le y
 	
-	public boolean checkBordures(Case position) {
+	/*public boolean checkBordures(Case position) {
 		int x = position.getPx();
 		int y = position.getPy();
 		if(x > 0 && y > 0 && x < l.getLargeur() && y < l.getHauteur()) {
@@ -23,12 +25,12 @@ public class Patrouille implements StrategieDeplacement{
 		} else {
 			return false;
 		}
-	}
+	}*/
 	@Override
 	public void deplacer(Monstre monstre) {
 		String[] choix = {"UP", "RIGHT", "DOWN", "LEFT"};
-        m.setDirection(choix[(int)(4 * Math.random())]);
-		switch (m.getDirection()) {
+		direction = choix[(int)(4 * Math.random())];
+		switch (direction) {
 			//Commande UP
 			case "UP":
 				//le monstre se déplace de 1 vers le haut (0,1)
@@ -55,10 +57,10 @@ public class Patrouille implements StrategieDeplacement{
 				break;
 		}
 		
-		if(l.getCase(newPosition.getPx(),newPosition.getPy()).getClass() == Mur.class || !checkBordures(newPosition) 
-				|| newPosition.getPx() != p.getPos_x() && newPosition.getPy() != p.getPos_y()) {
+		if(l.getCase(newPosition.getPx(),newPosition.getPy()).getClass() == Mur.class) {
 			System.out.println("Erreur Patrouille Monstre");
 		} else {
+			newPosition = l.getCase(newPosition.getPx(), newPosition.getPy());
 			m.setPosition(newPosition.getPx(), newPosition.getPy());
 		}
 	}

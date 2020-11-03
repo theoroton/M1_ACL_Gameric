@@ -28,7 +28,7 @@ public class Monstre {
 	/**
 	 * La direction de déplacement du monstre
 	 */
-	private String direction;
+	//private String direction;
 	/**
 	 * Est-ce que le monstre a la possibilite de traverser les murs ou non
 	 */
@@ -109,16 +109,16 @@ public class Monstre {
 	 * Méthode getter de l'attribut direction
 	 * @return La direction de déplacement du monstre
 	 */
-	public String getDirection() {
+	/*public String getDirection() {
 		return direction;
-	}
+	}*/
 	/**
 	 * Méthode setter de l'attribut direction
 	 * @param direction
 	 */
-	public void setDirection(String direction) {
+	/*public void setDirection(String direction) {
 		this.direction = direction;
-	}
+	}*/
 	/**
 	 * Méthode qui retourne true si le Monstre peut traverser la mur
 	 * @return
