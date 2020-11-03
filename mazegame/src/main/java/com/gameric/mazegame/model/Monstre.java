@@ -39,7 +39,7 @@ public class Monstre {
 	//private int vision = 3;
 	private Case position;
 	
-	private static StrategieDeplacement strategie = new Patrouille();
+	private StrategieDeplacement strategie = new Patrouille();
 	
 	private Labyrinthe labyrinthe;
 	
@@ -187,6 +187,13 @@ public class Monstre {
 	public int getPos_y() {
 		return position.getPy();
 	}
+
+
+	public Labyrinthe getLabyrinthe() {
+		return labyrinthe;
+	}
+	
+	
 
 	//pour v2
 	//public abstract void attaquer(Personnage p);

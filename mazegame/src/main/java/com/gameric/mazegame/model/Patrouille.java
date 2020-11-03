@@ -10,58 +10,54 @@ import com.gameric.mazegame.engine.Cmd;
  */
 
 public class Patrouille implements StrategieDeplacement{
-	Monstre m;
-	Labyrinthe l;
-	Personnage p;
+	//Monstre m;
+	//Labyrinthe l;
+	//Personnage p;
 	String direction;
-	Case newPosition;
+	//Case newPosition;
 	//et il faut récupérer une case du labyrinthe plutôt que de changer le x et le y
 	
-	/*public boolean checkBordures(Case position) {
-		int x = position.getPx();
-		int y = position.getPy();
-		if(x > 0 && y > 0 && x < l.getLargeur() && y < l.getHauteur()) {
-			return true;
-		} else {
-			return false;
+	public boolean checkBordures(int x, int y, Labyrinthe l) {
+		boolean res = false;
+		if ((x >= 0) && (x <= l.getLargeur()-1) && (y >= 0) && (y <= l.getHauteur()-1)){
+			res = true;
 		}
-	}*/
+		return res;
+	}
+	
 	@Override
 	public void deplacer(Monstre monstre) {
 		String[] choix = {"UP", "RIGHT", "DOWN", "LEFT"};
 		direction = choix[(int)(4 * Math.random())];
+		int x = monstre.getPos_x();
+		int y = monstre.getPos_y();
 		switch (direction) {
 			//Commande UP
 			case "UP":
 				//le monstre se déplace de 1 vers le haut (0,1)
-				newPosition.setPx(0);
-				newPosition.setPy(1);
+				y--;
 				break;
 			//Commande DOWN
 			case "DOWN":
 				//le monstre se déplace de 1 vers le bas (0,-1)
-				newPosition.setPx(0);
-				newPosition.setPy(-1);
+				y++;
 				break;
 			//Commande LEFT
 			case "LEFT":
 				//le monstre se déplace de 1 vers la gauche (-1,0)
-				newPosition.setPx(-1);
-				newPosition.setPy(0);
+				x--;
 				break;
 			//Commande RIGHT
 			case "RIGHT":
 				//le monstre se déplace de 1 vers la droite (1,0)
-				newPosition.setPx(1);
-				newPosition.setPy(0);
+				x++;
 				break;
 		}
 		
-		if(l.getCase(newPosition.getPx(),newPosition.getPy()).getClass() == Mur.class) {
-			System.out.println("Erreur Patrouille Monstre");
-		} else {
-			newPosition = l.getCase(newPosition.getPx(), newPosition.getPy());
-			m.setPosition(newPosition.getPx(), newPosition.getPy());
+		if (checkBordures(x,y,monstre.getLabyrinthe())) {
+			if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class)) {
+				monstre.setPosition(x, y);
+			}
 		}
 	}
 }
