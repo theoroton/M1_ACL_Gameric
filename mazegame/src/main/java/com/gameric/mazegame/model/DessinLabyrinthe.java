@@ -63,10 +63,12 @@ public class DessinLabyrinthe implements GamePainter {
 		
 		Graphics2D crayon = (Graphics2D) image.getGraphics();
 		//On dessine le personnage en bleu
-		crayon.setColor(Color.BLUE);
-		crayon.fillOval(personnage.getPos_x()*TAILLE_CASE + TAILLE_PLACEPERSO, 
-						personnage.getPos_y()*TAILLE_CASE + TAILLE_PLACEPERSO, 
-						TAILLE_PERSO, TAILLE_PERSO);
+		if (!personnage.estMort()) {
+			crayon.setColor(Color.BLUE);
+			crayon.fillOval(personnage.getPos_x()*TAILLE_CASE + TAILLE_PLACEPERSO, 
+							personnage.getPos_y()*TAILLE_CASE + TAILLE_PLACEPERSO, 
+							TAILLE_PERSO, TAILLE_PERSO);
+		}
 		
 		int hauteur = labyrinthe.getHauteur();
 		int largeur = labyrinthe.getLargeur();

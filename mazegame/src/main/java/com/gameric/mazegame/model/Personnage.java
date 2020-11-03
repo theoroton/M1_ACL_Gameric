@@ -82,7 +82,20 @@ public class Personnage{
 
 	public void setLabyrinthe(Labyrinthe labyrinthe) {
 		this.labyrinthe = labyrinthe;
-	}	
+	}
+
+	public int getPointsVie() {
+		return pointsVie;
+	}
+
+	public void setPointsVie(int pointsVie) {
+		this.pointsVie = pointsVie;
+	}
+
+	public boolean estMort() {
+		return pointsVie <= 0;
+	}
+	
 }
 
 
