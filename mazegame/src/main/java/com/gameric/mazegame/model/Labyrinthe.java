@@ -150,6 +150,8 @@ public class Labyrinthe {
 			directory = "./src/main/resources/";
 		} else if (split[split.length-1].equals("target")) {
 			directory = "./classes/";
+		} else if (split[split.length-1].equals("ACL2020_Gameric")) {
+			directory = "./mazegame/target/classes/";
 		}
 		
 		try {
