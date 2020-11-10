@@ -146,7 +146,7 @@ public class Labyrinthe {
 	private void genererLabyrinthe(String fichier) {
 		//Tableau des cases du labyrinthe
 		cases = new Case[hauteur][largeur];
-		
+
 		try {
 			//Récupération du fichier
 			InputStream in = getClass().getResourceAsStream("/"+fichier); 
