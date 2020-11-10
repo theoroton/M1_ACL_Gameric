@@ -4,8 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * 
@@ -144,19 +147,10 @@ public class Labyrinthe {
 		//Tableau des cases du labyrinthe
 		cases = new Case[hauteur][largeur];
 		
-		String directory = System.getProperty("user.dir");
-		String[] split = directory.split("\\\\", 0); 
-		if (split[split.length-1].equals("mazegame")) {
-			directory = "./src/main/resources/";
-		} else if (split[split.length-1].equals("target")) {
-			directory = "./classes/";
-		} else if (split[split.length-1].equals("ACL2020_Gameric")) {
-			directory = "./mazegame/target/classes/";
-		}
-		
 		try {
 			//Récupération du fichier
-			BufferedReader fichLab = new BufferedReader(new FileReader(directory+fichier));
+			InputStream in = getClass().getResourceAsStream("/"+fichier); 
+			BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));
 			String ligne;
 			Case cas = null;
 			//Position en x
