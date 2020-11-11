@@ -1,37 +1,51 @@
 package com.gameric.mazegame.engine;
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 /**
- * @author Horatiu Cirstea, Vincent Thomas
- *
- * interface graphique avec son controller et son afficheur
- *
+ * @author Théo Roton
+ * Interface graphique du jeu
  */
 public class GraphicalInterface  {
 
+	
+	private JPanel panel;
 	/**
-	 * le Panel pour l'afficheur
+	 * Le panel du jeu à afficher
 	 */
-	private DrawingPanel panel;
+	private DrawingPanel panelJeu;
+	/**
+	 * Le panel des infos à afficher
+	 */
+	private DrawingPanel panelInfos;
 	
 	/**
-	 * la construction de l'interface graphique: JFrame avec panel pour le game
+	 * Construction de l'interface graphique: JFrame avec panel pour le jeu
 	 * 
-	 * @param gamePainter l'afficheur a utiliser dans le moteur
-	 * @param gameController l'afficheur a utiliser dans le moteur
+	 * @param gamePainter l'afficheur du jeu a utiliser dans le moteur
+	 * @param gamePainter l'afficheur des infos du jeu a utiliser dans le moteur
+	 * @param gameController le controleur à utiliser dans le moteur
 	 * 
 	 */
-	public GraphicalInterface(GamePainter gamePainter, GameController gameController){
+	public GraphicalInterface(GamePainter gamePainter, GamePainter infoPainter, GameController gameController){
 		JFrame f=new JFrame();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		// attacher le panel contenant l'afficheur du game
-		this.panel=new DrawingPanel(gamePainter);
+		//Création du JPanel englobant
+		this.panel = new JPanel(new BorderLayout());
+		//JPanel du jeu
+		this.panelJeu = new DrawingPanel(gamePainter);
+		//JPanel des infos du jeu
+		this.panelInfos = new DrawingPanel(infoPainter);
+		
+		panel.add(panelJeu, BorderLayout.NORTH);
+		panel.add(panelInfos, BorderLayout.SOUTH);
 		f.setContentPane(this.panel);
 		
-		// attacher controller au panel du game
+		//Attacher le controleur au JPanel englobant
 		this.panel.addKeyListener(gameController);	
 		
 		f.pack();
@@ -41,10 +55,11 @@ public class GraphicalInterface  {
 	}
 	
 	/**
-	 * mise a jour du dessin
+	 * Mise à jour des dessins
 	 */
 	public void paint() {
-		this.panel.drawGame();	
+		this.panelJeu.drawGame();
+		this.panelInfos.drawGame();
 	}
 	
 }

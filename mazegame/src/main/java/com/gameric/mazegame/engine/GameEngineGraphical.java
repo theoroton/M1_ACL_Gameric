@@ -14,9 +14,14 @@ public class GameEngineGraphical {
 	private Game game;
 
 	/**
-	 * l'afficheur a utiliser pour le rendu
+	 * Afficheur du jeu
 	 */
 	private GamePainter gamePainter;
+	
+	/**
+	 * Afficheur des informations du jeu
+	 */
+	private GamePainter infoPainter;
 
 	/**
 	 * le controlleur a utiliser pour recuperer les commandes
@@ -34,15 +39,18 @@ public class GameEngineGraphical {
 	 * @param game
 	 *            game a lancer
 	 * @param gamePainter
-	 *            afficheur a utiliser
+	 *            afficheur du jeu à utiliser
+	 * @parem gamePainter
+	 * 			  afficheur des informations à utiliser
 	 * @param gameController
 	 *            controlleur a utiliser
 	 *            
 	 */
-	public GameEngineGraphical(Game game, GamePainter gamePainter, GameController gameController) {
+	public GameEngineGraphical(Game game, GamePainter gamePainter, GamePainter infoPainter, GameController gameController) {
 		// creation du game
 		this.game = game;
 		this.gamePainter = gamePainter;
+		this.infoPainter = infoPainter;
 		this.gameController = gameController;
 	}
 
@@ -52,7 +60,7 @@ public class GameEngineGraphical {
 	public void run() throws InterruptedException {
 
 		// creation de l'interface graphique
-		this.gui = new GraphicalInterface(this.gamePainter,this.gameController);
+		this.gui = new GraphicalInterface(this.gamePainter, this.infoPainter, this.gameController);
 
 		// boucle de game
 		while (!this.game.isFinished()) {

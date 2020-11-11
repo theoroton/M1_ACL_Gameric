@@ -57,7 +57,6 @@ public class Personnage{
 								if(m.getPos_x() == new_x) {						//On cherche celui se trouvant sur la case ou on veut aller
 									if(m.getPos_y() == new_y) {
 										pointsVie = pointsVie - m.getDegats();	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
-										System.out.println("Points de vie : " + pointsVie);
 									}
 								}
 							}									//Le personnage ne va pas sur la case car elle est occupée par le monstre
@@ -104,4 +103,9 @@ public class Personnage{
 	public boolean estMort() {
 		return pointsVie <= 0;
 	}
+
+	public int getDegats() {
+		return degats;
 	}
+	
+}

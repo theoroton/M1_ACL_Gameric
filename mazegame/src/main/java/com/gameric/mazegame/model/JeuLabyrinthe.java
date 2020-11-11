@@ -70,11 +70,9 @@ public class JeuLabyrinthe implements Game {
 		
 		//Si le personnage est sur la case de sortie, alors on a gagné
 		if (personnage.getPosition().getClass() == CaseSortie.class) {
-			System.out.println("VICTOIRE : vous avez atteint la sortie");
 			res = true;
 		//Si le personnage est mort, alors on a perdu
 		} else if (personnage.estMort()) {
-			System.out.println("DEFAITE : vous êtes mort");
 			res = true;
 		}	
 		
