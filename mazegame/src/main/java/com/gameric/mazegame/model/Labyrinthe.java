@@ -2,7 +2,6 @@ package com.gameric.mazegame.model;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -179,7 +178,10 @@ public class Labyrinthe {
 					} else if (c == 'S') {
 						cas = new CaseSortie(i,j);
 						xSortie = i;
-						ySortie = j;				
+						ySortie = j;
+					//Si le caractère est un p, on crée une CasePiegee à cette position
+					} else if (c == 'p') {
+						cas = new CasePiegee(i, j);
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
