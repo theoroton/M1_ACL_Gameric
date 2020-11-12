@@ -51,6 +51,10 @@ public class Personnage{
 						//Vérification: CaseVide
 						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
 							position = new_position;
+							
+							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
+								((CaseEffet) new_position).faireEffet(this);
+							}
 						}
 						else {											//S'il y a collision
 							for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
