@@ -8,7 +8,7 @@ package com.gameric.mazegame.model;
 public class CasePiegee extends CaseEffet {
 
 	/**
-	 * Dégats de la case piègée
+	 * Dégats de la case piégée
 	 */
 	private int degats;
 	

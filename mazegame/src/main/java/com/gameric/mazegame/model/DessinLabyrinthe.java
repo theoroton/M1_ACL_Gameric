@@ -51,24 +51,36 @@ public class DessinLabyrinthe implements GamePainter {
 		Labyrinthe labyrinthe = jeu.getLabyrinthe();
 		
 		Graphics2D crayon = (Graphics2D) image.getGraphics();
+		
+		int hauteur = labyrinthe.getHauteur();
+		int largeur = labyrinthe.getLargeur();
+		//On dessine cases qui doivent être affichées
+		for (int i=0; i<hauteur; i++) {
+			for (int j=0; j<largeur; j++) {
+				//On dessine en noir les murs
+				if ((labyrinthe.getCase(j,i)).getClass() == Mur.class) {
+					crayon.setColor(Color.BLACK);
+					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+					
+				//On dessigne en orange les cases objets
+				} else if ((labyrinthe.getCase(j,i)).getClass() == CaseObjet.class) {
+					crayon.setColor(new Color(255, 153, 0));
+					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+				
+				//On dessigne en rose les cases piégées
+				} else if ((labyrinthe.getCase(j,i)).getClass() == CasePiegee.class) {
+					crayon.setColor(new Color(255, 153, 153));
+					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+				}
+			}
+		}
+		
 		//On dessine le personnage en bleu
 		if (!personnage.estMort()) {
 			crayon.setColor(Color.BLUE);
 			crayon.fillOval(personnage.getPos_x()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							personnage.getPos_y()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
-		}
-		
-		int hauteur = labyrinthe.getHauteur();
-		int largeur = labyrinthe.getLargeur();
-		//On dessine les murs du jeu en noir
-		crayon.setColor(Color.BLACK);
-		for (int i=0; i<hauteur; i++) {
-			for (int j=0; j<largeur; j++) {
-				if ((labyrinthe.getCase(j,i)).getClass() == Mur.class) {
-					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-				}
-			}
 		}
 		
 		//On dessine les monstres
@@ -78,14 +90,15 @@ public class DessinLabyrinthe implements GamePainter {
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
 		}
-		
+
 		//Si le jeu est fini et que le personnage est mort, alors on écrit un message de défaite
-		if (jeu.isFinished() && personnage.estMort()) {
+		if (personnage.estMort()) {	
 			crayon.setColor(Color.LIGHT_GRAY);
 			crayon.fillRect(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4+20);
 			crayon.setColor(Color.RED);
 			dessinerChaineCentree(crayon, "DEFAITE", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,16));
 			dessinerChaineCentree(crayon, "Vous êtes mort", new Rectangle(WIDTH/6, HEIGHT/6+20, 2*WIDTH/3, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,12));
+			
 		//Si le jeu est fini et que le personnage n'est pas mort, alors on écrit un message de victoire
 		} else if (jeu.isFinished()) {
 			crayon.setColor(Color.LIGHT_GRAY);

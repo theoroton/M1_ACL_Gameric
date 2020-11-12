@@ -5,7 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.gameric.mazegame.model.CaseEntree;
+import com.gameric.mazegame.model.CaseObjet;
+import com.gameric.mazegame.model.CasePiegee;
 import com.gameric.mazegame.model.CaseSortie;
+import com.gameric.mazegame.model.CaseVide;
 import com.gameric.mazegame.model.Labyrinthe;
 import com.gameric.mazegame.model.Personnage;
 
@@ -173,7 +176,7 @@ public class TestLabyrinthe {
 	 * Test de la méthode estCaseOccupee
 	 */
 	@Test
-	public void testEstCaseOccupee() {
+	public void testEstCaseOccupee01() {
 		//Création du personnage
 		Personnage personnage1 = new Personnage();
 		//Création du labyrinthe
@@ -183,17 +186,59 @@ public class TestLabyrinthe {
 		assertEquals("La case devrait être occupée", true, labyrinthe1.estCaseOccupee(0, 5));
 		//Test si la case en position (1,6) est occupée (attendu : false)
 		assertEquals("La case devrait être libre", false, labyrinthe1.estCaseOccupee(1, 6));
-		
+	}
+	
+	/**
+	 * Test de la méthode estCaseOccupee
+	 */
+	@Test
+	public void testEstCaseOccupee02() {
 		//Création du personnage
-		Personnage personnage2 = new Personnage();
+		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe2 = new Labyrinthe(personnage2,"test_monstres.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_monstres.txt");	
 		
 		//Test si la case du joueur est occupée (attendu : true)
-		assertEquals("La case devrait être occupée", true, labyrinthe2.estCaseOccupee(0, 5));
+		assertEquals("La case devrait être occupée", true, labyrinthe.estCaseOccupee(0, 5));
 		//Test si la case en position (1,6) est occupée (attendu : false)
-		assertEquals("La case devrait être libre", false, labyrinthe2.estCaseOccupee(1, 6));
+		assertEquals("La case devrait être libre", false, labyrinthe.estCaseOccupee(1, 6));
 		//Test si la case du premier monstre est occupée (attendu : true)
-		assertEquals("La case devrait être occupée", true, labyrinthe2.estCaseOccupee(7, 5));
+		assertEquals("La case devrait être occupée", true, labyrinthe.estCaseOccupee(7, 5));
+	}
+	
+	/**
+	 * Test de la création des cases piégées.
+	 */
+	@Test
+	public void testCasesPiegees() {
+		//Création du personnage
+		Personnage personnage = new Personnage();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		
+		//Test si la case en position (7,3) est une case piégée (attendu : true)
+		assertEquals("La case devrait être piégée", CasePiegee.class, labyrinthe.getCase(7, 2).getClass());
+		//Test si la case en position (6,10) est une case piégée (attendu : true)
+		assertEquals("La case devrait être piégée", CasePiegee.class, labyrinthe.getCase(6, 10).getClass());
+		//Test si la case en position (4,4) n'est pas une case piégée (attendu : false)
+		assertEquals("La case ne devrait pas être piégée", CaseVide.class, labyrinthe.getCase(4, 4).getClass());		
+	}
+	
+	/**
+	 * Test de la création des cases objets.
+	 */
+	@Test
+	public void testCasesObjets() {
+		//Création du personnage
+		Personnage personnage = new Personnage();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		
+		//Test si la case en position (9,5) est une case objet (attendu : true)
+		assertEquals("La case devrait être une case objet", CaseObjet.class, labyrinthe.getCase(9, 5).getClass());
+		//Test si la case en position (4,9) est une case objet (attendu : true)
+		assertEquals("La case devrait être une case objet", CaseObjet.class, labyrinthe.getCase(4, 9).getClass());
+		//Test si la case en position (3,6) n'est  pas une case objet (attendu : false)
+		assertEquals("La case ne devrait pas être une case objet", CaseVide.class, labyrinthe.getCase(3, 6).getClass());	
 	}
 }

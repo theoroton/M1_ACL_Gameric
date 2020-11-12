@@ -21,10 +21,12 @@ public class CaseObjet extends CaseVide {
 	 * Constructeur de la classe CaseObjet
 	 * @param x : position en x de la case
 	 * @param y : position en y de la case
+	 * @param o : objet lié à la case
 	 */
-	public CaseObjet(int x, int y) {
+	public CaseObjet(int x, int y/*, Objet o*/) {
 		super(x, y);
 		ramasse = false;
+		//objet = o;
 	}
 	
 	/**
