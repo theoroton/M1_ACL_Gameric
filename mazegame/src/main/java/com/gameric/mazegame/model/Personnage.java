@@ -52,7 +52,9 @@ public class Personnage{
 						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
 							position = new_position;
 							
+							//Si la case sur lequel le personnage se déplace est une case à effet
 							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
+								//On exécute l'effet de la case
 								((CaseEffet) new_position).faireEffet(this);
 							}
 						}
@@ -60,7 +62,7 @@ public class Personnage{
 							for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
 								if(m.getPos_x() == new_x) {						//On cherche celui se trouvant sur la case ou on veut aller
 									if(m.getPos_y() == new_y) {
-										pointsVie = pointsVie - m.getDegats();	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
+										setPointsVie(pointsVie - m.getDegats());	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
 									}
 								}
 							}									//Le personnage ne va pas sur la case car elle est occupée par le monstre
@@ -101,7 +103,11 @@ public class Personnage{
 	}
 
 	public void setPointsVie(int pointsVie) {
-		this.pointsVie = pointsVie;
+		if (pointsVie < 0) {
+			this.pointsVie = 0;
+		} else {
+			this.pointsVie = pointsVie;	
+		}	
 	}
 
 	public boolean estMort() {
