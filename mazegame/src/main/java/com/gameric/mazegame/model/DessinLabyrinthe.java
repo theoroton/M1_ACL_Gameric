@@ -102,10 +102,10 @@ public class DessinLabyrinthe implements GamePainter {
 		//Si le jeu est fini et que le personnage n'est pas mort, alors on écrit un message de victoire
 		} else if (jeu.isFinished()) {
 			crayon.setColor(Color.LIGHT_GRAY);
-			crayon.fillRect(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4+20);
+			crayon.fillRect(WIDTH/8, HEIGHT/6, 3*WIDTH/4, HEIGHT/4+20);
 			crayon.setColor(Color.GREEN);
-			dessinerChaineCentree(crayon, "Victoire", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,16));
-			dessinerChaineCentree(crayon, "Vous avez atteint la sortie", new Rectangle(WIDTH/6, HEIGHT/6+20, 2*WIDTH/3, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,12));
+			dessinerChaineCentree(crayon, "Victoire", new Rectangle(WIDTH/8, HEIGHT/6, 3*WIDTH/4, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,16));
+			dessinerChaineCentree(crayon, "Vous avez atteint la sortie", new Rectangle(WIDTH/8, HEIGHT/6+20, 3*WIDTH/4, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,12));
 		}
 		
 	}

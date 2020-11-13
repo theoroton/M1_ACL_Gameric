@@ -79,8 +79,8 @@ public class Labyrinthe {
 	 * @param p : personnage joueur du labyrinthe
 	 */
 	public Labyrinthe(int l, int h, Personnage p) {
-		largeur = l;
-		hauteur = h;
+		if (l < 10) { largeur = 10; } else { largeur = l; }
+		if (h < 10) { hauteur = 10; } else { hauteur = h; }
 		personnage_laby = p;
 		p.setLabyrinthe(this);
 		monstres = new ArrayList<Monstre>();
