@@ -124,7 +124,7 @@ public class Personnage{
 	
 	public void ramasserObjet(){
 		if( position.getClass() == CaseObjet.class ){
-			position.ramasserObjet();
+			((CaseObjet) position).ramasserObjet(this);
 		}
 	}
 	/**
@@ -153,6 +153,7 @@ public class Personnage{
 					}
 				}
 			}
+		return null;
 	}
 	/**
 	 * Trouve le monstre à portée (recherche sens horaire) et le renvoie
@@ -190,6 +191,8 @@ public class Personnage{
 		x = position.getPx() + 1;
 		y = position.getPy() - 1;
 		if(testMonstre(x,y))	return getMonstre(x,y);
+		
+		return null;
 	}
 	
 	/**
