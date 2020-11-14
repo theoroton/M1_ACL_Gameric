@@ -118,4 +118,17 @@ public class Personnage{
 		return degats;
 	}
 	
+	public void updatePv(int soins){
+		pointsVie = pointsVie + soins;
+	}
+	
+	public void updateAtk(int d){
+		degats = degats + d;
+	}
+	
+	public void ramasserObjet(){
+		if( position.getClass() == CaseObjet.class ){
+			position.ramasserObjet();
+		}
+	}
 }
