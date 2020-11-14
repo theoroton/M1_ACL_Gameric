@@ -10,7 +10,9 @@ public abstract class Objet{
 	//Attribut
 	String nom;
 	//Constructeur
-	public Objet();
+	public Objet(String nom) {
+		this.nom = nom;
+	};
 	//Méthodes
 	public abstract void effetObjet(Personnage p);
 }

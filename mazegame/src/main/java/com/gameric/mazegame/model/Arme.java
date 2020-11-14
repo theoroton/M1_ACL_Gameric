@@ -10,8 +10,8 @@ public class Arme extends Objet{
 	//Attribut
 	int degats;
 	//Constructeur
-	public Objet(String nom, int degats){
-		this.nom = nom;
+	public Arme(String nom, int degats){
+		super(nom);
 		this.degats = degats;
 	}
 	//Méthodes
