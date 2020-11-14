@@ -16,6 +16,6 @@ public class Arme extends Objet{
 	}
 	//Méthodes
 	public void effetObjet(Personnage p){
-		p.updateAtk(degats);
+		p.setDegats(p.getDegats() + degats);
 	}
 }

@@ -16,6 +16,6 @@ public class Potion extends Objet{
 	}
 	//Méthodes
 	public void effetObjet(Personnage p){
-		p.updatePv(soins);
+		p.setPointsVie(p.getPointsVie + soins);
 	}
 }
