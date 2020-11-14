@@ -105,6 +105,8 @@ public class Personnage{
 	public void setPointsVie(int pointsVie) {
 		if (pointsVie < 0) {
 			this.pointsVie = 0;
+		} else if (pointsVie > 20) {
+			this.pointsVie = 20;
 		} else {
 			this.pointsVie = pointsVie;	
 		}	
