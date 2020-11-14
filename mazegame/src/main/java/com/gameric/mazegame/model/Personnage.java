@@ -218,6 +218,9 @@ public class Personnage{
 		if(detecterCible()){
 			Monstre m = trouverCible();
 			m.setPointsVie(m.getPointsVie() - this.degats);
+			if (m.getPointsVie() <= 0) {
+				labyrinthe.enleverMonstre(m);
+			}
 		}
 	}
 }
