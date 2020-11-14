@@ -121,10 +121,6 @@ public class Personnage{
 	public int getDegats() {
 		return degats;
 	}
-
-	public void setDegats(int degats) {
-		this.degats = degats;
-	}
 	
 	public void ramasserObjet(){
 		if( position.getClass() == CaseObjet.class ){

@@ -48,4 +48,9 @@ public class CaseObjet extends CaseVide {
 	public Objet getObjet() {
 		return objet;
 	}
+
+	public boolean isRamasse() {
+		return ramasse;
+	}
+	
 }

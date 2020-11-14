@@ -57,10 +57,12 @@ public class JeuLabyrinthe implements Game {
 			break;
 		//Commande PICKUP
 		case PICKUP:
-			//TODO
+			//le personnage essaie de ramasser un objet
+			personnage.ramasserObjet();
 			break;
 		case ATTACK:
-			//TODO
+			//le personnage attaque
+			personnage.attaquer();
 			break;
 		}
 

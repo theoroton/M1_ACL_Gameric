@@ -66,9 +66,11 @@ public class DessinLabyrinthe implements GamePainter {
 				} else if ((labyrinthe.getCase(j,i)).getClass() == CaseObjet.class) {
 					crayon.setColor(new Color(255, 153, 0));
 					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-					crayon.setColor(Color.BLACK);
-					dessinerChaineCentree(crayon, ((CaseObjet) labyrinthe.getCase(j,i)).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), new Font(" TimesRoman ",Font.BOLD,8));
-				
+					if (!((CaseObjet) labyrinthe.getCase(j,i)).isRamasse()) {
+						crayon.setColor(Color.BLACK);
+						dessinerChaineCentree(crayon, ((CaseObjet) labyrinthe.getCase(j,i)).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), new Font(" TimesRoman ",Font.BOLD,8));
+					}
+					
 				//On dessigne en rose les cases piégées
 				} else if ((labyrinthe.getCase(j,i)).getClass() == CasePiegee.class) {
 					crayon.setColor(new Color(255, 153, 153));
