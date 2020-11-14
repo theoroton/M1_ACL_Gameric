@@ -49,6 +49,10 @@ public class CaseObjet extends CaseVide {
 		return objet;
 	}
 
+	/**
+	 * Méthode getter de l'attribut ramasse
+	 * @return true si l'objet a était ramassé
+	 */
 	public boolean isRamasse() {
 		return ramasse;
 	}
