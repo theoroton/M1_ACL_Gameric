@@ -1,5 +1,7 @@
 package com.gameric.mazegame.model;
 
+import java.awt.Font;
+
 /**
  * 
  * @author Théo
@@ -32,5 +34,20 @@ public class Const {
 	 * Hauteur de la barre de vie
 	 */
 	public final static int HEIGHT_BARREPV = 24;
+	
+	/**
+	 * Police pour le message de fin du jeu
+	 */
+	public final static Font FONT_FIN_JEU_1 = new Font(" TimesRoman ", Font.BOLD, 16);
+	
+	/**
+	 * Police pour le message de fin du jeu
+	 */
+	public final static Font FONT_FIN_JEU_2 = new Font(" TimesRoman ", Font.BOLD, 12);
+	
+	/**
+	 * Police pour écrire un objet sur une case objet
+	 */
+	public final static Font FONT_OBJET = new Font(" TimesRoman ",Font.BOLD,8);
 
 }

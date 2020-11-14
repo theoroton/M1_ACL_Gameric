@@ -20,11 +20,11 @@ public class DessinLabyrinthe implements GamePainter {
 	/**
 	 * Largeur du dessin du labyrinthe
 	 */
-	protected static int WIDTH;
+	private static int WIDTH;
 	/**
 	 * Hauteur du dessin du labyrinthe
 	 */
-	protected static int HEIGHT;
+	private static int HEIGHT;
 	
 	/**
 	 * Jeu à afficher
@@ -63,13 +63,15 @@ public class DessinLabyrinthe implements GamePainter {
 					crayon.setColor(Color.BLACK);
 					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 					
-				//On dessigne en orange les cases objets
+				//On dessine en orange les cases objets
 				} else if (c.getClass() == CaseObjet.class) {
 					crayon.setColor(new Color(255, 153, 0));
 					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+					
+					//Si l'objet n'a pas encore était ramassé, on l'affiche sur la case
 					if (!((CaseObjet) c).isRamasse()) {
 						crayon.setColor(Color.BLACK);
-						dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), new Font(" TimesRoman ",Font.BOLD,8));
+						dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), Const.FONT_OBJET);
 					}
 					
 				//On dessigne en rose les cases piégées
@@ -101,16 +103,16 @@ public class DessinLabyrinthe implements GamePainter {
 			crayon.setColor(Color.LIGHT_GRAY);
 			crayon.fillRect(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4+20);
 			crayon.setColor(Color.RED);
-			dessinerChaineCentree(crayon, "DEFAITE", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,16));
-			dessinerChaineCentree(crayon, "Vous êtes mort", new Rectangle(WIDTH/6, HEIGHT/6+20, 2*WIDTH/3, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,12));
+			dessinerChaineCentree(crayon, "DEFAITE", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_FIN_JEU_1);
+			dessinerChaineCentree(crayon, "Vous êtes mort", new Rectangle(WIDTH/6, HEIGHT/6+20, 2*WIDTH/3, HEIGHT/4), Const.FONT_FIN_JEU_2);
 			
 		//Si le jeu est fini et que le personnage n'est pas mort, alors on écrit un message de victoire
 		} else if (jeu.isFinished()) {
 			crayon.setColor(Color.LIGHT_GRAY);
 			crayon.fillRect(WIDTH/8, HEIGHT/6, 3*WIDTH/4, HEIGHT/4+20);
 			crayon.setColor(Color.GREEN);
-			dessinerChaineCentree(crayon, "Victoire", new Rectangle(WIDTH/8, HEIGHT/6, 3*WIDTH/4, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,16));
-			dessinerChaineCentree(crayon, "Vous avez atteint la sortie", new Rectangle(WIDTH/8, HEIGHT/6+20, 3*WIDTH/4, HEIGHT/4), new Font(" TimesRoman ",Font.BOLD,12));
+			dessinerChaineCentree(crayon, "VICTOIRE", new Rectangle(WIDTH/8, HEIGHT/6, 3*WIDTH/4, HEIGHT/4), Const.FONT_FIN_JEU_1);
+			dessinerChaineCentree(crayon, "Vous avez atteint la sortie", new Rectangle(WIDTH/8, HEIGHT/6+20, 3*WIDTH/4, HEIGHT/4), Const.FONT_FIN_JEU_2);
 		}
 		
 	}
