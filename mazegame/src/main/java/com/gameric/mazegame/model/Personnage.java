@@ -142,6 +142,9 @@ public class Personnage{
 		return present;
 	}
 	
+	/**
+	 * Retourne le monstre à la position donnée
+	 **/
 	private Monstre getMonstre(int x, int y){
 		for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
 				if(m.getPos_x() == x) {						//On cherche celui se trouvant sur la case
@@ -158,35 +161,35 @@ public class Personnage{
 		int x,y;
 		x = position.getPx() - i;
 		y = position.getPy() + i;
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 		
 		x = position.getPx();
 		y = position.getPy() + i;
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 			
 		x = position.getPx() + i;
 		y = position.getPy() + i;
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 			
 		x = position.getPx() - i;
 		y = position.getPy();
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 			
 		x = position.getPx() + i;
 		y = position.getPy();
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 			
 		x = position.getPx() - i;
 		y = position.getPy() - i;
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 			
 		x = position.getPx();
 		y = position.getPy() - i;
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 			
 		x = position.getPx() + i;
 		y = position.getPy() - i;
-		if(testMonstre(x,y)	return getMonstre(x,y);
+		if(testMonstre(x,y))	return getMonstre(x,y);
 	}
 	
 	/**
@@ -195,14 +198,14 @@ public class Personnage{
 	 **/
 	private boolean detecterCible(){
 		boolean present = false;
-		if(testMonstre(position.getPx() - i, position.getPy() + i)	return present = true;
-		if(testMonstre(position.getPx()    , position.getPy() + i)	return present = true;
-		if(testMonstre(position.getPx() + i, position.getPy() + i)	return present = true;
-		if(testMonstre(position.getPx() - i, position.getPy()    )	return present = true;
-		if(testMonstre(position.getPx() + i, position.getPy()    )	return present = true;
-		if(testMonstre(position.getPx() - i, position.getPy() - i)	return present = true;
-		if(testMonstre(position.getPx()    , position.getPy() - i)	return present = true;
-		if(testMonstre(position.getPx() + i, position.getPy() - i)	return present = true;
+		if(testMonstre(position.getPx() - i, position.getPy() + i))	return present = true;
+		if(testMonstre(position.getPx()    , position.getPy() + i))	return present = true;
+		if(testMonstre(position.getPx() + i, position.getPy() + i))	return present = true;
+		if(testMonstre(position.getPx() - i, position.getPy()    ))	return present = true;
+		if(testMonstre(position.getPx() + i, position.getPy()    ))	return present = true;
+		if(testMonstre(position.getPx() - i, position.getPy() - i))	return present = true;
+		if(testMonstre(position.getPx()    , position.getPy() - i))	return present = true;
+		if(testMonstre(position.getPx() + i, position.getPy() - i))	return present = true;
 		return present;
 	}
 	
