@@ -344,4 +344,13 @@ public class Labyrinthe {
 		return monstres;
 	}
 	
+	/**
+	 * Méthode qui permet d'enlever un monstre de la liste des
+	 * monstres du labyrinthe.
+	 * @param m : Monstre à enlever
+	 */
+	public void tuerMonstre(Monstre m) {
+		monstres.remove(m);
+	}
+	
 }
