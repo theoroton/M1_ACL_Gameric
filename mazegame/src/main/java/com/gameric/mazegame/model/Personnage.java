@@ -11,7 +11,6 @@ public class Personnage{
 	
 	int pointsVie = 20;	//Points de vie du personnage
 	int degats = 10;		//Dégats du personnage	
-	int portee = 2;
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
 	
@@ -157,40 +156,37 @@ public class Personnage{
 	 **/
 	private Monstre trouverCible(){
 		int x,y;
-		for(int i=1; i<= portee;i++){	//Pour chaque portée possible
-			x = position.getPx() - i;
-			y = position.getPy() + i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
+		x = position.getPx() - i;
+		y = position.getPy() + i;
+		if(testMonstre(x,y)	return getMonstre(x,y);
+		
+		x = position.getPx();
+		y = position.getPy() + i;
+		if(testMonstre(x,y)	return getMonstre(x,y);
 			
-			x = position.getPx();
-			y = position.getPy() + i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
+		x = position.getPx() + i;
+		y = position.getPy() + i;
+		if(testMonstre(x,y)	return getMonstre(x,y);
 			
-			x = position.getPx() + i;
-			y = position.getPy() + i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
+		x = position.getPx() - i;
+		y = position.getPy();
+		if(testMonstre(x,y)	return getMonstre(x,y);
 			
-			x = position.getPx() - i;
-			y = position.getPy();
-			if(testMonstre(x,y)	return getMonstre(x,y);
+		x = position.getPx() + i;
+		y = position.getPy();
+		if(testMonstre(x,y)	return getMonstre(x,y);
 			
-			x = position.getPx() + i;
-			y = position.getPy();
-			if(testMonstre(x,y)	return getMonstre(x,y);
+		x = position.getPx() - i;
+		y = position.getPy() - i;
+		if(testMonstre(x,y)	return getMonstre(x,y);
 			
-			x = position.getPx() - i;
-			y = position.getPy() - i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
+		x = position.getPx();
+		y = position.getPy() - i;
+		if(testMonstre(x,y)	return getMonstre(x,y);
 			
-			x = position.getPx();
-			y = position.getPy() - i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx() + i;
-			y = position.getPy() - i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-		}
+		x = position.getPx() + i;
+		y = position.getPy() - i;
+		if(testMonstre(x,y)	return getMonstre(x,y);
 	}
 	
 	/**
@@ -199,16 +195,14 @@ public class Personnage{
 	 **/
 	private boolean detecterCible(){
 		boolean present = false;
-		for(int i=1; i<= portee;i++){	//Pour chaque portée possible
-			if(testMonstre(position.getPx() - i, position.getPy() + i)	return present = true;
-			if(testMonstre(position.getPx()    , position.getPy() + i)	return present = true;
-			if(testMonstre(position.getPx() + i, position.getPy() + i)	return present = true;
-			if(testMonstre(position.getPx() - i, position.getPy()    )	return present = true;
-			if(testMonstre(position.getPx() + i, position.getPy()    )	return present = true;
-			if(testMonstre(position.getPx() - i, position.getPy() - i)	return present = true;
-			if(testMonstre(position.getPx()    , position.getPy() - i)	return present = true;
-			if(testMonstre(position.getPx() + i, position.getPy() - i)	return present = true;
-		}
+		if(testMonstre(position.getPx() - i, position.getPy() + i)	return present = true;
+		if(testMonstre(position.getPx()    , position.getPy() + i)	return present = true;
+		if(testMonstre(position.getPx() + i, position.getPy() + i)	return present = true;
+		if(testMonstre(position.getPx() - i, position.getPy()    )	return present = true;
+		if(testMonstre(position.getPx() + i, position.getPy()    )	return present = true;
+		if(testMonstre(position.getPx() - i, position.getPy() - i)	return present = true;
+		if(testMonstre(position.getPx()    , position.getPy() - i)	return present = true;
+		if(testMonstre(position.getPx() + i, position.getPy() - i)	return present = true;
 		return present;
 	}
 	
