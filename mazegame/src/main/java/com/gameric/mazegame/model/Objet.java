@@ -15,4 +15,9 @@ public abstract class Objet{
 	};
 	//Méthodes
 	public abstract void effetObjet(Personnage p);
+	
+	public String getNom() {
+		return nom;
+	}
+	
 }
