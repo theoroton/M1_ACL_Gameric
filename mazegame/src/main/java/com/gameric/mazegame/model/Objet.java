@@ -12,5 +12,5 @@ public abstract class Objet{
 	//Constructeur
 	public Objet();
 	//Méthodes
-	//public abstract effetObjet();
+	public abstract void effetObjet(Personnage p);
 }

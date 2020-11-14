@@ -15,5 +15,7 @@ public class Potion extends Objet{
 		this.soins = soins;
 	}
 	//Méthodes
-	//public effetObjet()
+	public void effetObjet(Personnage p){
+		p.updatePv(soins);
+	}
 }
