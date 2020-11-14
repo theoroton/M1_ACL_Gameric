@@ -14,6 +14,11 @@ import com.gameric.mazegame.model.Labyrinthe;
 import com.gameric.mazegame.model.Personnage;
 import com.gameric.mazegame.model.Potion;
 
+/**
+ * Classe des tests sur le labyrinthe
+ * @author Théo Roton
+ *
+ */
 public class TestLabyrinthe {
 
 	/**

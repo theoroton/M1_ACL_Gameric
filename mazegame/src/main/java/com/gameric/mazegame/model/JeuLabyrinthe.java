@@ -55,6 +55,13 @@ public class JeuLabyrinthe implements Game {
 			//le personnage se déplace de 1 vers la droite (1,0)
 			personnage.deplacer(1, 0);
 			break;
+		//Commande PICKUP
+		case PICKUP:
+			//TODO
+			break;
+		case ATTACK:
+			//TODO
+			break;
 		}
 
 		for (Monstre m : labyrinthe.getMonstres()) {

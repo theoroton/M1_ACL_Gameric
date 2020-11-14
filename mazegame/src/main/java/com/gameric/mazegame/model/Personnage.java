@@ -51,12 +51,18 @@ public class Personnage{
 						//Vérification: CaseVide
 						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
 							position = new_position;
+							
+							//Si la case sur lequel le personnage se déplace est une case à effet
+							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
+								//On exécute l'effet de la case
+								((CaseEffet) new_position).faireEffet(this);
+							}
 						}
 						else {											//S'il y a collision
 							for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
 								if(m.getPos_x() == new_x) {						//On cherche celui se trouvant sur la case ou on veut aller
 									if(m.getPos_y() == new_y) {
-										pointsVie = pointsVie - m.getDegats();	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
+										setPointsVie(pointsVie - m.getDegats());	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
 									}
 								}
 							}									//Le personnage ne va pas sur la case car elle est occupée par le monstre
@@ -97,7 +103,15 @@ public class Personnage{
 	}
 
 	public void setPointsVie(int pointsVie) {
-		this.pointsVie = pointsVie;
+		if (pointsVie < 0) {
+			this.pointsVie = 0;
+		} else {
+			this.pointsVie = pointsVie;	
+		}	
+	}
+	
+	public void setDegats(int degats){
+		this.degats = degats;
 	}
 
 	public boolean estMort() {
@@ -112,4 +126,100 @@ public class Personnage{
 		this.degats = degats;
 	}
 	
+	public void ramasserObjet(){
+		if( position.getClass() == CaseObjet.class ){
+			((CaseObjet) position).ramasserObjet(this);
+		}
+	}
+	/**
+	 * Teste si un monstre est présent sur la case (x,y)
+	 **/
+	private boolean testMonstre(int x, int y){
+		boolean present = false;
+		for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
+				if(m.getPos_x() == x) {						//On cherche celui se trouvant sur la case
+					if(m.getPos_y() == y) {
+						present = true;
+					}
+				}
+			}
+		return present;
+	}
+	
+	/**
+	 * Retourne le monstre à la position donnée
+	 **/
+	private Monstre getMonstre(int x, int y){
+		for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
+				if(m.getPos_x() == x) {						//On cherche celui se trouvant sur la case
+					if(m.getPos_y() == y) {
+						return m;
+					}
+				}
+			}
+		return null;
+	}
+	/**
+	 * Trouve le monstre à portée (recherche sens horaire) et le renvoie
+	 **/
+	private Monstre trouverCible(){
+		int x,y;
+		x = position.getPx() - 1;
+		y = position.getPy() + 1;
+		if(testMonstre(x,y))	return getMonstre(x,y);
+		
+		x = position.getPx();
+		y = position.getPy() + 1;
+		if(testMonstre(x,y))	return getMonstre(x,y);
+			
+		x = position.getPx() + 1;
+		y = position.getPy() + 1;
+		if(testMonstre(x,y))	return getMonstre(x,y);
+			
+		x = position.getPx() - 1;
+		y = position.getPy();
+		if(testMonstre(x,y))	return getMonstre(x,y);
+			
+		x = position.getPx() + 1;
+		y = position.getPy();
+		if(testMonstre(x,y))	return getMonstre(x,y);
+			
+		x = position.getPx() - 1;
+		y = position.getPy() - 1;
+		if(testMonstre(x,y))	return getMonstre(x,y);
+			
+		x = position.getPx();
+		y = position.getPy() - 1;
+		if(testMonstre(x,y))	return getMonstre(x,y);
+			
+		x = position.getPx() + 1;
+		y = position.getPy() - 1;
+		if(testMonstre(x,y))	return getMonstre(x,y);
+		
+		return null;
+	}
+	
+	/**
+	 * Retourne 1 s'il y a un monstre à portée
+	 * Retourne 0 sinon
+	 **/
+	private boolean detecterCible(){
+		boolean present = false;
+		if(testMonstre(position.getPx() - 1, position.getPy() + 1))	return present = true;
+		if(testMonstre(position.getPx()    , position.getPy() + 1))	return present = true;
+		if(testMonstre(position.getPx() + 1, position.getPy() + 1))	return present = true;
+		if(testMonstre(position.getPx() - 1, position.getPy()    ))	return present = true;
+		if(testMonstre(position.getPx() + 1, position.getPy()    ))	return present = true;
+		if(testMonstre(position.getPx() - 1, position.getPy() - 1))	return present = true;
+		if(testMonstre(position.getPx()    , position.getPy() - 1))	return present = true;
+		if(testMonstre(position.getPx() + 1, position.getPy() - 1))	return present = true;
+		return present;
+	}
+	
+	public void attaquer(){
+		if(detecterCible()){
+			Monstre m = trouverCible();
+			m.setPointsVie(m.getPointsVie() - this.degats);
+		}
+	}
 }
