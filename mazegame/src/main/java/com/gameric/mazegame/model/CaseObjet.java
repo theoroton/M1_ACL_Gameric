@@ -15,7 +15,7 @@ public class CaseObjet extends CaseVide {
 	/**
 	 * Objet lié à la case
 	 */
-	//private Objet objet;
+	private Objet objet;
 	
 	/**
 	 * Constructeur de la classe CaseObjet
@@ -23,10 +23,10 @@ public class CaseObjet extends CaseVide {
 	 * @param y : position en y de la case
 	 * @param o : objet lié à la case
 	 */
-	public CaseObjet(int x, int y/*, Objet o*/) {
+	public CaseObjet(int x, int y, Objet o) {
 		super(x, y);
 		ramasse = false;
-		//objet = o;
+		objet = o;
 	}
 	
 	/**
@@ -36,9 +36,16 @@ public class CaseObjet extends CaseVide {
 	 */
 	public void ramasserObjet(Personnage p) {
 		if (!ramasse) {
-			//objet.effetObjet(p);
+			objet.effetObjet(p);
 			ramasse = true;
 		} 	
 	}
 
+	/**
+	 * Méthode getter de l'attribut objet
+	 * @return objet sur cette case
+	 */
+	public Objet getObjet() {
+		return objet;
+	}
 }

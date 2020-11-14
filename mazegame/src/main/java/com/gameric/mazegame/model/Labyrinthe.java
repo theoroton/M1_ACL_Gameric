@@ -184,10 +184,10 @@ public class Labyrinthe {
 						cas = new CasePiegee(i, j);
 					//Si le caractère est un p, on crée une CaseObjet avec une potion à cette position
 					} else if (c == 'p') {
-						cas = new CaseObjet(i, j);
+						cas = new CaseObjet(i, j, new Potion("Potion", 5));
 					//Si le caractère est un a, on crée une CaseObjet avec une arme à cette positon
 					} else if (c == 'a') {
-						cas = new CaseObjet(i, j);
+						cas = new CaseObjet(i, j, new Arme("Arme", 2));
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
