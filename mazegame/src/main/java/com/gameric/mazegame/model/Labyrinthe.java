@@ -349,7 +349,7 @@ public class Labyrinthe {
 	 * monstres du labyrinthe.
 	 * @param m : Monstre à enlever
 	 */
-	public void tuerMonstre(Monstre m) {
+	public void enleverMonstre(Monstre m) {
 		monstres.remove(m);
 	}
 	
