@@ -57,22 +57,23 @@ public class DessinLabyrinthe implements GamePainter {
 		//On dessine cases qui doivent être affichées
 		for (int i=0; i<hauteur; i++) {
 			for (int j=0; j<largeur; j++) {
+				Case c = labyrinthe.getCase(j,i);
 				//On dessine en noir les murs
-				if ((labyrinthe.getCase(j,i)).getClass() == Mur.class) {
+				if (c.getClass() == Mur.class) {
 					crayon.setColor(Color.BLACK);
 					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 					
 				//On dessigne en orange les cases objets
-				} else if ((labyrinthe.getCase(j,i)).getClass() == CaseObjet.class) {
+				} else if (c.getClass() == CaseObjet.class) {
 					crayon.setColor(new Color(255, 153, 0));
 					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-					if (!((CaseObjet) labyrinthe.getCase(j,i)).isRamasse()) {
+					if (!((CaseObjet) c).isRamasse()) {
 						crayon.setColor(Color.BLACK);
-						dessinerChaineCentree(crayon, ((CaseObjet) labyrinthe.getCase(j,i)).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), new Font(" TimesRoman ",Font.BOLD,8));
+						dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), new Font(" TimesRoman ",Font.BOLD,8));
 					}
 					
 				//On dessigne en rose les cases piégées
-				} else if ((labyrinthe.getCase(j,i)).getClass() == CasePiegee.class) {
+				} else if (c.getClass() == CasePiegee.class) {
 					crayon.setColor(new Color(255, 153, 153));
 					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 				}
