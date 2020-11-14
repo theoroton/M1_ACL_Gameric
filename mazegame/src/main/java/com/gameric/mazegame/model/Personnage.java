@@ -9,8 +9,10 @@ public class Personnage{
 	
 	//Attributs
 	
-	int pointsVie = 20;	//Points de vie du personnage
-	int degats = 10;		//Dégats du personnage	
+	int pointsVie = 30;	//Points de vie courants du personnage
+	int vieMax = 30; 	//Points de vie max du personnage
+	int degats  = 10;		//Dégats du personnage	
+	int portee = 1;		//Portée de l'attaque du personnage
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
 	
@@ -51,13 +53,18 @@ public class Personnage{
 						//Vérification: CaseVide
 						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
 							position = new_position;
+							
+							//Si la case sur lequel le personnage se déplace est une case à effet
+							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
+								//On exécute l'effet de la case
+								((CaseEffet) new_position).faireEffet(this);
+							}
 						}
 						else {											//S'il y a collision
 							for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
 								if(m.getPos_x() == new_x) {						//On cherche celui se trouvant sur la case ou on veut aller
 									if(m.getPos_y() == new_y) {
-										pointsVie = pointsVie - m.getDegats();	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
-										System.out.println("Points de vie : " + pointsVie);
+										setPointsVie(pointsVie - m.getDegats());	//On ajuste les points de vie (personnage se prend les dégâts du monstre)
 									}
 								}
 							}									//Le personnage ne va pas sur la case car elle est occupée par le monstre
@@ -98,10 +105,123 @@ public class Personnage{
 	}
 
 	public void setPointsVie(int pointsVie) {
-		this.pointsVie = pointsVie;
+		if (pointsVie < 0) {
+			this.pointsVie = 0;
+		} else {
+			if(pointsVie > vieMax){
+				this.pointsVie = vieMax;
+			}
+			else{
+				this.pointsVie = pointsVie;	
+			}
+		}	
+	}
+	
+	public void setDegats(int degats){
+		this.degats = degats;
 	}
 
 	public boolean estMort() {
 		return pointsVie <= 0;
 	}
+
+	public int getDegats() {
+		return degats;
 	}
+	
+	public void ramasserObjet(){
+		if( position.getClass() == CaseObjet.class ){
+			position.ramasserObjet();
+		}
+	}
+	/**
+	 * Teste si un monstre est présent sur la case (x,y)
+	 **/
+	private boolean testMonstre(int x, int y){
+		boolean present = false;
+		for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
+				if(m.getPos_x() == x) {						//On cherche celui se trouvant sur la case
+					if(m.getPos_y() == y) {
+						present = true;
+					}
+				}
+			}
+		return present;
+	}
+	
+	private Monstre getMonstre(int x, int y){
+		for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
+				if(m.getPos_x() == x) {						//On cherche celui se trouvant sur la case
+					if(m.getPos_y() == y) {
+						return m;
+					}
+				}
+			}
+	}
+	/**
+	 * Trouve le monstre à portée (recherche sens horaire) et le renvoie
+	 **/
+	private Monstre trouverCible(){
+		int x,y;
+		for(int i=1; i<= portee;i++){	//Pour chaque portée possible
+			x = position.getPx() - i;
+			y = position.getPy() + i;
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+			x = position.getPx();
+			y = position.getPy() + i;
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+			x = position.getPx() + i;
+			y = position.getPy() + i;
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+			x = position.getPx() - i;
+			y = position.getPy();
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+			x = position.getPx() + i;
+			y = position.getPy();
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+			x = position.getPx() - i;
+			y = position.getPy() - i;
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+			x = position.getPx();
+			y = position.getPy() - i;
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+			x = position.getPx() + i;
+			y = position.getPy() - i;
+			if(testMonstre(x,y)	return getMonstre(x,y);
+			
+		}
+	}
+	
+	/**
+	 * Retourne 1 s'il y a un monstre à portée
+	 * Retourne 0 sinon
+	 **/
+	private boolean detecterCible(){
+		boolean present = false;
+		for(int i=1; i<= portee;i++){	//Pour chaque portée possible
+			if(testMonstre(position.getPx() - i, position.getPy() + i)	return present = true;
+			if(testMonstre(position.getPx()    , position.getPy() + i)	return present = true;
+			if(testMonstre(position.getPx() + i, position.getPy() + i)	return present = true;
+			if(testMonstre(position.getPx() - i, position.getPy()    )	return present = true;
+			if(testMonstre(position.getPx() + i, position.getPy()    )	return present = true;
+			if(testMonstre(position.getPx() - i, position.getPy() - i)	return present = true;
+			if(testMonstre(position.getPx()    , position.getPy() - i)	return present = true;
+			if(testMonstre(position.getPx() + i, position.getPy() - i)	return present = true;
+		}
+		return present;
+	}
+	
+	public void attaquer(){
+		if(detecterCible()){
+			Monstre m = trouverCible();
+			m.setPointsVie(m.getPointsVie() - this.degats);
+		}
+	}
+}
