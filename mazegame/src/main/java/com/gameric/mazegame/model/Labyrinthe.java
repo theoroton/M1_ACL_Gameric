@@ -95,8 +95,6 @@ public class Labyrinthe {
 	 * @param fichier : fichier qui va permettre de construire le labyrinthe
 	 */
 	public Labyrinthe(Personnage p, String fichier) {
-		largeur = 12;
-		hauteur = 12;
 		personnage_laby = p;
 		p.setLabyrinthe(this);
 		monstres = new ArrayList<Monstre>();
@@ -143,15 +141,19 @@ public class Labyrinthe {
 	 * @param fichier : fichier de génération du labyrinthe
 	 */
 	private void genererLabyrinthe(String fichier) {
-		//Tableau des cases du labyrinthe
-		cases = new Case[hauteur][largeur];
 
-		try {
+		try {	
+			//On teste si le fichier est bien construit
+			testerFichier(fichier);
+			
 			//Récupération du fichier
-			InputStream in = getClass().getResourceAsStream("/"+fichier); 
-			BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));
-			String ligne;
+			InputStream in = getClass().getResourceAsStream("/"+fichier);	
+			BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));	
+
+			//Tableau des cases du labyrinthe
+			cases = new Case[hauteur][largeur];
 			Case cas = null;
+			String ligne;
 			//Position en x
 			int i = 0;
 			//Position en y
@@ -162,7 +164,6 @@ public class Labyrinthe {
 				//On découpe la ligne courante en un tableau de caractères
 				char[] caracts = ligne.toCharArray();
 				i = 0;
-				
 				//Pour chaque caractère
 				while (i < largeur) {
 					char c = caracts[i];
@@ -212,8 +213,48 @@ public class Labyrinthe {
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichier non trouvé");
 		} catch (IOException e) {
-			System.out.println("Erreur de flux");
+			e.printStackTrace();
+		//Si on obtient l'exception de taille du fichier, on crée un labyrinthe par défaut à la place
+		} catch (TailleFichierException e) {
+			e.printStackTrace();
+			System.out.println("Création d'un labyrinthe par défaut");
+			largeur = 10;
+			hauteur = 10;
+			//Génération par défaut
+			genererLabyrintheDefaut();
 		}
+	}
+
+	/**
+	 * Méthode qui teste si le fichier donnée en entré est bien construit.
+	 * Pour qu'un fichier soit bien construit, il faut que chaque ligne du fichier
+	 * soit de la même taille.
+	 * @param fichier : fichier à tester
+	 * @throws IOException
+	 * @throws TailleFichierException : exception qui indique que le fichier est mal formé
+	 */
+	private void testerFichier(String fichier) throws IOException, TailleFichierException {
+		//Récupération du fichier
+		InputStream in = getClass().getResourceAsStream("/"+fichier);	
+		BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));	
+		
+		//On récupére la première ligne
+		String ligne = fichLab.readLine();
+		//On initie le nb de lignes et de colonnes. (on utilise la taille de la première ligne pour comparer)
+		int nbLignes = 1, nbColonnes = ligne.length();
+		//Pour chaque ligne du fichier
+		while ((ligne = fichLab.readLine()) != null) {
+			//On augmente le nombre de ligne de 1
+			nbLignes++;
+			//Si la taille de la ligne courante est différente de la première, on renvoi une exception
+			if (ligne.length() != nbColonnes) {
+				throw new TailleFichierException("Il y a des lignes de tailles différentes dans le fichier");
+			}
+		}
+		
+		//On initie la largeur et la hauteur avec les valeurs que l'on a trouvé
+		largeur = nbColonnes;
+		hauteur = nbLignes;
 	}
 
 	/**
