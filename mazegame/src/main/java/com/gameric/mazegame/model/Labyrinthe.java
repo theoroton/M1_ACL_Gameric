@@ -166,8 +166,6 @@ public class Labyrinthe {
 				
 				//Pour chaque caractère
 				while (i < largeur) {
-					System.out.println(ligne);
-					System.out.println(ligne);
 					char c = caracts[i];
 					//Si le caractère est un X, on crée un Mur à cette position
 					if (c == 'X') {
