@@ -20,7 +20,7 @@ public class Monstre {
 	/**
 	 * La vitesse de déplacement du monstre
 	 */
-	//private int vitesse = 1;
+	//private int vitesse = 200;
 	/**
 	 * La distance de l'attaque du monstre
 	 */
@@ -37,18 +37,25 @@ public class Monstre {
 	 * La distance sur laquelle le monstre peux voir le Personnage
 	 */
 	//private int vision = 3;
+	/**
+	 * La position du monstre
+	 */
 	private Case position;
-	
-	private StrategieDeplacement strategie = new Patrouille();
-	
+	/**
+	 * La strategie de deplacement
+	 */
+	private StrategieDeplacement strategie = new DetectionJoueur();
+	/**
+	 * Le labyrinthe où se trouve le monstre
+	 */
 	private Labyrinthe labyrinthe;
-	
+	/**
+	 * Constructeur du monstre
+	 */
 	public Monstre(int x, int y, Labyrinthe l) {
 		labyrinthe = l;
 		position = labyrinthe.getCase(x,y); 
 	}
-	
-	
 	/**
 	 * Méthode getter de l'attribut pointsVie
 	 * @return La nombre actuel des points de la vie du monstre
@@ -83,7 +90,7 @@ public class Monstre {
 	 */
 	/*public int getVitesse() {
 		return vitesse;
-	}*/
+	}
 	/**
 	 * Méthode setter de l'attribut vitesse
 	 * @param vitesse
@@ -155,7 +162,6 @@ public class Monstre {
 	public Case getPosition() {
 		return position;
 	}
-	
 	/**
 	 * Méthode setter de l'attribut position
 	 * @param x
@@ -168,32 +174,30 @@ public class Monstre {
 	 * Méthode qui gère le déplacement de monstre
 	 */
 	public void deplacerMonstre() {
-		strategie.deplacer(this);
+		if(this.getPosition().getHeuristic(labyrinthe.getPersonnage_laby().getPosition()) != 1)
+			strategie.deplacer(this);
 	}
-	
 	/**
 	 * Méthode getter de valeur X en attribut position
-	 * @return
+	 * @return valeur X de position du monstre
 	 */
 	public int getPos_x() {
 		return position.getPx();
 	}
-
 	/**
 	 * Méthode getter de valeur Y en attribut position
-	 * @return
+	 * @return valeur Y de position du monstre
 	 */
 	public int getPos_y() {
 		return position.getPy();
 	}
-
-
+	/**
+	 * Récupération de labyrinthe où se trouve le monstre 
+	 * @return l'objet labyrinthe
+	 */
 	public Labyrinthe getLabyrinthe() {
 		return labyrinthe;
 	}
 	
-	
-
-	//pour v2
 	//public abstract void attaquer(Personnage p);
 }
