@@ -2,7 +2,6 @@ package com.gameric.mazegame.model;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -80,8 +79,8 @@ public class Labyrinthe {
 	 * @param p : personnage joueur du labyrinthe
 	 */
 	public Labyrinthe(int l, int h, Personnage p) {
-		largeur = l;
-		hauteur = h;
+		if (l < 10) { largeur = 10; } else { largeur = l; }
+		if (h < 10) { hauteur = 10; } else { hauteur = h; }
 		personnage_laby = p;
 		p.setLabyrinthe(this);
 		monstres = new ArrayList<Monstre>();
@@ -96,8 +95,6 @@ public class Labyrinthe {
 	 * @param fichier : fichier qui va permettre de construire le labyrinthe
 	 */
 	public Labyrinthe(Personnage p, String fichier) {
-		largeur = 12;
-		hauteur = 12;
 		personnage_laby = p;
 		p.setLabyrinthe(this);
 		monstres = new ArrayList<Monstre>();
@@ -144,15 +141,19 @@ public class Labyrinthe {
 	 * @param fichier : fichier de génération du labyrinthe
 	 */
 	private void genererLabyrinthe(String fichier) {
-		//Tableau des cases du labyrinthe
-		cases = new Case[hauteur][largeur];
 
-		try {
+		try {	
+			//On teste si le fichier est bien construit
+			testerFichier(fichier);
+			
 			//Récupération du fichier
-			InputStream in = getClass().getResourceAsStream("/"+fichier); 
-			BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));
-			String ligne;
+			InputStream in = getClass().getResourceAsStream("/"+fichier);	
+			BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));	
+
+			//Tableau des cases du labyrinthe
+			cases = new Case[hauteur][largeur];
 			Case cas = null;
+			String ligne;
 			//Position en x
 			int i = 0;
 			//Position en y
@@ -163,7 +164,6 @@ public class Labyrinthe {
 				//On découpe la ligne courante en un tableau de caractères
 				char[] caracts = ligne.toCharArray();
 				i = 0;
-				
 				//Pour chaque caractère
 				while (i < largeur) {
 					char c = caracts[i];
@@ -180,6 +180,15 @@ public class Labyrinthe {
 						cas = new CaseSortie(i,j);
 						xSortie = i;
 						ySortie = j;
+					//Si le caractère est un P, on crée une CasePiegee à cette position
+					} else if (c == 'P') {
+						cas = new CasePiegee(i, j);
+					//Si le caractère est un p, on crée une CaseObjet avec une potion à cette position
+					} else if (c == 'p') {
+						cas = new CaseObjet(i, j, new Potion("Potion", 5));
+					//Si le caractère est un a, on crée une CaseObjet avec une arme à cette positon
+					} else if (c == 'a') {
+						cas = new CaseObjet(i, j, new Arme("Arme", 2));
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
@@ -191,8 +200,8 @@ public class Labyrinthe {
 					//Si le caractère est un M, on ajoute un monstre au labyrinthe à cette position
 					if (c == 'M') {
 						ajouterMonstre(i,j);
-						
 					}
+					
 					//On augmente de 1 le x
 					i++;
 				}
@@ -204,8 +213,48 @@ public class Labyrinthe {
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichier non trouvé");
 		} catch (IOException e) {
-			System.out.println("Erreur de flux");
+			e.printStackTrace();
+		//Si on obtient l'exception de taille du fichier, on crée un labyrinthe par défaut à la place
+		} catch (TailleFichierException e) {
+			e.printStackTrace();
+			System.out.println("Création d'un labyrinthe par défaut");
+			largeur = 10;
+			hauteur = 10;
+			//Génération par défaut
+			genererLabyrintheDefaut();
 		}
+	}
+
+	/**
+	 * Méthode qui teste si le fichier donnée en entré est bien construit.
+	 * Pour qu'un fichier soit bien construit, il faut que chaque ligne du fichier
+	 * soit de la même taille.
+	 * @param fichier : fichier à tester
+	 * @throws IOException
+	 * @throws TailleFichierException : exception qui indique que le fichier est mal formé
+	 */
+	private void testerFichier(String fichier) throws IOException, TailleFichierException {
+		//Récupération du fichier
+		InputStream in = getClass().getResourceAsStream("/"+fichier);	
+		BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));	
+		
+		//On récupére la première ligne
+		String ligne = fichLab.readLine();
+		//On initie le nb de lignes et de colonnes. (on utilise la taille de la première ligne pour comparer)
+		int nbLignes = 1, nbColonnes = ligne.length();
+		//Pour chaque ligne du fichier
+		while ((ligne = fichLab.readLine()) != null) {
+			//On augmente le nombre de ligne de 1
+			nbLignes++;
+			//Si la taille de la ligne courante est différente de la première, on renvoi une exception
+			if (ligne.length() != nbColonnes) {
+				throw new TailleFichierException("Il y a des lignes de tailles différentes dans le fichier");
+			}
+		}
+		
+		//On initie la largeur et la hauteur avec les valeurs que l'on a trouvé
+		largeur = nbColonnes;
+		hauteur = nbLignes;
 	}
 
 	/**
@@ -213,7 +262,7 @@ public class Labyrinthe {
 	 * la position de la case d'entrée
 	 */
 	private void placerPersonnage() {
-		personnage_laby.setPosition(xEntree, yEntree);
+		personnage_laby.setPosition(xEntree, yEntree);	
 	}
 
 	/**
@@ -234,7 +283,6 @@ public class Labyrinthe {
 	 * @param y : position Y de la case
 	 * @return true si la case est occupée, false sinon
 	 */
-
 	public boolean estCaseOccupee(int x, int y) {
 		boolean res = false;
 		
@@ -253,7 +301,7 @@ public class Labyrinthe {
 		
 		return res;
 	}
-	
+
 	/**
 	 * Méthode getter de l'attribut cases
 	 * @return tableau des cases du labyrinthe
@@ -262,6 +310,7 @@ public class Labyrinthe {
 		return cases;
 	}
 	
+
 	/**
 	 * Méthode getter de l'attribut largeur
 	 * @return largeur du labyrinthe
@@ -334,6 +383,15 @@ public class Labyrinthe {
 	 */
 	public List<Monstre> getMonstres() {
 		return monstres;
+	}
+	
+	/**
+	 * Méthode qui permet d'enlever un monstre de la liste des
+	 * monstres du labyrinthe.
+	 * @param m : Monstre à enlever
+	 */
+	public void enleverMonstre(Monstre m) {
+		monstres.remove(m);
 	}
 	
 }

@@ -15,10 +15,11 @@ public class Main {
 		//Création du jeu
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		DessinLabyrinthe dessin = new DessinLabyrinthe(jeu);
+		InfosLabyrinthe infos = new InfosLabyrinthe(jeu);
 		ControleurLabyrinthe controleur = new ControleurLabyrinthe();
 
 		//Lancement du moteur graphique
-		GameEngineGraphical engine = new GameEngineGraphical(jeu, dessin, controleur);
+		GameEngineGraphical engine = new GameEngineGraphical(jeu, dessin, infos, controleur);
 		engine.run();
 	}
 

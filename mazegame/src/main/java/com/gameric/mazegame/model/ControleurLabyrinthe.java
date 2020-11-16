@@ -51,6 +51,14 @@ public class ControleurLabyrinthe implements GameController {
 		case 'S':
 			this.commandeEnCours = Cmd.DOWN;
 			break;
+		case 'e':
+		case 'E':
+			this.commandeEnCours = Cmd.PICKUP;
+			break;
+		case 'a':
+		case 'A':
+			this.commandeEnCours = Cmd.ATTACK;
+			break;
 		}
 	}
 
