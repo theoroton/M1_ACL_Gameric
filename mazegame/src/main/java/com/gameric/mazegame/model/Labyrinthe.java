@@ -166,6 +166,8 @@ public class Labyrinthe {
 				
 				//Pour chaque caractère
 				while (i < largeur) {
+					System.out.println(ligne);
+					System.out.println(ligne);
 					char c = caracts[i];
 					//Si le caractère est un X, on crée un Mur à cette position
 					if (c == 'X') {
@@ -179,7 +181,7 @@ public class Labyrinthe {
 					} else if (c == 'S') {
 						cas = new CaseSortie(i,j);
 						xSortie = i;
-						ySortie = j;				
+						ySortie = j;
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
@@ -191,8 +193,8 @@ public class Labyrinthe {
 					//Si le caractère est un M, on ajoute un monstre au labyrinthe à cette position
 					if (c == 'M') {
 						ajouterMonstre(i,j);
+						
 					}
-					
 					//On augmente de 1 le x
 					i++;
 				}
@@ -213,7 +215,7 @@ public class Labyrinthe {
 	 * la position de la case d'entrée
 	 */
 	private void placerPersonnage() {
-		personnage_laby.setPosition(xEntree, yEntree);	
+		personnage_laby.setPosition(xEntree, yEntree);
 	}
 
 	/**
@@ -234,6 +236,7 @@ public class Labyrinthe {
 	 * @param y : position Y de la case
 	 * @return true si la case est occupée, false sinon
 	 */
+
 	public boolean estCaseOccupee(int x, int y) {
 		boolean res = false;
 		
@@ -252,7 +255,7 @@ public class Labyrinthe {
 		
 		return res;
 	}
-
+	
 	/**
 	 * Méthode getter de l'attribut cases
 	 * @return tableau des cases du labyrinthe
@@ -261,7 +264,6 @@ public class Labyrinthe {
 		return cases;
 	}
 	
-
 	/**
 	 * Méthode getter de l'attribut largeur
 	 * @return largeur du labyrinthe
