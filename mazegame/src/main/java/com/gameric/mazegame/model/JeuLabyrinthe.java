@@ -25,7 +25,7 @@ public class JeuLabyrinthe implements Game {
 	 */
 	public JeuLabyrinthe() {
 		personnage = new Personnage();
-		labyrinthe = new Labyrinthe(personnage, "test_monstres.txt");
+		labyrinthe = new Labyrinthe(personnage, "niveau1.txt");
 	}
 
 	/**
@@ -55,6 +55,15 @@ public class JeuLabyrinthe implements Game {
 			//le personnage se déplace de 1 vers la droite (1,0)
 			personnage.deplacer(1, 0);
 			break;
+		//Commande PICKUP
+		case PICKUP:
+			//le personnage essaie de ramasser un objet
+			personnage.ramasserObjet();
+			break;
+		case ATTACK:
+			//le personnage attaque
+			personnage.attaquer();
+			break;
 		}
 
 		for (Monstre m : labyrinthe.getMonstres()) {
@@ -70,11 +79,9 @@ public class JeuLabyrinthe implements Game {
 		
 		//Si le personnage est sur la case de sortie, alors on a gagné
 		if (personnage.getPosition().getClass() == CaseSortie.class) {
-			System.out.println("VICTOIRE : vous avez atteint la sortie");
 			res = true;
 		//Si le personnage est mort, alors on a perdu
 		} else if (personnage.estMort()) {
-			System.out.println("DEFAITE : vous êtes mort");
 			res = true;
 		}	
 		
