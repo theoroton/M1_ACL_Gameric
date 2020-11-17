@@ -12,7 +12,7 @@ public class Monstre {
 	/**
 	 * La nombre des points de la vie du monstre
 	 */
-	private int pointsVie = 10;
+	protected int pointsVie = 10;
 	/**
 	 * La nombre des degats du monstre
 	 */
@@ -24,7 +24,7 @@ public class Monstre {
 	/**
 	 * La distance de l'attaque du monstre
 	 */
-	private int portee = 1;
+	protected int portee = 1;
 	/**
 	 * La direction de déplacement du monstre
 	 */
@@ -32,7 +32,7 @@ public class Monstre {
 	/**
 	 * Est-ce que le monstre a la possibilite de traverser les murs ou non
 	 */
-	//private boolean traverserMur = false;
+	private boolean traverserMur = false;
 	/**
 	 * La distance sur laquelle le monstre peux voir le Personnage
 	 */
@@ -130,16 +130,16 @@ public class Monstre {
 	 * Méthode qui retourne true si le Monstre peut traverser la mur
 	 * @return
 	 */
-	/*public boolean isTraverserMur() {
+	public boolean peutTraverserMur() {
 		return traverserMur;
-	}*/
+	}
 	/**
 	 * Méthode setter de l'attribut boolean traverserMur
 	 * @param traverserMur
 	 */
-	/*public void setTraverserMur(boolean traverserMur) {
+	public void setTraverserMur(boolean traverserMur) {
 		this.traverserMur = traverserMur;
-	}*/
+	}
 	/**
 	 * Méthode getter de l'attribut vision
 	 * @return La distance sur laquelle le monstre voit le Personnage
@@ -175,7 +175,8 @@ public class Monstre {
 	 */
 	public void deplacerMonstre() {
 		if(verifPersEnZone()) {
-			if(checkLineBresenham(this.getPos_x(), this.getPos_y(), labyrinthe.getPersonnage_laby().getPos_x(),labyrinthe.getPersonnage_laby().getPos_y())) {
+			if(checkLineBresenham(this.getPos_x(), this.getPos_y(), labyrinthe.getPersonnage_laby().getPos_x(),labyrinthe.getPersonnage_laby().getPos_y()) ||
+					this.peutTraverserMur()) {
 				strategie = new StrategieDetection();
 			}else {
 				strategie = new StrategiePatrouille();

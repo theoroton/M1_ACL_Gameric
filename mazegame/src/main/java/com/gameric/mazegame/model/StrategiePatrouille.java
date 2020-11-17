@@ -62,7 +62,7 @@ public class StrategiePatrouille implements StrategieDeplacement{
 		}
 		
 		if (verifierBordures(x,y,monstre.getLabyrinthe())) {
-			if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class)) {
+			if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class) || monstre.peutTraverserMur()) {
 				if(!(monstre.getLabyrinthe().estCaseOccupee(x, y))) {
 					monstre.setPosition(x, y);
 				} else if(monstre.getLabyrinthe().getCase(x,y) == p.getPosition()) {

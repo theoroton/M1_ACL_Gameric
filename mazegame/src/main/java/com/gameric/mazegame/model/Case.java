@@ -120,15 +120,15 @@ public abstract class Case {
 	 * @param l
 	 * @return un tableau des enfants
 	 */
-	public Case[] children(Labyrinthe l){		
+	public Case[] children(Labyrinthe l, Monstre m){		
 		List<Case> children = new ArrayList<Case>();
-		if (px > 0 && !l.estCaseOccupee(px-1, py) && l.getCase(px-1, py).getClass() != Mur.class) 
+		if (px > 0 && !l.estCaseOccupee(px-1, py) && (l.getCase(px-1, py).getClass() != Mur.class || m.peutTraverserMur())) 
 			children.add(l.getCase(px-1, py));
-		if (px < l.getHauteur() - 1 && !l.estCaseOccupee(px+1, py) && l.getCase(px+1, py).getClass() != Mur.class)
+		if (px < l.getHauteur() - 1 && !l.estCaseOccupee(px+1, py) && (l.getCase(px+1, py).getClass() != Mur.class || m.peutTraverserMur()))
 			children.add(l.getCase(px+1, py));
-		if (py > 0 && !l.estCaseOccupee(px, py-1) && l.getCase(px, py-1).getClass() != Mur.class)
+		if (py > 0 && !l.estCaseOccupee(px, py-1) && (l.getCase(px, py-1).getClass() != Mur.class || m.peutTraverserMur()))
 			children.add(l.getCase(px, py-1));
-		if (py < l.getLargeur() - 1 && !l.estCaseOccupee(px, py+1) && l.getCase(px, py+1).getClass() != Mur.class)
+		if (py < l.getLargeur() - 1 && !l.estCaseOccupee(px, py+1) && (l.getCase(px, py+1).getClass() != Mur.class || m.peutTraverserMur()))
 			children.add(l.getCase(px, py+1));
 		
 		return (Case[]) children.toArray(new Case[children.size()]);

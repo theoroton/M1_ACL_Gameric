@@ -36,7 +36,7 @@ public class StrategieDetection implements StrategieDeplacement {
 			setpersDernX(p.getPos_x());
 			setpersDernY(p.getPos_y());
 			setTraverse(new AStarTraversator(l.getCase(p.getPos_x(),p.getPos_y())));
-			getTraverse().traverse(l, l.getCase(m.getPos_x(),m.getPos_y()));
+			getTraverse().traverse(l, m, l.getCase(m.getPos_x(),m.getPos_y()));
 			// Si l'algorithme de recherche a trouvé le joueur, alors ajout de chemin à linked list
 			if(getTraverse().estButTrouve()) {
 				setCheminBut(getTraverse().getCheminBut());
@@ -114,7 +114,9 @@ public class StrategieDetection implements StrategieDeplacement {
 	 */
 	private boolean estBonDeplacement(int x, int y){
 		boolean res = false;
-		if(!p.estMort() && verifierBordures(x, y, m.getLabyrinthe()) && m.getLabyrinthe().getCase(x,y).getClass() != Mur.class) {
+
+		System.out.println("Peut traverser "+ m.peutTraverserMur());
+		if(!p.estMort() && verifierBordures(x, y, m.getLabyrinthe()) && (m.getLabyrinthe().getCase(x,y).getClass() != Mur.class || m.peutTraverserMur())) {
 			res = true;
 		}
 		return res;
