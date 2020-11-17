@@ -174,7 +174,7 @@ public class Monstre {
 	 * Méthode qui gère le déplacement de monstre
 	 */
 	public void deplacerMonstre() {
-		if(verifPersEnZone()) {
+		if(verifPersEnZone() && this.getClass() != Zombie.class) {
 			if(checkLineBresenham(this.getPos_x(), this.getPos_y(), labyrinthe.getPersonnage_laby().getPos_x(),labyrinthe.getPersonnage_laby().getPos_y()) ||
 					this.peutTraverserMur()) {
 				strategie = new StrategieDetection();
