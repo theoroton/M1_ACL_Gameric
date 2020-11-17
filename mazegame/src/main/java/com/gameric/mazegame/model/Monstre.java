@@ -24,7 +24,7 @@ public class Monstre {
 	/**
 	 * La distance de l'attaque du monstre
 	 */
-	//private int portee = 1;
+	private int portee = 1;
 	/**
 	 * La direction de déplacement du monstre
 	 */
@@ -36,7 +36,7 @@ public class Monstre {
 	/**
 	 * La distance sur laquelle le monstre peux voir le Personnage
 	 */
-	//private int vision = 3;
+	private int vision = 3;
 	/**
 	 * La position du monstre
 	 */
@@ -44,7 +44,7 @@ public class Monstre {
 	/**
 	 * La strategie de deplacement
 	 */
-	private StrategieDeplacement strategie = new DetectionJoueur();
+	private StrategieDeplacement strategie = new StrategieDetection();
 	/**
 	 * Le labyrinthe où se trouve le monstre
 	 */
@@ -102,16 +102,16 @@ public class Monstre {
 	 * Méthode getter de l'attribut portee
 	 * @return La distance de l'attaque du monstre
 	 */
-	/*public int getPortee() {
+	public int getPortee() {
 		return portee;
-	}*/
+	}
 	/**
 	 * Méthode setter de l'attribut portee
 	 * @param portee
 	 */
-	/*public void setPortee(int portee) {
+	public void setPortee(int portee) {
 		this.portee = portee;
-	}*/
+	}
 	/**
 	 * Méthode getter de l'attribut direction
 	 * @return La direction de déplacement du monstre
@@ -144,16 +144,16 @@ public class Monstre {
 	 * Méthode getter de l'attribut vision
 	 * @return La distance sur laquelle le monstre voit le Personnage
 	 */
-	/*public int getVision() {
+	public int getVision() {
 		return vision;
-	}*/
+	}
 	/**
 	 * Méthode setter de l'attribut vision
 	 * @param vision
 	 */
-	/*public void setVision(int vision) {
+	public void setVision(int vision) {
 		this.vision = vision;
-	}*/
+	}
 	
 	/**
 	 * Méthode getter de l'attribut position
@@ -176,12 +176,12 @@ public class Monstre {
 	public void deplacerMonstre() {
 		if(verifPersEnZone()) {
 			if(checkLineBresenham(this.getPos_x(), this.getPos_y(), labyrinthe.getPersonnage_laby().getPos_x(),labyrinthe.getPersonnage_laby().getPos_y())) {
-				strategie = new DetectionJoueur();
+				strategie = new StrategieDetection();
 			}else {
-				strategie = new Patrouille();
+				strategie = new StrategiePatrouille();
 			}
 		} else {
-			strategie = new Patrouille();
+			strategie = new StrategiePatrouille();
 		}
 		strategie.deplacer(this);
 	}
@@ -211,8 +211,8 @@ public class Monstre {
 	 * @return true si le Personnage est dans la zone de la vision du Monstre, sinon false
 	 */
 	private boolean verifPersEnZone() {
-		int x1, y1, x2, y2, x3, y3, x4, y4, vision = 4;
-		for(int k=1; k <= vision; k++) {
+		int x1, y1, x2, y2, x3, y3, x4, y4;
+		for(int k=1; k <= this.getVision(); k++) {
 			for(int i = 0; i < k; i++) {
 				//x,y
 				x1 = this.getPos_x()+k-i;

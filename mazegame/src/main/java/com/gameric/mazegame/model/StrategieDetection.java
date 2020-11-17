@@ -11,7 +11,7 @@ import com.gameric.mazegame.ai.AStarTraversator;
  *
  */
 
-public class DetectionJoueur implements StrategieDeplacement {
+public class StrategieDetection implements StrategieDeplacement {
 	private int persDernX;
 	private int persDernY;
 	private AStarTraversator traverse;
@@ -113,12 +113,25 @@ public class DetectionJoueur implements StrategieDeplacement {
 	 * @return true si le Monstre peut deplacer à la case prochaine, sinon false
 	 */
 	private boolean estBonDeplacement(int x, int y){
-		if(p.estMort()) return false;
-		if((x < 0) || (y < 0) || !(x <= l.getHauteur() - 1 && y <= l.getLargeur() - 1)) return false;
-		if(m.getLabyrinthe().getCase(x,y).getClass() == Mur.class) return false;
-		 else {
-			return true;
+		boolean res = false;
+		if(!p.estMort() && verifierBordures(x, y, m.getLabyrinthe()) && m.getLabyrinthe().getCase(x,y).getClass() != Mur.class) {
+			res = true;
 		}
+		return res;
+	}
+	/**
+	 * Méthode qui verifie si la case current n'est pas sur le bord du labyrinthe
+	 * @param x
+	 * @param y
+	 * @param l
+	 * @return true si la case current n'est pas sur le bord du labyrinthe, sinon false
+	 */
+	public boolean verifierBordures(int x, int y, Labyrinthe l) {
+		boolean res = false;
+		if ((x >= 0) && (x <= l.getLargeur()-1) && (y >= 0) && (y <= l.getHauteur()-1)){
+			res = true;
+		}
+		return res;
 	}
 	/**
 	 * Méthode qui gère le déplacement et la collision du Monstre avec Personnage

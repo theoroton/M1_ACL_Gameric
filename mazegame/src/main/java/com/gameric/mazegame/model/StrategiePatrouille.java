@@ -7,7 +7,7 @@ package com.gameric.mazegame.model;
  *
  */
 
-public class Patrouille implements StrategieDeplacement{
+public class StrategiePatrouille implements StrategieDeplacement{
 	/**
 	 * La direction de déplacement du monstre
 	 */
@@ -19,7 +19,7 @@ public class Patrouille implements StrategieDeplacement{
 	 * @param l
 	 * @return true si la case current n'est pas sur le bord du labyrinthe, sinon false
 	 */
-	public boolean checkBordures(int x, int y, Labyrinthe l) {
+	public boolean verifierBordures(int x, int y, Labyrinthe l) {
 		boolean res = false;
 		if ((x >= 0) && (x <= l.getLargeur()-1) && (y >= 0) && (y <= l.getHauteur()-1)){
 			res = true;
@@ -61,7 +61,7 @@ public class Patrouille implements StrategieDeplacement{
 				break;
 		}
 		
-		if (checkBordures(x,y,monstre.getLabyrinthe())) {
+		if (verifierBordures(x,y,monstre.getLabyrinthe())) {
 			if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class)) {
 				if(!(monstre.getLabyrinthe().estCaseOccupee(x, y))) {
 					monstre.setPosition(x, y);
