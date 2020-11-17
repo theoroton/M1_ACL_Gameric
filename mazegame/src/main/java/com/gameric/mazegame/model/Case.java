@@ -1,5 +1,6 @@
 package com.gameric.mazegame.model;
 
+import java.util.*;
 /**
  * 
  * @author Théo Roton
@@ -15,6 +16,15 @@ public abstract class Case {
 	 * Position en y de la case
 	 */
 	private int py;
+	
+	/**
+	 * Parent de la case
+	 */
+	private Case parent;
+	/**
+	 * Distance entre la case et le but
+	 */
+	private int distance;
 	
 	/**
 	 * Constructeur de la classe Case
@@ -57,6 +67,70 @@ public abstract class Case {
 	public void setPy(int py) {
 		this.py = py;
 	}
+
+	/**
+	 * Méthode getter de parent de la case
+	 * @return le parent de la case
+	 */
+	public Case getParent() {
+		return parent;
+	}
 	
+	/**Méthode setter de parent de la case
+	 * @param parent
+	 */
 	
+	public void setParent(Case parent) {
+		this.parent = parent;
+	}
+	
+	/**
+	 * Méthode getter de coût du chemin
+	 * @return le coût du chemin
+	 */
+	public int getCoutChemin() {
+		return distance;
+	}
+
+	/**
+	 * Méthode setter de coût du chemin
+	 * @param distance
+	 */
+	public void setCoutChemin(int distance) {
+		this.distance = distance;
+	}
+	
+	/**
+	 * Méthode qui calcule une estimation du coût minimum d'un case au but
+	 * @param but
+	 * @return coût minimum d'un case au but
+	 */
+	public int getHeuristic(Case but){
+		double px1 = this.px;
+		double py1 = this.py;
+		double px2 = but.getPx();
+		double py2 = but.getPy();
+		double result = Math.sqrt(Math.pow((px2 - px1), 2) + Math.pow((py2 - py1), 2));
+		if(result > 1 && result <2) result = 2;
+		return (int) result;
+	}
+	
+	/**
+	 * Méthode qui construit un tableau des enfants pour un case
+	 * @param l
+	 * @return un tableau des enfants
+	 */
+	public Case[] children(Labyrinthe l){		
+		List<Case> children = new ArrayList<Case>();
+		if (px > 0 && !l.estCaseOccupee(px-1, py) && l.getCase(px-1, py).getClass() != Mur.class) 
+			children.add(l.getCase(px-1, py));
+		if (px < l.getHauteur() - 1 && !l.estCaseOccupee(px+1, py) && l.getCase(px+1, py).getClass() != Mur.class)
+			children.add(l.getCase(px+1, py));
+		if (py > 0 && !l.estCaseOccupee(px, py-1) && l.getCase(px, py-1).getClass() != Mur.class)
+			children.add(l.getCase(px, py-1));
+		if (py < l.getLargeur() - 1 && !l.estCaseOccupee(px, py+1) && l.getCase(px, py+1).getClass() != Mur.class)
+			children.add(l.getCase(px, py+1));
+		
+		return (Case[]) children.toArray(new Case[children.size()]);
+	}
 }

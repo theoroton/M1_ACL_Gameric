@@ -1,7 +1,5 @@
 package com.gameric.mazegame.model;
 
-import com.gameric.mazegame.engine.Cmd;
-
 /**
  * 
  * @author Anna Sushko
@@ -10,12 +8,17 @@ import com.gameric.mazegame.engine.Cmd;
  */
 
 public class Patrouille implements StrategieDeplacement{
-	//Monstre m;
-	//Labyrinthe l;
-	String direction;
-	//Case newPosition;
-	//et il faut récupérer une case du labyrinthe plutôt que de changer le x et le y
-	
+	/**
+	 * La direction de déplacement du monstre
+	 */
+	private String direction;	
+	/**
+	 * Méthode qui verifie si la case current n'est pas sur le bord du labyrinthe
+	 * @param x
+	 * @param y
+	 * @param l
+	 * @return true si la case current n'est pas sur le bord du labyrinthe, sinon false
+	 */
 	public boolean checkBordures(int x, int y, Labyrinthe l) {
 		boolean res = false;
 		if ((x >= 0) && (x <= l.getLargeur()-1) && (y >= 0) && (y <= l.getHauteur()-1)){
@@ -24,6 +27,9 @@ public class Patrouille implements StrategieDeplacement{
 		return res;
 	}
 	
+	/**
+	 * Méthode qui gère le deplacement aleatoire d'un monstre
+	 */
 	@Override
 	public void deplacer(Monstre monstre) {
 		Personnage p = monstre.getLabyrinthe().getPersonnage_laby();
@@ -31,6 +37,7 @@ public class Patrouille implements StrategieDeplacement{
 		direction = choix[(int)(4 * Math.random())];
 		int x = monstre.getPos_x();
 		int y = monstre.getPos_y();
+		
 		switch (direction) {
 			//Commande UP
 			case "UP":
