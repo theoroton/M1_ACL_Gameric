@@ -45,7 +45,7 @@ public class AStarTraversator {
 		while(!open.isEmpty()){
 			case1 = open.poll();
 			closed.add(case1);
-			if(case1.getHeuristic(but) == 1 && (case1.getPx() == but.getPx() || case1.getPy() == but.getPy())) {
+			if(case1.getHeuristic(but) == 1) {
 				setButTrouve(true);
 		        setCheminBut(case1);
 				break;

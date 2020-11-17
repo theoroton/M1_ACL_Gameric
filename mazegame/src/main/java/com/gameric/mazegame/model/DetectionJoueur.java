@@ -101,6 +101,9 @@ public class DetectionJoueur implements StrategieDeplacement {
 				}
 			}
 		}
+		if(m.getPosition().getHeuristic(p.getPosition())==1 && (m.getPos_x() == p.getPos_x() || m.getPos_y() == p.getPos_y()) ) {
+			p.setPointsVie(p.getPointsVie() - m.getDegats());
+		}
 	}
 	
 	/**
