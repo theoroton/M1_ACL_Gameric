@@ -32,20 +32,34 @@ public class JeuLabyrinthe implements Game {
 		enCours = false;
 	}
 	
+	/**
+	 * Méthode qui permet de sélectionner la classe choisie par le joueur
+	 * @param classe : classe choisie
+	 */
 	public void choixClasse(String classe) {
 		switch (classe) {
+		//Si le joueur a choisi Archer
 		case "archer":
 			personnage = new Archer();
 			break;
+		//Si le joueur a choisi Mage
 		case "mage":
 			personnage = new Mage();
 			break;
+		//Si le joueur a choisi Epeiste
 		case "epeiste":
+			personnage = new Epeiste();
+			break;
+		//Si la classe n'est pas reconnue, on crée un épeiste pour le personnage
+		default:
 			personnage = new Epeiste();
 			break;
 		}
 	}
 	
+	/**
+	 * Méthode qui permet de lancer le jeu
+	 */
 	public void lancerJeu() {
 		labyrinthe = new Labyrinthe(personnage, "niveau1.txt");
 	}

@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.gameric.mazegame.model.Archer;
+import com.gameric.mazegame.model.Epeiste;
+import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.Labyrinthe;
 import com.gameric.mazegame.model.Personnage;
 
@@ -28,14 +31,14 @@ public class TestPersonnage {
 		//Positionnement du personnage à côté d'une case piégée
 		personnage.setPosition(6, 2);
 		
-		//On teste si le personnage a 20 points de vie au début
-		assertEquals("Le personnage ne devrait pas encore avoir perdu de points de vie", 20, personnage.getPointsVie());
+		//On teste si le personnage a 30 points de vie au début
+		assertEquals("Le personnage ne devrait pas encore avoir perdu de points de vie", 30, personnage.getPointsVie());
 		
 		//Déplacement du personnage sur la case piégée
 		personnage.deplacer(1, 0);
 		
-		//On teste si le personnage a subi des dégâts et a 16 points de vie
-		assertEquals("Le personnage devrait avoir perdu 4 points de vie", 16, personnage.getPointsVie());
+		//On teste si le personnage a subi des dégâts et a 26 points de vie
+		assertEquals("Le personnage devrait avoir perdu 4 points de vie", 26, personnage.getPointsVie());
 	}
 	
 	
@@ -53,24 +56,24 @@ public class TestPersonnage {
 		//Positionnement du personnage à côté d'une case piégée
 		personnage.setPosition(6, 2);
 		
-		//On teste si le personnage a 20 points de vie au début
-		assertEquals("Le personnage ne devrait pas encore avoir perdu de points de vie", 20, personnage.getPointsVie());
+		//On teste si le personnage a 30 points de vie au début
+		assertEquals("Le personnage ne devrait pas encore avoir perdu de points de vie", 30, personnage.getPointsVie());
 		
 		//Déplacement du personnage sur la case piégée
 		personnage.deplacer(1, 0);
 		//Déplacement du personnage sur la case à droite
 		personnage.deplacer(1, 0);
 		
-		//On teste si le personnage a subi des dégâts et a 16 points de vie
-		assertEquals("Le personnage devrait avoir perdu 4 points de vie", 16, personnage.getPointsVie());
+		//On teste si le personnage a subi des dégâts et a 26 points de vie
+		assertEquals("Le personnage devrait avoir perdu 4 points de vie", 26, personnage.getPointsVie());
 		
 		//Déplacement du personnage sur la case piégée
 		personnage.deplacer(-1, 0);
 		//Déplacement du personnage sur la case à gauche
 		personnage.deplacer(-1, 0);
 		
-		//On teste si le personnage a subi des dégâts et a 12 points de vie
-		assertEquals("Le personnage devrait avoir encore perdu 4 points de vie", 12, personnage.getPointsVie());
+		//On teste si le personnage a subi des dégâts et a 22 points de vie
+		assertEquals("Le personnage devrait avoir encore perdu 4 points de vie", 22, personnage.getPointsVie());
 	}
 	
 	
@@ -103,5 +106,35 @@ public class TestPersonnage {
 		assertEquals("Le personnage devrait ne plus avoir de points de vie", 0, personnage.getPointsVie());
 		//On teste si le personnage est mort
 		assertEquals("Le personnage devrait être mort", true, personnage.estMort());
+	}
+	
+	
+	/**
+	 * Test du choix de la classe pour une classe existante
+	 */
+	@Test
+	public void testChoixClasse01() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//Choix de la classe
+		jeu.choixClasse("archer");
+		
+		//La classe du joueur devrait être : Archer
+		assertEquals("La classe du joueur devrait être un archer", Archer.class, jeu.getPersonnage().getClass());
+	}
+	
+	
+	/**
+	 * Test du choix de la classe pour une classe inexistante
+	 */
+	@Test
+	public void testChoixClasse02() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//Choix de la classe
+		jeu.choixClasse("barbare");
+		
+		//La classe du joueur devrait être la classe par défaut : Epeiste
+		assertEquals("La classe du joueur devrait être un épeiste", Epeiste.class, jeu.getPersonnage().getClass());
 	}
 }
