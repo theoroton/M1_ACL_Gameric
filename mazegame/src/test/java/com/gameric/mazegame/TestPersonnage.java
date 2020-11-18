@@ -24,7 +24,7 @@ public class TestPersonnage {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		//Positionnement du personnage à côté d'une case piégée
 		personnage.setPosition(6, 2);
 		
@@ -49,7 +49,7 @@ public class TestPersonnage {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		//Positionnement du personnage à côté d'une case piégée
 		personnage.setPosition(6, 2);
 		
@@ -85,7 +85,7 @@ public class TestPersonnage {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		//Positionnement du personnage à côté d'une case piégée
 		personnage.setPosition(6, 2);
 		//On met les points de vie du personnage à 2

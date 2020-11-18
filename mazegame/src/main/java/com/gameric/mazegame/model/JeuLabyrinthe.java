@@ -19,13 +19,17 @@ public class JeuLabyrinthe implements Game {
 	 */
 	private Personnage personnage;
 	
+	private final static int NIVEAU_MAX = 3;
+	private int niveau;
+	
 	/**
 	 * Constructeur du jeu
 	 * On initialise un labyrinthe et le personnage du joueur
 	 */
 	public JeuLabyrinthe() {
 		personnage = new Personnage();
-		labyrinthe = new Labyrinthe(personnage, "niveau1.txt");
+		niveau = 1;
+		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau3.txt");
 	}
 
 	/**
@@ -79,13 +83,23 @@ public class JeuLabyrinthe implements Game {
 		
 		//Si le personnage est sur la case de sortie, alors on a gagné
 		if (personnage.getPosition().getClass() == CaseSortie.class) {
-			res = true;
+			if (niveau == NIVEAU_MAX) {
+				res = true;
+			} else {
+				niveauSuivant();
+			}
+			
 		//Si le personnage est mort, alors on a perdu
 		} else if (personnage.estMort()) {
 			res = true;
 		}	
 		
 		return res;
+	}
+
+	private void niveauSuivant() {
+		niveau++;
+		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");	
 	}
 
 	/**

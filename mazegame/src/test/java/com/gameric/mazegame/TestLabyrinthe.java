@@ -109,7 +109,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");	
 		
 		//Test de la taille du labyrinthe (attendue : 12 * 12)
 		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getLargeur());
@@ -150,7 +150,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_monstres.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_monstres.txt");	
 		
 		//Test de la taille du labyrinthe (attendue : 12 * 12)
 		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getLargeur());
@@ -191,7 +191,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");	
 		
 		//Test si la case du joueur est occupée (attendu : true)
 		assertEquals("La case devrait être occupée", true, labyrinthe.estCaseOccupee(0, 5));
@@ -208,7 +208,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_monstres.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_monstres.txt");	
 		
 		//Test si la case du joueur est occupée (attendu : true)
 		assertEquals("La case devrait être occupée", true, labyrinthe.estCaseOccupee(0, 5));
@@ -227,7 +227,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
 		//Test si la case en position (7,3) est une case piégée (attendu : true)
 		assertEquals("La case devrait être piégée", CasePiegee.class, labyrinthe.getCase(7, 2).getClass());
@@ -246,7 +246,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
 		//Test si la case en position (9,5) est une case objet (attendu : true)
 		assertEquals("La case devrait être une case objet", CaseObjet.class, labyrinthe.getCase(9, 5).getClass());
@@ -264,7 +264,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
 		//Test si la case en position (9,5) possède bien une arme (attendu : true)
 		assertEquals("L'objet de cette case devrait être une arme", Arme.class, ((CaseObjet) labyrinthe.getCase(9, 5)).getObjet().getClass());
