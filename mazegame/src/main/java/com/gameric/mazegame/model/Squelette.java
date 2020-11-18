@@ -11,6 +11,12 @@ public class Squelette extends Monstre {
 
 	static final int VIE_MAX = 10;
 	
+	/**
+	 * Constructeur de la classe Squelette
+	 * @param x
+	 * @param y
+	 * @param l
+	 */
 	public Squelette(int x, int y, Labyrinthe l) {
 		super(x, y, l);
 		setPortee(3);

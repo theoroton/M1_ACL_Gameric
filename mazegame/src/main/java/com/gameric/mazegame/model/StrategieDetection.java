@@ -102,7 +102,6 @@ public class StrategieDetection implements StrategieDeplacement {
 			}
 		}
 		if(m.getPosition().getHeuristic(p.getPosition()) <= m.getPortee()) {
-			System.out.println("Here");
 			m.donnerDegats();
 		}
 	}

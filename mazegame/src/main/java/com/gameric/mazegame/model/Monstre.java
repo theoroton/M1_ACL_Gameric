@@ -18,17 +18,9 @@ public class Monstre {
 	 */
 	private int degats = 2;
 	/**
-	 * La vitesse de déplacement du monstre
-	 */
-	//private int vitesse = 200;
-	/**
 	 * La distance de l'attaque du monstre
 	 */
 	protected int portee = 1;
-	/**
-	 * La direction de déplacement du monstre
-	 */
-	//private String direction;
 	/**
 	 * Est-ce que le monstre a la possibilite de traverser les murs ou non
 	 */
@@ -85,20 +77,6 @@ public class Monstre {
 		this.degats = degats;
 	}
 	/**
-	 * Méthode getter de l'attribut vitesse
-	 * @return La vitesse de déplacement du monstre
-	 */
-	/*public int getVitesse() {
-		return vitesse;
-	}
-	/**
-	 * Méthode setter de l'attribut vitesse
-	 * @param vitesse
-	 */
-	/*public void setVitesse(int vitesse) {
-		this.vitesse = vitesse;
-	}*/
-	/**
 	 * Méthode getter de l'attribut portee
 	 * @return La distance de l'attaque du monstre
 	 */
@@ -112,20 +90,6 @@ public class Monstre {
 	public void setPortee(int portee) {
 		this.portee = portee;
 	}
-	/**
-	 * Méthode getter de l'attribut direction
-	 * @return La direction de déplacement du monstre
-	 */
-	/*public String getDirection() {
-		return direction;
-	}*/
-	/**
-	 * Méthode setter de l'attribut direction
-	 * @param direction
-	 */
-	/*public void setDirection(String direction) {
-		this.direction = direction;
-	}*/
 	/**
 	 * Méthode qui retourne true si le Monstre peut traverser la mur
 	 * @return
@@ -240,11 +204,6 @@ public class Monstre {
 	 * @return true si le Personnage et le Monstre sont sur la meme case, sinon false
 	 */
 	private boolean memeCasePM(int x, int y) {
-		/*if(x == labyrinthe.getPersonnage_laby().getPos_x() && y ==labyrinthe.getPersonnage_laby().getPos_y()) {
-			return true;
-		} else {
-			return false;
-		}*/
 		return x == labyrinthe.getPersonnage_laby().getPos_x() && y ==labyrinthe.getPersonnage_laby().getPos_y();
 	}
 	/**
@@ -342,27 +301,9 @@ public class Monstre {
 		return labyrinthe.getCase(x, y).getClass() != Mur.class;
 	}
 	
-	public boolean surBordPortee(int portee) {
-		int x1, y1, x2, y2, x3, y3, x4, y4;
-		for(int i = 0; i < portee; i++) {
-			//x,y
-			x1 = this.getPos_x()+portee-i;
-			y1 = this.getPos_y()+i;
-			//-x,-y
-			x2 = this.getPos_x()-portee+i;
-			y2 = this.getPos_y()-i;
-			//-x,y
-			x3 = this.getPos_x()-i;
-			y3 = this.getPos_y()+portee-i;
-			//x,-y
-			x4 = this.getPos_x()+i;
-			y4 = this.getPos_y()-portee+i;
-			if(memeCasePM(x1,y1) || memeCasePM(x3,y3) || memeCasePM(x2,y2) || memeCasePM(x4,y4))
-				return true;
-		}
-		return false;
-	}
-	
+	/**
+	 * Méthode qui donne le degats du Monstre à Personnage 
+	 */
 	public void donnerDegats() {
 		this.getLabyrinthe().getPersonnage_laby().setPointsVie(this.getLabyrinthe().getPersonnage_laby().getPointsVie() - this.getDegats());
 	}

@@ -11,6 +11,12 @@ public class Zombie extends Monstre {
 	
 	static final int VIE_MAX = 30;
 	
+	/**
+	 * Constructeur de la classe Zombie
+	 * @param x
+	 * @param y
+	 * @param l
+	 */
 	public Zombie(int x, int y, Labyrinthe l) {
 		super(x, y, l);
 		setPortee(1);
