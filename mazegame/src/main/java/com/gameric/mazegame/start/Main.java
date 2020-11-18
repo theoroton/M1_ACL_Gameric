@@ -2,11 +2,10 @@ package com.gameric.mazegame.start;
 
 import com.gameric.mazegame.engine.GameEngineGraphical;
 import com.gameric.mazegame.model.ControleurLabyrinthe;
-import com.gameric.mazegame.model.DessinLabyrinthe;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 
 /**
- * Lancement du moteur avec le jeu
+ * Lancement du jeu
  */
 public class Main {
 
@@ -14,12 +13,11 @@ public class Main {
 
 		//Création du jeu
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
-		DessinLabyrinthe dessin = new DessinLabyrinthe(jeu);
-		InfosLabyrinthe infos = new InfosLabyrinthe(jeu);
 		ControleurLabyrinthe controleur = new ControleurLabyrinthe();
 
-		//Lancement du moteur graphique
-		GameEngineGraphical engine = new GameEngineGraphical(jeu, dessin, infos, controleur);
+		//Création du moteur de jeu
+		GameEngineGraphical engine = new GameEngineGraphical(jeu, controleur);
+		//Lancement du moteur
 		engine.run();
 	}
 

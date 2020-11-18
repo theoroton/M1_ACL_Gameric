@@ -1,6 +1,7 @@
 package com.gameric.mazegame;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -10,6 +11,7 @@ import com.gameric.mazegame.model.CaseObjet;
 import com.gameric.mazegame.model.CasePiegee;
 import com.gameric.mazegame.model.CaseSortie;
 import com.gameric.mazegame.model.CaseVide;
+import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.Labyrinthe;
 import com.gameric.mazegame.model.Personnage;
 import com.gameric.mazegame.model.Potion;
@@ -109,7 +111,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");	
 		
 		//Test de la taille du labyrinthe (attendue : 12 * 12)
 		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getLargeur());
@@ -150,7 +152,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_monstres.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_monstres.txt");	
 		
 		//Test de la taille du labyrinthe (attendue : 12 * 12)
 		assertEquals("La largeur du labyrinthe n'est pas celle attendue", 12, labyrinthe.getLargeur());
@@ -191,7 +193,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");	
 		
 		//Test si la case du joueur est occupée (attendu : true)
 		assertEquals("La case devrait être occupée", true, labyrinthe.estCaseOccupee(0, 5));
@@ -208,7 +210,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_monstres.txt");	
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_monstres.txt");	
 		
 		//Test si la case du joueur est occupée (attendu : true)
 		assertEquals("La case devrait être occupée", true, labyrinthe.estCaseOccupee(0, 5));
@@ -227,7 +229,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
 		//Test si la case en position (7,3) est une case piégée (attendu : true)
 		assertEquals("La case devrait être piégée", CasePiegee.class, labyrinthe.getCase(7, 2).getClass());
@@ -246,7 +248,7 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
 		//Test si la case en position (9,5) est une case objet (attendu : true)
 		assertEquals("La case devrait être une case objet", CaseObjet.class, labyrinthe.getCase(9, 5).getClass());
@@ -256,6 +258,7 @@ public class TestLabyrinthe {
 		assertEquals("La case ne devrait pas être une case objet", CaseVide.class, labyrinthe.getCase(3, 6).getClass());	
 	}
 	
+	
 	/**
 	 * Test des objets sur les cases objets.
 	 */
@@ -264,11 +267,93 @@ public class TestLabyrinthe {
 		//Création du personnage
 		Personnage personnage = new Personnage();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test_cases_effets.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
 		//Test si la case en position (9,5) possède bien une arme (attendu : true)
 		assertEquals("L'objet de cette case devrait être une arme", Arme.class, ((CaseObjet) labyrinthe.getCase(9, 5)).getObjet().getClass());
 		//Test si la case en position (4,9) possède bien une potion (attendu : true)
 		assertEquals("L'objet de cette case devrait être une potion", Potion.class, ((CaseObjet) labyrinthe.getCase(4, 9)).getObjet().getClass());
+	}
+	
+	
+	/**
+	 * Test du passage au niveau suivant du jeu.
+	 * On test le passage du jeu du niveau 1 au niveau 2.
+	 */
+	@Test
+	public void testNiveauSuivant01() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		
+		//Test si le niveau est bien de 1
+		assertEquals("Le niveau courant devrait être 1", 1, jeu.getNiveau());
+		
+		//Placement du personnage devant la sortie
+		jeu.getPersonnage().setPosition(14, 13);
+		//Déplacement sur la sortie
+		jeu.getPersonnage().deplacer(1, 0);
+		
+		//On regarde si le jeu est fini
+		assertTrue("Le jeu ne devrait pas être encore fini", !jeu.isFinished());	
+		//Test si le niveau est bien de 2
+		assertEquals("Le niveau courant devrait être 2", 2, jeu.getNiveau());
+	}
+	
+	
+	/**
+	 * Test du passage au niveau suivant du jeu si on est au dernier niveau.
+	 * On test le passage du jeu au niveau 3.
+	 */
+	@Test
+	public void testNiveauSuivant02() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//On met le jeu au niveau 3
+		jeu.setNiveau(3);
+		
+		//Test si le niveau est bien de 3
+		assertEquals("Le niveau courant devrait être 3", 3, jeu.getNiveau());
+		
+		//Placement du personnage devant la sortie
+		jeu.getPersonnage().setPosition(1, 13);
+		//Déplacement sur la sortie
+		jeu.getPersonnage().deplacer(-1, 0);
+		
+		//On regarde si le jeu est fini
+		assertTrue("Le jeu devrait être fini", jeu.isFinished());	
+		//Test si le niveau est toujours de 3 car on a fini
+		assertEquals("Le niveau courant devrait être 3", 3, jeu.getNiveau());
+	}
+	
+	
+	/**
+	 * Test de la méthode setNiveau.
+	 * Test pour un niveau existant.
+	 */
+	@Test
+	public void testSetNiveau01() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//On met le jeu au niveau 2
+		jeu.setNiveau(2);
+		
+		//Test si le niveau est bien de 2
+		assertEquals("Le niveau courant devrait être 2", 2, jeu.getNiveau());
+	}
+	
+	
+	/**
+	 * Test de la méthode setNiveau.
+	 * Test pour un niveau inexistant.
+	 */
+	@Test
+	public void testSetNiveau02() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//On met le jeu au niveau 10
+		jeu.setNiveau(10);
+		
+		//Test si le niveau est bien de 1
+		assertEquals("Le niveau courant devrait être 1", 1, jeu.getNiveau());
 	}
 }

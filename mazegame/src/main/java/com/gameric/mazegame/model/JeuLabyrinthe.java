@@ -20,11 +20,56 @@ public class JeuLabyrinthe implements Game {
 	private Personnage personnage;
 	
 	/**
+	 * Attribut qui permet d'indiquer si le jeu est en cours;
+	 */
+	private boolean enCours;
+	
+	/**
+	 * Niveau max du jeu
+	 */
+	private final static int NIVEAU_MAX = 3;
+	/**
+	 * Niveau courant du jeu
+	 */
+	private int niveau;
+	
+	/**
 	 * Constructeur du jeu
 	 * On initialise un labyrinthe et le personnage du joueur
 	 */
 	public JeuLabyrinthe() {
-		personnage = new Personnage();
+		enCours = false;
+	}
+	
+	/**
+	 * Méthode qui permet de sélectionner la classe choisie par le joueur
+	 * @param classe : classe choisie
+	 */
+	public void choixClasse(String classe) {
+		switch (classe) {
+		//Si le joueur a choisi Archer
+		case "archer":
+			personnage = new Archer();
+			break;
+		//Si le joueur a choisi Mage
+		case "mage":
+			personnage = new Mage();
+			break;
+		//Si le joueur a choisi Epeiste
+		case "epeiste":
+			personnage = new Epeiste();
+			break;
+		//Si la classe n'est pas reconnue, on crée un épeiste pour le personnage
+		default:
+			personnage = new Epeiste();
+			break;
+		}
+	}
+	
+	/**
+	 * Méthode qui permet de lancer le jeu
+	 */
+	public void lancerJeu() {
 		labyrinthe = new Labyrinthe(personnage, "niveau1.txt");
 	}
 
@@ -77,15 +122,30 @@ public class JeuLabyrinthe implements Game {
 	public boolean isFinished() {
 		boolean res = false;
 		
-		//Si le personnage est sur la case de sortie, alors on a gagné
+		//Si le personnage est sur la case de sortie
 		if (personnage.getPosition().getClass() == CaseSortie.class) {
-			res = true;
+			//Si c'est le dernier niveau, alors on a gagné
+			if (niveau == NIVEAU_MAX) {
+				res = true;
+			//Sinon au passe au niveau suivant
+			} else {
+				niveauSuivant();
+			}
+			
 		//Si le personnage est mort, alors on a perdu
 		} else if (personnage.estMort()) {
 			res = true;
 		}	
 		
 		return res;
+	}
+
+	/**
+	 * Méthode qui permet de passer au niveau suivant du jeu.
+	 */
+	private void niveauSuivant() {
+		niveau++;
+		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");	
 	}
 
 	/**
@@ -102,6 +162,46 @@ public class JeuLabyrinthe implements Game {
 	 */
 	public Personnage getPersonnage() {
 		return personnage;
-	}	
+	}
+	
+	/**
+	 * Méthode getter de l'attribut enCours
+	 * @return true si le jeu est en cours
+	 */
+	public boolean isEnCours() {
+		return enCours;
+	}
 
+	/**
+	 * Méthode setter de l'attribut enCours
+	 * @param b : booléen qui permet de changer l'état du jeu.
+	 */
+	public void setEnCours(boolean b) {
+		this.enCours = b;
+	}
+	
+	/**
+	 * Méthode getter de l'attribut niveau
+	 * @return niveau courant du jeu
+	 */
+	public int getNiveau() {
+		return niveau;
+	}
+
+	/**
+	 * Méthode setter de l'attribut niveau. 
+	 * La méthode place aussi le jeu au niveau souhaité (si il existe).
+	 * @param n : niveau du labyrinthe
+	 */
+	public void setNiveau(int n) {
+		//Si le niveau est compris entre 1 et le niveau max, on met le jeu au niveau n
+		if (1 <= n && n <= NIVEAU_MAX) {
+			niveau = n;
+		//Sinon on le met au premier niveau
+		} else {
+			niveau = 1;
+		}		
+		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
+	}	
+	
 }

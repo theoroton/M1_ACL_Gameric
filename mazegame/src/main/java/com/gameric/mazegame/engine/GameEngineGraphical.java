@@ -1,76 +1,59 @@
 package com.gameric.mazegame.engine;
 
+import com.gameric.mazegame.graphiques.CardLayoutJeu;
+import com.gameric.mazegame.model.ControleurLabyrinthe;
+import com.gameric.mazegame.model.JeuLabyrinthe;
+
 /**
- * @author Horatiu Cirstea, Vincent Thomas
- *
- * moteur de game generique.
- * On lui passe un game et un afficheur et il permet d'executer un game.
+ * 
+ * @author Théo Roton
+ * Moteur du jeu
  */
 public class GameEngineGraphical {
 
-	/**
-	 * le game a executer
-	 */
-	private Game game;
+	//Jeu 
+	private JeuLabyrinthe jeu;
 
-	/**
-	 * Afficheur du jeu
-	 */
-	private GamePainter gamePainter;
+	//Controleur du jeu
+	private ControleurLabyrinthe controleur;
 	
-	/**
-	 * Afficheur des informations du jeu
-	 */
-	private GamePainter infoPainter;
+	//CardLayout pour l'affichage
+	private CardLayoutJeu cardLayout;
 
-	/**
-	 * le controlleur a utiliser pour recuperer les commandes
-	 */
-	private GameController gameController;
-
-	/**
-	 * l'interface graphique
-	 */
+	//Interface graphique du jeu
 	private GraphicalInterface gui;
 
 	/**
-	 * construit un moteur
-	 * 
-	 * @param game
-	 *            game a lancer
-	 * @param gamePainter
-	 *            afficheur du jeu à utiliser
-	 * @parem gamePainter
-	 * 			  afficheur des informations à utiliser
-	 * @param gameController
-	 *            controlleur a utiliser
-	 *            
+	 * Constructeur du moteur du jeu
+	 * @param j : jeu
+	 * @param c : controleur du jeu
 	 */
-	public GameEngineGraphical(Game game, GamePainter gamePainter, GamePainter infoPainter, GameController gameController) {
-		// creation du game
-		this.game = game;
-		this.gamePainter = gamePainter;
-		this.infoPainter = infoPainter;
-		this.gameController = gameController;
+	public GameEngineGraphical(JeuLabyrinthe j, ControleurLabyrinthe c) {
+		this.jeu = j;
+		this.controleur = c;
+		//Création du CardLayout
+		this.cardLayout = new CardLayoutJeu(jeu, controleur);
+		//Création de l'interface graphique
+		this.gui = new GraphicalInterface(this.cardLayout);
 	}
 
 	/**
-	 * permet de lancer le game
+	 * Méthode qui lance le moteur de jeu
+	 * @throws InterruptedException
 	 */
 	public void run() throws InterruptedException {
-
-		// creation de l'interface graphique
-		this.gui = new GraphicalInterface(this.gamePainter, this.infoPainter, this.gameController);
-
-		// boucle de game
-		while (!this.game.isFinished()) {
-			// demande controle utilisateur
-			Cmd c = this.gameController.getCommand();
-			// fait evoluer le game
-			this.game.evolve(c);
-			// affiche le game
+		//Tant que le jeu n'est pas lancé, on attends.
+		while (!jeu.isEnCours()) { Thread.sleep(100);}
+				
+		//Une fois que le jeu est lancé, on exécute la boucle du jeu
+		while (!this.jeu.isFinished()) {
+			//Récupère la commande de l'utilisateur
+			Cmd c = this.controleur.getCommand();
+			//Fait evoluer le jeu
+			this.jeu.evolve(c);
+			//Met à jour l'affichage du jeu
 			this.gui.paint();
-			// met en attente
+			//Met en attente
 			Thread.sleep(150);
 		}
 	}

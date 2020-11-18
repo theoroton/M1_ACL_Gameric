@@ -9,8 +9,10 @@ public class Personnage{
 	
 	//Attributs
 	
-	int pointsVie = 20;	//Points de vie du personnage
-	int degats = 10;		//Dégats du personnage	
+	int pointsVie = 30;	//Points de vie courants du personnage
+	int vieMax = 30; 	//Points de vie max du personnage
+	int degats  = 10;		//Dégats du personnage	
+	int portee = 1;		//Portée de l'attaque du personnage
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
 	
@@ -105,10 +107,13 @@ public class Personnage{
 	public void setPointsVie(int pointsVie) {
 		if (pointsVie < 0) {
 			this.pointsVie = 0;
-		} else if (pointsVie > 20) {
-			this.pointsVie = 20;
 		} else {
-			this.pointsVie = pointsVie;	
+			if(pointsVie > vieMax){
+				this.pointsVie = vieMax;
+			}
+			else{
+				this.pointsVie = pointsVie;	
+			}
 		}	
 	}
 	
@@ -180,6 +185,7 @@ public class Personnage{
 		if(testMonstre(x,y))	return getMonstre(x,y);
 		
 		return null;
+
 	}
 	
 	/**
