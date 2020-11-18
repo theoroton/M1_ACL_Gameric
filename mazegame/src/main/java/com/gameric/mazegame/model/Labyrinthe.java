@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -271,8 +273,11 @@ public class Labyrinthe {
 	 * @param y : position en Y du monstre
 	 */
 	private void ajouterMonstre(int x, int y) {
+		List<Monstre> listClasses = Arrays.asList(new Fantome(x,y, this), new Zombie(x,y, this), new Squelette(x,y, this));
+		Random rand = new Random();
+		Monstre choose = listClasses.get(rand.nextInt(listClasses.size()));
 		//Création du monstre à la position donnée
-		Monstre m = new Monstre(x,y, this);
+		Monstre m = choose;
 		//Ajout du monstre à la liste des monstres du labyrinthe
 		monstres.add(m);
 	}

@@ -28,7 +28,7 @@ public class AStarTraversator {
 	 * @param l
 	 * @param case1
 	 */
-	public void traverse(Labyrinthe l, Case case1){
+	public void traverse(Labyrinthe l, Monstre m, Case case1){
 		for (int i = 0; i < l.getLargeur(); i++){
 			for (int j = 0; j < l.getHauteur(); j++){
 				l.getCase(i,j).setParent(null);
@@ -52,7 +52,7 @@ public class AStarTraversator {
 			}
 			
 			//Traiter les voisins de la case
-			Case[] children = case1.children(l);
+			Case[] children = case1.children(l, m);
 			for (int i = 0; i < children.length; i++) {
 				Case child = children[i];
 				int score = case1.getCoutChemin() + 1 + child.getHeuristic(but);

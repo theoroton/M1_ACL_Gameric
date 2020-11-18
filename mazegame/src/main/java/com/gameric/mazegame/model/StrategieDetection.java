@@ -11,7 +11,7 @@ import com.gameric.mazegame.ai.AStarTraversator;
  *
  */
 
-public class DetectionJoueur implements StrategieDeplacement {
+public class StrategieDetection implements StrategieDeplacement {
 	private int persDernX;
 	private int persDernY;
 	private AStarTraversator traverse;
@@ -36,7 +36,7 @@ public class DetectionJoueur implements StrategieDeplacement {
 			setpersDernX(p.getPos_x());
 			setpersDernY(p.getPos_y());
 			setTraverse(new AStarTraversator(l.getCase(p.getPos_x(),p.getPos_y())));
-			getTraverse().traverse(l, l.getCase(m.getPos_x(),m.getPos_y()));
+			getTraverse().traverse(l, m, l.getCase(m.getPos_x(),m.getPos_y()));
 			// Si l'algorithme de recherche a trouvé le joueur, alors ajout de chemin à linked list
 			if(getTraverse().estButTrouve()) {
 				setCheminBut(getTraverse().getCheminBut());
@@ -58,7 +58,7 @@ public class DetectionJoueur implements StrategieDeplacement {
 			 * Continuer la boucle, jusqu'a ce que le bon chemin sera trouver
 			 * Si le bon chemin est trouvé, alors break de l'iteration courant
 			 */
-			while (nextChemin != null && !trouveNextChemin){
+			while (nextChemin != null && !trouveNextChemin && m.getPosition().getHeuristic(p.getPosition()) > m.getPortee()){
 				//le monstre se déplace de 1 vers la gauche (-1,0)
 				if(nextChemin.getPx() == (m.getPos_x() - 1)){
 					if (estBonDeplacement(m.getPos_x() - 1, m.getPos_y())){
@@ -101,8 +101,8 @@ public class DetectionJoueur implements StrategieDeplacement {
 				}
 			}
 		}
-		if(m.getPosition().getHeuristic(p.getPosition())==1 && (m.getPos_x() == p.getPos_x() || m.getPos_y() == p.getPos_y()) ) {
-			p.setPointsVie(p.getPointsVie() - m.getDegats());
+		if(m.getPosition().getHeuristic(p.getPosition()) <= m.getPortee()) {
+			m.donnerDegats();
 		}
 	}
 	
@@ -113,12 +113,26 @@ public class DetectionJoueur implements StrategieDeplacement {
 	 * @return true si le Monstre peut deplacer à la case prochaine, sinon false
 	 */
 	private boolean estBonDeplacement(int x, int y){
-		if(p.estMort()) return false;
-		if((x < 0) || (y < 0) || !(x <= l.getHauteur() - 1 && y <= l.getLargeur() - 1)) return false;
-		if(m.getLabyrinthe().getCase(x,y).getClass() == Mur.class) return false;
-		 else {
-			return true;
+		boolean res = false;
+
+		if(!p.estMort() && verifierBordures(x, y, m.getLabyrinthe()) && (m.getLabyrinthe().getCase(x,y).getClass() != Mur.class || m.peutTraverserMur())) {
+			res = true;
 		}
+		return res;
+	}
+	/**
+	 * Méthode qui verifie si la case current n'est pas sur le bord du labyrinthe
+	 * @param x
+	 * @param y
+	 * @param l
+	 * @return true si la case current n'est pas sur le bord du labyrinthe, sinon false
+	 */
+	public boolean verifierBordures(int x, int y, Labyrinthe l) {
+		boolean res = false;
+		if ((x >= 0) && (x <= l.getLargeur()-1) && (y >= 0) && (y <= l.getHauteur()-1)){
+			res = true;
+		}
+		return res;
 	}
 	/**
 	 * Méthode qui gère le déplacement et la collision du Monstre avec Personnage
@@ -128,9 +142,7 @@ public class DetectionJoueur implements StrategieDeplacement {
 	public void action(int x, int y) {
 		if(!(m.getLabyrinthe().estCaseOccupee(x, y))) {
 			m.setPosition(x, y);
-		} else if(m.getLabyrinthe().getCase(x,y) == p.getPosition()) {
-			p.setPointsVie(p.getPointsVie() - m.getDegats());
-		} 
+		}
 	}
 	/**
 	 * Méthode qui deplace le monstre vers la direction specifique

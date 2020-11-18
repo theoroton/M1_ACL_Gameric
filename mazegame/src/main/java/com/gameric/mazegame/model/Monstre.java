@@ -7,36 +7,28 @@ package com.gameric.mazegame.model;
  *
  */
 
-public class Monstre {
+public abstract class Monstre {
 	
 	/**
 	 * La nombre des points de la vie du monstre
 	 */
-	private int pointsVie = 10;
+	protected int pointsVie = 10;
 	/**
 	 * La nombre des degats du monstre
 	 */
-	private int degats = 2;
-	/**
-	 * La vitesse de déplacement du monstre
-	 */
-	//private int vitesse = 200;
+	protected int degats = 2;
 	/**
 	 * La distance de l'attaque du monstre
 	 */
-	//private int portee = 1;
-	/**
-	 * La direction de déplacement du monstre
-	 */
-	//private String direction;
+	protected int portee = 1;
 	/**
 	 * Est-ce que le monstre a la possibilite de traverser les murs ou non
 	 */
-	//private boolean traverserMur = false;
+	protected boolean traverserMur = false;
 	/**
 	 * La distance sur laquelle le monstre peux voir le Personnage
 	 */
-	//private int vision = 3;
+	protected int vision = 1;
 	/**
 	 * La position du monstre
 	 */
@@ -44,7 +36,7 @@ public class Monstre {
 	/**
 	 * La strategie de deplacement
 	 */
-	private StrategieDeplacement strategie = new DetectionJoueur();
+	private StrategieDeplacement strategie = new StrategieDetection();
 	/**
 	 * Le labyrinthe où se trouve le monstre
 	 */
@@ -85,75 +77,47 @@ public class Monstre {
 		this.degats = degats;
 	}
 	/**
-	 * Méthode getter de l'attribut vitesse
-	 * @return La vitesse de déplacement du monstre
-	 */
-	/*public int getVitesse() {
-		return vitesse;
-	}
-	/**
-	 * Méthode setter de l'attribut vitesse
-	 * @param vitesse
-	 */
-	/*public void setVitesse(int vitesse) {
-		this.vitesse = vitesse;
-	}*/
-	/**
 	 * Méthode getter de l'attribut portee
 	 * @return La distance de l'attaque du monstre
 	 */
-	/*public int getPortee() {
+	public int getPortee() {
 		return portee;
-	}*/
+	}
 	/**
 	 * Méthode setter de l'attribut portee
 	 * @param portee
 	 */
-	/*public void setPortee(int portee) {
+	public void setPortee(int portee) {
 		this.portee = portee;
-	}*/
-	/**
-	 * Méthode getter de l'attribut direction
-	 * @return La direction de déplacement du monstre
-	 */
-	/*public String getDirection() {
-		return direction;
-	}*/
-	/**
-	 * Méthode setter de l'attribut direction
-	 * @param direction
-	 */
-	/*public void setDirection(String direction) {
-		this.direction = direction;
-	}*/
+	}
 	/**
 	 * Méthode qui retourne true si le Monstre peut traverser la mur
 	 * @return
 	 */
-	/*public boolean isTraverserMur() {
+	public boolean peutTraverserMur() {
 		return traverserMur;
-	}*/
+	}
 	/**
 	 * Méthode setter de l'attribut boolean traverserMur
 	 * @param traverserMur
 	 */
-	/*public void setTraverserMur(boolean traverserMur) {
+	public void setTraverserMur(boolean traverserMur) {
 		this.traverserMur = traverserMur;
-	}*/
+	}
 	/**
 	 * Méthode getter de l'attribut vision
 	 * @return La distance sur laquelle le monstre voit le Personnage
 	 */
-	/*public int getVision() {
+	public int getVision() {
 		return vision;
-	}*/
+	}
 	/**
 	 * Méthode setter de l'attribut vision
 	 * @param vision
 	 */
-	/*public void setVision(int vision) {
+	public void setVision(int vision) {
 		this.vision = vision;
-	}*/
+	}
 	
 	/**
 	 * Méthode getter de l'attribut position
@@ -174,14 +138,15 @@ public class Monstre {
 	 * Méthode qui gère le déplacement de monstre
 	 */
 	public void deplacerMonstre() {
-		if(verifPersEnZone()) {
-			if(checkLineBresenham(this.getPos_x(), this.getPos_y(), labyrinthe.getPersonnage_laby().getPos_x(),labyrinthe.getPersonnage_laby().getPos_y())) {
-				strategie = new DetectionJoueur();
+		if(verifPersEnZone() && this.getClass() != Zombie.class) {
+			if(checkLineBresenham(this.getPos_x(), this.getPos_y(), labyrinthe.getPersonnage_laby().getPos_x(),labyrinthe.getPersonnage_laby().getPos_y()) ||
+					this.peutTraverserMur()) {
+				strategie = new StrategieDetection();
 			}else {
-				strategie = new Patrouille();
+				strategie = new StrategiePatrouille();
 			}
 		} else {
-			strategie = new Patrouille();
+			strategie = new StrategiePatrouille();
 		}
 		strategie.deplacer(this);
 	}
@@ -210,9 +175,9 @@ public class Monstre {
 	 * Méthode qui verifie si le Personnage est dans la zone de la vision du Monstre
 	 * @return true si le Personnage est dans la zone de la vision du Monstre, sinon false
 	 */
-	private boolean verifPersEnZone() {
-		int x1, y1, x2, y2, x3, y3, x4, y4, vision = 4;
-		for(int k=1; k <= vision; k++) {
+	public boolean verifPersEnZone() {
+		int x1, y1, x2, y2, x3, y3, x4, y4;
+		for(int k=1; k <= this.getVision(); k++) {
 			for(int i = 0; i < k; i++) {
 				//x,y
 				x1 = this.getPos_x()+k-i;
@@ -239,11 +204,7 @@ public class Monstre {
 	 * @return true si le Personnage et le Monstre sont sur la meme case, sinon false
 	 */
 	private boolean memeCasePM(int x, int y) {
-		if(x == labyrinthe.getPersonnage_laby().getPos_x() && y ==labyrinthe.getPersonnage_laby().getPos_y()) {
-			return true;
-		} else {
-			return false;
-		}
+		return x == labyrinthe.getPersonnage_laby().getPos_x() && y ==labyrinthe.getPersonnage_laby().getPos_y();
 	}
 	/**
 	 * Méthode qui utilise l'algorithme de Bresenham pour verifie s'il y a
@@ -254,7 +215,7 @@ public class Monstre {
 	 * @param y1
 	 * @return true s'il y a pas des obstacles, sinon false
 	 */
-	private boolean checkLineBresenham(int x0, int y0, int x1, int y1) {
+	public boolean checkLineBresenham(int x0, int y0, int x1, int y1) {
 		boolean swapXY = fastAbs( y1 - y0 ) > fastAbs( x1 - x0 );
 		int tmp;
 		if ( swapXY ) {
@@ -340,5 +301,10 @@ public class Monstre {
 		return labyrinthe.getCase(x, y).getClass() != Mur.class;
 	}
 	
-	//public abstract void attaquer(Personnage p);
+	/**
+	 * Méthode qui donne le degats du Monstre à Personnage 
+	 */
+	public void donnerDegats() {
+		this.getLabyrinthe().getPersonnage_laby().setPointsVie(this.getLabyrinthe().getPersonnage_laby().getPointsVie() - this.getDegats());
+	}
 }
