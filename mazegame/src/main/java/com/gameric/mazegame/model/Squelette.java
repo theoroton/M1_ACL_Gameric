@@ -19,10 +19,10 @@ public class Squelette extends Monstre {
 	 */
 	public Squelette(int x, int y, Labyrinthe l) {
 		super(x, y, l);
-		setPortee(3);
-		setVision(5);
-		setDegats(1);
-		setTraverserMur(false);
-		setPointsVie(VIE_MAX);
+		portee = 3;
+		vision = 5;
+		degats = 1;
+		traverserMur = false;
+		pointsVie = VIE_MAX;
 	}
 }

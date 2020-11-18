@@ -19,10 +19,10 @@ public class Fantome extends Monstre {
 	 */
 	public Fantome(int x, int y, Labyrinthe l) {
 		super(x, y, l);
-		setPortee(1);
-		setVision(3);
-		setDegats(2);
-		setTraverserMur(true);
-		setPointsVie(VIE_MAX);
+		portee = 1;
+		vision = 3;
+		degats = 2;
+		traverserMur = true;
+		pointsVie = VIE_MAX;
 	}
 }
