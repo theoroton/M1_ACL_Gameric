@@ -199,9 +199,15 @@ public class Labyrinthe {
 					//On ajoute la case créer au tableau des cases
 					cases[j][i] = cas;
 					
-					//Si le caractère est un M, on ajoute un monstre au labyrinthe à cette position
-					if (c == 'M') {
-						ajouterMonstre(i,j);
+					//Si le caractère est un s, on ajoute un squelette au labyrinthe à cette position
+					if (c == 's') {
+						ajouterMonstre(new Squelette(i,j,this));
+					//Si le caractère est un z, on ajoute un zombie au labyrinthe à cette position
+					} else if (c == 'z') {
+						ajouterMonstre(new Zombie(i,j,this));
+					//Si le caractère est un f, on ajoute un fantôme au labyrinthe à cette position
+					} else if (c == 'f') {
+						ajouterMonstre(new Fantome(i,j,this));
 					}
 					
 					//On augmente de 1 le x
@@ -268,16 +274,10 @@ public class Labyrinthe {
 	}
 
 	/**
-	 * Méthode qui permet de créer et placer un monstre
-	 * @param x : position en X du monstre
-	 * @param y : position en Y du monstre
+	 * Méthode qui ajoute un monstre au labyrinthe
+	 * @param m : monstre à ajouter
 	 */
-	private void ajouterMonstre(int x, int y) {
-		List<Monstre> listClasses = Arrays.asList(new Fantome(x,y, this), new Zombie(x,y, this), new Squelette(x,y, this));
-		Random rand = new Random();
-		Monstre choose = listClasses.get(rand.nextInt(listClasses.size()));
-		//Création du monstre à la position donnée
-		Monstre m = choose;
+	private void ajouterMonstre(Monstre m) {
 		//Ajout du monstre à la liste des monstres du labyrinthe
 		monstres.add(m);
 	}

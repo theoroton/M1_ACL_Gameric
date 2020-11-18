@@ -39,6 +39,7 @@ public class JeuLabyrinthe implements Game {
 	 */
 	public JeuLabyrinthe() {
 		enCours = false;
+		niveau = 1;
 	}
 	
 	/**
@@ -70,7 +71,7 @@ public class JeuLabyrinthe implements Game {
 	 * Méthode qui permet de lancer le jeu
 	 */
 	public void lancerJeu() {
-		labyrinthe = new Labyrinthe(personnage, "niveau1.txt");
+		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
 	}
 
 	/**

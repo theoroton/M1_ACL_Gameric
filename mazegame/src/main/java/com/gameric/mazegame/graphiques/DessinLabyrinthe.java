@@ -18,6 +18,8 @@ import com.gameric.mazegame.model.Labyrinthe;
 import com.gameric.mazegame.model.Monstre;
 import com.gameric.mazegame.model.Mur;
 import com.gameric.mazegame.model.Personnage;
+import com.gameric.mazegame.model.Squelette;
+import com.gameric.mazegame.model.Zombie;
 
 /**
  * 
@@ -100,8 +102,14 @@ public class DessinLabyrinthe implements GamePainter {
 		}
 		
 		//On dessine les monstres
-		crayon.setColor(Color.RED);
 		for (Monstre m : labyrinthe.getMonstres()) {
+			if (m.getClass() == Zombie.class) {
+				crayon.setColor(Color.GREEN);
+			} else if (m.getClass() == Squelette.class) {
+				crayon.setColor(Color.RED);
+			} else {
+				crayon.setColor(Color.LIGHT_GRAY);
+			}
 			crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
