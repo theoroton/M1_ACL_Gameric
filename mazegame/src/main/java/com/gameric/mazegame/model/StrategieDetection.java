@@ -58,7 +58,7 @@ public class StrategieDetection implements StrategieDeplacement {
 			 * Continuer la boucle, jusqu'a ce que le bon chemin sera trouver
 			 * Si le bon chemin est trouvé, alors break de l'iteration courant
 			 */
-			while (nextChemin != null && !trouveNextChemin){
+			while (nextChemin != null && !trouveNextChemin && m.getPosition().getHeuristic(p.getPosition()) > m.getPortee()){
 				//le monstre se déplace de 1 vers la gauche (-1,0)
 				if(nextChemin.getPx() == (m.getPos_x() - 1)){
 					if (estBonDeplacement(m.getPos_x() - 1, m.getPos_y())){
@@ -101,8 +101,9 @@ public class StrategieDetection implements StrategieDeplacement {
 				}
 			}
 		}
-		if(m.getPosition().getHeuristic(p.getPosition())==1 && (m.getPos_x() == p.getPos_x() || m.getPos_y() == p.getPos_y()) ) {
-			p.setPointsVie(p.getPointsVie() - m.getDegats());
+		if(m.getPosition().getHeuristic(p.getPosition()) <= m.getPortee()) {
+			System.out.println("Here");
+			m.donnerDegats();
 		}
 	}
 	
@@ -115,7 +116,6 @@ public class StrategieDetection implements StrategieDeplacement {
 	private boolean estBonDeplacement(int x, int y){
 		boolean res = false;
 
-		System.out.println("Peut traverser "+ m.peutTraverserMur());
 		if(!p.estMort() && verifierBordures(x, y, m.getLabyrinthe()) && (m.getLabyrinthe().getCase(x,y).getClass() != Mur.class || m.peutTraverserMur())) {
 			res = true;
 		}
@@ -143,9 +143,7 @@ public class StrategieDetection implements StrategieDeplacement {
 	public void action(int x, int y) {
 		if(!(m.getLabyrinthe().estCaseOccupee(x, y))) {
 			m.setPosition(x, y);
-		} else if(m.getLabyrinthe().getCase(x,y) == p.getPosition()) {
-			p.setPointsVie(p.getPointsVie() - m.getDegats());
-		} 
+		}
 	}
 	/**
 	 * Méthode qui deplace le monstre vers la direction specifique

@@ -36,7 +36,7 @@ public class Monstre {
 	/**
 	 * La distance sur laquelle le monstre peux voir le Personnage
 	 */
-	private int vision = 3;
+	private int vision = 1;
 	/**
 	 * La position du monstre
 	 */
@@ -211,7 +211,7 @@ public class Monstre {
 	 * Méthode qui verifie si le Personnage est dans la zone de la vision du Monstre
 	 * @return true si le Personnage est dans la zone de la vision du Monstre, sinon false
 	 */
-	private boolean verifPersEnZone() {
+	public boolean verifPersEnZone() {
 		int x1, y1, x2, y2, x3, y3, x4, y4;
 		for(int k=1; k <= this.getVision(); k++) {
 			for(int i = 0; i < k; i++) {
@@ -240,11 +240,12 @@ public class Monstre {
 	 * @return true si le Personnage et le Monstre sont sur la meme case, sinon false
 	 */
 	private boolean memeCasePM(int x, int y) {
-		if(x == labyrinthe.getPersonnage_laby().getPos_x() && y ==labyrinthe.getPersonnage_laby().getPos_y()) {
+		/*if(x == labyrinthe.getPersonnage_laby().getPos_x() && y ==labyrinthe.getPersonnage_laby().getPos_y()) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
+		return x == labyrinthe.getPersonnage_laby().getPos_x() && y ==labyrinthe.getPersonnage_laby().getPos_y();
 	}
 	/**
 	 * Méthode qui utilise l'algorithme de Bresenham pour verifie s'il y a
@@ -255,7 +256,7 @@ public class Monstre {
 	 * @param y1
 	 * @return true s'il y a pas des obstacles, sinon false
 	 */
-	private boolean checkLineBresenham(int x0, int y0, int x1, int y1) {
+	public boolean checkLineBresenham(int x0, int y0, int x1, int y1) {
 		boolean swapXY = fastAbs( y1 - y0 ) > fastAbs( x1 - x0 );
 		int tmp;
 		if ( swapXY ) {
@@ -341,5 +342,28 @@ public class Monstre {
 		return labyrinthe.getCase(x, y).getClass() != Mur.class;
 	}
 	
-	//public abstract void attaquer(Personnage p);
+	public boolean surBordPortee(int portee) {
+		int x1, y1, x2, y2, x3, y3, x4, y4;
+		for(int i = 0; i < portee; i++) {
+			//x,y
+			x1 = this.getPos_x()+portee-i;
+			y1 = this.getPos_y()+i;
+			//-x,-y
+			x2 = this.getPos_x()-portee+i;
+			y2 = this.getPos_y()-i;
+			//-x,y
+			x3 = this.getPos_x()-i;
+			y3 = this.getPos_y()+portee-i;
+			//x,-y
+			x4 = this.getPos_x()+i;
+			y4 = this.getPos_y()-portee+i;
+			if(memeCasePM(x1,y1) || memeCasePM(x3,y3) || memeCasePM(x2,y2) || memeCasePM(x4,y4))
+				return true;
+		}
+		return false;
+	}
+	
+	public void donnerDegats() {
+		this.getLabyrinthe().getPersonnage_laby().setPointsVie(this.getLabyrinthe().getPersonnage_laby().getPointsVie() - this.getDegats());
+	}
 }

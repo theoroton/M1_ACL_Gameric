@@ -111,7 +111,8 @@ public abstract class Case {
 		double px2 = but.getPx();
 		double py2 = but.getPy();
 		double result = Math.sqrt(Math.pow((px2 - px1), 2) + Math.pow((py2 - py1), 2));
-		if(result > 1 && result <2) result = 2;
+		//if(result > 1 && result <2) result = 2;
+		if(result - (int)result != 0) result = (int)result + 1;
 		return (int) result;
 	}
 	
