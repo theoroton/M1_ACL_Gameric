@@ -138,12 +138,18 @@ public class JeuLabyrinthe implements Game {
 	}
 
 	/**
-	 * Méthode setter de l'attribut niveau.
-	 * La méthode place aussi le jeu au niveau souhaité.
+	 * Méthode setter de l'attribut niveau. 
+	 * La méthode place aussi le jeu au niveau souhaité (si il existe).
 	 * @param n : niveau du labyrinthe
 	 */
 	public void setNiveau(int n) {
-		niveau = n;
+		//Si le niveau est compris entre 1 et le niveau max, on met le jeu au niveau n
+		if (1 <= n && n <= NIVEAU_MAX) {
+			niveau = n;
+		//Sinon on le met au premier niveau
+		} else {
+			niveau = 1;
+		}		
 		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
 	}	
 	

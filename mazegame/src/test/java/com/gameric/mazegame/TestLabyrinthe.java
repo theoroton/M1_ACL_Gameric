@@ -258,6 +258,7 @@ public class TestLabyrinthe {
 		assertEquals("La case ne devrait pas être une case objet", CaseVide.class, labyrinthe.getCase(3, 6).getClass());	
 	}
 	
+	
 	/**
 	 * Test des objets sur les cases objets.
 	 */
@@ -273,6 +274,7 @@ public class TestLabyrinthe {
 		//Test si la case en position (4,9) possède bien une potion (attendu : true)
 		assertEquals("L'objet de cette case devrait être une potion", Potion.class, ((CaseObjet) labyrinthe.getCase(4, 9)).getObjet().getClass());
 	}
+	
 	
 	/**
 	 * Test du passage au niveau suivant du jeu.
@@ -297,6 +299,7 @@ public class TestLabyrinthe {
 		assertEquals("Le niveau courant devrait être 2", 2, jeu.getNiveau());
 	}
 	
+	
 	/**
 	 * Test du passage au niveau suivant du jeu si on est au dernier niveau.
 	 * On test le passage du jeu au niveau 3.
@@ -320,5 +323,37 @@ public class TestLabyrinthe {
 		assertTrue("Le jeu devrait être fini", jeu.isFinished());	
 		//Test si le niveau est toujours de 3 car on a fini
 		assertEquals("Le niveau courant devrait être 3", 3, jeu.getNiveau());
+	}
+	
+	
+	/**
+	 * Test de la méthode setNiveau.
+	 * Test pour un niveau existant.
+	 */
+	@Test
+	public void testSetNiveau01() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//On met le jeu au niveau 2
+		jeu.setNiveau(2);
+		
+		//Test si le niveau est bien de 2
+		assertEquals("Le niveau courant devrait être 2", 2, jeu.getNiveau());
+	}
+	
+	
+	/**
+	 * Test de la méthode setNiveau.
+	 * Test pour un niveau inexistant.
+	 */
+	@Test
+	public void testSetNiveau02() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//On met le jeu au niveau 10
+		jeu.setNiveau(10);
+		
+		//Test si le niveau est bien de 1
+		assertEquals("Le niveau courant devrait être 1", 1, jeu.getNiveau());
 	}
 }
