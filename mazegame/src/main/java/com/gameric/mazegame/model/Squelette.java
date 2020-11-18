@@ -21,7 +21,7 @@ public class Squelette extends Monstre {
 		super(x, y, l);
 		portee = 3;
 		vision = 5;
-		degats = 1;
+		degats = 4;
 		traverserMur = false;
 		pointsVie = VIE_MAX;
 	}
