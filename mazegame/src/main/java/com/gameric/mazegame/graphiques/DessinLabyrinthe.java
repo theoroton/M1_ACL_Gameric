@@ -108,7 +108,7 @@ public class DessinLabyrinthe implements GamePainter {
 			} else if (m.getClass() == Squelette.class) {
 				crayon.setColor(Color.RED);
 			} else {
-				crayon.setColor(Color.LIGHT_GRAY);
+				crayon.setColor(Color.GRAY);
 			}
 			crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 

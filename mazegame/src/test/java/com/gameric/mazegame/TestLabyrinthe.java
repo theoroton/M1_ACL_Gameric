@@ -11,10 +11,13 @@ import com.gameric.mazegame.model.CaseObjet;
 import com.gameric.mazegame.model.CasePiegee;
 import com.gameric.mazegame.model.CaseSortie;
 import com.gameric.mazegame.model.CaseVide;
+import com.gameric.mazegame.model.Fantome;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.Labyrinthe;
 import com.gameric.mazegame.model.Personnage;
 import com.gameric.mazegame.model.Potion;
+import com.gameric.mazegame.model.Squelette;
+import com.gameric.mazegame.model.Zombie;
 
 /**
  * Classe des tests sur le labyrinthe
@@ -282,8 +285,11 @@ public class TestLabyrinthe {
 	 */
 	@Test
 	public void testNiveauSuivant01() {
-		//Création du jeu
+		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		jeu.choixClasse("epeiste");
+		jeu.setEnCours(true);
+		jeu.lancerJeu();
 		
 		//Test si le niveau est bien de 1
 		assertEquals("Le niveau courant devrait être 1", 1, jeu.getNiveau());
@@ -306,8 +312,11 @@ public class TestLabyrinthe {
 	 */
 	@Test
 	public void testNiveauSuivant02() {
-		//Création du jeu
+		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		jeu.choixClasse("epeiste");
+		jeu.setEnCours(true);
+		jeu.lancerJeu();
 		//On met le jeu au niveau 3
 		jeu.setNiveau(3);
 		
@@ -332,8 +341,11 @@ public class TestLabyrinthe {
 	 */
 	@Test
 	public void testSetNiveau01() {
-		//Création du jeu
+		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		jeu.choixClasse("epeiste");
+		jeu.setEnCours(true);
+		jeu.lancerJeu();
 		//On met le jeu au niveau 2
 		jeu.setNiveau(2);
 		
@@ -348,12 +360,48 @@ public class TestLabyrinthe {
 	 */
 	@Test
 	public void testSetNiveau02() {
-		//Création du jeu
+		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		jeu.choixClasse("epeiste");
+		jeu.setEnCours(true);
+		jeu.lancerJeu();
 		//On met le jeu au niveau 10
 		jeu.setNiveau(10);
 		
 		//Test si le niveau est bien de 1
 		assertEquals("Le niveau courant devrait être 1", 1, jeu.getNiveau());
+	}
+	
+	
+	/**
+	 * Test des types de monstre dans le labyrinthe
+	 */
+	@Test
+	public void testTypesMonstres() {
+		//Création du personnage
+		Personnage personnage = new Personnage();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_types_monstres.txt");	
+		
+		//Test du nombre de monstres (attendu : 3)
+		assertEquals("Le nombre de monstre n'est pas celui attendu", 3, labyrinthe.getMonstres().size());
+		
+		//Test de la position du premier monstre (attendue : (7,5))
+		assertEquals("La position X du premier monstre n'est pas celle attendue", 7, labyrinthe.getMonstres().get(0).getPos_x());
+		assertEquals("La position Y du premier monstre n'est pas celle attendue", 5, labyrinthe.getMonstres().get(0).getPos_y());
+		//Test du type du premier monstre
+		assertEquals("Le monstre devrait être un zombie", Zombie.class, labyrinthe.getMonstres().get(0).getClass());
+		
+		//Test de la position du deuxième monstre (attendue : (4,8))
+		assertEquals("La position X du deuxième monstre n'est pas celle attendue", 4, labyrinthe.getMonstres().get(1).getPos_x());
+		assertEquals("La position Y du deuxième monstre n'est pas celle attendue", 8, labyrinthe.getMonstres().get(1).getPos_y());
+		//Test du type du deuxième monstre
+		assertEquals("Le monstre devrait être un fantôme", Fantome.class, labyrinthe.getMonstres().get(1).getClass());
+		
+		//Test de la position du troisième monstre (attendue : (8,10))
+		assertEquals("La position X du deuxième troisième n'est pas celle attendue", 8, labyrinthe.getMonstres().get(2).getPos_x());
+		assertEquals("La position Y du deuxième troisième n'est pas celle attendue", 10, labyrinthe.getMonstres().get(2).getPos_y());
+		//Test du type du troisième monstre
+		assertEquals("Le monstre devrait être un squelette", Squelette.class, labyrinthe.getMonstres().get(2).getClass());	
 	}
 }
