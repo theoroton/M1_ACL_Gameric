@@ -10,7 +10,11 @@ import com.gameric.mazegame.graphiques.CardLayoutJeu;
  * Interface graphique du jeu
  */
 public class GraphicalInterface  {
-	
+
+	/**
+	 * JFrame d'affichage
+	 */
+	private JFrame fenetre;
 	/**
 	 * JPanel contenant le CardLayout pour l'affichage
 	 */
@@ -21,25 +25,26 @@ public class GraphicalInterface  {
 	 * @param cl
 	 */
 	public GraphicalInterface(CardLayoutJeu cl){
-		JFrame f=new JFrame();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		fenetre = new JFrame();
+		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//Création du JPanel englobant
 		this.panel = cl;
 		
 		//Ajout du JPanel à la fenêtre
-		f.setContentPane(this.panel);
+		fenetre.setContentPane(this.panel);
 		
-		f.pack();
-		f.setVisible(true);
-		f.getContentPane().setFocusable(true);
-		f.getContentPane().requestFocus();
+		fenetre.pack();
+		fenetre.setVisible(true);
+		fenetre.getContentPane().setFocusable(true);
+		fenetre.getContentPane().requestFocus();
 	}
 	
 	/**
 	 * Mise à jour des dessins
 	 */
 	public void paint() {
+		fenetre.pack();
 		((CardLayoutJeu) panel).update();
 	}
 	

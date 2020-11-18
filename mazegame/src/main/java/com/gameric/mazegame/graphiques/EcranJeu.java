@@ -32,9 +32,11 @@ public class EcranJeu extends JPanel {
 		setLayout(new BorderLayout());
 		
 		//On crée la partie du labyrinthe
-		partieJeu = new DrawingPanel(new DessinLabyrinthe(j));
+		DessinLabyrinthe dessinLabyrinthe = new DessinLabyrinthe(j);
+		partieJeu = new DrawingPanel(dessinLabyrinthe);
 		//On crée la partie des infos
-		partieInfos = new DrawingPanel(new InfosLabyrinthe(j));
+		InfosLabyrinthe infosLabyrinthe = new InfosLabyrinthe(j);
+		partieInfos = new DrawingPanel(infosLabyrinthe);
 		
 		//Ajout au JPanel
 		add(partieJeu, BorderLayout.NORTH);
