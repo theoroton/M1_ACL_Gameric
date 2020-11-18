@@ -1,6 +1,7 @@
 package com.gameric.mazegame;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -10,6 +11,7 @@ import com.gameric.mazegame.model.CaseObjet;
 import com.gameric.mazegame.model.CasePiegee;
 import com.gameric.mazegame.model.CaseSortie;
 import com.gameric.mazegame.model.CaseVide;
+import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.Labyrinthe;
 import com.gameric.mazegame.model.Personnage;
 import com.gameric.mazegame.model.Potion;
@@ -270,5 +272,53 @@ public class TestLabyrinthe {
 		assertEquals("L'objet de cette case devrait être une arme", Arme.class, ((CaseObjet) labyrinthe.getCase(9, 5)).getObjet().getClass());
 		//Test si la case en position (4,9) possède bien une potion (attendu : true)
 		assertEquals("L'objet de cette case devrait être une potion", Potion.class, ((CaseObjet) labyrinthe.getCase(4, 9)).getObjet().getClass());
+	}
+	
+	/**
+	 * Test du passage au niveau suivant du jeu.
+	 * On test le passage du jeu du niveau 1 au niveau 2.
+	 */
+	@Test
+	public void testNiveauSuivant01() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		
+		//Test si le niveau est bien de 1
+		assertEquals("Le niveau courant devrait être 1", 1, jeu.getNiveau());
+		
+		//Placement du personnage devant la sortie
+		jeu.getPersonnage().setPosition(14, 13);
+		//Déplacement sur la sortie
+		jeu.getPersonnage().deplacer(1, 0);
+		
+		//On regarde si le jeu est fini
+		assertTrue("Le jeu ne devrait pas être encore fini", !jeu.isFinished());	
+		//Test si le niveau est bien de 2
+		assertEquals("Le niveau courant devrait être 2", 2, jeu.getNiveau());
+	}
+	
+	/**
+	 * Test du passage au niveau suivant du jeu si on est au dernier niveau.
+	 * On test le passage du jeu au niveau 3.
+	 */
+	@Test
+	public void testNiveauSuivant02() {
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+		//On met le jeu au niveau 3
+		jeu.setNiveau(3);
+		
+		//Test si le niveau est bien de 3
+		assertEquals("Le niveau courant devrait être 3", 3, jeu.getNiveau());
+		
+		//Placement du personnage devant la sortie
+		jeu.getPersonnage().setPosition(1, 13);
+		//Déplacement sur la sortie
+		jeu.getPersonnage().deplacer(-1, 0);
+		
+		//On regarde si le jeu est fini
+		assertTrue("Le jeu devrait être fini", jeu.isFinished());	
+		//Test si le niveau est toujours de 3 car on a fini
+		assertEquals("Le niveau courant devrait être 3", 3, jeu.getNiveau());
 	}
 }

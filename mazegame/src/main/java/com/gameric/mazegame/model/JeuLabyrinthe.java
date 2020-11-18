@@ -135,6 +135,16 @@ public class JeuLabyrinthe implements Game {
 	 */
 	public int getNiveau() {
 		return niveau;
+	}
+
+	/**
+	 * Méthode setter de l'attribut niveau.
+	 * La méthode place aussi le jeu au niveau souhaité.
+	 * @param n : niveau du labyrinthe
+	 */
+	public void setNiveau(int n) {
+		niveau = n;
+		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
 	}	
 	
 }
