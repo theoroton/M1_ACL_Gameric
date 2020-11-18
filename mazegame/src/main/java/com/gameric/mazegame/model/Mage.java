@@ -7,8 +7,7 @@ package com.gameric.mazegame.model;
  */
 public class Mage extends Personnage{
 	//Constructeur
-	public Archer(int x, int y){
-		super(x,y);
+	public Mage(){
 		pointsVie = vieMax = 10;
 		degats = 10;
 		portee = 3;

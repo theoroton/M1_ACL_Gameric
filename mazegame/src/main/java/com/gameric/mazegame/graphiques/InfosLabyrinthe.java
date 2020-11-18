@@ -1,4 +1,4 @@
-package com.gameric.mazegame.start;
+package com.gameric.mazegame.graphiques;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

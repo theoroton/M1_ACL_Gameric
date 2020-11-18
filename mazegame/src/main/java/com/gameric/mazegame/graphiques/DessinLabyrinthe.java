@@ -1,4 +1,4 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.graphiques;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,6 +9,15 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.gameric.mazegame.engine.GamePainter;
+import com.gameric.mazegame.model.Case;
+import com.gameric.mazegame.model.CaseObjet;
+import com.gameric.mazegame.model.CasePiegee;
+import com.gameric.mazegame.model.Const;
+import com.gameric.mazegame.model.JeuLabyrinthe;
+import com.gameric.mazegame.model.Labyrinthe;
+import com.gameric.mazegame.model.Monstre;
+import com.gameric.mazegame.model.Mur;
+import com.gameric.mazegame.model.Personnage;
 
 /**
  * 

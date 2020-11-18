@@ -20,11 +20,33 @@ public class JeuLabyrinthe implements Game {
 	private Personnage personnage;
 	
 	/**
+	 * Attribut qui permet d'indiquer si le jeu est en cours;
+	 */
+	private boolean enCours;
+	
+	/**
 	 * Constructeur du jeu
 	 * On initialise un labyrinthe et le personnage du joueur
 	 */
 	public JeuLabyrinthe() {
-		personnage = new Personnage();
+		enCours = false;
+	}
+	
+	public void choixClasse(String classe) {
+		switch (classe) {
+		case "archer":
+			personnage = new Archer();
+			break;
+		case "mage":
+			personnage = new Mage();
+			break;
+		case "epeiste":
+			personnage = new Epeiste();
+			break;
+		}
+	}
+	
+	public void lancerJeu() {
 		labyrinthe = new Labyrinthe(personnage, "niveau1.txt");
 	}
 
@@ -102,6 +124,22 @@ public class JeuLabyrinthe implements Game {
 	 */
 	public Personnage getPersonnage() {
 		return personnage;
-	}	
+	}
+	
+	/**
+	 * Méthode getter de l'attribut enCours
+	 * @return true si le jeu est en cours
+	 */
+	public boolean isEnCours() {
+		return enCours;
+	}
+
+	/**
+	 * Méthode setter de l'attribut enCours
+	 * @param b : booléen qui permet de changer l'état du jeu.
+	 */
+	public void setEnCours(boolean b) {
+		this.enCours = b;
+	}
 
 }
