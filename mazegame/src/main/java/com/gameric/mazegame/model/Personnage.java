@@ -5,31 +5,20 @@ package com.gameric.mazegame.model;
  * @author Maeva Touchet
  *
  */
-public class Personnage{
+public abstract class Personnage{
 	
 	//Attributs
 	
-	int pointsVie = 30;	//Points de vie courants du personnage
-	int vieMax = 30; 	//Points de vie max du personnage
-	int degats  = 10;		//Dégats du personnage	
-	int portee = 1;		//Portée de l'attaque du personnage
+	int pointsVie;			//Points de vie courants du personnage
+	int vieMax;				//Points de vie max du personnage
+	int degats;				//Dégats courants du personnage	
+	int degatsDefaut;		 //Dégats par défaut du personnage
+	int portee;				//Portée de l'attaque du personnage
 	Case position;			//Position du personnage
-	Labyrinthe labyrinthe;
+	Labyrinthe labyrinthe;	
 	
 	//Constructeurs
-	public Personnage(){
-	}
-
-	public Personnage(int x, int y){		//Via deux entiers x et y
-		int pos_x, pos_y;
-		
-		if((x > 0) && (x < labyrinthe.getLargeur()-1))	pos_x = x;
-		else 						pos_x = 1;
-		if((y > 0) && (y < labyrinthe.getHauteur()-1))	pos_y = y;
-		else 						pos_y = 1;
-		
-		position = labyrinthe.getCase(x,y);
-	}
+	public abstract Personnage();
 	
 	//Méthodes
 	
@@ -75,58 +64,8 @@ public class Personnage{
 		}
 	}
 	
-	//Getters
-	public String getStringPosition(){
-		return "(" + position.getPx() + "," +  position.getPy() + ")";
-	}
-	
-	public Case getPosition() {
-		return position;
-	}
-
-	public int getPos_x() {
-		return position.getPx();
-	}
-
-	public int getPos_y() {
-		return position.getPy();
-	}
-	
-	public void setPosition(int x, int y) {
-		position = labyrinthe.getCase(x, y);
-	}
-
-	public void setLabyrinthe(Labyrinthe labyrinthe) {
-		this.labyrinthe = labyrinthe;
-	}
-
-	public int getPointsVie() {
-		return pointsVie;
-	}
-
-	public void setPointsVie(int pointsVie) {
-		if (pointsVie < 0) {
-			this.pointsVie = 0;
-		} else {
-			if(pointsVie > vieMax){
-				this.pointsVie = vieMax;
-			}
-			else{
-				this.pointsVie = pointsVie;	
-			}
-		}	
-	}
-	
-	public void setDegats(int degats){
-		this.degats = degats;
-	}
-
 	public boolean estMort() {
 		return pointsVie <= 0;
-	}
-
-	public int getDegats() {
-		return degats;
 	}
 	
 	public void ramasserObjet(){
@@ -149,6 +88,9 @@ public class Personnage{
 		return present;
 	}
 	
+	/**
+	 * Récupère le monstre à la position (x,y)
+	 **/
 	private Monstre getMonstre(int x, int y){
 		for(Monstre m: labyrinthe.getMonstres()) {			//On boucle sur les monstres
 				if(m.getPos_x() == x) {						//On cherche celui se trouvant sur la case
@@ -159,69 +101,73 @@ public class Personnage{
 			}
 	}
 	/**
-	 * Trouve le monstre à portée (recherche sens horaire) et le renvoie
+	 * Attaque un monstre à portée (sans direction d'attaque dans cette version)
 	 **/
-	private Monstre trouverCible(){
-		int x,y;
-		for(int i=1; i<= portee;i++){	//Pour chaque portée possible
-			x = position.getPx() - i;
-			y = position.getPy() + i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx();
-			y = position.getPy() + i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx() + i;
-			y = position.getPy() + i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx() - i;
-			y = position.getPy();
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx() + i;
-			y = position.getPy();
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx() - i;
-			y = position.getPy() - i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx();
-			y = position.getPy() - i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
-			
-			x = position.getPx() + i;
-			y = position.getPy() - i;
-			if(testMonstre(x,y)	return getMonstre(x,y);
+	private void attaquer(){
+		int distance = 0;
+		for(Case c: labyrinthe.getCases()){								//On teste chaque case
+			distance = Math.abs(position.getPx() - c.getPx() + position.getPy() - c.getPy());
+			if(distance <= portee){										//Si la case est à portée
+				if(c.getClass().getSuperclass() == CaseVide.class		//Si la case est vide ou un mur(fantômes)
+				|| c.getClass().getSuperclass() == Mur.class){
+					if(testMonstre(c.getPx(), c.getPy()){				//S'il y a un monstre dessus
+						Monstre m = getMonstre(c.getPx(), c.getPy());	//On récupère le monstre
+						m.setPointsVie(m.getPointsVie() - this.degats);	//On lui fait des dégats
+					}
+				}
+			}
 			
 		}
 	}
 	
-	/**
-	 * Retourne 1 s'il y a un monstre à portée
-	 * Retourne 0 sinon
-	 **/
-	private boolean detecterCible(){
-		boolean present = false;
-		for(int i=1; i<= portee;i++){	//Pour chaque portée possible
-			if(testMonstre(position.getPx() - i, position.getPy() + i)	return present = true;
-			if(testMonstre(position.getPx()    , position.getPy() + i)	return present = true;
-			if(testMonstre(position.getPx() + i, position.getPy() + i)	return present = true;
-			if(testMonstre(position.getPx() - i, position.getPy()    )	return present = true;
-			if(testMonstre(position.getPx() + i, position.getPy()    )	return present = true;
-			if(testMonstre(position.getPx() - i, position.getPy() - i)	return present = true;
-			if(testMonstre(position.getPx()    , position.getPy() - i)	return present = true;
-			if(testMonstre(position.getPx() + i, position.getPy() - i)	return present = true;
-		}
-		return present;
+	//Setters
+	public void setPosition(int x, int y) {
+		position = labyrinthe.getCase(x, y);
+	}
+
+	public void setLabyrinthe(Labyrinthe labyrinthe) {
+		this.labyrinthe = labyrinthe;
 	}
 	
-	public void attaquer(){
-		if(detecterCible()){
-			Monstre m = trouverCible();
-			m.setPointsVie(m.getPointsVie() - this.degats);
-		}
+	public void setPointsVie(int pointsVie) {
+		if (pointsVie < 0) {
+			this.pointsVie = 0;
+		} else {
+			if(pointsVie > vieMax){
+				this.pointsVie = vieMax;
+			}
+			else{
+				this.pointsVie = pointsVie;	
+			}
+		}	
 	}
-}
+	
+	public void setDegats(int degats){
+		this.degats = degats;
+	}
+	
+	//Getters
+	public String getStringPosition(){
+		return "(" + position.getPx() + "," +  position.getPy() + ")";
+	}
+	
+	public Case getPosition() {
+		return position;
+	}
+
+	public int getPos_x() {
+		return position.getPx();
+	}
+
+	public int getPos_y() {
+		return position.getPy();
+	}
+	
+
+	public int getPointsVie() {
+		return pointsVie;
+	}
+
+	public int getDegats() {
+		return degats;
+	}
