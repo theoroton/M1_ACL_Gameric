@@ -7,12 +7,10 @@ package com.gameric.mazegame.model;
  */
 public class Epeiste extends Personnage{
 	//Constructeur
-	public Epeiste(int x, int y){
-		super(x,y);
+	public Epeiste(){
 		pointsVie = vieMax = 30;
-		degats = 10;
+		degatsDefaut = degats = 10;
 		portee = 1;
 	}
-	//Méthodes
 
 }
