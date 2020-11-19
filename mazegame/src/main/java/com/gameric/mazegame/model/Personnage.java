@@ -18,7 +18,7 @@ public abstract class Personnage{
 	Labyrinthe labyrinthe;	
 	
 	//Constructeurs
-	public abstract Personnage();
+	public Personnage(){};
 	
 	//Méthodes
 	
@@ -110,7 +110,7 @@ public abstract class Personnage{
 			if(distance <= portee){										//Si la case est à portée
 				if(c.getClass().getSuperclass() == CaseVide.class		//Si la case est vide ou un mur(fantômes)
 				|| c.getClass().getSuperclass() == Mur.class){
-					if(testMonstre(c.getPx(), c.getPy()){				//S'il y a un monstre dessus
+					if(testMonstre(c.getPx(), c.getPy())){				//S'il y a un monstre dessus
 						Monstre m = getMonstre(c.getPx(), c.getPy());	//On récupère le monstre
 						m.setPointsVie(m.getPointsVie() - this.degats);	//On lui fait des dégats
 					}
@@ -171,3 +171,4 @@ public abstract class Personnage{
 	public int getDegats() {
 		return degats;
 	}
+}
