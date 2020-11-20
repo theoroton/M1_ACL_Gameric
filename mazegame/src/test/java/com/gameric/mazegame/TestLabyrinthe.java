@@ -11,6 +11,7 @@ import com.gameric.mazegame.model.CaseObjet;
 import com.gameric.mazegame.model.CasePiegee;
 import com.gameric.mazegame.model.CaseSortie;
 import com.gameric.mazegame.model.CaseVide;
+import com.gameric.mazegame.model.Epeiste;
 import com.gameric.mazegame.model.Fantome;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.Labyrinthe;
@@ -37,7 +38,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testLabyrintheDefault() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage);	
 		
@@ -74,7 +75,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testLabyrintheDefaultTaille() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(12,8,personnage);	
 		
@@ -112,7 +113,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testLabyrintheFichierTest() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");	
 		
@@ -153,7 +154,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testLabyrintheFichierTestMonstre() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_monstres.txt");	
 		
@@ -194,7 +195,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testEstCaseOccupee01() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");	
 		
@@ -211,7 +212,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testEstCaseOccupee02() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_monstres.txt");	
 		
@@ -230,7 +231,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testCasesPiegees() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
@@ -249,7 +250,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testCasesObjets() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
@@ -268,7 +269,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testObjetsCasesObjets() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		
@@ -379,7 +380,7 @@ public class TestLabyrinthe {
 	@Test
 	public void testTypesMonstres() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_types_monstres.txt");	
 		

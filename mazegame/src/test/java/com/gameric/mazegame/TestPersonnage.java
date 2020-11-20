@@ -25,7 +25,7 @@ public class TestPersonnage {
 	@Test
 	public void testCasePiegee01() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		//Positionnement du personnage à côté d'une case piégée
@@ -50,7 +50,7 @@ public class TestPersonnage {
 	@Test
 	public void testCasePiegee02() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		//Positionnement du personnage à côté d'une case piégée
@@ -86,7 +86,7 @@ public class TestPersonnage {
 	@Test
 	public void testCasePiegee03() {
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
 		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
 		//Positionnement du personnage à côté d'une case piégée

@@ -66,7 +66,7 @@ public class InfosLabyrinthe implements GamePainter {
 		
 		//On dessine les points d'attaque du joueur
 		crayon.setColor(Color.BLACK);
-		crayon.drawString("Attaque : " + personnage.getDegats(), WIDTH/2+10, HEIGHT/3);
+		crayon.drawString("Attaque : " + personnage.getDegats(), 2*WIDTH/5, HEIGHT/3);
 		
 		//On dessine le niveau courant du joueur
 		crayon.drawString("Niveau : " + jeu.getNiveau(), 4*WIDTH/5, HEIGHT/2);

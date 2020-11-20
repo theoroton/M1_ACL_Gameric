@@ -10,6 +10,7 @@ import com.gameric.mazegame.model.Squelette;
 import com.gameric.mazegame.model.Zombie;
 import com.gameric.mazegame.model.Monstre;
 import com.gameric.mazegame.model.Mur;
+import com.gameric.mazegame.model.Epeiste;
 import com.gameric.mazegame.model.Fantome;
 
 /**
@@ -32,9 +33,9 @@ public class TestMonstre {
 	public void testMonstreFantome() {
 		
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");
 		personnage.setPosition(3, 5);
 		//Création du monstre fantome
 		Monstre monstre = new Fantome(10, 5, labyrinthe);
@@ -51,11 +52,11 @@ public class TestMonstre {
 		//Monstre peut être sur la case Mur
 		assertEquals("Le monstre s'est deplacé sur la case du class Mur", true, labyrinthe.getCase(monstre.getPos_x(),monstre.getPos_y()).getClass() == Mur.class);
 		//Monstre peut pas attaquer le personnage a la distance > de la portee
-		assertEquals("Le monstre peut pas faire le degats a personnage", 20, personnage.getPointsVie());
+		assertEquals("Le monstre peut pas faire le degats a personnage", 30, personnage.getPointsVie());
 		monstre.setPosition(4, 5);
 		monstre.deplacerMonstre();
 		//Fantom a la portee 1 donc peut attaquer de la position (4, 5)
-		assertEquals("Le monstre devrait faire le degats de 2 a personnage ", 18, personnage.getPointsVie());
+		assertEquals("Le monstre devrait faire le degats de 2 a personnage ", 28, personnage.getPointsVie());
 		//personnage.attaquer();
 		//assertEquals("Le monstre devrait avoir perdu 10 points de vie", 10, monstre.getPointsVie());
 		
@@ -74,9 +75,9 @@ public class TestMonstre {
 	public void testMonstreZombie() {
 		
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");
 		personnage.setPosition(0, 5);
 		//Création du monstre zombie
 		Monstre monstre = new Zombie(4, 5, labyrinthe);
@@ -88,13 +89,13 @@ public class TestMonstre {
 		assertEquals("Le monstre ne voit pas le personnage", false, monstre.verifPersEnZone());
 		monstre.deplacerMonstre();
 		//Monstre peut pas attaquer le personnage a la distance > de la portee
-		assertEquals("Le monstre peut pas faire le degats a personnage", 20, personnage.getPointsVie());
+		assertEquals("Le monstre peut pas faire le degats a personnage", 30, personnage.getPointsVie());
 		monstre.setPosition(1, 5);
 		//Personnage est dans le champ de vision du monstre
 		assertEquals("Le monstre voit le personnage", true, monstre.verifPersEnZone());
 		monstre.deplacerMonstre();
 		//Zombie a la portee 1 donc peut attaquer de la position (1, 5)
-		assertEquals("Le monstre devrait faire le degats de 5 a personnage", 15, personnage.getPointsVie());
+		assertEquals("Le monstre devrait faire le degats de 5 a personnage", 25, personnage.getPointsVie());
 		//personnage.attaquer();
 		//assertEquals("Le monstre devrait avoir perdu 10 points de vie", 20, monstre.getPointsVie());
 		
@@ -113,9 +114,9 @@ public class TestMonstre {
 	public void testMonstreSquelette() {
 		
 		//Création du personnage
-		Personnage personnage = new Personnage();
+		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
-		Labyrinthe labyrinthe = new Labyrinthe(personnage,"test.txt");
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test.txt");
 		personnage.setPosition(0, 5);
 		//Création du monstre squelette
 		Monstre monstre = new Squelette(3, 2, labyrinthe);
@@ -130,10 +131,10 @@ public class TestMonstre {
 		assertEquals("Le monstre voit le personnage", true, monstre.verifPersEnZone());
 		monstre.deplacerMonstre();
 		//Monstre ne peut pas attaquer le personnage a la distance > de la portee
-		assertEquals("Le monstre ne peut pas faire le degats a personnage", 20, personnage.getPointsVie());
+		assertEquals("Le monstre ne peut pas faire le degats a personnage", 30, personnage.getPointsVie());
 		monstre.deplacerMonstre();
 		//squelette a la portee 3 donc peut attaquer
-		assertEquals("Le monstre devrait faire le degats de 4 a personnage", 16, personnage.getPointsVie());
+		assertEquals("Le monstre devrait faire le degats de 4 a personnage", 26, personnage.getPointsVie());
 		//personnage.attaquer();
 		//assertEquals("Le monstre devrait avoir perdu 10 points de vie", 0, monstre.getPointsVie());
 		
