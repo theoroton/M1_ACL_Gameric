@@ -105,18 +105,20 @@ public abstract class Personnage{
 	 **/
 	private void attaquer(){
 		int distance = 0;
-		for(Case c: labyrinthe.getCases()){								//On teste chaque case
-			distance = Math.abs(position.getPx() - c.getPx() + position.getPy() - c.getPy());
-			if(distance <= portee){										//Si la case est à portée
-				if(c.getClass().getSuperclass() == CaseVide.class		//Si la case est vide ou un mur(fantômes)
-				|| c.getClass().getSuperclass() == Mur.class){
-					if(testMonstre(c.getPx(), c.getPy())){				//S'il y a un monstre dessus
-						Monstre m = getMonstre(c.getPx(), c.getPy());	//On récupère le monstre
-						m.setPointsVie(m.getPointsVie() - this.degats);	//On lui fait des dégats
+		for(int i=0; i<labyrinthe.getHauteur(); i++){
+			for(int j=0; j<labyrinthe.getLargeur() ; j++){	
+				Case c = labyrinthe.getCase(i,j);							//On teste chaque case
+				distance = Math.abs(position.getPx() - c.getPx() + position.getPy() - c.getPy());
+				if(distance <= portee){										//Si la case est à portée
+					if(c.getClass().getSuperclass() == CaseVide.class		//Si la case est vide ou un mur(fantômes)
+					|| c.getClass().getSuperclass() == Mur.class){
+						if(testMonstre(c.getPx(), c.getPy())){				//S'il y a un monstre dessus
+							Monstre m = getMonstre(c.getPx(), c.getPy());	//On récupère le monstre
+							m.setPointsVie(m.getPointsVie() - this.degats);	//On lui fait des dégats
+						}
 					}
 				}
 			}
-			
 		}
 	}
 	
