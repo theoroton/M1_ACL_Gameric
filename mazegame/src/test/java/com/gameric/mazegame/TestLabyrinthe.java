@@ -18,6 +18,7 @@ import com.gameric.mazegame.model.monstres.Fantome;
 import com.gameric.mazegame.model.monstres.Squelette;
 import com.gameric.mazegame.model.monstres.Zombie;
 import com.gameric.mazegame.model.objets.Arme;
+import com.gameric.mazegame.model.objets.ObjetMystere;
 import com.gameric.mazegame.model.objets.Potion;
 import com.gameric.mazegame.model.personnage.Epeiste;
 import com.gameric.mazegame.model.personnage.Personnage;
@@ -279,6 +280,10 @@ public class TestLabyrinthe {
 		assertEquals("L'objet de cette case devrait être une arme", Arme.class, ((CaseObjet) labyrinthe.getCase(9, 5)).getObjet().getClass());
 		//Test si la case en position (4,9) possède bien une potion (attendu : true)
 		assertEquals("L'objet de cette case devrait être une potion", Potion.class, ((CaseObjet) labyrinthe.getCase(4, 9)).getObjet().getClass());
+		//Test si la case en position (2,6) possède bien un objet mystère (attendu : true)
+		assertEquals("L'objet de cette case devrait être un objet mystère", ObjetMystere.class, ((CaseObjet) labyrinthe.getCase(2, 6)).getObjet().getClass());
+		//Test si la case en position (3,8) possède bien un objet mystère (attendu : true)
+		assertEquals("L'objet de cette case devrait être un objet mystère", ObjetMystere.class, ((CaseObjet) labyrinthe.getCase(3, 8)).getObjet().getClass());
 	}
 	
 	
