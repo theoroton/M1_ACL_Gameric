@@ -191,6 +191,12 @@ public class Labyrinthe {
 					//Si le caractère est un P, on crée une CasePiegee à cette position
 					} else if (c == 'P') {
 						cas = new CasePiegee(i, j);
+					//Si le caractère est un T, on crée une CaseTeleportation à cette position
+					} else if (c == 'T') {
+						cas = new CaseTeleportation(i, j);
+					//Si le caractère est un A, on crée une CaseApparition à cette position
+					} else if (c == 'A') {
+						cas = new CaseApparition(i, j);
 					//Si le caractère est un p, on crée une CaseObjet avec une potion à cette position
 					} else if (c == 'p') {
 						cas = new CaseObjet(i, j, new Potion("Potion", 5));
@@ -283,7 +289,7 @@ public class Labyrinthe {
 	 * Méthode qui ajoute un monstre au labyrinthe
 	 * @param m : monstre à ajouter
 	 */
-	private void ajouterMonstre(Monstre m) {
+	public void ajouterMonstre(Monstre m) {
 		//Ajout du monstre à la liste des monstres du labyrinthe
 		monstres.add(m);
 	}

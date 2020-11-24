@@ -137,7 +137,9 @@ public abstract class Monstre {
 	 * @param y
 	 */
 	public void setPosition(int x, int y) {
-		position.setOccupee(false);
+		if (position != null) {
+			position.setOccupee(false);
+		}
 		position = labyrinthe.getCase(x, y);
 		position.setOccupee(true);
 	}

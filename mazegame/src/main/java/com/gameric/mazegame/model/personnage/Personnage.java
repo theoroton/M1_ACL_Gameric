@@ -224,4 +224,10 @@ public class Personnage{
 			}
 		}
 	}
+
+	public Labyrinthe getLabyrinthe() {
+		return labyrinthe;
+	}
+	
+	
 }

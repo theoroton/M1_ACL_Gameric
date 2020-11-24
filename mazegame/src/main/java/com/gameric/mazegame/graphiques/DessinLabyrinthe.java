@@ -12,8 +12,10 @@ import com.gameric.mazegame.engine.GamePainter;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Case;
+import com.gameric.mazegame.model.labyrinthe.CaseApparition;
 import com.gameric.mazegame.model.labyrinthe.CaseObjet;
 import com.gameric.mazegame.model.labyrinthe.CasePiegee;
+import com.gameric.mazegame.model.labyrinthe.CaseTeleportation;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
 import com.gameric.mazegame.model.monstres.Monstre;
@@ -85,9 +87,19 @@ public class DessinLabyrinthe implements GamePainter {
 						dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), Const.FONT_OBJET);
 					}
 					
-				//On dessigne en rose les cases piégées
+				//On dessine en rose les cases piégées
 				} else if (c.getClass() == CasePiegee.class) {
 					crayon.setColor(new Color(255, 153, 153));
+					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+				
+				//On dessine en bleu clair les cases téléporations
+				} else if (c.getClass() == CaseTeleportation.class) {
+					crayon.setColor(new Color(15, 220, 241));
+					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+								
+				//On dessine en violet clair les cases apparitions
+				} else if (c.getClass() == CaseApparition.class && !((CaseApparition) c).isDeclenche()) {
+					crayon.setColor(new Color(160, 103, 248));
 					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 				}
 			}
