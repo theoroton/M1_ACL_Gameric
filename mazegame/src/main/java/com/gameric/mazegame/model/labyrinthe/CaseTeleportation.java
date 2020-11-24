@@ -41,8 +41,11 @@ public class CaseTeleportation extends CaseEffet {
 			if (l.getCase(x, y).getClass() != Mur.class) {
 				//Si la case n'est pas occupée.
 				if (!l.estCaseOccupee(x, y)) {
-					//On a trouvée la case sur laquelle on téléporte le personnage.
-					trouvee = true;
+					//Si la case est différente de la case téléportation.
+					if (getPx() != x && getPy() != y) {
+						//On a trouvée la case sur laquelle on téléporte le personnage.
+						trouvee = true;
+					}
 				}
 			}
 		}

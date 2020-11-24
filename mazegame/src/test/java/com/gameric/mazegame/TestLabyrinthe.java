@@ -6,10 +6,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.gameric.mazegame.model.JeuLabyrinthe;
+import com.gameric.mazegame.model.labyrinthe.CaseApparition;
 import com.gameric.mazegame.model.labyrinthe.CaseEntree;
 import com.gameric.mazegame.model.labyrinthe.CaseObjet;
 import com.gameric.mazegame.model.labyrinthe.CasePiegee;
 import com.gameric.mazegame.model.labyrinthe.CaseSortie;
+import com.gameric.mazegame.model.labyrinthe.CaseTeleportation;
 import com.gameric.mazegame.model.labyrinthe.CaseVide;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.monstres.Fantome;
@@ -404,5 +406,35 @@ public class TestLabyrinthe {
 		assertEquals("La position Y du deuxième troisième n'est pas celle attendue", 10, labyrinthe.getMonstres().get(2).getPos_y());
 		//Test du type du troisième monstre
 		assertEquals("Le monstre devrait être un squelette", Squelette.class, labyrinthe.getMonstres().get(2).getClass());	
+	}
+	
+	
+	/**
+	 * Test de la création de la case téléportation.
+	 */
+	@Test
+	public void testCaseTeleportation() {
+		//Création du personnage
+		Personnage personnage = new Epeiste();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
+		
+		//Test si la case en position (4,3) est une case téléportation (attendu : true)
+		assertEquals("La case devrait être une case de téléportation", CaseTeleportation.class, labyrinthe.getCase(4, 3).getClass());
+	}
+	
+	
+	/**
+	 * Test de la création de la case apparition.
+	 */
+	@Test
+	public void testCaseApparition() {
+		//Création du personnage
+		Personnage personnage = new Epeiste();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
+		
+		//Test si la case en position (7,7) est une case apparition (attendu : true)
+		assertEquals("La case devrait être une case de apparition", CaseApparition.class, labyrinthe.getCase(7, 7).getClass());
 	}
 }
