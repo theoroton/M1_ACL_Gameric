@@ -17,9 +17,11 @@ public class ObjetMystere extends Objet {
 		switch (rand) {
 		case 1:
 			p.setVieMax(p.getVieMax() - 4);
+			p.setPointsVie(p.getPointsVie() - 4);
 			break;
 		case 2:
 			p.setVieMax(p.getVieMax() + 4);
+			p.setPointsVie(p.getPointsVie() + 4);
 			break;
 		case 3:
 			p.setPointsVie(p.getPointsVie() - 6);

@@ -13,6 +13,7 @@ import com.gameric.mazegame.model.monstres.Monstre;
 import com.gameric.mazegame.model.monstres.Squelette;
 import com.gameric.mazegame.model.monstres.Zombie;
 import com.gameric.mazegame.model.objets.Arme;
+import com.gameric.mazegame.model.objets.ObjetMystere;
 import com.gameric.mazegame.model.objets.Potion;
 import com.gameric.mazegame.model.personnage.Personnage;
 
@@ -203,6 +204,9 @@ public class Labyrinthe {
 					//Si le caractère est un a, on crée une CaseObjet avec une arme à cette positon
 					} else if (c == 'a') {
 						cas = new CaseObjet(i, j, new Arme("Arme", 2));
+					//Si le caractère est un ?, on crée une CaseObjet avec un objet mystère dessus
+					} else if (c == '?') {
+						cas = new CaseObjet(i, j, new ObjetMystere());
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
