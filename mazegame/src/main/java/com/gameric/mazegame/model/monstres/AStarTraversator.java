@@ -1,7 +1,10 @@
-package com.gameric.mazegame.ai;
+package com.gameric.mazegame.model.monstres;
 
-import java.util.*;
-import com.gameric.mazegame.model.*;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+
+import com.gameric.mazegame.model.labyrinthe.Case;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 
 /**
  * 

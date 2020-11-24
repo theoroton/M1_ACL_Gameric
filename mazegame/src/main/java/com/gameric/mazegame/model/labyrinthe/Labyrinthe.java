@@ -1,4 +1,4 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.model.labyrinthe;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,6 +7,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.gameric.mazegame.model.monstres.Fantome;
+import com.gameric.mazegame.model.monstres.Monstre;
+import com.gameric.mazegame.model.monstres.Squelette;
+import com.gameric.mazegame.model.monstres.Zombie;
+import com.gameric.mazegame.model.objets.Arme;
+import com.gameric.mazegame.model.objets.Potion;
+import com.gameric.mazegame.model.personnage.Personnage;
 
 
 /**
@@ -289,15 +297,13 @@ public class Labyrinthe {
 	public boolean estCaseOccupee(int x, int y) {
 		boolean res = false;
 		
-		//Si la case est occupée par le personnage, on renvoi true
-		if (personnage_laby.getPosition() == cases[y][x]) {
-			res = true;
-		} else {
-			//Si la case est occupée par un des monstres, on renvoi true
-			for (Monstre m : monstres) {
-				if (m.getPosition() == cases[y][x]) {
+		//On regarde si les coordonnées données sont correctes
+		if (x >= 0 && x < largeur) {
+			if (y >= 0 && y < hauteur) {
+				
+				//On regarde si la case est occupée
+				if (cases[y][x].isOccupee()) {
 					res = true;
-					break;
 				}
 			}
 		}
@@ -394,6 +400,7 @@ public class Labyrinthe {
 	 * @param m : Monstre à enlever
 	 */
 	public void enleverMonstre(Monstre m) {
+		m.getPosition().setOccupee(false);
 		monstres.remove(m);
 	}
 	

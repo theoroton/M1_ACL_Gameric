@@ -1,9 +1,12 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.model.monstres;
 
-import java.util.LinkedList;
 import java.util.Collections;
+import java.util.LinkedList;
 
-import com.gameric.mazegame.ai.AStarTraversator;
+import com.gameric.mazegame.model.labyrinthe.Case;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
+import com.gameric.mazegame.model.labyrinthe.Mur;
+import com.gameric.mazegame.model.personnage.Personnage;
 /**
  * 
  * @author Anna Sushko

@@ -2,6 +2,13 @@ package com.gameric.mazegame.model;
 
 import com.gameric.mazegame.engine.Cmd;
 import com.gameric.mazegame.engine.Game;
+import com.gameric.mazegame.model.labyrinthe.CaseSortie;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
+import com.gameric.mazegame.model.monstres.Monstre;
+import com.gameric.mazegame.model.personnage.Archer;
+import com.gameric.mazegame.model.personnage.Epeiste;
+import com.gameric.mazegame.model.personnage.Mage;
+import com.gameric.mazegame.model.personnage.Personnage;
 
 /**
  * 

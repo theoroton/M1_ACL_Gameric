@@ -9,17 +9,17 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.gameric.mazegame.engine.GamePainter;
-import com.gameric.mazegame.model.Case;
-import com.gameric.mazegame.model.CaseObjet;
-import com.gameric.mazegame.model.CasePiegee;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
-import com.gameric.mazegame.model.Labyrinthe;
-import com.gameric.mazegame.model.Monstre;
-import com.gameric.mazegame.model.Mur;
-import com.gameric.mazegame.model.Personnage;
-import com.gameric.mazegame.model.Squelette;
-import com.gameric.mazegame.model.Zombie;
+import com.gameric.mazegame.model.labyrinthe.Case;
+import com.gameric.mazegame.model.labyrinthe.CaseObjet;
+import com.gameric.mazegame.model.labyrinthe.CasePiegee;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
+import com.gameric.mazegame.model.labyrinthe.Mur;
+import com.gameric.mazegame.model.monstres.Monstre;
+import com.gameric.mazegame.model.monstres.Squelette;
+import com.gameric.mazegame.model.monstres.Zombie;
+import com.gameric.mazegame.model.personnage.Personnage;
 
 /**
  * 

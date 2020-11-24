@@ -1,4 +1,6 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.model.labyrinthe;
+
+import com.gameric.mazegame.model.personnage.Personnage;
 
 /**
  * 

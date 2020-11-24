@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import com.gameric.mazegame.engine.GamePainter;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
-import com.gameric.mazegame.model.Personnage;
+import com.gameric.mazegame.model.personnage.Personnage;
 
 public class InfosLabyrinthe implements GamePainter {
 

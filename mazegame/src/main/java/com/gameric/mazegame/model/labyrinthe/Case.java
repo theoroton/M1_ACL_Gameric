@@ -1,6 +1,9 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.model.labyrinthe;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gameric.mazegame.model.monstres.Monstre;
 /**
  * 
  * @author Théo Roton
@@ -16,6 +19,11 @@ public abstract class Case {
 	 * Position en y de la case
 	 */
 	private int py;
+	
+	/**
+	 * Booléen qui indique si la case est occupée ou non.
+	 */
+	protected boolean occupee;
 	
 	/**
 	 * Parent de la case
@@ -100,6 +108,22 @@ public abstract class Case {
 		this.distance = distance;
 	}
 	
+	/**
+	 * Méthode getter de l'attribut occupee
+	 * @return true si la case est occupée
+	 */
+	public boolean isOccupee() {
+		return occupee;
+	}
+
+	/**
+	 * Méthode setter de l'attribut occupee
+	 * @param occupee : parametre qui met à jour la position de la case
+	 */
+	public void setOccupee(boolean occupee) {
+		this.occupee = occupee;
+	}
+
 	/**
 	 * Méthode qui calcule une estimation du coût minimum d'un case au but
 	 * @param but

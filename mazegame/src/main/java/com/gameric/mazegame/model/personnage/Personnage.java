@@ -1,4 +1,11 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.model.personnage;
+
+import com.gameric.mazegame.model.labyrinthe.Case;
+import com.gameric.mazegame.model.labyrinthe.CaseEffet;
+import com.gameric.mazegame.model.labyrinthe.CaseObjet;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
+import com.gameric.mazegame.model.labyrinthe.Mur;
+import com.gameric.mazegame.model.monstres.Monstre;
 
 /**
  * 
@@ -29,6 +36,7 @@ public class Personnage{
 		else 						pos_y = 1;
 		
 		position = labyrinthe.getCase(x,y);
+		System.out.println(position);
 	}
 	
 	//Méthodes
@@ -52,7 +60,9 @@ public class Personnage{
 					if(new_position.getClass() != Mur.class){	
 						//Vérification: CaseVide
 						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
+							position.setOccupee(false);
 							position = new_position;
+							position.setOccupee(true);
 							
 							//Si la case sur lequel le personnage se déplace est une case à effet
 							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
@@ -93,7 +103,11 @@ public class Personnage{
 	}
 	
 	public void setPosition(int x, int y) {
+		if (position != null) {
+			position.setOccupee(false);
+		}
 		position = labyrinthe.getCase(x, y);
+		position.setOccupee(true);
 	}
 
 	public void setLabyrinthe(Labyrinthe labyrinthe) {

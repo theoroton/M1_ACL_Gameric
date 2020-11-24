@@ -5,20 +5,20 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.gameric.mazegame.model.Arme;
-import com.gameric.mazegame.model.CaseEntree;
-import com.gameric.mazegame.model.CaseObjet;
-import com.gameric.mazegame.model.CasePiegee;
-import com.gameric.mazegame.model.CaseSortie;
-import com.gameric.mazegame.model.CaseVide;
-import com.gameric.mazegame.model.Epeiste;
-import com.gameric.mazegame.model.Fantome;
 import com.gameric.mazegame.model.JeuLabyrinthe;
-import com.gameric.mazegame.model.Labyrinthe;
-import com.gameric.mazegame.model.Personnage;
-import com.gameric.mazegame.model.Potion;
-import com.gameric.mazegame.model.Squelette;
-import com.gameric.mazegame.model.Zombie;
+import com.gameric.mazegame.model.labyrinthe.CaseEntree;
+import com.gameric.mazegame.model.labyrinthe.CaseObjet;
+import com.gameric.mazegame.model.labyrinthe.CasePiegee;
+import com.gameric.mazegame.model.labyrinthe.CaseSortie;
+import com.gameric.mazegame.model.labyrinthe.CaseVide;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
+import com.gameric.mazegame.model.monstres.Fantome;
+import com.gameric.mazegame.model.monstres.Squelette;
+import com.gameric.mazegame.model.monstres.Zombie;
+import com.gameric.mazegame.model.objets.Arme;
+import com.gameric.mazegame.model.objets.Potion;
+import com.gameric.mazegame.model.personnage.Epeiste;
+import com.gameric.mazegame.model.personnage.Personnage;
 
 /**
  * Classe des tests sur le labyrinthe

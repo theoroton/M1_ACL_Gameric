@@ -1,4 +1,4 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.model.labyrinthe;
 
 /**
  * 

@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.gameric.mazegame.model.Archer;
-import com.gameric.mazegame.model.Epeiste;
 import com.gameric.mazegame.model.JeuLabyrinthe;
-import com.gameric.mazegame.model.Labyrinthe;
-import com.gameric.mazegame.model.Personnage;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
+import com.gameric.mazegame.model.personnage.Archer;
+import com.gameric.mazegame.model.personnage.Epeiste;
+import com.gameric.mazegame.model.personnage.Personnage;
 
 /**
  * Classe des tests sur le personnage

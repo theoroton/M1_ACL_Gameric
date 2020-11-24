@@ -1,4 +1,8 @@
-package com.gameric.mazegame.model;
+package com.gameric.mazegame.model.monstres;
+
+import com.gameric.mazegame.model.labyrinthe.Case;
+import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
+import com.gameric.mazegame.model.labyrinthe.Mur;
 
 /**
  * 
@@ -46,7 +50,8 @@ public abstract class Monstre {
 	 */
 	public Monstre(int x, int y, Labyrinthe l) {
 		labyrinthe = l;
-		position = labyrinthe.getCase(x,y); 
+		position = labyrinthe.getCase(x,y);
+		position.setOccupee(true);
 	}
 	/**
 	 * Méthode getter de l'attribut pointsVie
@@ -132,7 +137,9 @@ public abstract class Monstre {
 	 * @param y
 	 */
 	public void setPosition(int x, int y) {
+		position.setOccupee(false);
 		position = labyrinthe.getCase(x, y);
+		position.setOccupee(true);
 	}
 	/**
 	 * Méthode qui gère le déplacement de monstre
