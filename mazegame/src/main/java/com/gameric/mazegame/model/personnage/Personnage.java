@@ -228,6 +228,23 @@ public class Personnage{
 	public Labyrinthe getLabyrinthe() {
 		return labyrinthe;
 	}
+
+	public int getVieMax() {
+		return vieMax;
+	}
+
+	public int getPortee() {
+		return portee;
+	}
+
+	public void setVieMax(int vieMax) {
+		this.vieMax = vieMax;
+	}
+
+	public void setPortee(int portee) {
+		this.portee = portee;
+	}
+	
 	
 	
 }
