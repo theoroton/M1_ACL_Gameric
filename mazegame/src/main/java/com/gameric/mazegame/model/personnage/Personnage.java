@@ -109,7 +109,7 @@ public abstract class Personnage{
 
 	private abstract void capaciteSpe();
 	/**
-	 * Attaque un monstre à portée (sans direction d'attaque dans cette version)
+	 * Attaque un monstre à portée avec direction d'attaque)
 	 **/
 	public void attaquer(){
 		int distance = 0;
@@ -120,17 +120,23 @@ public abstract class Personnage{
 				distance = Math.abs(position.getPx() - c.getPx() + position.getPy() - c.getPy());
 				//Si la case est à portée
 				if(distance <= portee){
-					//Si la case est vide ou un mur(fantômes)
-					if(c.getClass().getSuperclass() == CaseVide.class
-							|| c.getClass().getSuperclass() == Mur.class){
-						//S'il y a un monstre dessus
-						if(testMonstre(c.getPx(), c.getPy())){
-							//On récupère le monstre
-							Monstre m = getMonstre(c.getPx(), c.getPy());
-							//On lui fait des dégats
-							m.setPointsVie(m.getPointsVie() - this.degats);
-							//On active la capacité spéciale de la classe
-							capaciteSpe();
+					//On attaque dans la direction dans laquelle on regarde
+					if( ((direction == N) && (c.getPy() >= position.getPy()) )
+							|| ((direction == E) && (c.getPx() >= position.getPx()) )
+							|| ((direction == S) && (c.getPy() <= position.getPy()) )
+							|| ((direction == O) && (c.getPx() <= position.getPx()) ) ){
+						//Si la case est vide ou un mur(fantômes)
+						if( (c.getClass().getSuperclass() == CaseVide.class)
+								|| (c.getClass().getSuperclass() == Mur.class) ){
+							//S'il y a un monstre dessus
+							if(testMonstre(c.getPx(), c.getPy())){
+								//On récupère le monstre
+								Monstre m = getMonstre(c.getPx(), c.getPy());
+								//On lui fait des dégats
+								m.setPointsVie(m.getPointsVie() - this.degats);
+								//On active la capacité spéciale de la classe
+								capaciteSpe();
+							}
 						}
 					}
 				}
