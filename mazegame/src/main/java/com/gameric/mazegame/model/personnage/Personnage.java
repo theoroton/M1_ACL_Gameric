@@ -17,12 +17,16 @@ public abstract class Personnage{
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
 
-	public static final char N = "N";
-	char direction;
+	char direction;		//direction dans laquelle le personnage regarde
+	public static final char N = "Nord";	//Serviront à changer la direction du Personnage
+	public static final char E = "Est";
+	public static final char S = "Sud";
+	public static final char O = "Ouest";
 
 	//Constructeurs
 	public Personnage(){
-		direction = N;
+		direction = E;
+		System.out.println("Le personnage regard vers: " + direction);
 	};
 
 	//Méthodes
