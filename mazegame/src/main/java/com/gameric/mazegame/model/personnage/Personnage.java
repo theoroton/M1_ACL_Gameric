@@ -17,8 +17,13 @@ public abstract class Personnage{
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
 
+	public static final char N = "N";
+	char direction;
+
 	//Constructeurs
-	public Personnage(){};
+	public Personnage(){
+		direction = N;
+	};
 
 	//Méthodes
 

@@ -8,6 +8,7 @@ package com.gameric.mazegame.model.personnage;
 public class Archer extends Personnage{
 	//Constructeur
 	public Archer(){
+		super();
 		pointsVie = vieMax = 20;
 		degats = 5;
 		portee = 5;
