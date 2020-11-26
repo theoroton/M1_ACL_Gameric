@@ -137,4 +137,15 @@ public class TestPersonnage {
 		//La classe du joueur devrait être la classe par défaut : Epeiste
 		assertEquals("La classe du joueur devrait être un épeiste", Epeiste.class, jeu.getPersonnage().getClass());
 	}
+	/**
+	 * Test sur la direction via la direction initiale du personnage
+	 */
+	@Test
+	public void testDirectionInit(){
+		//Création du jeu
+		JeuLabyrinthe jeu = new JeuLabyrinthe();
+
+		//La direction du joueur devrait être Est, la direction donnée initialement dans le constructeur
+		assertEquals("La direction du joueur devrait être Est","Est",jeu.getPersonnage().getDirection());
+	}
 }
