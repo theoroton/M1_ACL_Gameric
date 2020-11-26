@@ -24,10 +24,7 @@ public abstract class Personnage{
 	public static final char O = "Ouest";
 
 	//Constructeurs
-	public Personnage(){
-		direction = E;
-		System.out.println("Le personnage regard vers: " + direction);
-	};
+	public Personnage(){ direction = E; };
 
 	//Méthodes
 
@@ -180,6 +177,7 @@ public abstract class Personnage{
 		return position.getPy();
 	}
 
+	public char getDirection(){ return direction; }
 
 	public int getPointsVie() {
 		return pointsVie;
