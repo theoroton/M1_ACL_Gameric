@@ -106,6 +106,8 @@ public abstract class Personnage{
 			}
 		}
 	}
+
+	private abstract void capaciteSpe();
 	/**
 	 * Attaque un monstre à portée (sans direction d'attaque dans cette version)
 	 **/
@@ -127,6 +129,8 @@ public abstract class Personnage{
 							Monstre m = getMonstre(c.getPx(), c.getPy());
 							//On lui fait des dégats
 							m.setPointsVie(m.getPointsVie() - this.degats);
+							//On active la capacité spéciale de la classe
+							capaciteSpe();
 						}
 					}
 				}
@@ -159,6 +163,8 @@ public abstract class Personnage{
 	public void setDegats(int degats){
 		this.degats = degats;
 	}
+
+	public void setPortee(int portee){ this.portee = portee; }
 
 	//Getters
 	public String getStringPosition(){

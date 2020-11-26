@@ -15,4 +15,11 @@ public class Epeiste extends Personnage{
 	}
 	//Méthodes
 
+	/**
+	 * Capacité spéciale, déclenchée lorsqu'on attaque un monstre
+	 * Pour l'épéiste, augmentation de 2 dégâts pour chaque monstre tué
+	 */
+	private void capaciteSpe(){
+		setDegats(degats + 2);
+	}
 }
