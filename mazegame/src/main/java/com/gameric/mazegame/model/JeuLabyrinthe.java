@@ -30,6 +30,9 @@ public class JeuLabyrinthe implements Game {
 	 */
 	private Etat etat;
 	
+	/**
+	 * Classe du personnage
+	 */
 	private String classe;
 	
 	/**

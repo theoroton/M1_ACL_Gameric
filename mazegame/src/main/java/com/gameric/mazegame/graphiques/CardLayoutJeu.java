@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 import com.gameric.mazegame.model.ControleurLabyrinthe;
+import com.gameric.mazegame.model.Etat;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 
 /**
@@ -15,6 +16,14 @@ import com.gameric.mazegame.model.JeuLabyrinthe;
 public class CardLayoutJeu extends JPanel {
 
 	/**
+	 * Ecran du menu principal
+	 */
+	private EcranMenu menu;
+	/**
+	 * Ecran des règles du jeu
+	 */
+	private EcranRegle regle;
+	/**
 	 * Ecran du choix de classe
 	 */
 	private EcranClasse choixClasse;
@@ -22,6 +31,10 @@ public class CardLayoutJeu extends JPanel {
 	 * Ecran du jeu
 	 */
 	private EcranJeu ecranJeu;
+	/**
+	 * Ecran de fin du jeu
+	 */
+	private EcranFin ecranFin;
 	
 	/**
 	 * Layout qui permettra d'ajouter les écrans
@@ -84,6 +97,7 @@ public class CardLayoutJeu extends JPanel {
 		jeu.choixClasse(classe);
 		//Lancement le jeu
 		jeu.lancerJeu();
+		
 		//On crée l'écran du jeu
 		ecranJeu = new EcranJeu(jeu);
 		//On ajoute l'écran du jeu
@@ -91,7 +105,7 @@ public class CardLayoutJeu extends JPanel {
 		//On affiche l'écran du jeu
 		cl.show(this, "ecranJeu");
 		//On indique que le jeu est en cours
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 	}
 	
 	
