@@ -130,12 +130,15 @@ public abstract class Personnage{
 								|| (c.getClass().getSuperclass() == Mur.class) ){
 							//S'il y a un monstre dessus
 							if(testMonstre(c.getPx(), c.getPy())){
-								//On récupère le monstre
-								Monstre m = getMonstre(c.getPx(), c.getPy());
-								//On lui fait des dégats
-								m.setPointsVie(m.getPointsVie() - this.degats);
-								//On active la capacité spéciale de la classe
-								capaciteSpe();
+									//On récupère le monstre
+									Monstre m = getMonstre(c.getPx(), c.getPy());
+									//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
+									if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.Py())) {
+										//On lui fait des dégats
+										m.setPointsVie(m.getPointsVie() - this.degats);
+										//On active la capacité spéciale de la classe
+										capaciteSpe();
+									}
 							}
 						}
 					}
@@ -171,6 +174,13 @@ public abstract class Personnage{
 	}
 
 	public void setPortee(int portee){ this.portee = portee; }
+
+	public void setDirection(char dir){
+		if(char == 'N')	direction = N;
+		if(char == 'E')	direction = E;
+		if(char == 'S')	direction = S;
+		if(char == 'O')	direction = O;
+	}
 
 	//Getters
 	public String getStringPosition(){
