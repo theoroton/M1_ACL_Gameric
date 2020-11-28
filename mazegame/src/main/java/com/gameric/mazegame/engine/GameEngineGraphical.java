@@ -43,7 +43,7 @@ public class GameEngineGraphical {
 	 */
 	public void run() throws InterruptedException {
 		//Tant que le jeu n'est pas lancé, on attends.
-		while (!jeu.isEnCours()) { Thread.sleep(100);}
+		while (jeu.debut()) { Thread.sleep(100); }
 				
 		//Une fois que le jeu est lancé, on exécute la boucle du jeu
 		while (!this.jeu.isFinished()) {
@@ -54,7 +54,7 @@ public class GameEngineGraphical {
 			//Met à jour l'affichage du jeu
 			this.gui.paint();
 			//Met en attente
-			Thread.sleep(125);
+			Thread.sleep(100);
 		}
 	}
 

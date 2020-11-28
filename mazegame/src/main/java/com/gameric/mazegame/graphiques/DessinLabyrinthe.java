@@ -126,6 +126,14 @@ public class DessinLabyrinthe implements GamePainter {
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
 		}
+		
+		//Si le jeu est en pause
+		if (jeu.enPause()) {
+			crayon.setColor(Const.COULEUR_PAUSE);
+			crayon.fillRect(0, 0, WIDTH, HEIGHT);
+			crayon.setColor(Color.BLACK);
+			dessinerChaineCentree(crayon, "Jeu en pause", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_PAUSE);
+		}
 
 		//Si le jeu est fini et que le personnage est mort, alors on écrit un message de défaite
 		if (personnage.estMort()) {	

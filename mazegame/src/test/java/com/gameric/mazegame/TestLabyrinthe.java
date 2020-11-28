@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.gameric.mazegame.model.Etat;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.labyrinthe.CaseApparition;
 import com.gameric.mazegame.model.labyrinthe.CaseEntree;
@@ -296,7 +297,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		
 		//Test si le niveau est bien de 1
@@ -323,7 +324,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		//On met le jeu au niveau 3
 		jeu.setNiveau(3);
@@ -352,7 +353,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		//On met le jeu au niveau 2
 		jeu.setNiveau(2);
@@ -371,7 +372,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		//On met le jeu au niveau 10
 		jeu.setNiveau(10);
