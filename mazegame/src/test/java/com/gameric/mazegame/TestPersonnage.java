@@ -148,4 +148,5 @@ public class TestPersonnage {
 		//La direction du joueur devrait être Est, la direction donnée initialement dans le constructeur
 		assertEquals("La direction du joueur devrait être Est","Est",jeu.getPersonnage().getDirection());
 	}
+
 }
