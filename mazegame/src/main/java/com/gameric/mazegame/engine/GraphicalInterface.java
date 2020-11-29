@@ -35,6 +35,7 @@ public class GraphicalInterface  {
 		fenetre.setContentPane(this.panel);
 		
 		fenetre.pack();
+		fenetre.setResizable(false);
 		fenetre.setVisible(true);
 		fenetre.getContentPane().setFocusable(true);
 		fenetre.getContentPane().requestFocus();

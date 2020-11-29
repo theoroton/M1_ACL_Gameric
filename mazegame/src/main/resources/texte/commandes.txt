@@ -1,0 +1,9 @@
+Commandes du jeu :
+- &uarr; : déplacement vers le haut
+- &darr; : déplacement vers le bas
+- &rarr; : déplacement vers la droite
+- &larr; : déplacement vers la gauche
+- A : attaquer
+- E : ramasser
+- P : mettre en pause
+- R : recommencer le jeu

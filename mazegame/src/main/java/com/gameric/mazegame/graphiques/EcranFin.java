@@ -77,6 +77,7 @@ public class EcranFin extends JPanel {
             }
         });
 
+        
         //Placement des éléments
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

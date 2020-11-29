@@ -22,7 +22,7 @@ public class CardLayoutJeu extends JPanel {
 	/**
 	 * Ecran des règles du jeu
 	 */
-	private EcranRegle regle;
+	private EcranRegle regles;
 	/**
 	 * Ecran du choix de classe
 	 */
@@ -62,13 +62,22 @@ public class CardLayoutJeu extends JPanel {
 		//Ajout du layout
 		setLayout(cl);
 		
+		//Création du menu du jeu
+		menu = new EcranMenu(this);
+		//Création de l'écran des règles
+		regles = new EcranRegle(this);
 		//Création de l'écran du choix de classe
 		choixClasse = new EcranClasse(this);
 
-		//Ajout du controleur
-		addKeyListener(controleur);
+		//Ajout de l'écran du menu au layout
+		add(menu, "menu");
+		//Ajout de l'écran des régles au layout
+		add(regles, "regles");
 		//Ajout de l'écran du choix de classe au layout
 		add(choixClasse, "choixClasse");
+		
+		//Ajout du controleur
+		addKeyListener(controleur);
 		
 	}
 	
@@ -132,6 +141,16 @@ public class CardLayoutJeu extends JPanel {
 		jeu.setEtat(Etat.EnCours);
 	}
 	
+	public void afficherChoixClasse() {
+		cl.show(this, "choixClasse");
+	}
 	
+	public void afficherRegles() {
+		cl.show(this, "regles");
+	}
+	
+	public void afficherMenu() {
+		cl.show(this, "menu");
+	}
 	
 }
