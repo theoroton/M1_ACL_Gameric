@@ -45,6 +45,8 @@ public class GameEngineGraphical {
 		//Tant que le jeu n'est pas lancé, on attends.
 		while (jeu.debut()) { Thread.sleep(100); }
 		
+		afficherCommandes();
+		
 		//Tant que le jeu n'est pas fermé
 		while (!this.jeu.enFin()) {
 			
@@ -71,6 +73,21 @@ public class GameEngineGraphical {
 		
 		//Si on choisit de quitter le jeu, on ferme la fenêtre
 		gui.fin();
+	}
+
+	/**
+	 * Méthode qui permet d'afficher les commandes du jeu dans la console
+	 */
+	private void afficherCommandes() {
+		System.out.println("Commandes du jeu :");
+		System.out.println("- Flèche du haut; : déplacement vers le haut");
+		System.out.println("- Flèche du bas : déplacement vers le bas");
+		System.out.println("- Flèche droite : déplacement vers la droite");
+		System.out.println("- Flèche gauche : déplacement vers la gauche");
+		System.out.println("- A : attaquer");
+		System.out.println("- E : ramasser");
+		System.out.println("- P : mettre en pause");
+		System.out.println("- R : recommencer le jeu");
 	}
 
 }
