@@ -80,10 +80,10 @@ public class GameEngineGraphical {
 	 */
 	private void afficherCommandes() {
 		System.out.println("Commandes du jeu :");
-		System.out.println("- Flèche du haut; : déplacement vers le haut");
-		System.out.println("- Flèche du bas : déplacement vers le bas");
-		System.out.println("- Flèche droite : déplacement vers la droite");
-		System.out.println("- Flèche gauche : déplacement vers la gauche");
+		System.out.println("- Fleche du haut : deplacement vers le haut");
+		System.out.println("- Fleche du bas : deplacement vers le bas");
+		System.out.println("- Fleche droite : deplacement vers la droite");
+		System.out.println("- Fleche gauche : deplacement vers la gauche");
 		System.out.println("- A : attaquer");
 		System.out.println("- E : ramasser");
 		System.out.println("- P : mettre en pause");
