@@ -65,9 +65,19 @@ public class CaseApparition extends CaseEffet {
 			}
 			
 			//On crée un nouveau monstre aléatoire
-			List<Monstre> listClasses = Arrays.asList(new Fantome(x,y,l), new Zombie(x,y,l), new Squelette(x,y,l));
-			Random rand = new Random();
-			Monstre m = listClasses.get(rand.nextInt(listClasses.size()));
+			int choix = (int) (Math.random() * (3 - 0));
+			Monstre m = null;
+			switch(choix) {
+			case 0:
+				m = new Fantome(x,y,l);
+				break;
+			case 1:
+				m = new Zombie(x,y,l);
+				break;
+			case 2:
+				m = new Squelette(x,y,l);
+				break;
+			}		
 			//On ajoute le monstre à la liste des monstres du labyrinthe
 			l.ajouterMonstre(m);
 			//On indique que l'effet a était déclenché

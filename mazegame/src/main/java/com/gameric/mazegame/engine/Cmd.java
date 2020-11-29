@@ -5,5 +5,5 @@ package com.gameric.mazegame.engine;
  *
  */
 public enum Cmd {
-	 LEFT,RIGHT,UP,DOWN,IDLE,PICKUP,ATTACK; 
+	 LEFT, RIGHT, UP, DOWN, IDLE, PICKUP, ATTACK, PAUSE, RESET; 
 }

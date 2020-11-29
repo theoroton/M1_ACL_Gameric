@@ -67,6 +67,12 @@ public class InfosLabyrinthe implements GamePainter {
 		
 		//On dessine le niveau courant du joueur
 		crayon.drawString("Niveau : " + jeu.getNiveau(), 4*WIDTH/5, HEIGHT/2);
+		
+		//Si le jeu est en pause.
+		if (jeu.enPause()) {
+			crayon.setColor(Const.COULEUR_PAUSE);
+			crayon.fillRect(0, 0, WIDTH, HEIGHT);
+		}
 	}
 
 	/**

@@ -4,7 +4,6 @@ import com.gameric.mazegame.engine.Cmd;
 import com.gameric.mazegame.engine.Game;
 import com.gameric.mazegame.model.labyrinthe.CaseSortie;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
-import com.gameric.mazegame.model.monstres.Monstre;
 import com.gameric.mazegame.model.personnage.Archer;
 import com.gameric.mazegame.model.personnage.Epeiste;
 import com.gameric.mazegame.model.personnage.Mage;
@@ -29,7 +28,12 @@ public class JeuLabyrinthe implements Game {
 	/**
 	 * Attribut qui permet d'indiquer si le jeu est en cours;
 	 */
-	private boolean enCours;
+	private Etat etat;
+	
+	/**
+	 * Classe du personnage
+	 */
+	private String classe;
 	
 	/**
 	 * Niveau max du jeu
@@ -45,15 +49,21 @@ public class JeuLabyrinthe implements Game {
 	 * On initialise un labyrinthe et le personnage du joueur
 	 */
 	public JeuLabyrinthe() {
-		enCours = false;
-		niveau = 1;
+		etat = Etat.Debut;
 	}
 	
 	/**
 	 * Méthode qui permet de sélectionner la classe choisie par le joueur
 	 * @param classe : classe choisie
 	 */
-	public void choixClasse(String classe) {
+	public void choixClasse(String c) {
+		classe = c;
+	}
+	
+	/**
+	 * Méthode qui permet de lancer le jeu
+	 */
+	public void lancerJeu() {
 		switch (classe) {
 		//Si le joueur a choisi Archer
 		case "archer":
@@ -64,20 +74,12 @@ public class JeuLabyrinthe implements Game {
 			personnage = new Mage();
 			break;
 		//Si le joueur a choisi Epeiste
-		case "epeiste":
-			personnage = new Epeiste();
-			break;
-		//Si la classe n'est pas reconnue, on crée un épeiste pour le personnage
 		default:
 			personnage = new Epeiste();
 			break;
 		}
-	}
-	
-	/**
-	 * Méthode qui permet de lancer le jeu
-	 */
-	public void lancerJeu() {
+		
+		niveau = 1;
 		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
 	}
 
@@ -85,47 +87,95 @@ public class JeuLabyrinthe implements Game {
 	 * Méthode qui fait évoluer le jeu en fonction de
 	 * la commande
 	 */
-	public void evolve(Cmd userCmd) {
-		//Switch sur la commande de l'utilisateur
-		switch (userCmd) {
-		//Commande UP
-		case UP:
-			//le personnage se déplace de 1 vers le haut (0,1)
-			personnage.setDirection('N');
-			personnage.deplacer(0, -1);
-			break;
-		//Commande DOWN
-		case DOWN:
-			//le personnage se déplace de 1 vers le bas (0,-1)
-			personnage.setDirection('S');
-			personnage.deplacer(0, 1);
-			break;
-		//Commande LEFT
-		case LEFT:
-			//le personnage se déplace de 1 vers la gauche (-1,0)
-			personnage.setDirection('O');
-			personnage.deplacer(-1, 0);
-			break;
-		//Commande RIGHT
-		case RIGHT:
-			//le personnage se déplace de 1 vers la droite (1,0)
-			personnage.setDirection('E');
-			personnage.deplacer(1, 0);
-			break;
-		//Commande PICKUP
-		case PICKUP:
-			//le personnage essaie de ramasser un objet
-			personnage.ramasserObjet();
-			break;
-		case ATTACK:
-			//le personnage attaque
-			personnage.attaquer();
-			break;
+	public void evolve(Cmd userCmd) {	
+		//Si le jeu est en pause
+		if (enPause()) {
+			//Commande PAUSE
+			if (userCmd == Cmd.PAUSE) {
+				//reprend le cours du jeu
+				reprendre();
+			}
+		
+		//Si le jeu est en cours
+		} else if (enCours()){
+			//Switch sur la commande de l'utilisateur
+			switch (userCmd) {
+			//Commande UP
+			case UP:
+				//le personnage se déplace de 1 vers le haut (0,1)
+				//personnage.setDirection('N');
+				personnage.deplacer(0, -1);
+				break;
+			//Commande DOWN
+			case DOWN:
+				//le personnage se déplace de 1 vers le bas (0,-1)
+				//personnage.setDirection('S');
+				personnage.deplacer(0, 1);
+				break;
+			//Commande LEFT
+			case LEFT:
+				//le personnage se déplace de 1 vers la gauche (-1,0)
+				//personnage.setDirection('O');
+				personnage.deplacer(-1, 0);
+				break;
+			//Commande RIGHT
+			case RIGHT:
+				//le personnage se déplace de 1 vers la droite (1,0)
+				//personnage.setDirection('E');
+				personnage.deplacer(1, 0);
+				break;
+			//Commande PICKUP
+			case PICKUP:
+				//le personnage essaie de ramasser un objet
+				personnage.ramasserObjet();
+				break;
+			//Commande ATTACK
+			case ATTACK:
+				//le personnage attaque
+				personnage.attaquer();
+				break;
+			//Commande PAUSE	
+			case PAUSE:
+				//met le jeu en pause
+				pause();
+				break;
+			//Commande RESET
+			case RESET:
+				//remet à zéro le jeu
+				reset();
+				break;
+			}
 		}
+	}
 
-		for (Monstre m : labyrinthe.getMonstres()) {
-			m.deplacerMonstre();
-		}
+	/**
+	 * Méthode qui met en pause le jeu.
+	 */
+	private void pause() {
+		//on met le jeu en pause
+		etat = Etat.Pause;
+		//on arrête les timers des monstres
+		labyrinthe.arreterTimers();
+	}
+	
+	/**
+	 * Méthode qui permet de reprendre le jeu quand il est en pause.
+	 */
+	private void reprendre() {
+		//on reprend les timers des monstres
+		labyrinthe.reprendreTimers();
+		//on remet le jeu en cours
+		etat = Etat.EnCours;	
+	}
+	
+	/**
+	 * Méthode qui permet de relancer le jeu.
+	 */
+	public void reset() {
+		//on arrête les timers des monstres
+		labyrinthe.arreterTimers();
+		//on relance le jeu
+		lancerJeu();
 	}
 
 	/**
@@ -136,8 +186,10 @@ public class JeuLabyrinthe implements Game {
 		
 		//Si le personnage est sur la case de sortie
 		if (personnage.getPosition().getClass() == CaseSortie.class) {
+			labyrinthe.arreterTimers();
 			//Si c'est le dernier niveau, alors on a gagné
 			if (niveau == NIVEAU_MAX) {
+				etat = Etat.Gagne;
 				res = true;
 			//Sinon au passe au niveau suivant
 			} else {
@@ -146,6 +198,8 @@ public class JeuLabyrinthe implements Game {
 			
 		//Si le personnage est mort, alors on a perdu
 		} else if (personnage.estMort()) {
+			labyrinthe.arreterTimers();
+			etat = Etat.Perdu;
 			res = true;
 		}	
 		
@@ -177,21 +231,21 @@ public class JeuLabyrinthe implements Game {
 	}
 	
 	/**
-	 * Méthode getter de l'attribut enCours
-	 * @return true si le jeu est en cours
+	 * Méthode getter de l'attribut etat
+	 * @return etat du jeu
 	 */
-	public boolean isEnCours() {
-		return enCours;
+	public Etat getEtat() {
+		return etat;
 	}
 
 	/**
-	 * Méthode setter de l'attribut enCours
-	 * @param b : booléen qui permet de changer l'état du jeu.
+	 * Méthode setter de l'état du jeu
+	 * @param etat : nouvel état du jeu
 	 */
-	public void setEnCours(boolean b) {
-		this.enCours = b;
+	public void setEtat(Etat etat) {
+		this.etat = etat;
 	}
-	
+
 	/**
 	 * Méthode getter de l'attribut niveau
 	 * @return niveau courant du jeu
@@ -216,4 +270,51 @@ public class JeuLabyrinthe implements Game {
 		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
 	}	
 	
+	/**
+	 * Méthode qui retourne true si le jeu n'est pas encore lancé.
+	 * @return true si le jeu est dans l'état Debut.
+	 */
+	public boolean debut() {
+		return etat == Etat.Debut;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est en cours.
+	 * @return true si le jeu est dans l'état EnCours.
+	 */
+	public boolean enCours() {
+		return etat == Etat.EnCours;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est en pause.
+	 * @return true si le jeu est dans l'état Pause.
+	 */
+	public boolean enPause() {
+		return etat == Etat.Pause;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est gagné.
+	 * @return true si le jeu est dans l'état Gagne.
+	 */
+	public boolean estGagne() {
+		return etat == Etat.Gagne;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est perdu.
+	 * @return true si le jeu est dans l'état Perdu.
+	 */
+	public boolean estPerdu() {
+		return etat == Etat.Perdu;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est finie est fermé.
+	 * @return true si le jeu est dans l'état Fin.
+	 */
+	public boolean enFin() {
+		return etat == Etat.Fin;
+	}
 }

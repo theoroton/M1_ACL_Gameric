@@ -411,7 +411,28 @@ public class Labyrinthe {
 	 */
 	public void enleverMonstre(Monstre m) {
 		m.getPosition().setOccupee(false);
+		m.getTimer().cancel();
 		monstres.remove(m);
+	}
+	
+	/**
+	 * Méthode qui permet d'arrêter les timers de tous les
+	 * monstres du labyrinthe.
+	 */
+	public void arreterTimers() {
+		for (Monstre m : monstres) {
+			m.getTimer().cancel();
+		}
+	}
+	
+	/**
+	 * Méthode qui permet de relancer les timers de tous les 
+	 * monstres du labyrinthe.
+	 */
+	public void reprendreTimers() {
+		for (Monstre m : monstres) {
+			m.setTimer();
+		}
 	}
 	
 }

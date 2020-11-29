@@ -1,5 +1,6 @@
 package com.gameric.mazegame.model;
 
+import java.awt.Color;
 import java.awt.Font;
 
 /**
@@ -49,5 +50,15 @@ public class Const {
 	 * Police pour écrire un objet sur une case objet
 	 */
 	public final static Font FONT_OBJET = new Font(" TimesRoman ",Font.BOLD,8);
+	
+	/**
+	 * Police pour le message de pause
+	 */
+	public final static Font FONT_PAUSE = new Font(" TimesRoman ", Font.BOLD, 40);
+	
+	/**
+	 * Couleur de l'écran de pause
+	 */
+	public final static Color COULEUR_PAUSE = new Color(109, 107, 112, 200);
 
 }
