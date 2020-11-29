@@ -108,6 +108,30 @@ public class CardLayoutJeu extends JPanel {
 		jeu.setEtat(Etat.EnCours);
 	}
 	
+	/**
+	 * Méthode qui permet d'afficher la fin du jeu
+	 */
+	public void afficherFin() {
+		//On crée l'écran de fin
+		ecranFin = new EcranFin(this, jeu);
+		//On ajoute l'écrand de fin
+		add(ecranFin, "ecranFin");
+		//On affiche l'écran de fin
+		cl.show(this, "ecranFin");
+	}
+	
+	/**
+	 * Méthode qui permet de relancer le jeu quand on appuie sur recommencer sur l'écran de fin
+	 */
+	public void recommencerJeu() {
+		//Remet à zéro le jeu
+		jeu.reset();
+		//Affiche l'écran du jeu
+		cl.show(this, "ecranJeu");
+		//Met l'état du jeu en cours
+		jeu.setEtat(Etat.EnCours);
+	}
+	
 	
 	
 }

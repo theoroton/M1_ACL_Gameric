@@ -48,4 +48,10 @@ public class GraphicalInterface  {
 		((CardLayoutJeu) panel).update();
 	}
 	
+	/**
+	 * Méthode qui permet de ferme la fenêtre de jeu
+	 */
+	public void fin() {
+		fenetre.dispose();
+	}
 }

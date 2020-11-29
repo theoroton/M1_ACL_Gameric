@@ -168,7 +168,7 @@ public class JeuLabyrinthe implements Game {
 	/**
 	 * Méthode qui permet de relancer le jeu.
 	 */
-	private void reset() {
+	public void reset() {
 		//on arrête les timers des monstres
 		labyrinthe.arreterTimers();
 		//on relance le jeu
@@ -186,6 +186,7 @@ public class JeuLabyrinthe implements Game {
 			labyrinthe.arreterTimers();
 			//Si c'est le dernier niveau, alors on a gagné
 			if (niveau == NIVEAU_MAX) {
+				etat = Etat.Gagne;
 				res = true;
 			//Sinon au passe au niveau suivant
 			} else {
@@ -195,6 +196,7 @@ public class JeuLabyrinthe implements Game {
 		//Si le personnage est mort, alors on a perdu
 		} else if (personnage.estMort()) {
 			labyrinthe.arreterTimers();
+			etat = Etat.Perdu;
 			res = true;
 		}	
 		
@@ -287,5 +289,29 @@ public class JeuLabyrinthe implements Game {
 	 */
 	public boolean enPause() {
 		return etat == Etat.Pause;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est gagné.
+	 * @return true si le jeu est dans l'état Gagne.
+	 */
+	public boolean estGagne() {
+		return etat == Etat.Gagne;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est perdu.
+	 * @return true si le jeu est dans l'état Perdu.
+	 */
+	public boolean estPerdu() {
+		return etat == Etat.Perdu;
+	}
+	
+	/**
+	 * Méthode qui retourne true si le jeu est finie est fermé.
+	 * @return true si le jeu est dans l'état Fin.
+	 */
+	public boolean enFin() {
+		return etat == Etat.Fin;
 	}
 }
