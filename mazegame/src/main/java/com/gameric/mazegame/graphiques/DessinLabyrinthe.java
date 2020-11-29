@@ -1,5 +1,6 @@
 package com.gameric.mazegame.graphiques;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -88,20 +89,25 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 				Case c = labyrinthe.getCase(j,i);
 				//On dessine en noir les murs
 				if (c.getClass() == Mur.class) {
-					if(j == 0) {
-						if(i == hauteur-1) {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/coinMurGBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-						} else {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/murGBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-						}
-					} else if(j == largeur-1) {
-						if(i == hauteur-1) {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/coinMurDBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-						} else {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/murDBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-						}
-					} else 
-						crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/down.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+					if(i>0 && i<hauteur-1 && j>0 && j<largeur-1) {
+						crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/block.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+					} else {
+						if(j == 0) {
+							if(i == hauteur-1) {
+								crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/coinMurGBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							} else {
+								crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/murGBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							}
+						} else if(j == largeur-1) {
+							if(i == hauteur-1) {
+								crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/coinMurDBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							} else {
+								crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/murDBlack.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							}
+						} else 
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/down.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+						
+					}
 					
 					//crayon.setColor(Color.BLACK);
 					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
@@ -109,13 +115,19 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 					
 				//On dessine en orange les cases objets
 				} else if (c.getClass() == CaseObjet.class) {
-					crayon.setColor(new Color(255, 153, 0));
-					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+					//crayon.setColor(new Color(255, 153, 0));
+					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 					
 					//Si l'objet n'a pas encore était ramassé, on l'affiche sur la case
 					if (!((CaseObjet) c).isRamasse()) {
 						crayon.setColor(Color.BLACK);
 						dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), Const.FONT_OBJET);
+						if(((CaseObjet) c).getObjet().getNom().equals("Potion")) {
+							crayon.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN, 0));//.SrcAtop.derive(0));
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/potion.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+						} else if(((CaseObjet) c).getObjet().getNom().equals("Arme")) {
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/epee.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+						}
 					}
 					
 				//On dessigne en rose les cases piégées
@@ -235,20 +247,38 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 		case "g" :
 			name += "gauche.jpg";
 			break;
-		case "gd" :
+		case "bg" :
 			name += "gauche.jpg";
 			break;
+		case "gd" :
+			name += "gaucheD.jpg";
+			break;
+		case "bgd" :
+			name += "gaucheD.jpg";
+			break;
 		case "d" :
+			name += "droite.jpg";
+			break;
+		case "bd" :
 			name += "droite.jpg";
 			break;
 		case "hg" :
 			name += "hautG.jpg";
 			break;
+		case "hbg" :
+			name += "hautG.jpg";
+			break;
 		case "hd" :
 			name += "hautD.jpg";
 			break;
+		case "hbd" :
+			name += "hautD.jpg";
+			break;
+		case "hgd" :
+			name += "coinHGD.jpg";
+			break;
 		default: 
-			name += "center1.jpg";
+			name += "center2.jpg";
 			break;
 		}		
 		return name;
