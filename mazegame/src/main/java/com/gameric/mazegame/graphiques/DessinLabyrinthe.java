@@ -1,18 +1,24 @@
 package com.gameric.mazegame.graphiques;
 
 import java.awt.AlphaComposite;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.Image; 
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.File;
 import java.io.IOException;
+import java.awt.image.ImageFilter;
+import java.awt.image.RGBImageFilter;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -117,13 +123,12 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 				} else if (c.getClass() == CaseObjet.class) {
 					//crayon.setColor(new Color(255, 153, 0));
 					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-					
+					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 					//Si l'objet n'a pas encore était ramassé, on l'affiche sur la case
 					if (!((CaseObjet) c).isRamasse()) {
-						crayon.setColor(Color.BLACK);
-						dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), Const.FONT_OBJET);
+						//crayon.setColor(Color.BLACK);
+						//dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), Const.FONT_OBJET);
 						if(((CaseObjet) c).getObjet().getNom().equals("Potion")) {
-							crayon.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_IN, 0));//.SrcAtop.derive(0));
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/potion.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						} else if(((CaseObjet) c).getObjet().getNom().equals("Arme")) {
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/epee.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
@@ -221,6 +226,28 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 		}
 		
 	}
+	
+	public static Image makeColorTransparent(BufferedImage im, final Color color) {
+        ImageFilter filter = new RGBImageFilter() {
+
+            // the color we are looking for... Alpha bits are set to opaque
+            public int markerRGB = color.getRGB() | 0xFF000000;
+
+            public final int filterRGB(int x, int y, int rgb) {
+                if ((rgb | 0xFF000000) == markerRGB) {
+                    // Mark the alpha bits as zero - transparent
+                    return 0x00FFFFFF & rgb;
+                } else {
+                    // nothing to do
+                    return rgb;
+                }
+            }
+        };
+
+        ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
+        return Toolkit.getDefaultToolkit().createImage(ip);
+    }
+
 	
 	private String checkVoisinGetImg(Labyrinthe l, int i, int j) {
 		String res = "";
