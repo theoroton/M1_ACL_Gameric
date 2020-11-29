@@ -134,7 +134,7 @@ public class TestMonstre {
 		assertEquals("Le monstre ne peut pas faire le degats a personnage", 30, personnage.getPointsVie());
 		monstre.deplacerMonstre();
 		//squelette a la portee 3 donc peut attaquer
-		assertEquals("Le monstre devrait faire le degats de 4 a personnage", 26, personnage.getPointsVie());
+		assertEquals("Le monstre devrait faire le degats de 3 a personnage", 27, personnage.getPointsVie());
 		//personnage.attaquer();
 		//assertEquals("Le monstre devrait avoir perdu 10 points de vie", 0, monstre.getPointsVie());
 		

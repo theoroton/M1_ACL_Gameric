@@ -141,14 +141,23 @@ public class CardLayoutJeu extends JPanel {
 		jeu.setEtat(Etat.EnCours);
 	}
 	
+	/**
+	 * Méthode qui permet d'afficher l'écran de sélection de classe
+	 */
 	public void afficherChoixClasse() {
 		cl.show(this, "choixClasse");
 	}
 	
+	/**
+	 * Méthode qui permet d'afficher les règles du jeu
+	 */
 	public void afficherRegles() {
 		cl.show(this, "regles");
 	}
 	
+	/**
+	 * Méthode qui permet d'afficher le menu du jeu
+	 */
 	public void afficherMenu() {
 		cl.show(this, "menu");
 	}

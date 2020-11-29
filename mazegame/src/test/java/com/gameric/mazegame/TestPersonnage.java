@@ -120,6 +120,8 @@ public class TestPersonnage {
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		//Choix de la classe
 		jeu.choixClasse("archer");
+		//Lancement du jeu
+		jeu.lancerJeu();
 		
 		//La classe du joueur devrait être : Archer
 		assertEquals("La classe du joueur devrait être un archer", Archer.class, jeu.getPersonnage().getClass());
@@ -135,6 +137,8 @@ public class TestPersonnage {
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		//Choix de la classe
 		jeu.choixClasse("barbare");
+		//Lancement du jeu
+		jeu.lancerJeu();
 		
 		//La classe du joueur devrait être la classe par défaut : Epeiste
 		assertEquals("La classe du joueur devrait être un épeiste", Epeiste.class, jeu.getPersonnage().getClass());

@@ -74,7 +74,7 @@ public class JeuLabyrinthe implements Game {
 			personnage = new Mage();
 			break;
 		//Si le joueur a choisi Epeiste
-		case "epeiste":
+		default:
 			personnage = new Epeiste();
 			break;
 		}
