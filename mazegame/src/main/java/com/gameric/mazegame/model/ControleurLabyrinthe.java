@@ -34,37 +34,37 @@ public class ControleurLabyrinthe implements GameController {
 	 * Met à jour la commande du jeu quand le joueur presse une touche
 	 */
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyChar()) {
-		case 'q':
-		case 'Q':
+		switch (e.getKeyCode()) {
+		//Flèche gauche
+		case 37:
 			this.commandeEnCours = Cmd.LEFT;
 			break;
-		case 'd':
-		case 'D':
+		//Flèche droite
+		case 39:
 			this.commandeEnCours = Cmd.RIGHT;
 			break;
-		case 'z':
-		case 'Z':
+		//Flèche du haut
+		case 38:
 			this.commandeEnCours = Cmd.UP;
 			break;
-		case 's':
-		case 'S':
+		//Flèche du bas
+		case 40:
 			this.commandeEnCours = Cmd.DOWN;
 			break;
-		case 'e':
-		case 'E':
+		//E
+		case 69:
 			this.commandeEnCours = Cmd.PICKUP;
 			break;
-		case 'a':
-		case 'A':
+		//A
+		case 65:
 			this.commandeEnCours = Cmd.ATTACK;
 			break;
-		case 'p':
-		case 'P':
+		//P
+		case 80:
 			this.commandeEnCours = Cmd.PAUSE;
 			break;
-		case 'r':
-		case 'R':
+		//R
+		case 82:
 			this.commandeEnCours = Cmd.RESET;
 			break;
 		}
