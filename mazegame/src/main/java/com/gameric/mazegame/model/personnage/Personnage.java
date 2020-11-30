@@ -176,10 +176,10 @@ public abstract class Personnage{
 	public void setPortee(int portee){ this.portee = portee; }
 
 	public void setDirection(char dir){
-		if(char == 'N')	this.direction = N;
-		if(char == 'E')	this.direction = E;
-		if(char == 'S')	this.direction = S;
-		if(char == 'O')	this.direction = O;
+		if(dir == 'N')	direction = N;
+		if(dir == 'E')	direction = E;
+		if(dir == 'S')	direction = S;
+		if(dir == 'O')	direction = O;
 	}
 
 	//Getters
