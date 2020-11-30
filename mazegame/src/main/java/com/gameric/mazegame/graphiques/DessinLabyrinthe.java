@@ -20,12 +20,13 @@ import com.gameric.mazegame.engine.GamePainter;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Case;
-
+import com.gameric.mazegame.model.labyrinthe.CaseApparition;
 import com.gameric.mazegame.model.labyrinthe.CaseSortie;
 import com.gameric.mazegame.model.labyrinthe.CaseEntree;
 import com.gameric.mazegame.model.labyrinthe.CaseVide;
 import com.gameric.mazegame.model.labyrinthe.CaseObjet;
 import com.gameric.mazegame.model.labyrinthe.CasePiegee;
+import com.gameric.mazegame.model.labyrinthe.CaseTeleportation;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
 import com.gameric.mazegame.model.monstres.Monstre;
@@ -159,6 +160,15 @@ public class DessinLabyrinthe extends JPanel implements ActionListener, GamePain
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/porte.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 				} else if(c.getClass() == CaseVide.class) {
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
+					//On dessine en bleu clair les cases téléporations
+				} else if (c.getClass() == CaseTeleportation.class) {
+					crayon.setColor(new Color(15, 220, 241));
+					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+								
+				//On dessine en violet clair les cases apparitions
+				} else if (c.getClass() == CaseApparition.class && !((CaseApparition) c).isDeclenche()) {
+					crayon.setColor(new Color(160, 103, 248));
+					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 				}
 			}
 		}
@@ -185,21 +195,12 @@ public class DessinLabyrinthe extends JPanel implements ActionListener, GamePain
 							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
 		}
 
-		//Si le jeu est fini et que le personnage est mort, alors on écrit un message de défaite
-		if (personnage.estMort()) {	
-			crayon.setColor(Color.LIGHT_GRAY);
-			crayon.fillRect(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4+20);
-			crayon.setColor(Color.RED);
-			dessinerChaineCentree(crayon, "DEFAITE", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_FIN_JEU_1);
-			dessinerChaineCentree(crayon, "Vous êtes mort", new Rectangle(WIDTH/6, HEIGHT/6+20, 2*WIDTH/3, HEIGHT/4), Const.FONT_FIN_JEU_2);
-			
-		//Si le jeu est fini et que le personnage n'est pas mort, alors on écrit un message de victoire
-		} else if (jeu.isFinished()) {
-			crayon.setColor(Color.LIGHT_GRAY);
-			crayon.fillRect(WIDTH/8, HEIGHT/6, 3*WIDTH/4, HEIGHT/4+20);
-			crayon.setColor(Color.GREEN);
-			dessinerChaineCentree(crayon, "VICTOIRE", new Rectangle(WIDTH/8, HEIGHT/6, 3*WIDTH/4, HEIGHT/4), Const.FONT_FIN_JEU_1);
-			dessinerChaineCentree(crayon, "Vous avez atteint la sortie", new Rectangle(WIDTH/8, HEIGHT/6+20, 3*WIDTH/4, HEIGHT/4), Const.FONT_FIN_JEU_2);
+		//Si le jeu est en pause
+		if (jeu.enPause()) {
+			crayon.setColor(Const.COULEUR_PAUSE);
+			crayon.fillRect(0, 0, WIDTH, HEIGHT);
+			crayon.setColor(Color.BLACK);
+			dessinerChaineCentree(crayon, "Jeu en pause", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_PAUSE);
 		}
 		
 	}

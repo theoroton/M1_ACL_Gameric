@@ -1,5 +1,8 @@
 package com.gameric.mazegame.model.monstres;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.gameric.mazegame.model.labyrinthe.Case;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
@@ -13,6 +16,16 @@ import com.gameric.mazegame.model.labyrinthe.Mur;
 
 public abstract class Monstre {
 	
+	/**
+	 * Timer entre les actions d'un monstre
+	 */
+	private Timer timer;
+	
+	/**
+	 * Vitesse d'un monstre
+	 */
+	protected int vitesse;
+
 	/**
 	 * La nombre des points de la vie du monstre
 	 */
@@ -48,10 +61,19 @@ public abstract class Monstre {
 	/**
 	 * Constructeur du monstre
 	 */
-	public Monstre(int x, int y, Labyrinthe l) {
+	public Monstre(int x, int y, Labyrinthe l, int v) {
 		labyrinthe = l;
 		position = labyrinthe.getCase(x,y);
 		position.setOccupee(true);
+		vitesse = v;
+		
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+	    public void run() {
+	    		deplacerMonstre();
+			}
+		}, vitesse, vitesse);
 	}
 	/**
 	 * Méthode getter de l'attribut pointsVie
@@ -137,7 +159,9 @@ public abstract class Monstre {
 	 * @param y
 	 */
 	public void setPosition(int x, int y) {
-		position.setOccupee(false);
+		if (position != null) {
+			position.setOccupee(false);
+		}
 		position = labyrinthe.getCase(x, y);
 		position.setOccupee(true);
 	}
@@ -178,6 +202,29 @@ public abstract class Monstre {
 	public Labyrinthe getLabyrinthe() {
 		return labyrinthe;
 	}
+	
+	
+	/**
+	 * Getter du timer
+	 * @return timer
+	 */
+	public Timer getTimer() {
+		return timer;
+	}
+	
+	/**
+	 * Set timer qui permet de recommencer un timer.
+	 */
+	public void setTimer() {
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+		    public void run() {
+		    		deplacerMonstre();
+				}
+			}, vitesse, vitesse);
+	}
+	
 	/**
 	 * Méthode qui verifie si le Personnage est dans la zone de la vision du Monstre
 	 * @return true si le Personnage est dans la zone de la vision du Monstre, sinon false
