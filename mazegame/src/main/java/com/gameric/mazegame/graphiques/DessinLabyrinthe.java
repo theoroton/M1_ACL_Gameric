@@ -1,30 +1,20 @@
 package com.gameric.mazegame.graphiques;
 
-import java.awt.AlphaComposite;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
-import java.awt.Image; 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
-import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.File;
-import java.io.IOException;
-import java.awt.image.ImageFilter;
-import java.awt.image.RGBImageFilter;
 
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.text.html.ImageView;
+import javax.swing.Timer;
+import javax.swing.*;
 
 import com.gameric.mazegame.engine.GamePainter;
 import com.gameric.mazegame.model.Const;
@@ -48,7 +38,7 @@ import com.gameric.mazegame.model.personnage.Personnage;
  * @author Théo Roton
  * Afficheur graphique du jeu
  */
-public class DessinLabyrinthe implements GamePainter, ImageObserver {
+public class DessinLabyrinthe extends JPanel implements ActionListener, GamePainter, ImageObserver {
 	
 	/**
 	 * Largeur du dessin du labyrinthe
@@ -64,6 +54,14 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 	 */
 	private JeuLabyrinthe jeu;
 	
+	private final static String IMAGE_NAME = "piege";
+	protected ImageIcon images[]; // array of images
+	private int totalImages = 9; // number of images
+	private int currentImage = 0; // current image index
+	private int animationDelay = 400; // millisecond delay
+	
+	 Timer animationTimer;
+	
 	/**
 	 * Constructeur de l'afficheur
 	 * @param j : jeu à afficher
@@ -72,6 +70,13 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 		jeu = j;
 		WIDTH = (j.getLabyrinthe().getLargeur())*Const.TAILLE_CASE;
 		HEIGHT = (j.getLabyrinthe().getHauteur())*Const.TAILLE_CASE;
+		
+		images = new ImageIcon[totalImages];
+		
+		// load 9 images
+		for ( int count = 0; count < images.length; count++ )
+			images[count] = new ImageIcon( getClass().getResource("/images/textures/" + IMAGE_NAME + count + ".jpg" ) );
+		
 	}
 
 	/**
@@ -137,51 +142,23 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 					
 				//On dessigne en rose les cases piégées
 				} else if (c.getClass() == CasePiegee.class) {
-					crayon.setColor(new Color(255, 153, 153));
-					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+					//crayon.setColor(new Color(255, 153, 153));
+					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+					//Component comp =  this;
+					//if (images[currentImage] != null)
+					//	  crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+					//crayon.drawImage(images[0].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, ob);
+			  		crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+
+					startAnimation(crayon, i, j, this);
+					
+					
+					
+					
 				} else if (c.getClass() == CaseEntree.class || c.getClass() == CaseSortie.class) {
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/porte.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 				} else if(c.getClass() == CaseVide.class) {
-					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-
-					
-					//crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/floor.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-					//crayon.setColor(Color.GREEN);
-					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-					/*BufferedImage img;
-					try {
-						img = ImageIO.read(getClass().getResource("/images/textures/floor.jpg"));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}*/
-					/*try {
-						BufferedImage img = ImageIO.read(getClass().getResource("/images/textures/floor.jpg"));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}*/
-					//JLabel lbl = new JLabel(new ImageIcon("/images/textures/floor.jpg"));
-					//lbl.setBounds(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-					
-					//c.getImage().setImage("/images/textures/floor.jpg");
-					//c.getImage();
-					//ThisImage.scale(c.getImage().getThisImage(), Const.TAILLE_CASE, Const.TAILLE_CASE);
-					//System.out.println("Size "+ c.getImage().getThisImage().getWidth());
-					//BufferedImage scaledImage = null;
-					
-						//crayon.setColor(Color.green);
-						//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-				           // scaledImage = new BufferedImage(10, 10, c.getImage().getThisImage().getType());
-				           // Graphics2D graphics2D = scaledImage.createGraphics();
-				           // graphics2D.drawImage(c.getImage().getThisImage(), 0, 0, 10, 10, null);
-				            //graphics2D.dispose();
-						//AffineTransform at = AffineTransform.getScaleInstance(10, 10);
-						//crayon.drawRenderedImage(c.getImage().getThisImage(), at);
-						
-						//crayon.drawImage(c.getImage().getThisImage(), c.getPx(), c.getPy(), this);
-						//crayon.dispose();
-						
+					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
 				}
 			}
 		}
@@ -226,28 +203,6 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 		}
 		
 	}
-	
-	public static Image makeColorTransparent(BufferedImage im, final Color color) {
-        ImageFilter filter = new RGBImageFilter() {
-
-            // the color we are looking for... Alpha bits are set to opaque
-            public int markerRGB = color.getRGB() | 0xFF000000;
-
-            public final int filterRGB(int x, int y, int rgb) {
-                if ((rgb | 0xFF000000) == markerRGB) {
-                    // Mark the alpha bits as zero - transparent
-                    return 0x00FFFFFF & rgb;
-                } else {
-                    // nothing to do
-                    return rgb;
-                }
-            }
-        };
-
-        ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
-        return Toolkit.getDefaultToolkit().createImage(ip);
-    }
-
 	
 	private String checkVoisinGetImg(Labyrinthe l, int i, int j) {
 		String res = "";
@@ -343,11 +298,33 @@ public class DessinLabyrinthe implements GamePainter, ImageObserver {
 	public int getHeight() {
 		return HEIGHT;
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		//repaint();
+		//System.out.println("Hello");
 
-	@Override
-	public boolean imageUpdate(Image arg0, int arg1, int arg2, int arg3, int arg4, int arg5) {
-		// TODO Auto-generated method stub
-		return false;
+	}
+
+	public void startAnimation(Graphics2D crayon, int i, int j, ImageObserver ob) {
+		if (animationTimer == null) {
+			currentImage = 0;
+	  		
+			 ActionListener taskPerformer = new ActionListener() {
+			      public void actionPerformed(ActionEvent evt) {
+			    	  if (images[currentImage].getImageLoadStatus() == MediaTracker.COMPLETE) {
+					  		crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, ob);
+						    currentImage = (currentImage + 1) % totalImages;
+						}
+			      }
+			  };
+			animationTimer = new Timer(animationDelay, taskPerformer);
+			animationTimer.start();
+	    } else if (!animationTimer.isRunning())
+	    	animationTimer.restart();
+	}
+
+	public void stopAnimation() {
+		animationTimer.stop();
 	}
 
 }
