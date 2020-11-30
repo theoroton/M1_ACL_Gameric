@@ -1,10 +1,12 @@
 package com.gameric.mazegame;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.gameric.mazegame.model.JeuLabyrinthe;
+import com.gameric.mazegame.model.labyrinthe.CaseApparition;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.personnage.Archer;
 import com.gameric.mazegame.model.personnage.Epeiste;
@@ -118,6 +120,8 @@ public class TestPersonnage {
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		//Choix de la classe
 		jeu.choixClasse("archer");
+		//Lancement du jeu
+		jeu.lancerJeu();
 		
 		//La classe du joueur devrait être : Archer
 		assertEquals("La classe du joueur devrait être un archer", Archer.class, jeu.getPersonnage().getClass());
@@ -133,10 +137,13 @@ public class TestPersonnage {
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		//Choix de la classe
 		jeu.choixClasse("barbare");
+		//Lancement du jeu
+		jeu.lancerJeu();
 		
 		//La classe du joueur devrait être la classe par défaut : Epeiste
 		assertEquals("La classe du joueur devrait être un épeiste", Epeiste.class, jeu.getPersonnage().getClass());
 	}
+
 	/**
 	 * Test sur la direction via la direction initiale du personnage
 	 */
@@ -147,6 +154,61 @@ public class TestPersonnage {
 
 		//La direction du joueur devrait être Est, la direction donnée initialement dans le constructeur
 		assertEquals("La direction du joueur devrait être Est","Est",jeu.getPersonnage().getDirection());
+	}
+	
+	/**
+	 * Test du passage sur la case téléportation.
+	 * On teste si le personnage ne se situe pas sur la case
+	 * de téléportation après être passé sur la case de téléportation
+	 */
+	@Test
+	public void testCaseTeleportation() {
+		//Création du personnage
+		Personnage personnage = new Epeiste();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
+		//Positionnement du personnage à côté d'une case téléportation
+		personnage.setPosition(3, 3);
+		
+		//Test de la position du personnage (attendue : (3,3))
+		assertEquals("La position X du personnage n'est pas celle attendue", 3, personnage.getPos_x());
+		assertEquals("La position Y du personnage n'est pas celle attendue", 3, personnage.getPos_y());
+		
+		//Déplacement du personnage sur la case piégée
+		personnage.deplacer(1, 0);
+		
+		//Test de la position du personnage (différente de : (4,3))
+		assertTrue("La position ne devrait pas être celle de la case de téléportation", (personnage.getPos_x() != 4) && (personnage.getPos_y() != 3));
+	}
+	
+	
+	/**
+	 * Test du passage sur la case apparition.
+	 * On teste si il y a un monstre de plus dans le labyrinthe
+	 * après que le joueur passe sur la case apparition et si
+	 * la case n'est plus active après le passage.
+	 */
+	@Test
+	public void testCaseApparition() {
+		//Création du personnage
+		Personnage personnage = new Epeiste();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
+		//Positionnement du personnage à côté d'une case apparition
+		personnage.setPosition(6, 7);
+		
+		//Test si la case n'a pas encore était déclenchée
+		assertTrue("La case devrait être active", !((CaseApparition) labyrinthe.getCase(7, 7)).isDeclenche());
+		//Test du nombre de monstre avant le passage (attendu : 0)
+		assertEquals("Le nombre de monstre n'est pas celui attendu", 0, labyrinthe.getMonstres().size());
+		
+		//Déplacement du personnage sur la case piégée
+		personnage.deplacer(1, 0);
+		
+		//Test si la case a était déclenchée
+		assertTrue("La case ne devrait plus être active", ((CaseApparition) labyrinthe.getCase(7, 7)).isDeclenche());
+		//Test du nombre de monstre après le passage (attendu : 1)
+		assertEquals("Le nombre de monstre n'est pas celui attendu", 1, labyrinthe.getMonstres().size());
 	}
 
 }

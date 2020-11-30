@@ -191,9 +191,7 @@ public abstract class Personnage{
 		return position;
 	}
 
-	public int getPos_x() {
-		return position.getPx();
-	}
+	public int getPos_x() { return position.getPx(); }
 
 	public int getPos_y() {
 		return position.getPy();
@@ -207,5 +205,17 @@ public abstract class Personnage{
 
 	public int getDegats() {
 		return degats;
+	}
+
+	public Labyrinthe getLabyrinthe() {
+		return labyrinthe;
+	}
+
+	public int getVieMax() {
+		return vieMax;
+	}
+
+	public int getPortee() {
+		return portee;
 	}
 }

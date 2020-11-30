@@ -13,6 +13,7 @@ import com.gameric.mazegame.model.monstres.Monstre;
 import com.gameric.mazegame.model.monstres.Squelette;
 import com.gameric.mazegame.model.monstres.Zombie;
 import com.gameric.mazegame.model.objets.Arme;
+import com.gameric.mazegame.model.objets.ObjetMystere;
 import com.gameric.mazegame.model.objets.Potion;
 import com.gameric.mazegame.model.personnage.Personnage;
 
@@ -191,12 +192,21 @@ public class Labyrinthe {
 					//Si le caractère est un P, on crée une CasePiegee à cette position
 					} else if (c == 'P') {
 						cas = new CasePiegee(i, j);
+					//Si le caractère est un T, on crée une CaseTeleportation à cette position
+					} else if (c == 'T') {
+						cas = new CaseTeleportation(i, j);
+					//Si le caractère est un A, on crée une CaseApparition à cette position
+					} else if (c == 'A') {
+						cas = new CaseApparition(i, j);
 					//Si le caractère est un p, on crée une CaseObjet avec une potion à cette position
 					} else if (c == 'p') {
 						cas = new CaseObjet(i, j, new Potion("Potion", 5));
 					//Si le caractère est un a, on crée une CaseObjet avec une arme à cette positon
 					} else if (c == 'a') {
 						cas = new CaseObjet(i, j, new Arme("Arme", 2));
+					//Si le caractère est un ?, on crée une CaseObjet avec un objet mystère dessus
+					} else if (c == '?') {
+						cas = new CaseObjet(i, j, new ObjetMystere());
 					//Sinon on crée une CaseVide à cette position
 					} else {
 						cas = new CaseVide(i, j);
@@ -283,7 +293,7 @@ public class Labyrinthe {
 	 * Méthode qui ajoute un monstre au labyrinthe
 	 * @param m : monstre à ajouter
 	 */
-	private void ajouterMonstre(Monstre m) {
+	public void ajouterMonstre(Monstre m) {
 		//Ajout du monstre à la liste des monstres du labyrinthe
 		monstres.add(m);
 	}
@@ -401,7 +411,28 @@ public class Labyrinthe {
 	 */
 	public void enleverMonstre(Monstre m) {
 		m.getPosition().setOccupee(false);
+		m.getTimer().cancel();
 		monstres.remove(m);
+	}
+	
+	/**
+	 * Méthode qui permet d'arrêter les timers de tous les
+	 * monstres du labyrinthe.
+	 */
+	public void arreterTimers() {
+		for (Monstre m : monstres) {
+			m.getTimer().cancel();
+		}
+	}
+	
+	/**
+	 * Méthode qui permet de relancer les timers de tous les 
+	 * monstres du labyrinthe.
+	 */
+	public void reprendreTimers() {
+		for (Monstre m : monstres) {
+			m.setTimer();
+		}
 	}
 	
 }

@@ -5,17 +5,21 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.gameric.mazegame.model.Etat;
 import com.gameric.mazegame.model.JeuLabyrinthe;
+import com.gameric.mazegame.model.labyrinthe.CaseApparition;
 import com.gameric.mazegame.model.labyrinthe.CaseEntree;
 import com.gameric.mazegame.model.labyrinthe.CaseObjet;
 import com.gameric.mazegame.model.labyrinthe.CasePiegee;
 import com.gameric.mazegame.model.labyrinthe.CaseSortie;
+import com.gameric.mazegame.model.labyrinthe.CaseTeleportation;
 import com.gameric.mazegame.model.labyrinthe.CaseVide;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.monstres.Fantome;
 import com.gameric.mazegame.model.monstres.Squelette;
 import com.gameric.mazegame.model.monstres.Zombie;
 import com.gameric.mazegame.model.objets.Arme;
+import com.gameric.mazegame.model.objets.ObjetMystere;
 import com.gameric.mazegame.model.objets.Potion;
 import com.gameric.mazegame.model.personnage.Epeiste;
 import com.gameric.mazegame.model.personnage.Personnage;
@@ -277,6 +281,10 @@ public class TestLabyrinthe {
 		assertEquals("L'objet de cette case devrait être une arme", Arme.class, ((CaseObjet) labyrinthe.getCase(9, 5)).getObjet().getClass());
 		//Test si la case en position (4,9) possède bien une potion (attendu : true)
 		assertEquals("L'objet de cette case devrait être une potion", Potion.class, ((CaseObjet) labyrinthe.getCase(4, 9)).getObjet().getClass());
+		//Test si la case en position (2,6) possède bien un objet mystère (attendu : true)
+		assertEquals("L'objet de cette case devrait être un objet mystère", ObjetMystere.class, ((CaseObjet) labyrinthe.getCase(2, 6)).getObjet().getClass());
+		//Test si la case en position (3,8) possède bien un objet mystère (attendu : true)
+		assertEquals("L'objet de cette case devrait être un objet mystère", ObjetMystere.class, ((CaseObjet) labyrinthe.getCase(3, 8)).getObjet().getClass());
 	}
 	
 	
@@ -289,7 +297,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		
 		//Test si le niveau est bien de 1
@@ -316,7 +324,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		//On met le jeu au niveau 3
 		jeu.setNiveau(3);
@@ -345,7 +353,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		//On met le jeu au niveau 2
 		jeu.setNiveau(2);
@@ -364,7 +372,7 @@ public class TestLabyrinthe {
 		//Création du jeu et lancement
 		JeuLabyrinthe jeu = new JeuLabyrinthe();
 		jeu.choixClasse("epeiste");
-		jeu.setEnCours(true);
+		jeu.setEtat(Etat.EnCours);
 		jeu.lancerJeu();
 		//On met le jeu au niveau 10
 		jeu.setNiveau(10);
@@ -404,5 +412,35 @@ public class TestLabyrinthe {
 		assertEquals("La position Y du deuxième troisième n'est pas celle attendue", 10, labyrinthe.getMonstres().get(2).getPos_y());
 		//Test du type du troisième monstre
 		assertEquals("Le monstre devrait être un squelette", Squelette.class, labyrinthe.getMonstres().get(2).getClass());	
+	}
+	
+	
+	/**
+	 * Test de la création de la case téléportation.
+	 */
+	@Test
+	public void testCaseTeleportation() {
+		//Création du personnage
+		Personnage personnage = new Epeiste();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
+		
+		//Test si la case en position (4,3) est une case téléportation (attendu : true)
+		assertEquals("La case devrait être une case de téléportation", CaseTeleportation.class, labyrinthe.getCase(4, 3).getClass());
+	}
+	
+	
+	/**
+	 * Test de la création de la case apparition.
+	 */
+	@Test
+	public void testCaseApparition() {
+		//Création du personnage
+		Personnage personnage = new Epeiste();
+		//Création du labyrinthe
+		Labyrinthe labyrinthe = new Labyrinthe(personnage,"tests/test_cases_effets.txt");
+		
+		//Test si la case en position (7,7) est une case apparition (attendu : true)
+		assertEquals("La case devrait être une case de apparition", CaseApparition.class, labyrinthe.getCase(7, 7).getClass());
 	}
 }

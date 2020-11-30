@@ -35,6 +35,7 @@ public class GraphicalInterface  {
 		fenetre.setContentPane(this.panel);
 		
 		fenetre.pack();
+		fenetre.setResizable(false);
 		fenetre.setVisible(true);
 		fenetre.getContentPane().setFocusable(true);
 		fenetre.getContentPane().requestFocus();
@@ -48,4 +49,10 @@ public class GraphicalInterface  {
 		((CardLayoutJeu) panel).update();
 	}
 	
+	/**
+	 * Méthode qui permet de ferme la fenêtre de jeu
+	 */
+	public void fin() {
+		fenetre.dispose();
+	}
 }

@@ -42,6 +42,7 @@ public abstract class Case {
 	public Case(int x, int y) {
 		px = x;
 		py = y;
+		occupee = false;
 	}
 
 	/**

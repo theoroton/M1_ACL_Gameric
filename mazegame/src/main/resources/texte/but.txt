@@ -1,0 +1,4 @@
+Le but du jeu est de traverser le labyrinthe et d'arriver jusqu'à la sortie de celui-ci sans mourir. Attention toutefois : le labyrinthe regorge d'ennemis en tout genre qui tenteront de vous étriper et de pièges qui pourront vous couter la vie à tout instant si vous n'êtes pas assez attentif. Durant votre périple au coeur du labyrinthe, vous serez amené à tomber sur des objets qui pourront vous aider : mais prenez garde, certains objets pourraient se révéler être à double tranchant, prendrez-vous le risque de les ramasser ?
+
+Vous gagnez si vous atteignez la fin du labyrinthe.
+Vous perdez si vous êtes tué lors de votre aventure.
