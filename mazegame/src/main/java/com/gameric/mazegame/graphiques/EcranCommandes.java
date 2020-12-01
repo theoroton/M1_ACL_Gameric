@@ -96,7 +96,6 @@ public class EcranCommandes extends JPanel {
 		
 		//Création de la chaîne
 		try {
-			fichLab.readLine();
 			while ((ligne = fichLab.readLine()) != null) {
 				commandes += ligne + "<br>";
 			}

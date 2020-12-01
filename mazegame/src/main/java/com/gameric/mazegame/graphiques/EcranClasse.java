@@ -110,7 +110,7 @@ public class EcranClasse extends JPanel {
 	    retour.setText("Retour");
 	    retour.setPreferredSize(new java.awt.Dimension(140, 40));
 	    //Action du bouton pour afficher le menu principal
-       retour.addActionListener(new java.awt.event.ActionListener() {
+	    retour.addActionListener(new java.awt.event.ActionListener() {
     	   public void actionPerformed(java.awt.event.ActionEvent evt) {
     		   //On affiche le menu principal
                clParent.afficherMenu();

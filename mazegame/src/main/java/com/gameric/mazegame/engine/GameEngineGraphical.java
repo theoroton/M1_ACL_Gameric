@@ -68,7 +68,9 @@ public class GameEngineGraphical {
 			}
 			
 			//Si on gagne ou on perd, on affiche la fin
-			cardLayout.afficherFin();
+			if (jeu.estGagne() || this.jeu.estPerdu()) {
+				cardLayout.afficherFin();
+			}
 			
 			//Tant qu'on est sur l'écran de fin
 			while (this.jeu.estGagne() || this.jeu.estPerdu()) {
