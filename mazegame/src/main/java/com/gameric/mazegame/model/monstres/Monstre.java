@@ -70,19 +70,18 @@ public abstract class Monstre {
 		return direction;
 	}
 	
-	private BufferedImage[] walkingDown = {new Sprite().getSprite(0, 0, this.getClass()), new Sprite().getSprite(3, 0, this.getClass())};
-	private BufferedImage[] walkingLeft = {new Sprite().getSprite(0, 1, this.getClass()), new Sprite().getSprite(3, 1, this.getClass())}; // Gets the upper left images of my sprite sheet
-	private BufferedImage[] walkingRight = {new Sprite().getSprite(0, 2, this.getClass()), new Sprite().getSprite(3, 2, this.getClass())};
-	private BufferedImage[] walkingUp = {new Sprite().getSprite(0, 3, this.getClass()), new Sprite().getSprite(3, 3, this.getClass())};
-	private BufferedImage[] standing = {new Sprite().getSprite(1, 0, this.getClass())};
+	protected BufferedImage[] walkingDown;
+	protected BufferedImage[] walkingLeft;
+	protected BufferedImage[] walkingRight;
+	protected BufferedImage[] walkingUp;
+	protected BufferedImage[] standing;
 
 	// These are animation states
-	private Animation walkUp = new Animation(walkingUp, 10);
-	private Animation walkDown = new Animation(walkingDown, 10);
-	private Animation walkLeft = new Animation(walkingLeft, 10);
-	private Animation walkRight = new Animation(walkingRight, 10);
-	
-	private Animation stand = new Animation(standing, 10);
+	protected Animation walkUp;
+	protected Animation walkDown;
+	protected Animation walkLeft;
+	protected Animation walkRight;
+	protected Animation stand;
 
 	// This is the actual animation
 	private Animation animation = stand;

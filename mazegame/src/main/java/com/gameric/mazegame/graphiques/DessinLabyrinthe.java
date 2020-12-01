@@ -25,6 +25,7 @@ import com.gameric.mazegame.model.labyrinthe.CasePiegee;
 import com.gameric.mazegame.model.labyrinthe.CaseTeleportation;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
+import com.gameric.mazegame.model.monstres.Fantome;
 import com.gameric.mazegame.model.monstres.Monstre;
 import com.gameric.mazegame.model.monstres.Squelette;
 import com.gameric.mazegame.model.monstres.Zombie;
@@ -199,7 +200,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		
 		//On dessine les monstres
 		for (Monstre m : labyrinthe.getMonstres()) {
-			if (m.getClass() == Zombie.class) {
+			if (m.getClass() == Zombie.class || m.getClass() == Fantome.class ) {
 				//crayon.setColor(Color.GREEN);
 				switch(m.getDirection()) {
 					case "UP":
@@ -217,14 +218,18 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					default:
 						m.setAnimation(m.getAnimationStand());
 						break;
-						
 				}
+				if (m.getClass() == Zombie.class)
 				crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);						
-			} else if (m.getClass() == Squelette.class) {
+				if (m.getClass() == Fantome.class)
+					crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
+
+			}/*} else if (m.getClass() == Squelette.class) {
 				crayon.setColor(Color.RED);
 			} else {
-				crayon.setColor(Color.GRAY);
-			}
+				crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);						
+
+			}*/
 			/*crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							Const.TAILLE_PERSO, Const.TAILLE_PERSO);*/

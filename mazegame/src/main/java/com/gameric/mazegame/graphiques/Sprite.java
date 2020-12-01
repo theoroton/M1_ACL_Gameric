@@ -1,19 +1,14 @@
 package com.gameric.mazegame.graphiques;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
-import com.gameric.mazegame.model.monstres.Zombie;
 
 public class Sprite {
 
     private BufferedImage spriteSheet;
-    private final int TILE_SIZE = 32;
+    private int x = 0 , y = 0, w = 0, h = 0;
     //private String fileName = "";
 
     public BufferedImage loadSprite(String file) {
@@ -35,13 +30,27 @@ public class Sprite {
     }
 
     public BufferedImage getSprite(int xGrid, int yGrid, Class c) {
-
+    	
         if (spriteSheet == null) {
-        	//if(c == Zombie.class)
-        		spriteSheet = loadSprite("zombie");
+        	switch(c.getSimpleName()) {
+	        	case "Zombie":
+	        		spriteSheet = loadSprite("zombie");
+		        	w = spriteSheet.getWidth()/4;
+		    		h = spriteSheet.getHeight()/4;
+	        		x = xGrid * w;
+	        		y = yGrid * h;
+	        		break;
+	        	case "Fantome":
+	        		spriteSheet = loadSprite("fantome");
+		        	w = spriteSheet.getWidth()/12;
+		    		h = spriteSheet.getHeight()/8;
+	        		x = xGrid * w;
+	        		y = yGrid * h;
+	        		break;
+        	}
         }
-        System.out.println("Size " + xGrid +" " +yGrid);
-        return spriteSheet.getSubimage(xGrid * spriteSheet.getWidth()/4, yGrid * spriteSheet.getHeight()/4, spriteSheet.getWidth()/4, spriteSheet.getHeight()/4);
+        //System.out.println("Size " + c.getSimpleName());
+        return spriteSheet.getSubimage(x, y, w, h);
     }
 
 }
