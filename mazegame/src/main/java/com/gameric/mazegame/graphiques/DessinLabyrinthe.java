@@ -6,17 +6,13 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.MediaTracker;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 
 import javax.swing.ImageIcon;
-import javax.swing.Timer;
 import javax.swing.*;
 
 import com.gameric.mazegame.engine.GamePainter;
+import com.gameric.mazegame.graphiques.GroupTasks;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Case;
@@ -39,7 +35,7 @@ import com.gameric.mazegame.model.personnage.Personnage;
  * @author Théo Roton
  * Afficheur graphique du jeu
  */
-public class DessinLabyrinthe extends JPanel implements ActionListener, GamePainter, ImageObserver {
+public class DessinLabyrinthe extends JPanel implements GamePainter {
 	
 	/**
 	 * Largeur du dessin du labyrinthe
@@ -58,10 +54,16 @@ public class DessinLabyrinthe extends JPanel implements ActionListener, GamePain
 	private final static String IMAGE_NAME = "piege";
 	protected ImageIcon images[]; // array of images
 	private int totalImages = 9; // number of images
+	private int totalImagesTep = 8;
 	private int currentImage = 0; // current image index
-	private int animationDelay = 400; // millisecond delay
+	private int currentImageTep = 0;
+	protected int degree = 0;
+	protected ImageIcon telepEff[];
 	
-	 Timer animationTimer;
+	private int tmp;
+	
+	private GroupTasks animationTimer = new GroupTasks();
+	private GroupTasks animationTimerTep = new GroupTasks();
 	
 	/**
 	 * Constructeur de l'afficheur
@@ -73,10 +75,14 @@ public class DessinLabyrinthe extends JPanel implements ActionListener, GamePain
 		HEIGHT = (j.getLabyrinthe().getHauteur())*Const.TAILLE_CASE;
 		
 		images = new ImageIcon[totalImages];
+		telepEff = new ImageIcon[totalImagesTep];
 		
 		// load 9 images
 		for ( int count = 0; count < images.length; count++ )
-			images[count] = new ImageIcon( getClass().getResource("/images/textures/" + IMAGE_NAME + count + ".jpg" ) );
+			images[count] = new ImageIcon(getClass().getResource("/images/textures/piege/" + IMAGE_NAME + count + ".jpg"));
+		
+		for ( int count = 0; count < telepEff.length; count++ )
+			telepEff[count] = new ImageIcon(getClass().getResource("/images/textures/effects/telepEffect" + count + ".png"));
 		
 	}
 
@@ -145,25 +151,23 @@ public class DessinLabyrinthe extends JPanel implements ActionListener, GamePain
 				} else if (c.getClass() == CasePiegee.class) {
 					//crayon.setColor(new Color(255, 153, 153));
 					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
-					//Component comp =  this;
-					//if (images[currentImage] != null)
-					//	  crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-					//crayon.drawImage(images[0].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, ob);
-			  		crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-
-					startAnimation(crayon, i, j, this);
-					
-					
-					
-					
+					crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+					tmp = animationTimer.startAnimation(crayon, i, j, this, c.getClass(), images, totalImages, currentImage);
+					currentImage = tmp;
+										
 				} else if (c.getClass() == CaseEntree.class || c.getClass() == CaseSortie.class) {
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/porte.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 				} else if(c.getClass() == CaseVide.class) {
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
 					//On dessine en bleu clair les cases téléporations
 				} else if (c.getClass() == CaseTeleportation.class) {
-					crayon.setColor(new Color(15, 220, 241));
-					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
+					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/teleporter.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
+					crayon.drawImage(telepEff[currentImageTep].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+					tmp = animationTimerTep.startAnimation(crayon, i, j, this, c.getClass(), telepEff, totalImagesTep, currentImageTep);
+					currentImageTep = tmp;
+					//crayon.setColor(new Color(15, 220, 241));
+					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 								
 				//On dessine en violet clair les cases apparitions
 				} else if (c.getClass() == CaseApparition.class && !((CaseApparition) c).isDeclenche()) {
@@ -201,6 +205,8 @@ public class DessinLabyrinthe extends JPanel implements ActionListener, GamePain
 			crayon.fillRect(0, 0, WIDTH, HEIGHT);
 			crayon.setColor(Color.BLACK);
 			dessinerChaineCentree(crayon, "Jeu en pause", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_PAUSE);
+			animationTimer.stopAnimation();
+			animationTimerTep.stopAnimation();
 		}
 		
 	}
@@ -300,32 +306,4 @@ public class DessinLabyrinthe extends JPanel implements ActionListener, GamePain
 		return HEIGHT;
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		//repaint();
-		//System.out.println("Hello");
-
-	}
-
-	public void startAnimation(Graphics2D crayon, int i, int j, ImageObserver ob) {
-		if (animationTimer == null) {
-			currentImage = 0;
-	  		
-			 ActionListener taskPerformer = new ActionListener() {
-			      public void actionPerformed(ActionEvent evt) {
-			    	  if (images[currentImage].getImageLoadStatus() == MediaTracker.COMPLETE) {
-					  		crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, ob);
-						    currentImage = (currentImage + 1) % totalImages;
-						}
-			      }
-			  };
-			animationTimer = new Timer(animationDelay, taskPerformer);
-			animationTimer.start();
-	    } else if (!animationTimer.isRunning())
-	    	animationTimer.restart();
-	}
-
-	public void stopAnimation() {
-		animationTimer.stop();
-	}
-
 }
