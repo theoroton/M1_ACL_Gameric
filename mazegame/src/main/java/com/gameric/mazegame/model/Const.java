@@ -29,7 +29,7 @@ public class Const {
 	/**
 	 * Largeur de la barre de vie
 	 */
-	public final static int WIDTH_BARREPV = 70;
+	public final static int WIDTH_BARREPV = 120;
 	
 	/**
 	 * Hauteur de la barre de vie
