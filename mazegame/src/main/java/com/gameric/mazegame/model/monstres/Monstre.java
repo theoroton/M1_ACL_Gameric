@@ -1,11 +1,14 @@
 package com.gameric.mazegame.model.monstres;
 
+import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.gameric.mazegame.model.labyrinthe.Case;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
+import com.gameric.mazegame.graphiques.Sprite;
+import com.gameric.mazegame.graphiques.Animation;
 
 /**
  * 
@@ -57,6 +60,55 @@ public abstract class Monstre {
 	/**
 	 * Le labyrinthe où se trouve le monstre
 	 */
+	// Images for each animation
+	//Sprite.setSpriteName(this., "zombie");
+	private String direction = "";
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	
+	private BufferedImage[] walkingDown = {new Sprite().getSprite(0, 0, this.getClass()), new Sprite().getSprite(3, 0, this.getClass())};
+	private BufferedImage[] walkingLeft = {new Sprite().getSprite(0, 1, this.getClass()), new Sprite().getSprite(3, 1, this.getClass())}; // Gets the upper left images of my sprite sheet
+	private BufferedImage[] walkingRight = {new Sprite().getSprite(0, 2, this.getClass()), new Sprite().getSprite(3, 2, this.getClass())};
+	private BufferedImage[] walkingUp = {new Sprite().getSprite(0, 3, this.getClass()), new Sprite().getSprite(3, 3, this.getClass())};
+	private BufferedImage[] standing = {new Sprite().getSprite(1, 0, this.getClass())};
+
+	// These are animation states
+	private Animation walkUp = new Animation(walkingUp, 10);
+	private Animation walkDown = new Animation(walkingDown, 10);
+	private Animation walkLeft = new Animation(walkingLeft, 10);
+	private Animation walkRight = new Animation(walkingRight, 10);
+	
+	private Animation stand = new Animation(standing, 10);
+
+	// This is the actual animation
+	private Animation animation = stand;
+	
+	public Animation getAnimation() {
+		return animation;
+	}
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
+	public Animation getAnimationUp() {
+		return walkUp;
+	}
+	public Animation getAnimationDown() {
+		return walkDown;
+	}
+	public Animation getAnimationLeft() {
+		return walkLeft;
+	}
+	public Animation getAnimationRight() {
+		return walkRight;
+	}
+	public Animation getAnimationStand() {
+		return stand;
+	}
+	
 	private Labyrinthe labyrinthe;
 	/**
 	 * Constructeur du monstre

@@ -142,7 +142,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						//crayon.setColor(Color.BLACK);
 						//dessinerChaineCentree(crayon, ((CaseObjet) c).getObjet().getNom(), new Rectangle(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE), Const.FONT_OBJET);
 						if(((CaseObjet) c).getObjet().getNom().equals("Potion")) {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/potion.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/potion.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE-Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						} else if(((CaseObjet) c).getObjet().getNom().equals("Arme")) {
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/epee.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						}
@@ -200,15 +200,34 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		//On dessine les monstres
 		for (Monstre m : labyrinthe.getMonstres()) {
 			if (m.getClass() == Zombie.class) {
-				crayon.setColor(Color.GREEN);
+				//crayon.setColor(Color.GREEN);
+				switch(m.getDirection()) {
+					case "UP":
+						m.setAnimation(m.getAnimationUp());
+						break;
+					case "DOWN":
+						m.setAnimation(m.getAnimationDown());
+						break;
+					case "LEFT":
+						m.setAnimation(m.getAnimationLeft());
+						break;
+					case "RIGHT":
+						m.setAnimation(m.getAnimationRight());
+						break;
+					default:
+						m.setAnimation(m.getAnimationStand());
+						break;
+						
+				}
+				crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);						
 			} else if (m.getClass() == Squelette.class) {
 				crayon.setColor(Color.RED);
 			} else {
 				crayon.setColor(Color.GRAY);
 			}
-			crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
+			/*crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
+							Const.TAILLE_PERSO, Const.TAILLE_PERSO);*/
 		}
 
 		//Si le jeu est en pause
