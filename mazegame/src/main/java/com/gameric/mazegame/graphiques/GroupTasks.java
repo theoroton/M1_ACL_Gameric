@@ -40,8 +40,10 @@ public class GroupTasks extends JPanel implements ActionListener{
 			if (c == CaseTeleportation.class) animationDelay = 0;
 			animationTimer = new Timer(animationDelay, taskPerformer);
 			animationTimer.start();
-		} else if (!animationTimer.isRunning())
-	    animationTimer.restart();
+		} else if (!animationTimer.isRunning()) {
+			animationTimer.restart();
+		}
+	    
     	return tmp;
 	}
     

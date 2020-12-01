@@ -61,6 +61,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 	protected ImageIcon telepEff[];
 	
 	private int tmp;
+	private boolean active = true;
 	
 	private GroupTasks animationTimer = new GroupTasks();
 	private GroupTasks animationTimerTep = new GroupTasks();
@@ -152,8 +153,10 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					//crayon.setColor(new Color(255, 153, 153));
 					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 					crayon.drawImage(images[currentImage].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-					tmp = animationTimer.startAnimation(crayon, i, j, this, c.getClass(), images, totalImages, currentImage);
-					currentImage = tmp;
+					if(active) {
+						tmp = animationTimer.startAnimation(crayon, i, j, this, c.getClass(), images, totalImages, currentImage);
+						currentImage = tmp;
+					}
 										
 				} else if (c.getClass() == CaseEntree.class || c.getClass() == CaseSortie.class) {
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/porte.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
@@ -164,16 +167,25 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
 					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/teleporter.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
 					crayon.drawImage(telepEff[currentImageTep].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
-					tmp = animationTimerTep.startAnimation(crayon, i, j, this, c.getClass(), telepEff, totalImagesTep, currentImageTep);
-					currentImageTep = tmp;
+					if(active) {
+						tmp = animationTimerTep.startAnimation(crayon, i, j, this, c.getClass(), telepEff, totalImagesTep, currentImageTep);
+						currentImageTep = tmp;
+					}
+					
 					//crayon.setColor(new Color(15, 220, 241));
 					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
 								
 				//On dessine en violet clair les cases apparitions
-				} else if (c.getClass() == CaseApparition.class && !((CaseApparition) c).isDeclenche()) {
-					crayon.setColor(new Color(160, 103, 248));
-					crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+				} else if (c.getClass() == CaseApparition.class) {
+					crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/"+checkVoisinGetImg(labyrinthe, i, j))).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+					if(!((CaseApparition) c).isDeclenche()) {
+						crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/spawner.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);						
+
+					}
 				}
+					//crayon.setColor(new Color(160, 103, 248));
+					//crayon.fillRect(j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE);
+				
 			}
 		}
 		
@@ -207,6 +219,9 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			dessinerChaineCentree(crayon, "Jeu en pause", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_PAUSE);
 			animationTimer.stopAnimation();
 			animationTimerTep.stopAnimation();
+			active = false;
+		} else {
+			active = true;
 		}
 		
 	}
