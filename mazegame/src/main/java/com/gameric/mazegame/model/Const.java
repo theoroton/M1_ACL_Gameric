@@ -14,7 +14,7 @@ public class Const {
 	/**
 	 * Taille d'une case
 	 */
-	public final static int TAILLE_CASE = 20;
+	public final static int TAILLE_CASE = 34;
 	
 	/**
 	 * Taille de placement du personnage
