@@ -31,7 +31,7 @@ public class EcranClasse extends JPanel {
 	/**
 	 * Bouton qui permet de lancer le jeu
 	 */
-	private JButton lancerJeu;
+	private JButton jouer;
 	
 	/**
 	 * Constructeur de l'écran du choix de classe
@@ -39,33 +39,36 @@ public class EcranClasse extends JPanel {
 	 */
 	public EcranClasse(CardLayoutJeu c) {
 		clParent = c;	
-        setPreferredSize(new java.awt.Dimension(320, 360));
+        setPreferredSize(new java.awt.Dimension(544, 604));
 		
         
 		//Construction label du choix de classe
 		JLabel labelClasse = new javax.swing.JLabel();
-        labelClasse.setFont(new java.awt.Font("Gabriola", 1, 24)); // NOI18N
+        labelClasse.setFont(new java.awt.Font("Gabriola", 1, 28));
         labelClasse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelClasse.setText("Choisissez une classe");     
+        labelClasse.setText("Choisissez une classe");
 
 		
 		//Construction des boutons représentant chaque classe
 		//Archer
 		JRadioButton archer = new JRadioButton("Archer");
+        archer.setFont(new java.awt.Font("Tahoma", 0, 14));
         archer.setText("Archer");
-        archer.setPreferredSize(new java.awt.Dimension(100, 30));
+        archer.setPreferredSize(new java.awt.Dimension(140, 40));
 		archer.setActionCommand("archer");
 		
 		//Mage
 		JRadioButton mage = new JRadioButton("Mage");
-	    mage.setText("Mage");
-	    mage.setPreferredSize(new java.awt.Dimension(100, 30));
+        mage.setFont(new java.awt.Font("Tahoma", 0, 14));
+        mage.setText("Mage");
+        mage.setPreferredSize(new java.awt.Dimension(140, 40));
 		mage.setActionCommand("mage");
 		
 		//Epeiste
 		JRadioButton epeiste = new JRadioButton("Epeiste");
+        epeiste.setFont(new java.awt.Font("Tahoma", 0, 14));
         epeiste.setText("Epeiste");
-        epeiste.setPreferredSize(new java.awt.Dimension(100, 30));
+        epeiste.setPreferredSize(new java.awt.Dimension(140, 40));
 		epeiste.setActionCommand("epeiste");	
 	
 		//Construction du groupe de boutons
@@ -82,58 +85,81 @@ public class EcranClasse extends JPanel {
 	    
 	    
 	    //Bouton pour lancer le jeu
-	    lancerJeu = new javax.swing.JButton();
-        lancerJeu.setText("Lancer le jeu");
-        lancerJeu.setPreferredSize(new java.awt.Dimension(140, 25));
-        
+	    jouer = new javax.swing.JButton();
+        jouer.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jouer.setText("Jouer");
+        jouer.setPreferredSize(new java.awt.Dimension(140, 40));      
 		//Ajout de l'action qui permet de lancer le jeu au bouton
-		lancerJeu.addActionListener(new ActionListener() {			
+		jouer.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {
-				//On appelle la méthode créer jeu du CardLayout parent
-				clParent.creerJeu(bgroup.getSelection().getActionCommand()); 
+				//On appelle la méthode pour chosir la classe du CardLayout parent
+				clParent.choisirClasse(bgroup.getSelection().getActionCommand()); 
+		  		//On déselectionne la classe
+	    		bgroup.clearSelection();
+	    		//On désactive le bouton jouer
+	    		jouer.setEnabled(false);
 			}
 		});
 		//De base le bouton pour lancer le jeu est désactivé
 		//Pour l'activer il faut au moins sélectionner un bouton dans le groupe de boutons
-		lancerJeu.setEnabled(false);
-        
-        
+		jouer.setEnabled(false);
+		
+		//Création du bouton pour retourner au menu
+	    JButton retour = new javax.swing.JButton();
+	    retour.setFont(new java.awt.Font("Tahoma", 0, 18));
+	    retour.setText("Retour");
+	    retour.setPreferredSize(new java.awt.Dimension(140, 40));
+	    //Action du bouton pour afficher le menu principal
+	    retour.addActionListener(new java.awt.event.ActionListener() {
+    	   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    		   //On affiche le menu principal
+               clParent.afficherMenu();
+    		   //On déselectionne la classe
+    		   bgroup.clearSelection();
+    		   //On désactive le bouton jouer
+    		   jouer.setEnabled(false);
+	        }
+        });
+
+
         //Placement des éléments
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(labelClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
             .addGroup(layout.createSequentialGroup()
+                .addGap(202, 202, 202)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jouer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(retour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(epeiste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(mage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(archer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(lancerJeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))));
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(epeiste, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                            .addComponent(mage, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(archer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 152, Short.MAX_VALUE)
+                .addComponent(labelClasse, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152)));
         
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelClasse)
                 .addGap(30, 30, 30)
+                .addComponent(labelClasse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(archer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(80, 80, 80)
                 .addComponent(mage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(80, 80, 80)
                 .addComponent(epeiste, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(lancerJeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                .addGap(40, 40, 40)
+                .addComponent(jouer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(retour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)));
 	}
 	
 	
@@ -145,7 +171,7 @@ public class EcranClasse extends JPanel {
 	 */
 	class ActionBoutton implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			lancerJeu.setEnabled(true);	
+			jouer.setEnabled(true);	
 		}	
 	}
 

@@ -32,7 +32,7 @@ public class InfosLabyrinthe implements GamePainter {
 	public InfosLabyrinthe(JeuLabyrinthe j) {
 		jeu = j;
 		WIDTH = (j.getLabyrinthe().getLargeur())*Const.TAILLE_CASE;
-		HEIGHT = 50;
+		HEIGHT = 60;
 	}
 
 	/**
