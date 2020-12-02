@@ -15,15 +15,6 @@ public class Sprite {
 
         BufferedImage sprite = null;
         //ClassLoader classLoader = getClass().getClassLoader();
-
-        try {
-            System.out.println("Sprite name " +file);
-
-            sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
         
         try {
         	System.out.println("Sprite name " +file);
@@ -39,7 +30,7 @@ public class Sprite {
     }
 
     public BufferedImage getSprite(int xGrid, int yGrid, Class c) {
-
+    	
         if (spriteSheet == null) {
         	switch(c.getSimpleName()) {
                 case "Archer":
@@ -62,6 +53,7 @@ public class Sprite {
                     h = spriteSheet.getHeight()/8;
                     x = xGrid * w;
                     y = yGrid * h;
+                    break;
 	        	case "Zombie":
 	        		spriteSheet = loadSprite("zombie");
 		        	w = spriteSheet.getWidth()/4;
