@@ -1,8 +1,11 @@
 package com.gameric.mazegame.model.personnage;
 
 import java.awt.image.BufferedImage;
-import com.gameric.mazegame.model.*;
-import com.gameric.mazegame.graphique.*;
+import com.gameric.mazegame.model.labyrinthe.Case;
+import com.gameric.mazegame.model.labyrinthe.Mur;
+import com.gameric.mazegame.model.monstres.Monstre;
+import com.gameric.mazegame.graphiques.Sprite;
+import com.gameric.mazegame.graphiques.Animation;
 
 /**
  *
