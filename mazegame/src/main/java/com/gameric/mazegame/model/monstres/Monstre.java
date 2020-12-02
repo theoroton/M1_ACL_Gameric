@@ -1,11 +1,14 @@
 package com.gameric.mazegame.model.monstres;
 
+import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import com.gameric.mazegame.model.labyrinthe.Case;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
+import com.gameric.mazegame.graphiques.Sprite;
+import com.gameric.mazegame.graphiques.Animation;
 
 /**
  * 
@@ -57,6 +60,54 @@ public abstract class Monstre {
 	/**
 	 * Le labyrinthe où se trouve le monstre
 	 */
+	// Images for each animation
+	//Sprite.setSpriteName(this., "zombie");
+	private String direction = "";
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	
+	protected BufferedImage[] walkingDown;
+	protected BufferedImage[] walkingLeft;
+	protected BufferedImage[] walkingRight;
+	protected BufferedImage[] walkingUp;
+	protected BufferedImage[] standing;
+
+	// These are animation states
+	protected Animation walkUp;
+	protected Animation walkDown;
+	protected Animation walkLeft;
+	protected Animation walkRight;
+	protected Animation stand;
+
+	// This is the actual animation
+	private Animation animation = stand;
+	
+	public Animation getAnimation() {
+		return animation;
+	}
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
+	}
+	public Animation getAnimationUp() {
+		return walkUp;
+	}
+	public Animation getAnimationDown() {
+		return walkDown;
+	}
+	public Animation getAnimationLeft() {
+		return walkLeft;
+	}
+	public Animation getAnimationRight() {
+		return walkRight;
+	}
+	public Animation getAnimationStand() {
+		return stand;
+	}
+	
 	private Labyrinthe labyrinthe;
 	/**
 	 * Constructeur du monstre
