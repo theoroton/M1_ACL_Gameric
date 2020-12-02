@@ -1,5 +1,9 @@
 package com.gameric.mazegame.model.personnage;
 
+import java.awt.image.BufferedImage;
+import com.gameric.mazegame.model.*;
+import com.gameric.mazegame.graphique.*;
+
 /**
  *
  * @author Maeva Touchet
@@ -23,8 +27,41 @@ public abstract class Personnage{
 	public static final char S = "Sud";
 	public static final char O = "Ouest";
 
+	protected BufferedImage[] walkingUp;
+	protected BufferedImage[] walkingRight;
+	protected BufferedImage[] walkingLeft;
+	protected BufferedImage[] walkingDown;
+	protected Animation stand;
+
+	private Animation animation = stand;
+
 	//Constructeurs
-	public Personnage(){ direction = E; };
+	public Personnage(){
+		direction = E;
+
+		walkingUp = new BufferedImage[count];
+		walkingRight = new BufferedImage[count];
+		walkingLeft = new BufferedImage[count];
+		walkingDown = new BufferedImage[count];
+		standing = new BufferedImage[1];
+
+		for (int i = 0; i < count; i++ ) {
+			walkingDown[i] = new Sprite().getSprite(i+3, 0, this.getClass());
+			walkingLeft[i] = new Sprite().getSprite(i+3, 1, this.getClass());
+			walkingRight[i] = new Sprite().getSprite(i+3, 2, this.getClass());
+			walkingUp[i] = new Sprite().getSprite(i+3, 3, this.getClass());
+		}
+		standing[0] = new Sprite().getSprite(4, 0, this.getClass());
+
+
+
+		walkUp = new Animation(walkingUp, 10);
+		walkDown = new Animation(walkingDown, 10);
+		walkLeft = new Animation(walkingLeft, 10);
+		walkRight = new Animation(walkingRight, 10);
+		stand = new Animation(standing, 10);
+
+	}
 
 	//Méthodes
 
@@ -148,6 +185,10 @@ public abstract class Personnage{
 	}
 
 	//Setters
+	public void setAnimation(Animation anim){
+		animation = anim;
+	}
+
 	public void setPosition(int x, int y) {
 		position = labyrinthe.getCase(x, y);
 	}
@@ -183,6 +224,26 @@ public abstract class Personnage{
 	}
 
 	//Getters
+	public Animation getAnimationUp(){
+		return walkingUp;
+	}
+
+	public Animation getAnimationRight(){
+		return walkingRight;
+	}
+
+	public Animation getAnimationDown(){
+		return walkingDown;
+	}
+
+	public Animation getAnimationLeft(){
+		return walkingLeft;
+	}
+
+	public Animation getAnimationStand(){
+		return stand;
+	}
+
 	public String getStringPosition(){
 		return "(" + position.getPx() + "," +  position.getPy() + ")";
 	}
