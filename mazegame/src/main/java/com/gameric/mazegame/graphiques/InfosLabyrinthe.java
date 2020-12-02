@@ -32,7 +32,7 @@ public class InfosLabyrinthe implements GamePainter {
 	public InfosLabyrinthe(JeuLabyrinthe j) {
 		jeu = j;
 		WIDTH = (j.getLabyrinthe().getLargeur())*Const.TAILLE_CASE;
-		HEIGHT = 50;
+		HEIGHT = 60;
 	}
 
 	/**
@@ -48,13 +48,13 @@ public class InfosLabyrinthe implements GamePainter {
 		
 		//On dessine les points de vie du joueur
 		crayon.setColor(Color.BLACK);
-		crayon.drawRect(9, 14, Const.WIDTH_BARREPV+1, Const.HEIGHT_BARREPV+1);
+		crayon.drawRect(9, 19, Const.WIDTH_BARREPV+1, Const.HEIGHT_BARREPV+1);
 		
 		int pvPerso = personnage.getPointsVie();
 		int pvMax = personnage.getVieMax();
 		double pv = (double) pvPerso/ (double) pvMax;
 		crayon.setColor(new Color(0, 153, 0));
-		crayon.fillRect(10, 15, (int) (pv*Const.WIDTH_BARREPV), Const.HEIGHT_BARREPV);
+		crayon.fillRect(10, 20, (int) (pv*Const.WIDTH_BARREPV), Const.HEIGHT_BARREPV);
 		if (personnage.getPointsVie() <= pvMax/5) {
 			crayon.setColor(new Color(204, 0, 0));
 		}

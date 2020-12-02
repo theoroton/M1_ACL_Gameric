@@ -20,13 +20,17 @@ public class CardLayoutJeu extends JPanel {
 	 */
 	private EcranMenu menu;
 	/**
-	 * Ecran des règles du jeu
+	 * Ecran du but du jeu
 	 */
-	private EcranRegle regles;
+	private EcranBut but;
 	/**
 	 * Ecran du choix de classe
 	 */
 	private EcranClasse choixClasse;
+	/**
+	 * Ecran des commandes
+	 */
+	private EcranCommandes commandes;
 	/**
 	 * Ecran du jeu
 	 */
@@ -63,18 +67,22 @@ public class CardLayoutJeu extends JPanel {
 		setLayout(cl);
 		
 		//Création du menu du jeu
-		menu = new EcranMenu(this);
+		menu = new EcranMenu(this, jeu);
 		//Création de l'écran des règles
-		regles = new EcranRegle(this);
+		but = new EcranBut(this);
 		//Création de l'écran du choix de classe
 		choixClasse = new EcranClasse(this);
+		//Création de l'écran des commandes
+		commandes = new EcranCommandes(this);
 
 		//Ajout de l'écran du menu au layout
 		add(menu, "menu");
 		//Ajout de l'écran des régles au layout
-		add(regles, "regles");
+		add(but, "but");
 		//Ajout de l'écran du choix de classe au layout
 		add(choixClasse, "choixClasse");
+		//Ajout de l'écran des commandes au layout
+		add(commandes, "commandes");
 		
 		//Ajout du controleur
 		addKeyListener(controleur);
@@ -97,20 +105,28 @@ public class CardLayoutJeu extends JPanel {
 	}
 
 	/**
-	 * Méthode qui permet de créer l'écran de jeu et de lancer le jeu
-	 * @param classe : classe choisis par le joueur sur l'écran de
+	 * Méthode qui permet de choisir la classe et d'afficher les commandes
+	 * @param classe : classe choisie par le joueur sur l'écran de
 	 * sélection des classes.
 	 */
-	public void creerJeu(String classe) {
-		//On indique la classe choisis au jeu
-		jeu.choixClasse(classe);
-		//Lancement le jeu
+	public void choisirClasse(String classe) {
+		//On indique la classe choisie au jeu
+		jeu.choixClasse(classe);		
+		//On affiche l'écran des commandes
+		cl.show(this, "commandes");
+	}
+	
+	/**
+	 * Méthode qui permet de lancer et d'afficher le jeu
+	 */
+	public void lancerJeu() {
+		//Lancement du jeu
 		jeu.lancerJeu();
-		
 		//On crée l'écran du jeu
 		ecranJeu = new EcranJeu(jeu);
 		//On ajoute l'écran du jeu
 		add(ecranJeu, "ecranJeu");
+		
 		//On affiche l'écran du jeu
 		cl.show(this, "ecranJeu");
 		//On indique que le jeu est en cours
@@ -149,10 +165,10 @@ public class CardLayoutJeu extends JPanel {
 	}
 	
 	/**
-	 * Méthode qui permet d'afficher les règles du jeu
+	 * Méthode qui permet d'afficher le but du jeu
 	 */
-	public void afficherRegles() {
-		cl.show(this, "regles");
+	public void afficherBut() {
+		cl.show(this, "but");
 	}
 	
 	/**
