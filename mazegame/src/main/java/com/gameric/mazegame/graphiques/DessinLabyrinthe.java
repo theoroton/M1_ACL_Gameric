@@ -124,7 +124,7 @@ public class DessinLabyrinthe implements GamePainter {
 					personnage.setAnimation(personnage.getAnimationStand());
 					break;
 			}
-			crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);
+			crayon.drawImage(personnage.getAnimation().getSprite(), personnage.getPosition().getPx()*Const.TAILLE_CASE, personnage.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);
 		}
 		
 		//On dessine les monstres

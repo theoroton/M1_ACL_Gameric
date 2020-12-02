@@ -21,11 +21,11 @@ public abstract class Personnage{
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
 
-	char direction;		//direction dans laquelle le personnage regarde
-	public static final char N = "Nord";	//Serviront à changer la direction du Personnage
-	public static final char E = "Est";
-	public static final char S = "Sud";
-	public static final char O = "Ouest";
+	String direction;		//direction dans laquelle le personnage regarde
+	public static final String N = "Nord";	//Serviront à changer la direction du Personnage
+	public static final String E = "Est";
+	public static final String S = "Sud";
+	public static final String O = "Ouest";
 
 	protected BufferedImage[] walkingUp;
 	protected BufferedImage[] walkingRight;
@@ -33,7 +33,7 @@ public abstract class Personnage{
 	protected BufferedImage[] walkingDown;
 	protected Animation stand;
 
-	private Animation animation = stand;
+	private Animation animation = stand;	//animation courante du personnage
 
 	//Constructeurs
 	public Personnage(){
@@ -210,17 +210,21 @@ public abstract class Personnage{
 		}
 	}
 
+	public void setVieMax(int newVie){
+		vieMax = newVie;
+	}
+
 	public void setDegats(int degats){
 		this.degats = degats;
 	}
 
 	public void setPortee(int portee){ this.portee = portee; }
 
-	public void setDirection(char dir){
-		if(dir == 'N')	direction = N;
-		if(dir == 'E')	direction = E;
-		if(dir == 'S')	direction = S;
-		if(dir == 'O')	direction = O;
+	public void setDirection(String dir){
+		if(dir.equals("N"))	direction = N;
+		if(dir.equals("E"))	direction = E;
+		if(dir.equals("S"))	direction = S;
+		if(dir.equals("O"))	direction = O;
 	}
 
 	//Getters
@@ -244,6 +248,10 @@ public abstract class Personnage{
 		return stand;
 	}
 
+	public Animation getAnimation(){
+		return animation;
+	}
+
 	public String getStringPosition(){
 		return "(" + position.getPx() + "," +  position.getPy() + ")";
 	}
@@ -258,7 +266,7 @@ public abstract class Personnage{
 		return position.getPy();
 	}
 
-	public char getDirection(){ return direction; }
+	public String getDirection(){ return direction; }
 
 	public int getPointsVie() {
 		return pointsVie;
