@@ -39,6 +39,7 @@ public class StrategiePatrouille implements StrategieDeplacement{
 		Personnage p = monstre.getLabyrinthe().getPersonnage_laby();
 		String[] choix = {"UP", "RIGHT", "DOWN", "LEFT"};
 		direction = choix[(int)(4 * Math.random())];
+		monstre.setDirection(direction);
 		int x = monstre.getPos_x();
 		int y = monstre.getPos_y();
 		
