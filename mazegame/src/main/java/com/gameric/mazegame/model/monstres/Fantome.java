@@ -2,6 +2,8 @@ package com.gameric.mazegame.model.monstres;
 
 import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
+
 import com.gameric.mazegame.graphiques.Animation;
 import com.gameric.mazegame.graphiques.Sprite;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
@@ -15,7 +17,7 @@ import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 
 public class Fantome extends Monstre {
 	
-	static final int VIE_MAX = 20;
+	public static final int VIE_MAX = 20;
 	
 	/**
 	 * Constructeur de la classe Fantome
@@ -29,7 +31,7 @@ public class Fantome extends Monstre {
 		vision = 3;
 		degats = 2;
 		traverserMur = true;
-		pointsVie = VIE_MAX;
+		pointsVie = getVieMax();
 		
 		int count = 3;
 		
@@ -54,5 +56,9 @@ public class Fantome extends Monstre {
 		walkLeft = new Animation(walkingLeft, 10);
 		walkRight = new Animation(walkingRight, 10);
 		stand = new Animation(standing, 10);
+	}
+
+	public static int getVieMax() {
+		return VIE_MAX;
 	}
 }

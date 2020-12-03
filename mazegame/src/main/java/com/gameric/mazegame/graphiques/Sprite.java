@@ -1,10 +1,11 @@
 package com.gameric.mazegame.graphiques;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
 public class Sprite {
 
     private BufferedImage spriteSheet;
@@ -13,18 +14,19 @@ public class Sprite {
 
     public BufferedImage loadSprite(String file) {
 
-        BufferedImage sprite = null;
+       BufferedImage sprite = null;
         //ClassLoader classLoader = getClass().getClassLoader();
-        
+    	//BufferedImage img = new BufferedImage(getClass().getResource("/images/sprites/" + file + ".png"));
         try {
         	System.out.println("Sprite name " +file);
         	
 			sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        //sprite = (BufferedImage) new ImageIcon(getClass().getResource("/images/sprites/"+file+".png")).getImage();
+        //sprite = (BufferedImage) new BufferedImage(getClass().getResource("/images/sprites/"+file+".png")).getImage();
 
         return sprite;
     }
@@ -49,8 +51,20 @@ public class Sprite {
 	        		break;
         	}
         }
+        System.out.println("Problem");
+        //BufferedImage buffered = imageToBufferedImage(spriteSheet.getImage());
+        //BufferedImage res = new BufferedImage(buffered.getSubimage(x, y, w, h));
         //System.out.println("Size " + c.getSimpleName());
-        return spriteSheet.getSubimage(x, y, w, h);
+        return spriteSheet.getSubimage(x, y, w, h) ;
     }
+    
+    public static BufferedImage imageToBufferedImage(Image im) {
+        BufferedImage bi = new BufferedImage
+           (im.getWidth(null),im.getHeight(null),BufferedImage.TYPE_INT_RGB);
+        Graphics bg = bi.getGraphics();
+        bg.drawImage(im, 0, 0, null);
+        bg.dispose();
+        return bi;
+     }
 
 }
