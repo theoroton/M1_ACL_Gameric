@@ -46,12 +46,12 @@ public abstract class Personnage{
 		standing = new BufferedImage[1];
 
 		for (int i = 0; i < count; i++ ) {
-			walkingDown[i] = new Sprite().getSprite(i+3, 0, this.getClass());
-			walkingLeft[i] = new Sprite().getSprite(i+3, 1, this.getClass());
-			walkingRight[i] = new Sprite().getSprite(i+3, 2, this.getClass());
-			walkingUp[i] = new Sprite().getSprite(i+3, 3, this.getClass());
+			walkingDown[i] = new Sprite().getSprite(i, 10, this.getClass());
+			walkingLeft[i] = new Sprite().getSprite(i, 9, this.getClass());
+			walkingRight[i] = new Sprite().getSprite(i, 11, this.getClass());
+			walkingUp[i] = new Sprite().getSprite(i, 8, this.getClass());
 		}
-		standing[0] = new Sprite().getSprite(4, 0, this.getClass());
+		standing[0] = new Sprite().getSprite(0, 2, this.getClass());
 
 
 

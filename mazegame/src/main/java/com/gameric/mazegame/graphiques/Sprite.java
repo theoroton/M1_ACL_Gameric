@@ -35,22 +35,22 @@ public class Sprite {
         	switch(c.getSimpleName()) {
                 case "Archer":
                     spriteSheet = loadSprite("archer");
-                    w = spriteSheet.getWidth()/12;
-                    h = spriteSheet.getHeight()/8;
+                    w = spriteSheet.getWidth()/13;
+                    h = spriteSheet.getHeight()/21;
                     x = xGrid * w;
                     y = yGrid * h;
                     break;
                 case "Epeiste":
                     spriteSheet = loadSprite("epeiste");
-                    w = spriteSheet.getWidth()/12;
-                    h = spriteSheet.getHeight()/8;
+                    w = spriteSheet.getWidth()/13;
+                    h = spriteSheet.getHeight()/21;
                     x = xGrid * w;
                     y = yGrid * h;
                     break;
                 case "Mage":
                     spriteSheet = loadSprite("mage");
-                    w = spriteSheet.getWidth()/12;
-                    h = spriteSheet.getHeight()/8;
+                    w = spriteSheet.getWidth()/13;
+                    h = spriteSheet.getHeight()/21;
                     x = xGrid * w;
                     y = yGrid * h;
                     break;
