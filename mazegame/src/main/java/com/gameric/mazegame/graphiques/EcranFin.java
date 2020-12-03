@@ -20,21 +20,29 @@ public class EcranFin extends JPanel {
 	private CardLayoutJeu clParent;
 	
 	/**
+	 * Jeu
+	 */
+	private JeuLabyrinthe jeu;
+	
+	/**
 	 * Constructeur de l'écran de fin
 	 * @param c : CardLayout père
-	 * @param j : jeu
+	 * @param j : Jeu à afficher
 	 */
 	public EcranFin(CardLayoutJeu c, JeuLabyrinthe j) {
 		clParent = c;
-		setPreferredSize(new java.awt.Dimension(320, 360));
+		jeu = j;
+		setPreferredSize(new java.awt.Dimension(544, 604));
 		
 		//Création des labels de message de fin
 		JLabel labelFin = new javax.swing.JLabel();
         JLabel labelFinPetit = new javax.swing.JLabel();
-        labelFin.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N    
+        labelFin.setFont(new java.awt.Font("Gadugi", 1, 36));
         labelFin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelFinPetit.setFont(new java.awt.Font("Gabriola", 0, 20)); // NOI18N    
+        labelFin.setPreferredSize(new java.awt.Dimension(200, 48));
+        labelFinPetit.setFont(new java.awt.Font("Gabriola", 0, 24));
         labelFinPetit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelFinPetit.setPreferredSize(new java.awt.Dimension(200, 42));
         
         //Si le jeu est gagné, on affiche victoire
         if (j.estGagne()) {
@@ -54,8 +62,9 @@ public class EcranFin extends JPanel {
 
         //Création du bouton pour recommencer le jeu
         JButton recommencer = new javax.swing.JButton();
+        recommencer.setFont(new java.awt.Font("Tahoma", 0, 18));
         recommencer.setText("Recommencer");
-        recommencer.setPreferredSize(new java.awt.Dimension(120, 30));
+        recommencer.setPreferredSize(new java.awt.Dimension(160, 40));
         //Action du bouton recommencer
         recommencer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,49 +76,64 @@ public class EcranFin extends JPanel {
 
         //Création du bouton pour quitter le jeu
         JButton quitter = new javax.swing.JButton();
+        quitter.setFont(new java.awt.Font("Tahoma", 0, 18));
         quitter.setText("Quitter");
-        quitter.setPreferredSize(new java.awt.Dimension(120, 30));
+        quitter.setPreferredSize(new java.awt.Dimension(160, 40));
         //Action du bouton quitter
         quitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                //On indique que le jeu est dans l'état fin
-               j.setEtat(Etat.Fin);
+               jeu.setEtat(Etat.Fin);
             }
         });
 
         
+        //Création du bouton pour aller au menu
+        JButton menu = new javax.swing.JButton();
+        menu.setFont(new java.awt.Font("Tahoma", 0, 18));
+        menu.setText("Menu principal");
+        menu.setPreferredSize(new java.awt.Dimension(160, 40));
+        //Action du bouton menu
+        menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	jeu = new JeuLabyrinthe();
+            	clParent.afficherMenu();
+            }
+        });
+
         //Placement des éléments
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(labelFin, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(labelFinPetit, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 100, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(quitter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(recommencer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(100, 100, 100)));
+                .addContainerGap(162, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelFinPetit, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelFin, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(162, 162, 162))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(recommencer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(quitter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(192, 192, 192)))));
         
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(labelFin)
+                .addComponent(labelFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelFinPetit)
-                .addGap(70, 70, 70)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(recommencer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(45, 45, 45)
+                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
                 .addComponent(quitter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE)));
+                .addGap(80, 80, 80)));
 	}
 }

@@ -14,7 +14,7 @@ public class Const {
 	/**
 	 * Taille d'une case
 	 */
-	public final static int TAILLE_CASE = 20;
+	public final static int TAILLE_CASE = 34;
 	
 	/**
 	 * Taille de placement du personnage
@@ -29,7 +29,7 @@ public class Const {
 	/**
 	 * Largeur de la barre de vie
 	 */
-	public final static int WIDTH_BARREPV = 70;
+	public final static int WIDTH_BARREPV = 120;
 	
 	/**
 	 * Hauteur de la barre de vie
