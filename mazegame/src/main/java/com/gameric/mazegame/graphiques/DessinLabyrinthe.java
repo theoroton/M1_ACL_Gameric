@@ -195,7 +195,11 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						} else if(((CaseObjet) c).getObjet().getNom().equals("Arme")) {
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/epee.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						} else if (((CaseObjet) c).getObjet().getNom().equals("?")) {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/box.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/mystere0.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+						}
+					} else {
+						if (((CaseObjet) c).getObjet().getNom().equals("?")) {
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/mystere1.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						}
 					}
 					
@@ -472,9 +476,9 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		} else {
 			active = true;
 		}
-		System.out.println(labyrinthe.getNiveauChange());
 		if(labyrinthe.getNiveauChange()) {
 			animationTimerTep.setGameChanged(true);
+			labyrinthe.setNiveauChange(false);
 		}
 		
 	}
