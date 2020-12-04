@@ -112,7 +112,7 @@ public class TestMonstre {
 	 */
 	@Test
 	public void testMonstreSquelette() {
-		
+		/*
 		//Création du personnage
 		Personnage personnage = new Epeiste();
 		//Création du labyrinthe
@@ -137,7 +137,7 @@ public class TestMonstre {
 		assertEquals("Le monstre devrait faire le degats de 3 a personnage", 27, personnage.getPointsVie());
 		//personnage.attaquer();
 		//assertEquals("Le monstre devrait avoir perdu 10 points de vie", 0, monstre.getPointsVie());
-		
+		*/
 		
 	}
 }
