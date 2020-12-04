@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -229,7 +230,7 @@ public class EcranBut extends JPanel{
 		
 		//Récupération du fichier
 		InputStream in = getClass().getResourceAsStream("/texte/but.txt");	
-		BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));
+		BufferedReader fichLab = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 		
 		//Création de la chaîne
 		try {
@@ -244,37 +245,6 @@ public class EcranBut extends JPanel{
 		but = "<html><div style='text-align: justify;'>" + but + "</div></html>";
 		
 		return but;
-	}
-	
-	/**
-	 * Méthode qui permet de récupérer les commandes du jeu d'un fichier texte
-	 * @return String avec les commandes du jeu
-	 */
-	private String commandesTexte() {
-		String commandes = "", ligne;
-		
-		//Récupération du fichier
-		InputStream in = getClass().getResourceAsStream("/texte/commandes.txt");	
-		BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));
-		
-		//Création de la chaîne
-		try {
-			ligne = fichLab.readLine();
-			commandes += ligne + "<br>";
-			while ((ligne = fichLab.readLine()) != null) {
-				if (!ligne.equals("")) {
-					commandes += "&nbsp; - " + ligne + "<br>";
-				}	
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		//On ajoute des balises html pour un meilleur affichage
-		commandes = "<html><div>" + commandes + "</div></html>";
-		
-		return commandes;
-
 	}
 
 }
