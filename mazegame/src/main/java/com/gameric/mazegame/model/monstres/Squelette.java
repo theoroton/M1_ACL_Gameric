@@ -30,6 +30,7 @@ public class Squelette extends Monstre {
 		degats = 3;
 		traverserMur = false;
 		pointsVie = VIE_MAX;
+		System.out.println("construct");
 		
 		int count = 13;
 		
