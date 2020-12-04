@@ -59,6 +59,11 @@ public class Animation extends JPanel implements ActionListener {
         this.currentFrame = 0;
         this.animationDirection = 1;*/
         this.totalFrames = this.frames.size();
+        
+        this.stopped = true;
+        this.frameCount = 0;
+        this.currentFrame = 0;
+        this.animationDirection = 1;
 
     }
     public int getSizeFrames() {
@@ -100,6 +105,9 @@ public class Animation extends JPanel implements ActionListener {
     
     public BufferedImage getSprite() {
         return frames.get(currentFrame).getFrame();
+    }
+    public void setCurSprite (int num) {
+    	this.currentFrame = num;
     }
     
     public void stopAnimation() {

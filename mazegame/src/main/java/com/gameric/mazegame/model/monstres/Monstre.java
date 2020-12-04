@@ -1,8 +1,10 @@
 package com.gameric.mazegame.model.monstres;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import javax.swing.Timer;
 
 import com.gameric.mazegame.model.labyrinthe.Case;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
@@ -37,6 +39,17 @@ public abstract class Monstre {
 	 * La nombre des degats du monstre
 	 */
 	protected int degats = 2;
+	
+	protected boolean peutDonnerDegats = false;
+	
+	public void setPeutDonnerDegats(boolean peutDonnerDegats) {
+		this.peutDonnerDegats = peutDonnerDegats;
+	}
+	
+	public boolean getPeutDonnerDegats() {
+		return peutDonnerDegats;
+	}
+	
 	/**
 	 * La distance de l'attaque du monstre
 	 */
@@ -75,6 +88,11 @@ public abstract class Monstre {
 	protected BufferedImage[] walkingRight;
 	protected BufferedImage[] walkingUp;
 	protected BufferedImage[] standing;
+	
+	protected BufferedImage[] attaqueUp;
+	protected BufferedImage[] attaqueDown;
+	protected BufferedImage[] attaqueLeft;
+	protected BufferedImage[] attaqueRight;
 
 	// These are animation states
 	protected Animation walkUp;
@@ -82,6 +100,11 @@ public abstract class Monstre {
 	protected Animation walkLeft;
 	protected Animation walkRight;
 	protected Animation stand;
+	
+	protected Animation attaqUp;
+	protected Animation attaqDown;
+	protected Animation attaqLeft;
+	protected Animation attaqRight;
 
 	// This is the actual animation
 	private Animation animation = stand;
@@ -108,6 +131,19 @@ public abstract class Monstre {
 		return stand;
 	}
 	
+	public Animation getAttaqueUp() {
+		return attaqUp;
+	}
+	public Animation getAttaqueDown() {
+		return attaqDown;
+	}
+	public Animation getAttaqueLeft() {
+		return attaqLeft;
+	}
+	public Animation getAttaqueRight() {
+		return attaqRight;
+	}
+	
 	private Labyrinthe labyrinthe;
 	/**
 	 * Constructeur du monstre
@@ -118,13 +154,22 @@ public abstract class Monstre {
 		position.setOccupee(true);
 		vitesse = v;
 		
-		timer = new Timer();
+		//if (timer == null) {
+		ActionListener taskPerformer = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				deplacerMonstre();
+			}
+		};
+		timer = new Timer(vitesse, taskPerformer);
+		timer.start();
+		//}
+		/*timer = new Timer();
 		timer.schedule(new TimerTask() {
 			
 	    public void run() {
 	    		deplacerMonstre();
 			}
-		}, vitesse, vitesse);
+		}, vitesse, vitesse);*/
 	}
 	/**
 	 * Méthode getter de l'attribut pointsVie
@@ -267,13 +312,14 @@ public abstract class Monstre {
 	 * Set timer qui permet de recommencer un timer.
 	 */
 	public void setTimer() {
-		timer = new Timer();
+		timer.restart();
+		/*timer = new Timer();
 		timer.schedule(new TimerTask() {
 			
 		    public void run() {
 		    		deplacerMonstre();
 				}
-			}, vitesse, vitesse);
+			}, vitesse, vitesse);*/
 	}
 	
 	/**

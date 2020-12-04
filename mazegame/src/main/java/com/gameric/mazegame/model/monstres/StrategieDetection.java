@@ -105,7 +105,10 @@ public class StrategieDetection implements StrategieDeplacement {
 			}
 		}
 		if(m.getPosition().getHeuristic(p.getPosition()) <= m.getPortee()) {
+			m.setPeutDonnerDegats(true);
 			m.donnerDegats();
+		} else {
+			m.setPeutDonnerDegats(false);
 		}
 	}
 	
@@ -156,6 +159,7 @@ public class StrategieDetection implements StrategieDeplacement {
 		int x = m.getPos_x();
 		int y = m.getPos_y();
 		// Moving the enemy object to a new position in the maze
+		m.setDirection(direction);
 		switch(direction){
 			//Commande UP
 			case "UP":

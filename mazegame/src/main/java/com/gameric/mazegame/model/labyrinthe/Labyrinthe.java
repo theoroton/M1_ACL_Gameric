@@ -411,7 +411,7 @@ public class Labyrinthe {
 	 */
 	public void enleverMonstre(Monstre m) {
 		m.getPosition().setOccupee(false);
-		m.getTimer().cancel();
+		m.getTimer().stop();
 		monstres.remove(m);
 	}
 	
@@ -421,7 +421,7 @@ public class Labyrinthe {
 	 */
 	public void arreterTimers() {
 		for (Monstre m : monstres) {
-			m.getTimer().cancel();
+			m.getTimer().stop();
 		}
 	}
 	

@@ -31,7 +31,7 @@ public class Fantome extends Monstre {
 		vision = 3;
 		degats = 2;
 		traverserMur = true;
-		pointsVie = getVieMax();
+		pointsVie = VIE_MAX;
 		
 		int count = 3;
 		
@@ -58,7 +58,4 @@ public class Fantome extends Monstre {
 		stand = new Animation(standing, 10);
 	}
 
-	public static int getVieMax() {
-		return VIE_MAX;
-	}
 }

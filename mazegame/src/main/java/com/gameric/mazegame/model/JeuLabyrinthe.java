@@ -79,7 +79,7 @@ public class JeuLabyrinthe implements Game {
 			break;
 		}
 		
-		niveau = 1;
+		niveau = 2;
 		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
 	}
 

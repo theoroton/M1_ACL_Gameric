@@ -10,15 +10,12 @@ public class Sprite {
 
     private BufferedImage spriteSheet;
     private int x = 0 , y = 0, w = 0, h = 0;
-    //private String fileName = "";
 
     public BufferedImage loadSprite(String file) {
 
        BufferedImage sprite = null;
-        //ClassLoader classLoader = getClass().getClassLoader();
-    	//BufferedImage img = new BufferedImage(getClass().getResource("/images/sprites/" + file + ".png"));
         try {
-        	System.out.println("Sprite name " +file);
+        	//System.out.println("Sprite name " +file);
         	
 			sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
 			
@@ -26,7 +23,6 @@ public class Sprite {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        //sprite = (BufferedImage) new BufferedImage(getClass().getResource("/images/sprites/"+file+".png")).getImage();
 
         return sprite;
     }
@@ -49,22 +45,23 @@ public class Sprite {
 	        		x = xGrid * w;
 	        		y = yGrid * h;
 	        		break;
+	        	case "Squelette":
+	        		spriteSheet = loadSprite("squelette");
+		        	w = spriteSheet.getWidth()/13;
+		    		h = spriteSheet.getHeight()/21;
+	        		x = xGrid * w;
+	        		y = yGrid * h;
+	        		break;
+	        	default:
+	        		spriteSheet = loadSprite("arrow");
+		        	w = spriteSheet.getWidth()/13;
+		    		h = spriteSheet.getHeight()/4;
+	        		x = xGrid * w;
+	        		y = yGrid * h;
+	        		break;
         	}
         }
-        System.out.println("Problem");
-        //BufferedImage buffered = imageToBufferedImage(spriteSheet.getImage());
-        //BufferedImage res = new BufferedImage(buffered.getSubimage(x, y, w, h));
-        //System.out.println("Size " + c.getSimpleName());
         return spriteSheet.getSubimage(x, y, w, h) ;
     }
-    
-    public static BufferedImage imageToBufferedImage(Image im) {
-        BufferedImage bi = new BufferedImage
-           (im.getWidth(null),im.getHeight(null),BufferedImage.TYPE_INT_RGB);
-        Graphics bg = bi.getGraphics();
-        bg.drawImage(im, 0, 0, null);
-        bg.dispose();
-        return bi;
-     }
 
 }

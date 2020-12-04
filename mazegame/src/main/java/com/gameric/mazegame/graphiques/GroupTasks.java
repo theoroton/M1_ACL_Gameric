@@ -51,24 +51,25 @@ public class GroupTasks extends JPanel implements ActionListener{
 	}
     
     public void startAnimationMonstre(Graphics2D crayon, int x, int y, int w, int h, ImageObserver ob, Animation anim, Monstre m) {
-    	
     	currImg = 0;
     	BufferedImage images[] = anim.getAnimImages();
     	//crayon.drawImage(images[currImg], x, y, w, h, ob);
-    	//crayon.drawImage(anim.getSprite(), x, y, w, h, ob);
-    	if (animationTimer == null) {
+    	//if(m.getClass().getSimpleName().equals("Zombie") || m.getClass().getSimpleName().equals("Fantome")) {
+    		crayon.drawImage(anim.getSprite(), x, y, w, h, ob);
+    	/*} 
+    	else if (animationTimer == null) {
 			ActionListener taskPerformer1 = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent evt) {
-					//System.out.println("Here2 "+anim.getSizeFrames());
-					
-		    		System.out.println("MonsterDirection-- "+m.getDirection());
+		    		//System.out.println("Monster-- "+m.getClass());
+		    		//System.out.println("SizeFRame "+anim.getSizeFrames());
+		    		//System.out.println("Direction "+m.getDirection());
 		    		//crayon.drawImage(images[currImg], x, y, w, h, ob);
 		    		//animationTimer.stop();
 		    		//animationTimer = null;
 					
 					for(int c = 0; c < anim.getSizeFrames(); c++) {
-						System.out.println("CurrImg-- "+currImg);
+						//System.out.println("CurrImg-- "+currImg);
 						switch(m.getDirection()) {
 							case "UP":
 								crayon.drawImage(images[currImg], x, y+c*Const.TAILLE_CASE/anim.getSizeFrames(), w, h, ob);
@@ -87,30 +88,16 @@ public class GroupTasks extends JPanel implements ActionListener{
 								break;
 						}
 						currImg++;
-						//animationTimer.stop();
-						
-						System.out.println("+++++++Bef");
-						
-						/*try {
-							animationTimer.wait(20);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}*/
-						//animationTimer.setDelay(10);
-						//waitForTwoSeconds();
-						//animationTimer.setDelay(8000);
-						System.out.println("+++++++Aft");
-						crayon.dispose();
+						//crayon.dispose();
 					}
-					
+					currImg = 0;
 					animationTimer.stop();
 		    		animationTimer = null;
 				}
 			};
 			animationTimer = new Timer(0, taskPerformer1);
 			animationTimer.start();
-		}
+		}*/
 	}
         
     public void stopAnimation() {
