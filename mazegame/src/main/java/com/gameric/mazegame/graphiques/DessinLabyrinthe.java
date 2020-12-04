@@ -194,6 +194,8 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/potion.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE-Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						} else if(((CaseObjet) c).getObjet().getNom().equals("Arme")) {
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/epee.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+						} else if (((CaseObjet) c).getObjet().getNom().equals("?")) {
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/box.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						}
 					}
 					
