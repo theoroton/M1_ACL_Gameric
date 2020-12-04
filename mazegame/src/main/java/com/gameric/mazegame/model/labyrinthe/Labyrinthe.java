@@ -56,6 +56,8 @@ public class Labyrinthe {
 	 */
 	private int ySortie;
 	
+	private boolean niveauChange;
+	
 	/**
 	 * Personnage joueur du labyrinthe
 	 */
@@ -433,6 +435,12 @@ public class Labyrinthe {
 		for (Monstre m : monstres) {
 			m.setTimer();
 		}
+	}
+	public void setNiveauChange(boolean n) {
+		this.niveauChange = n;
+	}
+	public boolean getNiveauChange() {
+		return niveauChange;
 	}
 	
 }

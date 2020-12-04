@@ -472,6 +472,10 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		} else {
 			active = true;
 		}
+		System.out.println(labyrinthe.getNiveauChange());
+		if(labyrinthe.getNiveauChange()) {
+			animationTimerTep.setGameChanged(true);
+		}
 		
 	}
 	
