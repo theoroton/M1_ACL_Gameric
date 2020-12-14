@@ -1,15 +1,15 @@
 package com.gameric.mazegame.graphiques;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
 public class Sprite {
 
     private BufferedImage spriteSheet;
     private int x = 0 , y = 0, w = 0, h = 0;
-    //private String fileName = "";
 
     public BufferedImage loadSprite(String file) {
 
@@ -33,7 +33,6 @@ public class Sprite {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        //sprite = (BufferedImage) new ImageIcon(getClass().getResource("/images/sprites/"+file+".png")).getImage();
 
         return sprite;
     }
@@ -78,8 +77,7 @@ public class Sprite {
                     break;
             }
         }
-        //System.out.println("Size " + c.getSimpleName());
-        return spriteSheet.getSubimage(x, y, w, h);
+        return spriteSheet.getSubimage(x, y, w, h) ;
     }
 
 }

@@ -1,11 +1,8 @@
 package com.gameric.mazegame.model.personnage;
 
 import java.awt.image.BufferedImage;
-import com.gameric.mazegame.model.labyrinthe.Case;
-import com.gameric.mazegame.model.labyrinthe.Mur;
-import com.gameric.mazegame.model.monstres.Monstre;
-import com.gameric.mazegame.graphiques.Sprite;
-import com.gameric.mazegame.graphiques.Animation;
+import com.gameric.mazegame.model.*;
+import com.gameric.mazegame.graphique.*;
 
 /**
  *
@@ -34,7 +31,7 @@ public abstract class Personnage{
 	protected BufferedImage[] walkingRight;
 	protected BufferedImage[] walkingLeft;
 	protected BufferedImage[] walkingDown;
-	protected Animation stand;
+	protected Animation standing;
 
 	private Animation animation = stand;	//animation courante du personnage
 
@@ -49,20 +46,20 @@ public abstract class Personnage{
 		standing = new BufferedImage[1];
 
 		for (int i = 0; i < count; i++ ) {
-			walkingDown[i] = new Sprite().getSprite(i+3, 0, this.getClass());
-			walkingLeft[i] = new Sprite().getSprite(i+3, 1, this.getClass());
-			walkingRight[i] = new Sprite().getSprite(i+3, 2, this.getClass());
-			walkingUp[i] = new Sprite().getSprite(i+3, 3, this.getClass());
+			walkingDown[i] = new Sprite().getSprite(i, 10, this.getClass());
+			walkingLeft[i] = new Sprite().getSprite(i, 9, this.getClass());
+			walkingRight[i] = new Sprite().getSprite(i, 11, this.getClass());
+			walkingUp[i] = new Sprite().getSprite(i, 8, this.getClass());
 		}
-		standing[0] = new Sprite().getSprite(4, 0, this.getClass());
+		standing[0] = new Sprite().getSprite(0, 2, this.getClass());
 
 
 
-		walkUp = new Animation(walkingUp, 10);
-		walkDown = new Animation(walkingDown, 10);
-		walkLeft = new Animation(walkingLeft, 10);
-		walkRight = new Animation(walkingRight, 10);
-		stand = new Animation(standing, 10);
+		walkingUp = new Animation(walkingUp, 10);
+		walkingDown = new Animation(walkingDown, 10);
+		walkingLeft = new Animation(walkingLeft, 10);
+		walkingRight = new Animation(walkingRight, 10);
+		standing = new Animation(standing, 10);
 
 	}
 
@@ -170,15 +167,15 @@ public abstract class Personnage{
 								|| (c.getClass().getSuperclass() == Mur.class) ){
 							//S'il y a un monstre dessus
 							if(testMonstre(c.getPx(), c.getPy())){
-									//On récupère le monstre
-									Monstre m = getMonstre(c.getPx(), c.getPy());
-									//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
-									if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.Py())) {
-										//On lui fait des dégats
-										m.setPointsVie(m.getPointsVie() - this.degats);
-										//On active la capacité spéciale de la classe
-										capaciteSpe();
-									}
+								//On récupère le monstre
+								Monstre m = getMonstre(c.getPx(), c.getPy());
+								//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
+								if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.Py())) {
+									//On lui fait des dégats
+									m.setPointsVie(m.getPointsVie() - this.degats);
+									//On active la capacité spéciale de la classe
+									capaciteSpe();
+								}
 							}
 						}
 					}

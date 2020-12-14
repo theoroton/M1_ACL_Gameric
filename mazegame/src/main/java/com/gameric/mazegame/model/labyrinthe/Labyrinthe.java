@@ -217,7 +217,7 @@ public class Labyrinthe {
 					
 					//Si le caractère est un s, on ajoute un squelette au labyrinthe à cette position
 					if (c == 's') {
-						ajouterMonstre(new Squelette(i,j,this));
+						//ajouterMonstre(new Squelette(i,j,this));
 					//Si le caractère est un z, on ajoute un zombie au labyrinthe à cette position
 					} else if (c == 'z') {
 						ajouterMonstre(new Zombie(i,j,this));
@@ -411,7 +411,7 @@ public class Labyrinthe {
 	 */
 	public void enleverMonstre(Monstre m) {
 		m.getPosition().setOccupee(false);
-		m.getTimer().cancel();
+		m.getTimer().stop();
 		monstres.remove(m);
 	}
 	
@@ -421,7 +421,7 @@ public class Labyrinthe {
 	 */
 	public void arreterTimers() {
 		for (Monstre m : monstres) {
-			m.getTimer().cancel();
+			m.getTimer().stop();
 		}
 	}
 	
