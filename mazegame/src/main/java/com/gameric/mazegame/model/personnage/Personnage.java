@@ -31,7 +31,7 @@ public abstract class Personnage{
 	protected BufferedImage[] walkingRight;
 	protected BufferedImage[] walkingLeft;
 	protected BufferedImage[] walkingDown;
-	protected Animation stand;
+	protected Animation standing;
 
 	private Animation animation = stand;	//animation courante du personnage
 
@@ -43,7 +43,7 @@ public abstract class Personnage{
 		walkingRight = new BufferedImage[count];
 		walkingLeft = new BufferedImage[count];
 		walkingDown = new BufferedImage[count];
-		stand = new BufferedImage[1];
+		standing = new BufferedImage[1];
 
 		for (int i = 0; i < count; i++ ) {
 			walkingDown[i] = new Sprite().getSprite(i, 10, this.getClass());
@@ -51,7 +51,7 @@ public abstract class Personnage{
 			walkingRight[i] = new Sprite().getSprite(i, 11, this.getClass());
 			walkingUp[i] = new Sprite().getSprite(i, 8, this.getClass());
 		}
-		stand[0] = new Sprite().getSprite(0, 2, this.getClass());
+		standing[0] = new Sprite().getSprite(0, 2, this.getClass());
 
 
 
@@ -59,7 +59,7 @@ public abstract class Personnage{
 		walkingDown = new Animation(walkingDown, 10);
 		walkingLeft = new Animation(walkingLeft, 10);
 		walkingRight = new Animation(walkingRight, 10);
-		stand = new Animation(standing, 10);
+		standing = new Animation(standing, 10);
 
 	}
 
