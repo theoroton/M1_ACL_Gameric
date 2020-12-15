@@ -13,11 +13,12 @@ public class Potion extends Objet{
 	int soins;
 	//Constructeur
 	public Potion(String nom, int soins){
-		super(nom);
+		super(nom, 50);
 		this.soins = soins;
 	}
 	//Méthodes
 	public void effetObjet(Personnage p){
+		super.effetObjet(p);
 		p.setPointsVie(p.getPointsVie() + soins);
 	}
 }

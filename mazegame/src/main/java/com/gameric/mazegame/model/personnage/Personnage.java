@@ -3,7 +3,6 @@ package com.gameric.mazegame.model.personnage;
 import com.gameric.mazegame.model.labyrinthe.Case;
 import com.gameric.mazegame.model.labyrinthe.CaseEffet;
 import com.gameric.mazegame.model.labyrinthe.CaseObjet;
-import com.gameric.mazegame.model.labyrinthe.CaseVide;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
 import com.gameric.mazegame.model.monstres.Monstre;
@@ -24,6 +23,7 @@ public abstract class Personnage{
 	int portee;				//Portée de l'attaque du personnage
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
+	int scoreTotal = 0;
 
 	String direction;		//direction dans laquelle le personnage regarde
 	public static final String N = "Nord";	//Serviront à changer la direction du Personnage
@@ -151,6 +151,7 @@ public abstract class Personnage{
 											//On active la capacité spéciale de la classe
 											capaciteSpe();
 											labyrinthe.enleverMonstre(m);
+											scoreTotal += m.getScore();
 										}
 
 									}
@@ -242,4 +243,13 @@ public abstract class Personnage{
 	public int getPortee() {
 		return portee;
 	}
+
+	public int getScoreTotal() {
+		return scoreTotal;
+	}
+
+	public void setScoreTotal(int scoreTotal) {
+		this.scoreTotal = scoreTotal;
+	}
+	
 }

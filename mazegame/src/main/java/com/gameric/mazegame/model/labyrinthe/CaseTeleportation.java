@@ -15,7 +15,7 @@ public class CaseTeleportation extends CaseEffet {
 	 * @param y : position en y de la case
 	 */
 	public CaseTeleportation(int x, int y) {
-		super(x, y);
+		super(x, y, 50);
 	}
 
 	/**
@@ -25,6 +25,9 @@ public class CaseTeleportation extends CaseEffet {
 	 * @param p : Personnage sur lequel effectuer l'effet.
 	 */
 	public void faireEffet(Personnage p) {
+		//On appelle la fonction faire effect de la classe père
+		super.faireEffet(p);
+		
 		//Labyrinthe courant du personnage
 		Labyrinthe l = p.getLabyrinthe();
 		//Booleen qui indique si on a trouvée une case vide et non ocupée.

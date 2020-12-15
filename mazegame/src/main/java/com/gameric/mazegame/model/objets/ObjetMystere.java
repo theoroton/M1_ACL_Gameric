@@ -14,7 +14,7 @@ public class ObjetMystere extends Objet {
 	 * l'objet mystère est représenté par un "?"
 	 */
 	public ObjetMystere() {
-		super("?");
+		super("?", 75);
 	}
 
 	/**
@@ -25,6 +25,7 @@ public class ObjetMystere extends Objet {
 	 * @param p : personnage sur lequel l'effectuer l'effet.
 	 */
 	public void effetObjet(Personnage p) {
+		super.effetObjet(p);
 		//On prend un entier compris entre 0 et 7
 		int rand = (int) (Math.random() * (8 - 0));
 		
@@ -61,10 +62,6 @@ public class ObjetMystere extends Objet {
 			if (p.getPortee() > 1) {
 				p.setPortee(p.getPortee() - 1);
 			}
-			break;
-		//On augmente la portée de 1
-		case 7:
-			p.setPortee(p.getPortee() + 1);
 			break;
 		}
 	}

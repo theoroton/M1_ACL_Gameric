@@ -11,12 +11,17 @@ import com.gameric.mazegame.model.personnage.Personnage;
 public abstract class Objet{
 	//Attribut
 	String nom;
+	private int score;
+	
 	//Constructeur
-	public Objet(String nom) {
+	public Objet(String nom, int s) {
 		this.nom = nom;
+		this.score = s;
 	};
 	//Méthodes
-	public abstract void effetObjet(Personnage p);
+	public void effetObjet(Personnage p) {
+		p.setScoreTotal(p.getScoreTotal() + score);
+	};
 	
 	public String getNom() {
 		return nom;

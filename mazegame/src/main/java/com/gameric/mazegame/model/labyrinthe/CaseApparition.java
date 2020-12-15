@@ -28,7 +28,7 @@ public class CaseApparition extends CaseEffet {
 	 * @param y : position en y de la case
 	 */
 	public CaseApparition(int x, int y) {
-		super(x, y);
+		super(x, y, -50);
 		declenche = false;
 	}
 
@@ -39,6 +39,9 @@ public class CaseApparition extends CaseEffet {
 	 * @param p : Personnage sur lequel effectuer l'effet.
 	 */
 	public void faireEffet(Personnage p) {
+		//On appelle la fonction faire effect de la classe père
+		super.faireEffet(p);
+		
 		//Si l'effet n'a pas encore était déclenché
 		if (!declenche) {
 			

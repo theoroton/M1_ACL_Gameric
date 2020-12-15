@@ -20,7 +20,7 @@ public class CasePiegee extends CaseEffet {
 	 * @param y : position en y de la case
 	 */
 	public CasePiegee(int x, int y) {
-		super(x, y);
+		super(x, y, -50);
 		degats = 4;
 	}
 
@@ -31,6 +31,10 @@ public class CasePiegee extends CaseEffet {
 	 * @param p : Personnage sur lequel effectuer l'effet
 	 */
 	public void faireEffet(Personnage p) {
+		//On appelle la fonction faire effect de la classe père
+		super.faireEffet(p);
+		
+		//On réduit les points de vie du personnage
 		p.setPointsVie(p.getPointsVie() - degats);
 	}
 

@@ -40,6 +40,8 @@ public abstract class Monstre {
 	 */
 	protected int degats = 2;
 	
+	private int score;
+	
 	protected boolean peutDonnerDegats = false;
 	
 	public void setPeutDonnerDegats(boolean peutDonnerDegats) {
@@ -148,11 +150,12 @@ public abstract class Monstre {
 	/**
 	 * Constructeur du monstre
 	 */
-	public Monstre(int x, int y, Labyrinthe l, int v) {
+	public Monstre(int x, int y, Labyrinthe l, int v, int s) {
 		labyrinthe = l;
 		position = labyrinthe.getCase(x,y);
 		position.setOccupee(true);
 		vitesse = v;
+		score = s;
 		
 		//if (timer == null) {
 		ActionListener taskPerformer = new ActionListener() {
@@ -458,4 +461,10 @@ public abstract class Monstre {
 	public void donnerDegats() {
 		this.getLabyrinthe().getPersonnage_laby().setPointsVie(this.getLabyrinthe().getPersonnage_laby().getPointsVie() - this.getDegats());
 	}
+
+	public int getScore() {
+		return score;
+	}
+	
+	
 }

@@ -66,7 +66,8 @@ public class InfosLabyrinthe implements GamePainter {
 		crayon.drawString("Portée : " + personnage.getPortee(), 2*WIDTH/5, 2*HEIGHT/3);
 		
 		//On dessine le niveau courant du joueur
-		crayon.drawString("Niveau : " + jeu.getNiveau(), 4*WIDTH/5, HEIGHT/2);
+		crayon.drawString("Niveau : " + jeu.getNiveau(), 4*WIDTH/5, HEIGHT/3);
+		crayon.drawString("Score : " + jeu.getPersonnage().getScoreTotal(), 4*WIDTH/5, 2*HEIGHT/3);
 		
 		//Si le jeu est en pause.
 		if (jeu.enPause()) {

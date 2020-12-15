@@ -189,6 +189,7 @@ public class JeuLabyrinthe implements Game {
 			labyrinthe.arreterTimers();
 			//Si c'est le dernier niveau, alors on a gagné
 			if (niveau == NIVEAU_MAX) {
+				personnage.setScoreTotal(personnage.getScoreTotal() + 500);
 				etat = Etat.Gagne;
 				res = true;
 			//Sinon au passe au niveau suivant
@@ -198,6 +199,7 @@ public class JeuLabyrinthe implements Game {
 			
 		//Si le personnage est mort, alors on a perdu
 		} else if (personnage.estMort()) {
+			personnage.setScoreTotal(personnage.getScoreTotal() - 500);
 			labyrinthe.arreterTimers();
 			etat = Etat.Perdu;
 			res = true;
@@ -210,6 +212,7 @@ public class JeuLabyrinthe implements Game {
 	 * Méthode qui permet de passer au niveau suivant du jeu.
 	 */
 	private void niveauSuivant() {
+		personnage.setScoreTotal(personnage.getScoreTotal() + 250);
 		niveau++;
 		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");	
 	}

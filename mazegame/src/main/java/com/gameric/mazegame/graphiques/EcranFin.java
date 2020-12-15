@@ -48,14 +48,14 @@ public class EcranFin extends JPanel {
         if (j.estGagne()) {
         	labelFin.setForeground(new java.awt.Color(0, 153, 51));
         	labelFinPetit.setForeground(new java.awt.Color(0, 153, 51));
-            labelFin.setText("Victoire");
+            labelFin.setText("Victoire " + jeu.getPersonnage().getScoreTotal());
             labelFinPetit.setText("Vous avez atteint la sortie");
          
         //Si le jeu est perdu, on affiche défaite
         } else if (j.estPerdu()) {
         	labelFin.setForeground(new java.awt.Color(204, 0, 0));
         	labelFinPetit.setForeground(new java.awt.Color(204, 0, 0));
-            labelFin.setText("Défaite");
+            labelFin.setText("Défaite " + jeu.getPersonnage().getScoreTotal());
             labelFinPetit.setText("Vous êtes mort");
         }
 
