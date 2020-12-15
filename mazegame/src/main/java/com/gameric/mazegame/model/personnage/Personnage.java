@@ -245,7 +245,7 @@ public abstract class Personnage{
 	}
 
 	public Animation getAnimationStand(){
-		return stand;
+		return standing;
 	}
 
 	public Animation getAnimation(){
