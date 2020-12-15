@@ -29,13 +29,11 @@ public class Animation extends JPanel implements ActionListener {
 
     private boolean stopped;                // has animations stopped
 
-    private List<Frame> frames = new ArrayList<Frame>();    // Arraylist of frames 
-<<<<<<< HEAD
+    private List<Frame> frames = new ArrayList<Frame>();    // Arraylist of frames
 
     public Animation(BufferedImage[] frames, int frameDelay) {
         this.frameDelay = frameDelay;
         this.stopped = true;
-=======
     
     Timer animationTimer;
     BufferedImage images[];
@@ -55,7 +53,6 @@ public class Animation extends JPanel implements ActionListener {
         
         //this.animationDelay = animationDelay;
         //this.stopped = true;
->>>>>>> 940e32cf32119828aa5445a67f542db174fe3151
 
         for (int i = 0; i < frames.length; i++) {
             addFrame(frames[i], animationDelay);

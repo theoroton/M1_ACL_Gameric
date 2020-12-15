@@ -15,19 +15,6 @@ public class Sprite {
 
         BufferedImage sprite = null;
         //ClassLoader classLoader = getClass().getClassLoader();
-<<<<<<< HEAD
-        
-        try {
-        	System.out.println("Sprite name " +file);
-        	
-			sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        //sprite = (BufferedImage) new ImageIcon(getClass().getResource("/images/sprites/"+file+".png")).getImage();
-=======
-
         try {
             System.out.println("Sprite name " +file);
 
@@ -45,21 +32,12 @@ public class Sprite {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
->>>>>>> 940e32cf32119828aa5445a67f542db174fe3151
-
         return sprite;
     }
 
     public BufferedImage getSprite(int xGrid, int yGrid, Class c) {
-<<<<<<< HEAD
-    	
-        if (spriteSheet == null) {
-        	switch(c.getSimpleName()) {
-=======
-
         if (spriteSheet == null) {
             switch(c.getSimpleName()) {
->>>>>>> 940e32cf32119828aa5445a67f542db174fe3151
                 case "Archer":
                     spriteSheet = loadSprite("archer");
                     w = spriteSheet.getWidth()/13;
@@ -94,25 +72,7 @@ public class Sprite {
                     x = xGrid * w;
                     y = yGrid * h;
                     break;
-<<<<<<< HEAD
-	        	case "Zombie":
-	        		spriteSheet = loadSprite("zombie");
-		        	w = spriteSheet.getWidth()/4;
-		    		h = spriteSheet.getHeight()/4;
-	        		x = xGrid * w;
-	        		y = yGrid * h;
-	        		break;
-	        	case "Fantome":
-	        		spriteSheet = loadSprite("fantome");
-		        	w = spriteSheet.getWidth()/12;
-		    		h = spriteSheet.getHeight()/8;
-	        		x = xGrid * w;
-	        		y = yGrid * h;
-	        		break;
-        	}
-=======
             }
->>>>>>> 940e32cf32119828aa5445a67f542db174fe3151
         }
         return spriteSheet.getSubimage(x, y, w, h) ;
     }
