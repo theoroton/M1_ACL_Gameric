@@ -34,6 +34,7 @@ public class Animation extends JPanel implements ActionListener {
     public Animation(BufferedImage[] frames, int frameDelay) {
         this.frameDelay = frameDelay;
         this.stopped = true;
+    }
     
     Timer animationTimer;
     BufferedImage images[];
