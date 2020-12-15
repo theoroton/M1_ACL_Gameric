@@ -99,8 +99,8 @@ public class EcranBut extends JPanel{
         //Création de l'image de l'objet mystère
         JLabel imageO3 = new javax.swing.JLabel();
         JLabel labelO3 = new javax.swing.JLabel();
-        imageO3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/box.jpg")));
-        imageO3.setPreferredSize(new java.awt.Dimension(64, 64));
+        imageO3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/mystere.png")));
+        imageO3.setPreferredSize(new java.awt.Dimension(32, 32));
         labelO3.setFont(new java.awt.Font("Tahoma", 0, 11)); 
         labelO3.setText("<html><div style='text-align: justify;'><b>Objet mystère :</b><br>Modifie une statistique (dégâts, portée, vie, vie maximale) aléatoire positivement ou négativement du personnage.</div></html>");
 
