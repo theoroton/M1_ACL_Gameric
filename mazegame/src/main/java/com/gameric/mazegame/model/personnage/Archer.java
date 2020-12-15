@@ -14,6 +14,7 @@ public class Archer extends Personnage{
 		pointsVie = vieMax = 20;
 		degats = 5;
 		portee = 5;
+		compteur = 0;
 	}
 	//Méthodes
 	/**

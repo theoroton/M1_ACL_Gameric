@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -92,7 +93,7 @@ public class EcranCommandes extends JPanel {
 		
 		//Récupération du fichier
 		InputStream in = getClass().getResourceAsStream("/texte/commandes.txt");	
-		BufferedReader fichLab = new BufferedReader(new InputStreamReader(in));
+		BufferedReader fichLab = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 		
 		//Création de la chaîne
 		try {

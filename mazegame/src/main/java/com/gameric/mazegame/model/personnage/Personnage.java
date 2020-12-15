@@ -167,15 +167,15 @@ public abstract class Personnage{
 								|| (c.getClass().getSuperclass() == Mur.class) ){
 							//S'il y a un monstre dessus
 							if(testMonstre(c.getPx(), c.getPy())){
-									//On récupère le monstre
-									Monstre m = getMonstre(c.getPx(), c.getPy());
-									//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
-									if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.Py())) {
-										//On lui fait des dégats
-										m.setPointsVie(m.getPointsVie() - this.degats);
-										//On active la capacité spéciale de la classe
-										capaciteSpe();
-									}
+								//On récupère le monstre
+								Monstre m = getMonstre(c.getPx(), c.getPy());
+								//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
+								if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.Py())) {
+									//On lui fait des dégats
+									m.setPointsVie(m.getPointsVie() - this.degats);
+									//On active la capacité spéciale de la classe
+									capaciteSpe();
+								}
 							}
 						}
 					}

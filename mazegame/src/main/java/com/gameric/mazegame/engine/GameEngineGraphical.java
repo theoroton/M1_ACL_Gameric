@@ -80,6 +80,7 @@ public class GameEngineGraphical {
 		
 		//Si on choisit de quitter le jeu, on ferme la fenêtre
 		gui.fin();
+		System.exit(0);
 	}
 
 	/**

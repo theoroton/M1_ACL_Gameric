@@ -17,7 +17,7 @@ import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 
 public class Zombie extends Monstre {
 	
-	static final int VIE_MAX = 30;
+	public static final int VIE_MAX = 30;
 	
 	/**
 	 * Constructeur de la classe Zombie
@@ -26,7 +26,7 @@ public class Zombie extends Monstre {
 	 * @param l
 	 */
 	public Zombie(int x, int y, Labyrinthe l) {
-		super(x, y, l, 500);
+		super(x, y, l, 1000);
 		portee = 1;
 		vision = 3;
 		degats = 5;
