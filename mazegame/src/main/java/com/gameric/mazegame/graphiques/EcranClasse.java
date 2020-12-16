@@ -81,7 +81,7 @@ public class EcranClasse extends JPanel {
 		//On cache le bouton
 		epeiste.setOpaque(false);
 		epeiste.setContentAreaFilled(false);
-		epeiste.setBorderPainted(true);
+		epeiste.setBorderPainted(false);
 		//On ajoute l'image du bouton
 		epeiste.setIcon(imageEpeiste);
 		
@@ -104,7 +104,7 @@ public class EcranClasse extends JPanel {
 		//On cache le bouton
 		mage.setOpaque(false);
 		mage.setContentAreaFilled(false);
-		mage.setBorderPainted(true);
+		mage.setBorderPainted(false);
 		//On ajoute l'image du bouton
 		mage.setIcon(imageMage);
 		
@@ -126,7 +126,7 @@ public class EcranClasse extends JPanel {
 		archer.setActionCommand("archer");
 		archer.setOpaque(false);
 		archer.setContentAreaFilled(false);
-		archer.setBorderPainted(true);
+		archer.setBorderPainted(false);
 		//On ajoute l'image du bouton
 		archer.setIcon(imageArcher);
 		
@@ -276,12 +276,15 @@ public class EcranClasse extends JPanel {
 			archer.setIcon(imageArcher);
 			//On met l'image du personnage selectionne
 			switch (bgroup.getSelection().getActionCommand()) {
+			//Si on selectionne l'epeiste
 			case "epeiste" :
 				epeiste.setIcon(imageEpeisteS);
 				break;
+			//Si on selectionne le mage
 			case "mage" :
 				mage.setIcon(imageMageS);
 				break;
+			//Si on selectionne l'archer
 			case "archer" :
 				archer.setIcon(imageArcherS);
 				break;
