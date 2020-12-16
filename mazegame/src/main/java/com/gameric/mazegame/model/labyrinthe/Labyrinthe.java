@@ -236,13 +236,12 @@ public class Labyrinthe {
 			placerPersonnage();
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("Fichier non trouvé");
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		//Si on obtient l'exception de taille du fichier, on crée un labyrinthe par défaut à la place
 		} catch (TailleFichierException e) {
 			e.printStackTrace();
-			System.out.println("Création d'un labyrinthe par défaut");
 			largeur = 10;
 			hauteur = 10;
 			//Génération par défaut
@@ -435,6 +434,8 @@ public class Labyrinthe {
 			m.setTimer();
 		}
 	}
+	
+	
 	public void setNiveauChange(boolean n) {
 		this.niveauChange = n;
 	}
