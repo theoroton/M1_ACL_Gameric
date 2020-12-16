@@ -17,11 +17,13 @@ public class EcranMenu extends JPanel {
 	 */
 	private CardLayoutJeu clParent;
 	
-
-	ImageIcon imageMenu = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/menu.png"));
-	ImageIcon imageJouer = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/jouer.png"));
-	ImageIcon imageRegles = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/regles.png"));
-	ImageIcon imageSortir = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/sortir.png"));
+	/**
+	 * Images nécessaires pour l'affichage du menu principal
+	 */
+	private ImageIcon imageMenu = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/menu.png"));
+	private ImageIcon imageJouer = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/jouer.png"));
+	private ImageIcon imageRegles = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/regles.png"));
+	private ImageIcon imageSortir = new ImageIcon(getClass().getResource("/images/textures/ecrans/menu/sortir.png"));
 	
 	/**
 	 * Constructeur de l'écran du menu
@@ -34,7 +36,6 @@ public class EcranMenu extends JPanel {
 		
 		//Création du bouton pour jouer au jeu
 		JButton jouer = new javax.swing.JButton();
-        jouer.setPreferredSize(new java.awt.Dimension(140, 40));
         //On cache le bouton
         jouer.setOpaque(false);
         jouer.setContentAreaFilled(false);
@@ -69,7 +70,6 @@ public class EcranMenu extends JPanel {
         
         //Création du bouton pour afficher le but et les commandes du jeu
         JButton regles = new javax.swing.JButton();
-        regles.setPreferredSize(new java.awt.Dimension(140, 40));
         //On cache le bouton
         regles.setOpaque(false);
         regles.setContentAreaFilled(false);
@@ -104,7 +104,6 @@ public class EcranMenu extends JPanel {
         
         //Création du bouton qui permet de quitter le jeu
         JButton sortir = new javax.swing.JButton();
-        sortir.setPreferredSize(new java.awt.Dimension(140, 40));
         //On cache le bouton
         sortir.setOpaque(false);
         sortir.setContentAreaFilled(false);
@@ -148,6 +147,10 @@ public class EcranMenu extends JPanel {
         add(sortir);
 	}
 	
+	
+	/**
+	 * Méthode paintComponent qui affiche l'image du menu.
+	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(imageMenu.getImage(), 0, 0, this);
 	}
