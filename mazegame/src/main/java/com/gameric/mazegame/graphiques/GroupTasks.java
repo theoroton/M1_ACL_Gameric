@@ -22,7 +22,7 @@ public class GroupTasks extends JPanel implements ActionListener{
 	private int animationDelay;
 	int currImg;
 	int tmp;
-	boolean b;
+	boolean gameChanged = false;
 	
     public GroupTasks() {}
     
@@ -32,9 +32,12 @@ public class GroupTasks extends JPanel implements ActionListener{
     		currImg = 0;
 			ActionListener taskPerformer = new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
-					if (images[currImg].getImageLoadStatus() == MediaTracker.COMPLETE) {
+					if (images[currImg].getImageLoadStatus() == MediaTracker.COMPLETE && gameChanged == false) {
 						crayon.drawImage(images[currImg].getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, ob);
 		    			tmp = (currImg + 1) % totalImages;
+	    			  } else {
+	    				  gameChanged =false;
+	    				  crayon.dispose();
 	    			  }
 				}
 			};
@@ -43,12 +46,15 @@ public class GroupTasks extends JPanel implements ActionListener{
 			if (c == CaseTeleportation.class) animationDelay = 0;
 			animationTimer = new Timer(animationDelay, taskPerformer);
 			animationTimer.start();
-		} else if (!animationTimer.isRunning()) {
+		} else if (!animationTimer.isRunning() && !gameChanged) {
 			animationTimer.restart();
 		}
 	    
     	return tmp;
 	}
+    public void setGameChanged(boolean b) {
+    	this.gameChanged = b;
+    }
     
     public void startAnimationMonstre(Graphics2D crayon, int x, int y, int w, int h, ImageObserver ob, Animation anim, Monstre m) {
     	currImg = 0;

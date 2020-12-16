@@ -214,7 +214,8 @@ public class JeuLabyrinthe implements Game {
 	private void niveauSuivant() {
 		personnage.setScoreTotal(personnage.getScoreTotal() + 250);
 		niveau++;
-		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");	
+		labyrinthe = new Labyrinthe(personnage, "niveaux/niveau" + niveau + ".txt");
+		labyrinthe.setNiveauChange(true);
 	}
 
 	/**
