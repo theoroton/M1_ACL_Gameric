@@ -47,11 +47,6 @@ public class Const {
 	public final static Font FONT_FIN_JEU_2 = new Font(" TimesRoman ", Font.BOLD, 12);
 	
 	/**
-	 * Police pour écrire un objet sur une case objet
-	 */
-	public final static Font FONT_OBJET = new Font(" TimesRoman ",Font.BOLD,8);
-	
-	/**
 	 * Police pour le message de pause
 	 */
 	public final static Font FONT_PAUSE = new Font(" TimesRoman ", Font.BOLD, 40);

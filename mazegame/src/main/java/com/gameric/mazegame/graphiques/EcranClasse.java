@@ -10,7 +10,6 @@ import java.awt.event.MouseListener;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -29,10 +28,6 @@ public class EcranClasse extends JPanel {
 	 * Groupe de bouttons regroupant les JRadioButton
 	 */
 	private ButtonGroup bgroup;
-	/**
-	 * JPanel regroupant les JRadioButton
-	 */
-	private JPanel radioPanel;
 	/**
 	 * Bouton qui permet de lancer le jeu
 	 */

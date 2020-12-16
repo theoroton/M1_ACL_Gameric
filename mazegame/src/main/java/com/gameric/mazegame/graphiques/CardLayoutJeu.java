@@ -1,9 +1,7 @@
 package com.gameric.mazegame.graphiques;
 
 import java.awt.CardLayout;
-
 import javax.swing.JPanel;
-
 import com.gameric.mazegame.model.ControleurLabyrinthe;
 import com.gameric.mazegame.model.Etat;
 import com.gameric.mazegame.model.JeuLabyrinthe;

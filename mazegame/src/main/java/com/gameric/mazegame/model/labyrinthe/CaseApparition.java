@@ -1,9 +1,5 @@
 package com.gameric.mazegame.model.labyrinthe;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 import com.gameric.mazegame.model.monstres.Fantome;
 import com.gameric.mazegame.model.monstres.Monstre;
 import com.gameric.mazegame.model.monstres.Squelette;

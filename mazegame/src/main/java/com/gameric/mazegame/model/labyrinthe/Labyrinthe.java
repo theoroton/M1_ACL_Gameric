@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.gameric.mazegame.model.monstres.Fantome;
 import com.gameric.mazegame.model.monstres.Monstre;
-import com.gameric.mazegame.model.monstres.Squelette;
 import com.gameric.mazegame.model.monstres.Zombie;
 import com.gameric.mazegame.model.objets.Arme;
 import com.gameric.mazegame.model.objets.ObjetMystere;

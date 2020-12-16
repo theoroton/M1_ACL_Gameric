@@ -6,7 +6,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.MediaTracker;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,6 @@ import java.awt.image.ImageObserver;
 import javax.swing.*;
 
 import com.gameric.mazegame.engine.GamePainter;
-import com.gameric.mazegame.graphiques.GroupTasks;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Case;

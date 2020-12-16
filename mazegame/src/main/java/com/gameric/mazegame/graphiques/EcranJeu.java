@@ -1,9 +1,7 @@
 package com.gameric.mazegame.graphiques;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JPanel;
-
 import com.gameric.mazegame.engine.DrawingPanel;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 
