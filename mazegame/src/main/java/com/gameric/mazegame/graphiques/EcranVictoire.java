@@ -106,7 +106,7 @@ public class EcranVictoire extends EcranFin {
 	}
 	
 	/**
-	 * Méthode paintComponent qui affiche l'image de défaite.
+	 * Méthode paintComponent qui affiche l'image de victoire.
 	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(imageVictoire.getImage(), 0, 0, this);	

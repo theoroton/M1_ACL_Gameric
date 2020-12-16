@@ -16,6 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * 
+ * @author Théo Roton
+ * Classe de l'écran des règles du jeu
+ */
 public class EcranRegles extends JPanel{
 	
 	/**
