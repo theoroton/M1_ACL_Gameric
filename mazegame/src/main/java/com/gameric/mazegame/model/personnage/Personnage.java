@@ -196,6 +196,11 @@ public abstract class Personnage{
 								Monstre m = getMonstre(c.getPx(), c.getPy());
 								//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
 								if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.Py())) {
+									//On change l'animation
+									if(this.direction == N) this.setAnimation(attaqueU);
+									if(this.direction == S) this.setAnimation(attaqueD);
+									if(this.direction == E) this.setAnimation(attaqueR);
+									if(this.direction == O) this.setAnimation(attaqueL);
 									//On lui fait des dégats
 									m.setPointsVie(m.getPointsVie() - this.degats);
 									//On active la capacité spéciale de la classe
@@ -207,6 +212,10 @@ public abstract class Personnage{
 				}
 			}
 		}
+		if(this.direction == N) this.setAnimation(walkingUp);
+		if(this.direction == S) this.setAnimation(walkingDown);
+		if(this.direction == E) this.setAnimation(walkingRight);
+		if(this.direction == O) this.setAnimation(walkinfLeft);
 	}
 
 	//Setters

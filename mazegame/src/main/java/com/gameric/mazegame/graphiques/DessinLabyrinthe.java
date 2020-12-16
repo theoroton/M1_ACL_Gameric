@@ -242,12 +242,10 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			}
 		}
 		
-		//On dessine le personnage en bleu
+		//On dessine le personnage
 		if (!personnage.estMort()) {
 			crayon.setColor(Color.BLUE);
-			crayon.fillOval(personnage.getPos_x()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							personnage.getPos_y()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
+			crayon.drawImage(personnage.getAnimation().getSprite(), x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob);
 		}
 		
 		//On dessine les monstres
