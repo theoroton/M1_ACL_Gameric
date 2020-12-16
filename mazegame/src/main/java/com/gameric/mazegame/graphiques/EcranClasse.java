@@ -1,9 +1,11 @@
 package com.gameric.mazegame.graphiques;
 
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -173,6 +175,29 @@ public class EcranClasse extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			jouer.setEnabled(true);	
 		}	
+	}
+	
+	public void paintComponent(Graphics g) {
+		ImageIcon m = new ImageIcon(getClass().getResource("/images/textures/menu/choixPers.png"));
+		g.drawImage(m.getImage(), 
+				0, 0, 544, 604, this);
+		
+		ImageIcon trans = new ImageIcon(getClass().getResource("/images/textures/menu/test.png"));
+		g.drawImage(trans.getImage(), 
+				63, 367, this);
+		
+		ImageIcon m2 = new ImageIcon(getClass().getResource("/images/textures/menu/epeiste.png"));
+		g.drawImage(m2.getImage(), 
+				61, 388, this);
+		
+		ImageIcon m3 = new ImageIcon(getClass().getResource("/images/textures/menu/mage.png"));
+		g.drawImage(m3.getImage(), 
+				225, 378, this);
+		
+		ImageIcon m4 = new ImageIcon(getClass().getResource("/images/textures/menu/archer.png"));
+		g.drawImage(m4.getImage(), 
+				345, 378, this);
+		
 	}
 
 }

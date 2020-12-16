@@ -93,7 +93,8 @@ public class CardLayoutJeu extends JPanel {
 	 * Méthode qui permet de mettre à jour l'affichage
 	 */
 	public void update() {
-		ecranJeu.update();
+		menu.repaint();
+		//ecranJeu.update();
 	}
 
 	/**

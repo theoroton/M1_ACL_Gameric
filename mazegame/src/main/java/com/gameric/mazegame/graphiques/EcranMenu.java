@@ -1,12 +1,26 @@
 package com.gameric.mazegame.graphiques;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.Etat;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 
-public class EcranMenu extends JPanel {
+public class EcranMenu extends JPanel implements MouseListener {
 
 	/**
 	 * CardLayout auquel est ajouté ce JPanel
@@ -20,6 +34,7 @@ public class EcranMenu extends JPanel {
 	public EcranMenu(CardLayoutJeu c, JeuLabyrinthe j) {
 		clParent = c;
 		setPreferredSize(new java.awt.Dimension(544, 604));
+		addMouseListener(this);
 		
 		//Création du bouton pour jouer au jeu
 		JButton jouer = new javax.swing.JButton();
@@ -84,4 +99,27 @@ public class EcranMenu extends JPanel {
                 .addComponent(quitter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80)));
 	}
+	
+	public void paintComponent(Graphics g) {
+		ImageIcon m = new ImageIcon(getClass().getResource("/images/textures/menu/menuPrincip.png"));
+		g.drawImage(m.getImage(), 
+				0, 0, 544, 604, this);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		System.out.println(e);	
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
 }

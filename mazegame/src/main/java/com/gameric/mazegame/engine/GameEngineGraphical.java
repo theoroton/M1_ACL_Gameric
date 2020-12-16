@@ -53,6 +53,7 @@ public class GameEngineGraphical {
 			//Tant que le jeu n'est pas lancé, on attends.
 			while (this.jeu.debut()) { 
 				Thread.sleep(100); 
+				this.gui.paint();
 			}
 			
 			//Une fois que le jeu est lancé, on exécute la boucle du jeu
