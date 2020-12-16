@@ -1,7 +1,9 @@
 package com.gameric.mazegame.graphiques;
 
-import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,18 +24,35 @@ public class EcranRegles extends JPanel{
 	private CardLayoutJeu clParent;
 	
 	/**
+	 * Images nécessaires pour l'affichage des règles du jeu
+	 */
+	private ImageIcon imageFond = new ImageIcon(getClass().getResource("/images/textures/ecrans/regles/fond.png"));
+	private ImageIcon imageRegles = new ImageIcon(getClass().getResource("/images/textures/ecrans/regles/parchemin.png"));
+	private ImageIcon imageRetour = new ImageIcon(getClass().getResource("/images/textures/ecrans/regles/retour.png"));
+	
+	/**
 	 * Constructeur de l'écran des règles
 	 * @param c : CardLayout père
 	 */
 	public EcranRegles(CardLayoutJeu c) {
 		clParent = c;
 		setPreferredSize(new java.awt.Dimension(544, 604));
+		setLayout(null);
 		
 		//Création jscrollpane interne
 		JScrollPane jScrollPane = new javax.swing.JScrollPane();
 		
 		//Création jpanel interne 
-        JPanel jpanel = new javax.swing.JPanel();
+		class JPanelInterne extends JPanel{
+			/**
+			 * Méthode paintComponent qui affiche l'image de fond des règles du jeu.
+			 */
+			public void paintComponent(Graphics g) {
+				g.drawImage(imageRegles.getImage(), -25, -25, this);	
+			}
+		}
+		
+        JPanelInterne jpanel = new JPanelInterne();
         jpanel.setPreferredSize(new java.awt.Dimension(266, 700));
         
         //Création du label But
@@ -109,9 +128,11 @@ public class EcranRegles extends JPanel{
 
         //Création du bouton retour
         JButton retour = new javax.swing.JButton();
-        retour.setFont(new java.awt.Font("Tahoma", 0, 18));
-        retour.setText("Retour");
-        retour.setPreferredSize(new java.awt.Dimension(140, 40));
+        //On cache le bouton
+        retour.setOpaque(false);
+        retour.setContentAreaFilled(false);
+        retour.setBorderPainted(false);
+        
 	    //Action du bouton pour afficher le menu principal
 	    retour.addActionListener(new java.awt.event.ActionListener() {
     	   public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +140,27 @@ public class EcranRegles extends JPanel{
                clParent.afficherMenu();
 	        }
         });
+	    
+        //Listener pour changer l'image du bouton quand on le survole
+        retour.addMouseListener(new MouseListener() {      	
+        	public void mouseClicked(MouseEvent e) {}
+        	public void mousePressed(MouseEvent e) {}
+        	public void mouseReleased(MouseEvent e) {}
+        	
+        	//Ajoute une image au bouton
+        	public void mouseEntered(MouseEvent e) {
+                retour.setIcon(imageRetour);	
+                retour.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        	}
+
+        	//Enlève l'image du bouton
+        	public void mouseExited(MouseEvent e) {
+        		retour.setIcon(null);      		
+        	}
+		});
 
 
-        //Placement des éléments
+        //Placement des éléments dans le jScrollPane
 	    javax.swing.GroupLayout jpanel2Layout = new javax.swing.GroupLayout(jpanel);
         jpanel.setLayout(jpanel2Layout);
         jpanel2Layout.setHorizontalGroup(
@@ -199,28 +238,14 @@ public class EcranRegles extends JPanel{
                 .addGap(202, 202, 202)));
 
         jScrollPane.setViewportView(jpanel);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(202, Short.MAX_VALUE)
-                .addComponent(retour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(202, 202, 202))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane)
-                .addContainerGap()));
         
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(retour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)));
+        //Placement des éléments
+        jScrollPane.setBounds(15, 15, 514, 444);
+        retour.setBounds(177, 545, 194, 51);
+        
+        //Ajout des éléments au jpanel
+        add(jScrollPane);
+        add(retour);
 	}
 
 	
@@ -249,5 +274,12 @@ public class EcranRegles extends JPanel{
 		
 		return but;
 	}
-
+	
+	
+	/**
+	 * Méthode paintComponent qui affiche l'image de fond des règles du jeu.
+	 */
+	public void paintComponent(Graphics g) {
+		g.drawImage(imageFond.getImage(), 0, 0, this);	
+	}
 }
