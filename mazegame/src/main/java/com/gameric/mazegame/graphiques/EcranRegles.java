@@ -57,15 +57,15 @@ public class EcranRegles extends JPanel{
         
         //Création du label But
         JLabel but = new javax.swing.JLabel();
-        but.setFont(new java.awt.Font("Gill Sans MT", 0, 16));
+        but.setFont(new java.awt.Font("Lucida Calligraphy", 0, 13));
         but.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         but.setText(butTexte()); 
         but.setMaximumSize(new java.awt.Dimension(266, 1000));
-        but.setPreferredSize(new java.awt.Dimension(266, 14));
+        but.setPreferredSize(new java.awt.Dimension(266, 300));
         
         //Création du label des cases à effet
         JLabel labelCases = new javax.swing.JLabel();
-        labelCases.setFont(new java.awt.Font("Gill Sans MT", 1, 16));
+        labelCases.setFont(new java.awt.Font("Lucida Calligraphy", 1, 14));
         labelCases.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelCases.setText("Cases à effets :");
         labelCases.setPreferredSize(new java.awt.Dimension(100, 20));
@@ -75,7 +75,7 @@ public class EcranRegles extends JPanel{
         JLabel labelCP1 = new javax.swing.JLabel();
         imageCP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/piege4.jpg")));
         imageCP1.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelCP1.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelCP1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelCP1.setText("<html><div style='text-align: justify;'><b>Case piégée :</b><br>Inflige des dégâts au personnage quand il passe dessus.</div></html>");
         
         //Création de l'image de la case apparition et de son label
@@ -83,7 +83,7 @@ public class EcranRegles extends JPanel{
         JLabel labelCP2 = new javax.swing.JLabel();
         imageCP2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/spawner.jpg")));
         imageCP2.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelCP2.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelCP2.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelCP2.setText("<html><div style='text-align: justify;'><b>Case spawner :</b><br>Fait apparaître un monstre dans le labyrinthe quand le personnage passe dessus.</div></html>");
 
         
@@ -92,12 +92,12 @@ public class EcranRegles extends JPanel{
         JLabel labelCP3 = new javax.swing.JLabel();
         imageCP3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/teleporter.png")));
         imageCP3.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelCP3.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelCP3.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelCP3.setText("<html><div style='text-align: justify;'><b>Case téléportation :</b><br>Téléporte le personnage à une position aléatoire dans le labyrinthe.</div></html> ");
         
         //Création du label des objets
         JLabel labelObjets = new javax.swing.JLabel();
-        labelObjets.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
+        labelObjets.setFont(new java.awt.Font("Lucida Calligraphy", 1, 14)); // NOI18N
         labelObjets.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelObjets.setText("Objets :");
         labelObjets.setPreferredSize(new java.awt.Dimension(100, 20));
@@ -107,7 +107,7 @@ public class EcranRegles extends JPanel{
         JLabel labelO1 = new javax.swing.JLabel();
         imageO1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/epee.png")));
         imageO1.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelO1.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelO1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelO1.setText("<html><div style='text-align: justify;'><b>Arme :</b><br>Augmente les dégâts du personnage.</div></html>");
         
         //Création de l'image de la potion
@@ -115,7 +115,7 @@ public class EcranRegles extends JPanel{
         JLabel labelO2 = new javax.swing.JLabel();
         imageO2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/potion.png")));
         imageO2.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelO2.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelO2.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelO2.setText("<html><div style='text-align: justify;'><b>Potion :</b><br>Rend des points de vie au personnage.</div></html>");
         
         //Création de l'image de l'objet mystère
@@ -123,7 +123,7 @@ public class EcranRegles extends JPanel{
         JLabel labelO3 = new javax.swing.JLabel();
         imageO3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/mystere.png")));
         imageO3.setPreferredSize(new java.awt.Dimension(32, 32));
-        labelO3.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelO3.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelO3.setText("<html><div style='text-align: justify;'><b>Objet mystère :</b><br>Modifie une statistique (dégâts, portée, vie, vie maximale) aléatoire positivement ou négativement du personnage.</div></html>");
 
         //Création du bouton retour
