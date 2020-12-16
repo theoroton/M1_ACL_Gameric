@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class EcranBut extends JPanel{
+public class EcranRegles extends JPanel{
 	
 	/**
 	 * CardLayout auquel est ajouté ce JPanel
@@ -25,7 +25,7 @@ public class EcranBut extends JPanel{
 	 * Constructeur de l'écran des règles
 	 * @param c : CardLayout père
 	 */
-	public EcranBut(CardLayoutJeu c) {
+	public EcranRegles(CardLayoutJeu c) {
 		clParent = c;
 		setPreferredSize(new java.awt.Dimension(544, 604));
 		

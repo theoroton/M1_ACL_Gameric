@@ -22,7 +22,7 @@ public class CardLayoutJeu extends JPanel {
 	/**
 	 * Ecran du but du jeu
 	 */
-	private EcranBut but;
+	private EcranRegles regles;
 	/**
 	 * Ecran du choix de classe
 	 */
@@ -69,7 +69,7 @@ public class CardLayoutJeu extends JPanel {
 		//Création du menu du jeu
 		menu = new EcranMenu(this, jeu);
 		//Création de l'écran des règles
-		but = new EcranBut(this);
+		regles = new EcranRegles(this);
 		//Création de l'écran du choix de classe
 		choixClasse = new EcranClasse(this);
 		//Création de l'écran des commandes
@@ -77,8 +77,8 @@ public class CardLayoutJeu extends JPanel {
 
 		//Ajout de l'écran du menu au layout
 		add(menu, "menu");
-		//Ajout de l'écran des régles au layout
-		add(but, "but");
+		//Ajout de l'écran des règles au layout
+		add(regles, "regles");
 		//Ajout de l'écran du choix de classe au layout
 		add(choixClasse, "choixClasse");
 		//Ajout de l'écran des commandes au layout
@@ -93,8 +93,7 @@ public class CardLayoutJeu extends JPanel {
 	 * Méthode qui permet de mettre à jour l'affichage
 	 */
 	public void update() {
-		menu.repaint();
-		//ecranJeu.update();
+		ecranJeu.update();
 	}
 
 	/**
@@ -168,8 +167,8 @@ public class CardLayoutJeu extends JPanel {
 	/**
 	 * Méthode qui permet d'afficher le but du jeu
 	 */
-	public void afficherBut() {
-		cl.show(this, "but");
+	public void afficherRegles() {
+		cl.show(this, "regles");
 	}
 	
 	/**
