@@ -69,34 +69,55 @@ public class Animation extends JPanel implements ActionListener {
     public int getSizeFrames() {
     	return totalFrames;
     }
+    private int c = 0;
     public void startAnimation(Graphics2D crayon, int x, int y, int w, int h, ImageObserver ob, Monstre m) {
-    	System.out.println("Img length "+images.length);
-    	for(int c = 0; c < images.length; c++) {
-    		System.out.println("Here2 "+c);
+    	//System.out.println("Img length "+images.length);
+    	for(c = 0; c < totalFrames; c++) {
+    		//System.out.println("Here2 "+c);
     		//crayon.drawImage(images[currImg], x, y, w, h, ob);
     		//currImg = (currImg + 1) % images.length;
-    		switch(m.getDirection()) {
-				case "UP":
-					crayon.drawImage(images[currImg], x, y+c*Const.TAILLE_CASE/3, w, h, ob);
-					break;
-				case "DOWN":
-					crayon.drawImage(images[currImg], x, y-c*Const.TAILLE_CASE/3, w, h, ob);
-					break;
-				case "LEFT":
-					crayon.drawImage(images[currImg], x-c*Const.TAILLE_CASE/3, y, w, h, ob);
-					break;
-				case "RIGHT":
-					crayon.drawImage(images[currImg], x+c*Const.TAILLE_CASE/3, y, w, h, ob);
-					break;
-				default:
-					//m.setAnimation(images[currImg]);
-					crayon.drawImage(images[currImg], x, y, w, h, ob);
-					break;
-    		}
+    		/*if (animationTimer == null) {
+    			currentFrame = 0;
+    			ActionListener taskPerformer = new ActionListener() {
+    				public void actionPerformed(ActionEvent evt) {
+			    		*/switch(m.getDirection()) {
+							case "UP":
+								crayon.drawImage(getSprite(), x, y+c*Const.TAILLE_CASE/3, w, h, ob);
+								break;
+							case "DOWN":
+								crayon.drawImage(getSprite(), x, y-c*Const.TAILLE_CASE/3, w, h, ob);
+								break;
+							case "LEFT":
+								crayon.drawImage(getSprite(), x-c*Const.TAILLE_CASE/3, y, w, h, ob);
+								break;
+							case "RIGHT":
+								crayon.drawImage(getSprite(), x+c*Const.TAILLE_CASE/3, y, w, h, ob);
+								break;
+							default:
+								crayon.drawImage(getSprite(), x, y, w, h, ob);
+								//m.setAnimation(images[currImg]);
+								//crayon.drawImage(images[currImg], x, y, w, h, ob);
+								break;	
+			    		}
+			    		/*crayon.dispose();
+				}
+			};
+			
+			animationTimer = new Timer(1, taskPerformer);
+			animationTimer.start();
+    		}*/
     		crayon.dispose();
-    		currImg++;
+    		//currImg++;
+    		currentFrame++;
+    		/*try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
     	}
-    	currImg = 0;
+    	currentFrame = 0;
+    	//currImg = 0;
     }
     
     public BufferedImage[] getAnimImages() {
@@ -106,6 +127,21 @@ public class Animation extends JPanel implements ActionListener {
     public BufferedImage getSprite() {
         return frames.get(currentFrame).getFrame();
     }
+    
+    public void startAnim(Graphics2D crayon, int x, int y, int w, int h, ImageObserver ob) {
+    	if (animationTimer == null) {
+    		currImg = 0;
+			ActionListener taskPerformer = new ActionListener() {
+				public void actionPerformed(ActionEvent evt) {
+    	crayon.drawImage(getSprite(), x, y, w, h, ob);
+				}
+			};
+			
+			animationTimer = new Timer(100, taskPerformer);
+			animationTimer.start();
+		}
+    }
+    
     public void setCurSprite (int num) {
     	this.currentFrame = num;
     }

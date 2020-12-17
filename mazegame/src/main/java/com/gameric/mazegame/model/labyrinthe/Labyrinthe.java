@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.gameric.mazegame.model.monstres.Fantome;
 import com.gameric.mazegame.model.monstres.Monstre;
+import com.gameric.mazegame.model.monstres.Squelette;
 import com.gameric.mazegame.model.monstres.Zombie;
 import com.gameric.mazegame.model.objets.Arme;
 import com.gameric.mazegame.model.objets.ObjetMystere;
@@ -218,7 +219,7 @@ public class Labyrinthe {
 					
 					//Si le caractère est un s, on ajoute un squelette au labyrinthe à cette position
 					if (c == 's') {
-						//ajouterMonstre(new Squelette(i,j,this));
+						ajouterMonstre(new Squelette(i,j,this));
 					//Si le caractère est un z, on ajoute un zombie au labyrinthe à cette position
 					} else if (c == 'z') {
 						ajouterMonstre(new Zombie(i,j,this));
@@ -434,8 +435,6 @@ public class Labyrinthe {
 			m.setTimer();
 		}
 	}
-	
-	
 	public void setNiveauChange(boolean n) {
 		this.niveauChange = n;
 	}

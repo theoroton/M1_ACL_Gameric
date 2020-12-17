@@ -1,7 +1,9 @@
 package com.gameric.mazegame.graphiques;
 
-import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * 
+ * @author Théo Roton
+ * Classe de l'écran des règles du jeu
+ */
 public class EcranRegles extends JPanel{
 	
 	/**
@@ -22,31 +29,48 @@ public class EcranRegles extends JPanel{
 	private CardLayoutJeu clParent;
 	
 	/**
+	 * Images nécessaires pour l'affichage des règles du jeu
+	 */
+	private ImageIcon imageFond = new ImageIcon(getClass().getResource("/images/textures/ecrans/regles/fond.png"));
+	private ImageIcon imageRegles = new ImageIcon(getClass().getResource("/images/textures/ecrans/regles/parchemin.png"));
+	private ImageIcon imageRetour = new ImageIcon(getClass().getResource("/images/textures/ecrans/regles/retour.png"));
+	
+	/**
 	 * Constructeur de l'écran des règles
 	 * @param c : CardLayout père
 	 */
 	public EcranRegles(CardLayoutJeu c) {
 		clParent = c;
 		setPreferredSize(new java.awt.Dimension(544, 604));
+		setLayout(null);
 		
 		//Création jscrollpane interne
 		JScrollPane jScrollPane = new javax.swing.JScrollPane();
 		
 		//Création jpanel interne 
-        JPanel jpanel = new javax.swing.JPanel();
+		class JPanelInterne extends JPanel{
+			/**
+			 * Méthode paintComponent qui affiche l'image de fond des règles du jeu.
+			 */
+			public void paintComponent(Graphics g) {
+				g.drawImage(imageRegles.getImage(), -25, -25, this);	
+			}
+		}
+		
+        JPanelInterne jpanel = new JPanelInterne();
         jpanel.setPreferredSize(new java.awt.Dimension(266, 700));
         
         //Création du label But
         JLabel but = new javax.swing.JLabel();
-        but.setFont(new java.awt.Font("Gill Sans MT", 0, 16));
+        but.setFont(new java.awt.Font("Lucida Calligraphy", 0, 13));
         but.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         but.setText(butTexte()); 
         but.setMaximumSize(new java.awt.Dimension(266, 1000));
-        but.setPreferredSize(new java.awt.Dimension(266, 14));
+        but.setPreferredSize(new java.awt.Dimension(266, 300));
         
         //Création du label des cases à effet
         JLabel labelCases = new javax.swing.JLabel();
-        labelCases.setFont(new java.awt.Font("Gill Sans MT", 1, 16));
+        labelCases.setFont(new java.awt.Font("Lucida Calligraphy", 1, 14));
         labelCases.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelCases.setText("Cases à effets :");
         labelCases.setPreferredSize(new java.awt.Dimension(100, 20));
@@ -56,7 +80,7 @@ public class EcranRegles extends JPanel{
         JLabel labelCP1 = new javax.swing.JLabel();
         imageCP1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/piege4.jpg")));
         imageCP1.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelCP1.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelCP1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelCP1.setText("<html><div style='text-align: justify;'><b>Case piégée :</b><br>Inflige des dégâts au personnage quand il passe dessus.</div></html>");
         
         //Création de l'image de la case apparition et de son label
@@ -64,7 +88,7 @@ public class EcranRegles extends JPanel{
         JLabel labelCP2 = new javax.swing.JLabel();
         imageCP2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/spawner.jpg")));
         imageCP2.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelCP2.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelCP2.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelCP2.setText("<html><div style='text-align: justify;'><b>Case spawner :</b><br>Fait apparaître un monstre dans le labyrinthe quand le personnage passe dessus.</div></html>");
 
         
@@ -73,12 +97,12 @@ public class EcranRegles extends JPanel{
         JLabel labelCP3 = new javax.swing.JLabel();
         imageCP3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/teleporter.png")));
         imageCP3.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelCP3.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelCP3.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelCP3.setText("<html><div style='text-align: justify;'><b>Case téléportation :</b><br>Téléporte le personnage à une position aléatoire dans le labyrinthe.</div></html> ");
         
         //Création du label des objets
         JLabel labelObjets = new javax.swing.JLabel();
-        labelObjets.setFont(new java.awt.Font("Gill Sans MT", 1, 16)); // NOI18N
+        labelObjets.setFont(new java.awt.Font("Lucida Calligraphy", 1, 14)); // NOI18N
         labelObjets.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelObjets.setText("Objets :");
         labelObjets.setPreferredSize(new java.awt.Dimension(100, 20));
@@ -88,7 +112,7 @@ public class EcranRegles extends JPanel{
         JLabel labelO1 = new javax.swing.JLabel();
         imageO1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/epee.png")));
         imageO1.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelO1.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelO1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelO1.setText("<html><div style='text-align: justify;'><b>Arme :</b><br>Augmente les dégâts du personnage.</div></html>");
         
         //Création de l'image de la potion
@@ -96,7 +120,7 @@ public class EcranRegles extends JPanel{
         JLabel labelO2 = new javax.swing.JLabel();
         imageO2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/potion.png")));
         imageO2.setPreferredSize(new java.awt.Dimension(64, 64));
-        labelO2.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelO2.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelO2.setText("<html><div style='text-align: justify;'><b>Potion :</b><br>Rend des points de vie au personnage.</div></html>");
         
         //Création de l'image de l'objet mystère
@@ -104,14 +128,16 @@ public class EcranRegles extends JPanel{
         JLabel labelO3 = new javax.swing.JLabel();
         imageO3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/textures/mystere.png")));
         imageO3.setPreferredSize(new java.awt.Dimension(32, 32));
-        labelO3.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        labelO3.setFont(new java.awt.Font("Lucida Calligraphy", 0, 9)); 
         labelO3.setText("<html><div style='text-align: justify;'><b>Objet mystère :</b><br>Modifie une statistique (dégâts, portée, vie, vie maximale) aléatoire positivement ou négativement du personnage.</div></html>");
 
         //Création du bouton retour
         JButton retour = new javax.swing.JButton();
-        retour.setFont(new java.awt.Font("Tahoma", 0, 18));
-        retour.setText("Retour");
-        retour.setPreferredSize(new java.awt.Dimension(140, 40));
+        //On cache le bouton
+        retour.setOpaque(false);
+        retour.setContentAreaFilled(false);
+        retour.setBorderPainted(false);
+        
 	    //Action du bouton pour afficher le menu principal
 	    retour.addActionListener(new java.awt.event.ActionListener() {
     	   public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,9 +145,27 @@ public class EcranRegles extends JPanel{
                clParent.afficherMenu();
 	        }
         });
+	    
+        //Listener pour changer l'image du bouton quand on le survole
+        retour.addMouseListener(new MouseListener() {      	
+        	public void mouseClicked(MouseEvent e) {}
+        	public void mousePressed(MouseEvent e) {}
+        	public void mouseReleased(MouseEvent e) {}
+        	
+        	//Ajoute une image au bouton
+        	public void mouseEntered(MouseEvent e) {
+                retour.setIcon(imageRetour);	
+                retour.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        	}
+
+        	//Enlève l'image du bouton
+        	public void mouseExited(MouseEvent e) {
+        		retour.setIcon(null);      		
+        	}
+		});
 
 
-        //Placement des éléments
+        //Placement des éléments dans le jScrollPane
 	    javax.swing.GroupLayout jpanel2Layout = new javax.swing.GroupLayout(jpanel);
         jpanel.setLayout(jpanel2Layout);
         jpanel2Layout.setHorizontalGroup(
@@ -199,28 +243,14 @@ public class EcranRegles extends JPanel{
                 .addGap(202, 202, 202)));
 
         jScrollPane.setViewportView(jpanel);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(202, Short.MAX_VALUE)
-                .addComponent(retour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(202, 202, 202))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane)
-                .addContainerGap()));
         
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(retour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)));
+        //Placement des éléments
+        jScrollPane.setBounds(15, 15, 514, 444);
+        retour.setBounds(177, 545, 194, 51);
+        
+        //Ajout des éléments au jpanel
+        add(jScrollPane);
+        add(retour);
 	}
 
 	
@@ -249,5 +279,12 @@ public class EcranRegles extends JPanel{
 		
 		return but;
 	}
-
+	
+	
+	/**
+	 * Méthode paintComponent qui affiche l'image de fond des règles du jeu.
+	 */
+	public void paintComponent(Graphics g) {
+		g.drawImage(imageFond.getImage(), 0, 0, this);	
+	}
 }

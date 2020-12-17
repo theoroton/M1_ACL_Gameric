@@ -136,7 +136,11 @@ public class CardLayoutJeu extends JPanel {
 	 */
 	public void afficherFin() {
 		//On crée l'écran de fin
-		ecranFin = new EcranFin(this, jeu);
+		if (jeu.estGagne()) {
+			ecranFin = new EcranVictoire(this, jeu);
+		} else if (jeu.estPerdu()) {
+			ecranFin = new EcranDefaite(this, jeu);
+		}	
 		//On ajoute l'écrand de fin
 		add(ecranFin, "ecranFin");
 		//On affiche l'écran de fin

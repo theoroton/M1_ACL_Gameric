@@ -54,8 +54,8 @@ public class Sprite {
 	        		break;
 	        	default:
 	        		spriteSheet = loadSprite("arrow");
-		        	w = spriteSheet.getWidth()/13;
-		    		h = spriteSheet.getHeight()/4;
+		        	w = spriteSheet.getWidth()/10;
+		    		h = spriteSheet.getHeight()/8;
 	        		x = xGrid * w;
 	        		y = yGrid * h;
 	        		break;
