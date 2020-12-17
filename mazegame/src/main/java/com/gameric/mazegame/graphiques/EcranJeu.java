@@ -1,7 +1,9 @@
 package com.gameric.mazegame.graphiques;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
+
 import com.gameric.mazegame.engine.DrawingPanel;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 
@@ -20,7 +22,7 @@ public class EcranJeu extends JPanel {
 	 * DrawingPanel des infos
 	 */
 	private DrawingPanel partieInfos;
-	
+	private JeuLabyrinthe j;
 	/**
 	 * Constructeur de l'écran du jeu
 	 * @param j : Jeu à afficher
@@ -28,7 +30,7 @@ public class EcranJeu extends JPanel {
 	public EcranJeu(JeuLabyrinthe j) {
 		//Layout de l'écran du jeu
 		setLayout(new BorderLayout());
-		
+		this.j = j;
 		//On crée la partie du labyrinthe
 		DessinLabyrinthe dessinLabyrinthe = new DessinLabyrinthe(j);
 		partieJeu = new DrawingPanel(dessinLabyrinthe);
