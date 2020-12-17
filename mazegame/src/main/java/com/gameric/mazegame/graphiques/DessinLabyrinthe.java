@@ -344,8 +344,8 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				case "Fantome":
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
-					//crayon.drawImage(imgB, x, y, w, h, ob);
-					m.getAnimation().startAnimation(crayon, x, y, w, h, ob, m);
+					crayon.drawImage(imgB, x, y, w, h, ob);
+					//m.getAnimation().startAnimation(crayon, x, y, w, h, ob, m);
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y, w, h, ob, m.getAnimation(), m);
 					}*/
