@@ -105,6 +105,11 @@ public abstract class Personnage{
 	 * 0 sinon.
 	 */
 	public void deplacer(int dx, int dy){
+		if(this.direction == N) this.setAnimation(walkingU);
+		if(this.direction == S) this.setAnimation(walkingD);
+		if(this.direction == E) this.setAnimation(walkingR);
+		if(this.direction == O) this.setAnimation(walkingL);
+		
 		int new_x = position.getPx() + dx;
 		int new_y = position.getPy() + dy;
 
@@ -245,10 +250,10 @@ public abstract class Personnage{
 				}
 			}
 		}
-		if(this.direction == N) this.setAnimation(walkingUp);
-		if(this.direction == S) this.setAnimation(walkingDown);
-		if(this.direction == E) this.setAnimation(walkingRight);
-		if(this.direction == O) this.setAnimation(walkinfLeft);
+		if(this.direction == N) this.setAnimation(walkingU);
+		if(this.direction == S) this.setAnimation(walkingD);
+		if(this.direction == E) this.setAnimation(walkingR);
+		if(this.direction == O) this.setAnimation(walkingL);
 	}
 
 	//Setters
