@@ -170,6 +170,23 @@ public abstract class Personnage{
 	}
 
 	private abstract void capaciteSpe();
+
+	private int getDistance(Case position, Case objectif){
+		int distance = 0;
+		if(position.getPx() >= objectif.getPx()){
+			distance = position.getPx() - objectif.getPx();
+		}
+		else{
+			distance = objectif.getPx() - position.getPx();
+		}
+		if(position.getPy() >= objectif.getPy()){
+			distance = distance + position.getPy() - objectif.getPy();
+		}
+		else{
+			distance = distance + objectif.getPy() - position.getPy();
+		}
+		return distance;
+	}
 	/**
 	 * Attaque un monstre à portée avec direction d'attaque)
 	 **/
@@ -179,7 +196,7 @@ public abstract class Personnage{
 		for(int i=0; i<labyrinthe.getHauteur(); i++){
 			for(int j=0; j<labyrinthe.getLargeur() ; j++){
 				Case c = labyrinthe.getCase(i,j);
-				distance = Math.abs(position.getPx() - c.getPx() + position.getPy() - c.getPy());
+				distance = this.getDistance(this.position,c);
 				//Si la case est à portée
 				if(distance <= portee){
 					//On attaque dans la direction dans laquelle on regarde
