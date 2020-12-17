@@ -19,7 +19,7 @@ public class Archer extends Personnage{
 	//Méthodes
 	/**
 	 * Capacité spéciale, déclenchée lorsqu'on attaque un monstre
-	 * Pour l'archer, plus un de portée toutes les 3 attaques
+	 * Pour l'archer, plus un de portée toutes les 3 monstres tués
 	 */
 	private void capaciteSpe(){
 		compteur = compteur + 1;

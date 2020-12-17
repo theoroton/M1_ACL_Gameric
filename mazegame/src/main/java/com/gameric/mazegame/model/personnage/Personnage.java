@@ -20,6 +20,7 @@ public abstract class Personnage{
 	int portee;				//Portée de l'attaque du personnage
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
+	int scoreTotal = 0;     //Score du joueur
 
 	String direction;		//direction dans laquelle le personnage regarde
 	public static final String N = "Nord";	//Serviront à changer la direction du Personnage
@@ -138,7 +139,7 @@ public abstract class Personnage{
 
 	public void ramasserObjet(){
 		if( position.getClass() == CaseObjet.class ){
-			position.ramasserObjet();
+			((Case objet) position).ramasserObjet();
 		}
 	}
 	/**
@@ -221,8 +222,16 @@ public abstract class Personnage{
 
 									//On lui fait des dégats
 									m.setPointsVie(m.getPointsVie() - this.degats);
-									//On active la capacité spéciale de la classe
-									capaciteSpe();
+
+									//Si le monstre est tué
+									if(m.getPointsVie() <= 0) {
+										//On active la capacité spéciale de la classe
+										capaciteSpe();
+										//On retire le monstre du labyrinthe
+										labyrinthe.enleverMonstre(m);
+										//On met à jour le score
+										scoreTotal += m.getScore();
+									}
 								}
 							}
 						}
@@ -355,4 +364,8 @@ public abstract class Personnage{
 	public int getPortee() {
 		return portee;
 	}
+
+	public int getScoreTotal(){return scoreTotal;}
+
+	public void setScoreTotal(int scoreTotal){this.scoreTotal = scoreTotal;}
 }
