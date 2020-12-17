@@ -21,7 +21,7 @@ public class Archer extends Personnage{
 	 * Capacité spéciale, déclenchée lorsqu'on attaque un monstre
 	 * Pour l'archer, plus un de portée toutes les 3 monstres tués
 	 */
-	private void capaciteSpe(){
+	protected void capaciteSpe(){
 		compteur = compteur + 1;
 		if(compteur == 3) {
 			setPortee(portee + 1);
