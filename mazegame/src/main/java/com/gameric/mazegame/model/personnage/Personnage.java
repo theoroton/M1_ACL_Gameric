@@ -75,7 +75,7 @@ public abstract class Personnage{
 			walkingRight[i] = new Sprite().getSprite(i, 11, this.getClass());
 			walkingUp[i] = new Sprite().getSprite(i, 8, this.getClass());
 		}
-		stand[0] = new Sprite().getSprite(0, 2, this.getClass());
+		stand[0] = new Sprite().getSprite(2, 0, this.getClass());
 
 		walkingU = new Animation(walkingUp, 10);
 		walkingD = new Animation(walkingDown, 10);
