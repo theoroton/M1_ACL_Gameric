@@ -183,6 +183,7 @@ public abstract class Personnage{
 				}
 			}
 		}
+		return null;
 	}
 
 	protected abstract void capaciteSpe();
@@ -300,11 +301,11 @@ public abstract class Personnage{
 
 	public void setPortee(int portee){ this.portee = portee; }
 
-	public void setDirection(String dir){
-		if(dir.equals("N"))	direction = N;
-		if(dir.equals("E"))	direction = E;
-		if(dir.equals("S"))	direction = S;
-		if(dir.equals("O"))	direction = O;
+	public void setDirection(char dir){
+		if(dir == 'N')	direction = N;
+		if(dir == 'E')	direction = E;
+		if(dir == 'S')	direction = S;
+		if(dir == 'O')	direction = O;
 	}
 
 	//Getters
