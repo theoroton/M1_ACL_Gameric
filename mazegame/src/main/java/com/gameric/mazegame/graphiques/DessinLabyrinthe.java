@@ -127,7 +127,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		arrowDiagonalUL = new BufferedImage[1];
 		
 		for (int i = 0; i < 9; i++ ) {
-			System.out.println("Pb i "+i);
 			arrowLeft[i] = new Sprite().getSprite(i, 0, this.getClass());
 			arrowRight[i] = new Sprite().getSprite(i, 1, this.getClass());
 			arrowDiagonalDR[i] = new Sprite().getSprite(i, 4, this.getClass());
@@ -345,10 +344,12 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				case "Fantome":
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
-					crayon.drawImage(imgB, x, y, w, h, ob);
+					//crayon.drawImage(imgB, x, y, w, h, ob);
+					m.getAnimation().startAnimation(crayon, x, y, w, h, ob, m);
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y, w, h, ob, m.getAnimation(), m);
 					}*/
+				
 				break;
 				case "Squelette":
 					crayon.setColor(Color.RED);
