@@ -195,7 +195,11 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						} else if(((CaseObjet) c).getObjet().getNom().equals("Arme")) {
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/epee.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						} else if (((CaseObjet) c).getObjet().getNom().equals("?")) {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/box.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/mystere0.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+						}
+					} else {
+						if (((CaseObjet) c).getObjet().getNom().equals("?")) {
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/mystere1.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						}
 					}
 					
@@ -453,7 +457,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				crayon.setColor(Color.RED);
 			} else {
 				crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);						
-
 			}*/
 			/*crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
@@ -471,6 +474,10 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			active = false;
 		} else {
 			active = true;
+		}
+		if(labyrinthe.getNiveauChange()) {
+			animationTimerTep.setGameChanged(true);
+			labyrinthe.setNiveauChange(false);
 		}
 		
 	}

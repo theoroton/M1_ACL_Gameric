@@ -56,6 +56,8 @@ public class Labyrinthe {
 	 */
 	private int ySortie;
 	
+	private boolean niveauChange;
+	
 	/**
 	 * Personnage joueur du labyrinthe
 	 */
@@ -217,7 +219,7 @@ public class Labyrinthe {
 					
 					//Si le caractère est un s, on ajoute un squelette au labyrinthe à cette position
 					if (c == 's') {
-						//ajouterMonstre(new Squelette(i,j,this));
+						ajouterMonstre(new Squelette(i,j,this));
 					//Si le caractère est un z, on ajoute un zombie au labyrinthe à cette position
 					} else if (c == 'z') {
 						ajouterMonstre(new Zombie(i,j,this));
@@ -433,6 +435,12 @@ public class Labyrinthe {
 		for (Monstre m : monstres) {
 			m.setTimer();
 		}
+	}
+	public void setNiveauChange(boolean n) {
+		this.niveauChange = n;
+	}
+	public boolean getNiveauChange() {
+		return niveauChange;
 	}
 	
 }
