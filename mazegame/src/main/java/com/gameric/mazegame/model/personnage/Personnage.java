@@ -2,7 +2,9 @@ package com.gameric.mazegame.model.personnage;
 
 import java.awt.image.BufferedImage;
 import com.gameric.mazegame.model.*;
-import com.gameric.mazegame.graphique.*;
+import com.gameric.mazegame.model.labyrinthe.*;
+import com.gameric.mazegame.model.monstres.Monstre;
+import com.gameric.mazegame.graphiques.*;
 
 /**
  *
@@ -110,7 +112,9 @@ public abstract class Personnage{
 					if(new_position.getClass() != Mur.class){
 						//Vérification: CaseVide
 						if(!labyrinthe.estCaseOccupee(new_x,new_y)){	//Vérification: Case non occupée
+							position.setOccupee(false);
 							position = new_position;
+							position.setOccupee(true);
 
 							//Si la case sur lequel le personnage se déplace est une case à effet
 							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
@@ -138,8 +142,8 @@ public abstract class Personnage{
 	}
 
 	public void ramasserObjet(){
-		if( position.getClass() == CaseObjet.class ){
-			((Case objet) position).ramasserObjet();
+		if(position.getClass() == CaseObjet.class){
+			((CaseObjet) position).ramasserObjet(this);
 		}
 	}
 	/**
@@ -170,7 +174,7 @@ public abstract class Personnage{
 		}
 	}
 
-	private abstract void capaciteSpe();
+	protected abstract void capaciteSpe();
 
 	private int getDistance(Case position, Case objectif){
 		int distance = 0;
@@ -206,14 +210,14 @@ public abstract class Personnage{
 							|| ((direction == S) && (c.getPy() <= position.getPy()) )
 							|| ((direction == O) && (c.getPx() <= position.getPx()) ) ){
 						//Si la case est vide ou un mur(fantômes)
-						if( (c.getClass().getSuperclass() == CaseVide.class)
-								|| (c.getClass().getSuperclass() == Mur.class) ){
+						//if( (c.getClass().getSuperclass() == CaseVide.class)
+								//|| (c.getClass().getSuperclass() == Mur.class) ){
 							//S'il y a un monstre dessus
 							if(testMonstre(c.getPx(), c.getPy())){
 								//On récupère le monstre
 								Monstre m = getMonstre(c.getPx(), c.getPy());
 								//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
-								if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.Py())) {
+								if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.getPy())) {
 									//On change l'animation
 									if(this.direction == N) this.setAnimation(attaqueU);
 									if(this.direction == S) this.setAnimation(attaqueD);
@@ -234,7 +238,7 @@ public abstract class Personnage{
 									}
 								}
 							}
-						}
+						//}
 					}
 				}
 			}
@@ -242,7 +246,7 @@ public abstract class Personnage{
 		if(this.direction == N) this.setAnimation(walkingUp);
 		if(this.direction == S) this.setAnimation(walkingDown);
 		if(this.direction == E) this.setAnimation(walkingRight);
-		if(this.direction == O) this.setAnimation(walkinfLeft);
+		if(this.direction == O) this.setAnimation(walkingLeft);
 	}
 
 	//Setters
@@ -251,7 +255,11 @@ public abstract class Personnage{
 	}
 
 	public void setPosition(int x, int y) {
+		if (position != null) {
+			position.setOccupee(false);
+		}
 		position = labyrinthe.getCase(x, y);
+		position.setOccupee(true);
 	}
 
 	public void setLabyrinthe(Labyrinthe labyrinthe) {
