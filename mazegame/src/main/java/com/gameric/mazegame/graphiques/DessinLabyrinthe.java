@@ -78,13 +78,19 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 	private BufferedImage[] arrowLeft;
 	private BufferedImage[] arrowRight;
 	private BufferedImage[] arrowUp;
-	private BufferedImage[] arrowDiagonal;
+	private BufferedImage[] arrowDiagonalDR;
+	private BufferedImage[] arrowDiagonalDL;
+	private BufferedImage[] arrowDiagonalUR;
+	private BufferedImage[] arrowDiagonalUL;
 	
 	private Animation arrDown;
 	private Animation arrLeft;
 	private Animation arrRight;
 	private Animation arrUp;
-	private Animation arrDiagonal;
+	private Animation arrDiagonalDR;
+	private Animation arrDiagonalDL;
+	private Animation arrDiagonalUR;
+	private Animation arrDiagonalUL;
 	
 	private Animation arrow = arrUp; 
 
@@ -108,27 +114,37 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		
 		for ( int count = 0; count < telepEff.length; count++ )
 			telepEff[count] = new ImageIcon(getClass().getResource("/images/textures/effects/telepEffect" + count + ".png"));
-		
 
-		arrowDown = new BufferedImage[13];
 		arrowLeft = new BufferedImage[13];
 		arrowRight = new BufferedImage[13];
-		arrowUp = new BufferedImage[13];
-		arrowDiagonal = new BufferedImage[13];
+		arrowUp = new BufferedImage[1];
+		arrowDown = new BufferedImage[1];
+		arrowDiagonalDR = new BufferedImage[9];
+		arrowDiagonalDL = new BufferedImage[13];
+		arrowDiagonalUR = new BufferedImage[1];
+		arrowDiagonalUL = new BufferedImage[1];
 		
-		for (int i = 0; i < 13; i++ ) {
-			arrowDown[i] = new Sprite().getSprite(i, 3, this.getClass());
-			arrowLeft[i] = new Sprite().getSprite(i, 1, this.getClass());
-			arrowRight[i] = new Sprite().getSprite(i, 3, this.getClass());
-			arrowUp[i] = new Sprite().getSprite(i, 3, this.getClass());
-			arrowDiagonal[i] = new Sprite().getSprite(i, 2, this.getClass());
+		for (int i = 0; i < 9; i++ ) {
+			arrowLeft[i] = new Sprite().getSprite(i, 0, this.getClass());
+			arrowRight[i] = new Sprite().getSprite(i, 1, this.getClass());
+			arrowDiagonalDR[i] = new Sprite().getSprite(i, 4, this.getClass());
+			arrowDiagonalDL[i] = new Sprite().getSprite(i, 5, this.getClass());
 			
 		}
+		arrowUp[0] = new Sprite().getSprite(0, 2, this.getClass());
+		arrowDown[0] = new Sprite().getSprite(0, 3, this.getClass());
+		arrowDiagonalUR[0] = new Sprite().getSprite(0, 6, this.getClass());
+		arrowDiagonalUL[0] = new Sprite().getSprite(0, 7, this.getClass());
+		
+		
 		arrDown = new Animation(arrowDown, 10);
 		arrLeft = new Animation(arrowLeft, 10);
 		arrRight = new Animation(arrowRight, 10);
 		arrUp = new Animation(arrowUp, 10);
-		arrDiagonal = new Animation(arrowDiagonal, 10);
+		arrDiagonalDR = new Animation(arrowDiagonalDR, 10);
+		arrDiagonalDL = new Animation(arrowDiagonalDL, 10);
+		arrDiagonalUR = new Animation(arrowDiagonalUR, 10);
+		arrDiagonalUL = new Animation(arrowDiagonalUL, 10);
 		
 		
 		
@@ -261,10 +277,10 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				if(m.getPos_x() == personnage.getPos_x()) {
 					if(m.getPos_y()>personnage.getPos_y()) {
 						m.setAnimation(m.getAttaqueDown());
-						arrow = arrDown;
+						arrow = arrUp;
 					} else {
 						m.setAnimation(m.getAttaqueUp());
-						arrow = arrUp;
+						arrow = arrDown;
 					}
 				} else if (m.getPos_y() == personnage.getPos_y()) {
 					if(m.getPos_x()>personnage.getPos_x()) {
@@ -275,34 +291,22 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						arrow = arrRight;
 					}
 				} else {
-					if (m.getPos_x()>personnage.getPos_x() && m.getPos_y()>personnage.getPos_y() || m.getPos_x()<personnage.getPos_x() && m.getPos_y()>personnage.getPos_y()) {
-						m.setAnimation(m.getAttaqueDown());
-						//arrow = arrDiagonal;
-					} else
-						m.setAnimation(m.getAttaqueUp());
-						//arrow = arrDiagonal;
-					
-				}
-				/*switch(m.getDirection()) {
-					case "UP":
-						m.setAnimation(m.getAttaqueUp());
-						arrow = arrUp;
-					break;
-					case "DOWN":
-						m.setAnimation(m.getAttaqueDown());
-						arrow = arrDown;
-					break;
-					case "LEFT":
-						m.setAnimation(m.getAttaqueLeft());
-						arrow = arrLeft;
-					break;
-					case "RIGHT":
-						m.setAnimation(m.getAttaqueRight());
-						arrow = arrRight;
-					break;
-				}*/
-				if(m.getPos_x() != personnage.getPos_x() && m.getPos_y() != personnage.getPos_y()) {
-					arrow = arrDiagonal;
+					if (m.getPos_x()>personnage.getPos_x()) {
+						if(m.getPos_y()>personnage.getPos_y()) {
+							m.setAnimation(m.getAttaqueDown());
+							arrow = arrDiagonalUL;
+						} else {
+							m.setAnimation(m.getAttaqueUp());
+							arrow = arrDiagonalDL;
+						}	
+					} else 
+						if(m.getPos_y()>personnage.getPos_y()) {
+							m.setAnimation(m.getAttaqueDown());
+							arrow = arrDiagonalUR;
+						} else {
+							m.setAnimation(m.getAttaqueUp());
+							arrow = arrDiagonalDR;
+						}
 				}
 			} else {
 				switch(m.getDirection()) {
@@ -339,9 +343,11 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
 					crayon.drawImage(imgB, x, y, w, h, ob);
+					//m.getAnimation().startAnimation(crayon, x, y, w, h, ob, m);
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y, w, h, ob, m.getAnimation(), m);
 					}*/
+				
 				break;
 				case "Squelette":
 					crayon.setColor(Color.RED);
@@ -371,9 +377,40 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 							//crayon.dispose();					
 							}
 							int locationX= personnage.getPos_x()*Const.TAILLE_CASE, locationY = personnage.getPos_y()*Const.TAILLE_CASE;
-							Double rad = Math.toRadians (90);
-							arrow.setCurSprite(3);
 							Image res = arrow.getSprite();
+							if(m.getPos_y() == personnage.getPos_y()) {
+								if(m.getPos_x()<personnage.getPos_x()) // monstre -> pers
+									crayon.drawImage(res, locationX-2*Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE/2, w*2, h*2, ob);
+								else //pers <- monstre
+									crayon.drawImage(res, locationX,  locationY-Const.TAILLE_CASE/2, w*2, h*2, ob);
+							} else if(m.getPos_x() == personnage.getPos_x()) {
+								if(m.getPos_y()<personnage.getPos_y()) // monstre audessus
+									//crayon.drawImage(res, locationX-3*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*4, h*3, ob);
+									crayon.drawImage(res, locationX-3*Const.TAILLE_CASE/2,  locationY-Const.TAILLE_CASE, w*4, h, ob);
+								else //monstre endessus
+									//crayon.drawImage(res, locationX-4*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*5, h*5, ob);
+									crayon.drawImage(res, locationX-3*Const.TAILLE_CASE/2,  locationY+Const.TAILLE_CASE, w*4, h, ob);
+							} else {
+								if (m.getPos_x()>personnage.getPos_x()) {
+									if(m.getPos_y()>personnage.getPos_y()) {
+										//DR
+										crayon.drawImage(res, locationX,  locationY, w*2, h*2, ob);
+									} else {
+										//UL
+										crayon.drawImage(res, locationX,  locationY-3*Const.TAILLE_CASE/2, w*2, h*2, ob);
+									}	
+								} else 
+									if(m.getPos_y()>personnage.getPos_y()) {
+										//DL
+										crayon.drawImage(res, locationX-Const.TAILLE_CASE,  locationY, w*2, h*2, ob);
+									} else {
+										//UR
+										crayon.drawImage(res, locationX-Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
+									}
+							}
+							/*Double rad = Math.toRadians (90);
+							arrow.setCurSprite(3);
+							
 							//System.out.println(m.getDirection());
 							if( (m.getPos_x() == personnage.getPos_x() && (m.getPos_y()>personnage.getPos_y()||m.getPos_y()<personnage.getPos_y()) )) {
 									//(m.getPos_x() > personnage.getPos_x()) ) {
@@ -397,11 +434,13 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 										crayon.drawImage(res, locationX+Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
 								} else if(m.getPos_x() == personnage.getPos_x()) {
 									if(m.getPos_y()<personnage.getPos_y()) // monstre audessus
-										crayon.drawImage(res, locationX-3*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*4, h*3, ob);
+										//crayon.drawImage(res, locationX-3*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*4, h*3, ob);
+										crayon.drawImage(res, locationX-Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*4, h*4, ob);
 									else //monstre endessus
+										//crayon.drawImage(res, locationX-4*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*5, h*5, ob);
 										crayon.drawImage(res, locationX-4*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*5, h*5, ob);
 								}
-							}
+							}*/
 					arrow.stop();
 					}
 					
@@ -455,7 +494,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				crayon.setColor(Color.RED);
 			} else {
 				crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);						
-
 			}*/
 			/*crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
 							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
@@ -499,8 +537,8 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			ActionListener taskPerformer = new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
 					for(int c = 0; c < 3; c++) {
-						System.out.println("Here "+c);
-						System.out.println("Img "+img);
+						//System.out.println("Here "+c);
+						//System.out.println("Img "+img);
 						crayon.drawImage(img, x, y, w, h, ob);
 						//crayon.dispose();
 					}

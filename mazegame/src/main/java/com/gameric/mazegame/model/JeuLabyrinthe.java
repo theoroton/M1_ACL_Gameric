@@ -177,7 +177,7 @@ public class JeuLabyrinthe implements Game {
 		//on relance le jeu
 		lancerJeu();
 	}
-
+	
 	/**
 	 * Méthode qui renvoi si le jeu est fini ou non
 	 */

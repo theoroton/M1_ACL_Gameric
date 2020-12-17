@@ -67,15 +67,17 @@ public class StrategiePatrouille implements StrategieDeplacement{
 		}			
 		
 		if(verifierBordures(x,y,monstre.getLabyrinthe())) {
-			if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class) || monstre.peutTraverserMur()) {
-				if(monstre.getPosition().getHeuristic(p.getPosition()) <= monstre.getPortee() && monstre.checkLineBresenham(monstre.getPos_x(), monstre.getPos_y(), p.getPos_x(), p.getPos_y())) {
-					monstre.setPeutDonnerDegats(true);
-					monstre.donnerDegats();
-				} else if(!(monstre.getLabyrinthe().estCaseOccupee(x, y))) {
-					monstre.setPosition(x, y);
-					monstre.setPeutDonnerDegats(false);
+			try {
+				if(!(monstre.getLabyrinthe().getCase(x,y).getClass() == Mur.class) || monstre.peutTraverserMur()) {
+					if(monstre.getPosition().getHeuristic(p.getPosition()) <= monstre.getPortee() && monstre.checkLineBresenham(monstre.getPos_x(), monstre.getPos_y(), p.getPos_x(), p.getPos_y())) {
+						monstre.setPeutDonnerDegats(true);
+						monstre.donnerDegats();
+					} else if(!(monstre.getLabyrinthe().estCaseOccupee(x, y))) {
+						monstre.setPosition(x, y);
+						monstre.setPeutDonnerDegats(false);
+					}
 				}
-			}
+			} catch(NullPointerException e) {}
 		}
 	}
 }

@@ -64,7 +64,7 @@ public class CaseApparition extends CaseEffet {
 			}
 			
 			//On crée un nouveau monstre aléatoire
-			int choix = (int) (Math.random() * (2 - 0));
+			int choix = (int) (Math.random() * (3 - 0));
 			Monstre m = null;
 			switch(choix) {
 			case 0:
