@@ -13,22 +13,29 @@ public class Sprite {
 
     public BufferedImage loadSprite(String file) {
 
-       BufferedImage sprite = null;
+        BufferedImage sprite = null;
+        //ClassLoader classLoader = getClass().getClassLoader();
         try {
-        	//System.out.println("Sprite name " +file);
-        	
-			sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            System.out.println("Sprite name " +file);
 
+            sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println("Sprite name " +file);
+
+            sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return sprite;
     }
 
     public BufferedImage getSprite(int xGrid, int yGrid, Class c) {
-    	
         if (spriteSheet == null) {
         	switch(c.getSimpleName()) {
 	        	case "Zombie":
@@ -60,6 +67,27 @@ public class Sprite {
 	        		y = yGrid * h;
 	        		break;
         	}
+            switch(c.getSimpleName()) {
+                case "Archer":
+                    spriteSheet = loadSprite("archer");
+                    w = spriteSheet.getWidth()/13;
+                    h = spriteSheet.getHeight()/21;
+                    x = xGrid * w;
+                    y = yGrid * h;
+                    break;
+                case "Epeiste":
+                    spriteSheet = loadSprite("epeiste");
+                    w = spriteSheet.getWidth()/13;
+                    h = spriteSheet.getHeight()/21;
+                    x = xGrid * w;
+                    y = yGrid * h;
+                    break;
+                case "Mage":
+                    spriteSheet = loadSprite("mage");
+                    w = spriteSheet.getWidth()/13;
+                    h = spriteSheet.getHeight()/21;
+                    x = xGrid * w;
+                    y = yGrid * h;
         }
         return spriteSheet.getSubimage(x, y, w, h) ;
     }

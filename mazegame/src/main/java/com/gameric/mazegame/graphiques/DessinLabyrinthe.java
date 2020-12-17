@@ -260,10 +260,24 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		
 		//On dessine le personnage en bleu
 		if (!personnage.estMort()) {
-			crayon.setColor(Color.BLUE);
-			crayon.fillOval(personnage.getPos_x()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							personnage.getPos_y()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
+			switch(personnage.getDirection()) {
+				case "Nord":
+					personnage.setAnimation(personnage.getAnimationUp());
+					break;
+				case "Sud":
+					personnage.setAnimation(personnage.getAnimationDown());
+					break;
+				case "Ouest":
+					personnage.setAnimation(personnage.getAnimationLeft());
+					break;
+				case "Est":
+					personnage.setAnimation(personnage.getAnimationRight());
+					break;
+				default:
+					personnage.setAnimation(personnage.getAnimationStand());
+					break;
+			}
+			crayon.drawImage(personnage.getAnimation().getSprite(), personnage.getPosition().getPx()*Const.TAILLE_CASE, personnage.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);
 		}
 		
 		//On dessine les monstres

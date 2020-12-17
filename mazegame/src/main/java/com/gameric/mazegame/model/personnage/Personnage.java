@@ -218,6 +218,7 @@ public abstract class Personnage{
 									if(this.direction == S) this.setAnimation(attaqueD);
 									if(this.direction == E) this.setAnimation(attaqueR);
 									if(this.direction == O) this.setAnimation(attaqueL);
+
 									//On lui fait des dégats
 									m.setPointsVie(m.getPointsVie() - this.degats);
 									//On active la capacité spéciale de la classe

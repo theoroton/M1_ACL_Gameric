@@ -29,7 +29,12 @@ public class Animation extends JPanel implements ActionListener {
 
     private boolean stopped;                // has animations stopped
 
-    private List<Frame> frames = new ArrayList<Frame>();    // Arraylist of frames 
+    private List<Frame> frames = new ArrayList<Frame>();    // Arraylist of frames
+
+    public Animation(BufferedImage[] frames, int frameDelay) {
+        this.frameDelay = frameDelay;
+        this.stopped = true;
+    }
     
     Timer animationTimer;
     BufferedImage images[];
