@@ -14,13 +14,15 @@ public class Archer extends Personnage{
 		pointsVie = vieMax = 20;
 		degats = 5;
 		portee = 5;
+		compteur = 0;
 	}
 	//Méthodes
 	/**
 	 * Capacité spéciale, déclenchée lorsqu'on attaque un monstre
-	 * Pour l'archer, plus un de portée tous les 3 monstres tués
+	 * Pour l'archer, plus un de portée toutes les 3 monstres tués
 	 */
-	public void capaciteSpe(){
+	protected void capaciteSpe(){
+		compteur = compteur + 1;
 		if(compteur == 3) {
 			setPortee(portee + 1);
 			compteur = 0;

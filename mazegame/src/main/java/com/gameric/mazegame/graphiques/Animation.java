@@ -22,31 +22,31 @@ import com.gameric.mazegame.model.monstres.Monstre;
 public class Animation extends JPanel implements ActionListener {
 
     private int frameCount;                 // Counts ticks for change
-                    // frame delay 1-12 (You will have to play around with this)
+    // frame delay 1-12 (You will have to play around with this)
     private int currentFrame;               // animations current frame
     private int animationDirection;         // animation direction (i.e counting forward or backward)
     private int totalFrames;                // total amount of frames for your animation
 
     private boolean stopped;                // has animations stopped
 
-    private List<Frame> frames = new ArrayList<Frame>();    // Arraylist of frames 
-    
+    private List<Frame> frames = new ArrayList<Frame>();    // Arraylist of frames
+
     Timer animationTimer;
     BufferedImage images[];
-    private int animDelay; 
+    private int animDelay;
     int currImg;
     protected ImageIcon images2[];
-    
+
 
     public Animation(BufferedImage[] frames, int animationDelay) {
-    	//this.frames = frames;
-    	this.animDelay = animationDelay;
-    	//this.images = frames;
-    	
-    	this.images = frames;
-		
-    	//startAnimation();
-        
+        //this.frames = frames;
+        this.animDelay = animationDelay;
+        //this.images = frames;
+
+        this.images = frames;
+
+        //startAnimation();
+
         //this.animationDelay = animationDelay;
         //this.stopped = true;
 
@@ -59,97 +59,101 @@ public class Animation extends JPanel implements ActionListener {
         this.currentFrame = 0;
         this.animationDirection = 1;*/
         this.totalFrames = this.frames.size();
-        
+
         this.stopped = true;
         this.frameCount = 0;
         this.currentFrame = 0;
         this.animationDirection = 1;
 
     }
+
     public int getSizeFrames() {
-    	return totalFrames;
+        return totalFrames;
     }
+
     private int c = 0;
+
     public void startAnimation(Graphics2D crayon, int x, int y, int w, int h, ImageObserver ob, Monstre m) {
-    	//System.out.println("Img length "+images.length);
-    	for(c = 0; c < totalFrames; c++) {
-    		//System.out.println("Here2 "+c);
-    		//crayon.drawImage(images[currImg], x, y, w, h, ob);
-    		//currImg = (currImg + 1) % images.length;
+        //System.out.println("Img length "+images.length);
+        for (c = 0; c < totalFrames; c++) {
+            //System.out.println("Here2 "+c);
+            //crayon.drawImage(images[currImg], x, y, w, h, ob);
+            //currImg = (currImg + 1) % images.length;
     		/*if (animationTimer == null) {
     			currentFrame = 0;
     			ActionListener taskPerformer = new ActionListener() {
     				public void actionPerformed(ActionEvent evt) {
-			    		*/switch(m.getDirection()) {
-							case "UP":
-								crayon.drawImage(getSprite(), x, y+c*Const.TAILLE_CASE/3, w, h, ob);
-								break;
-							case "DOWN":
-								crayon.drawImage(getSprite(), x, y-c*Const.TAILLE_CASE/3, w, h, ob);
-								break;
-							case "LEFT":
-								crayon.drawImage(getSprite(), x-c*Const.TAILLE_CASE/3, y, w, h, ob);
-								break;
-							case "RIGHT":
-								crayon.drawImage(getSprite(), x+c*Const.TAILLE_CASE/3, y, w, h, ob);
-								break;
-							default:
-								crayon.drawImage(getSprite(), x, y, w, h, ob);
-								//m.setAnimation(images[currImg]);
-								//crayon.drawImage(images[currImg], x, y, w, h, ob);
-								break;	
-			    		}
+			    		*/
+            switch (m.getDirection()) {
+                case "UP":
+                    crayon.drawImage(getSprite(), x, y + c * Const.TAILLE_CASE / 3, w, h, ob);
+                    break;
+                case "DOWN":
+                    crayon.drawImage(getSprite(), x, y - c * Const.TAILLE_CASE / 3, w, h, ob);
+                    break;
+                case "LEFT":
+                    crayon.drawImage(getSprite(), x - c * Const.TAILLE_CASE / 3, y, w, h, ob);
+                    break;
+                case "RIGHT":
+                    crayon.drawImage(getSprite(), x + c * Const.TAILLE_CASE / 3, y, w, h, ob);
+                    break;
+                default:
+                    crayon.drawImage(getSprite(), x, y, w, h, ob);
+                    //m.setAnimation(images[currImg]);
+                    //crayon.drawImage(images[currImg], x, y, w, h, ob);
+                    break;
+            }
 			    		/*crayon.dispose();
 				}
 			};
-			
+
 			animationTimer = new Timer(1, taskPerformer);
 			animationTimer.start();
     		}*/
-    		crayon.dispose();
-    		//currImg++;
-    		currentFrame++;
+            crayon.dispose();
+            //currImg++;
+            currentFrame++;
     		/*try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}*/
-    	}
-    	currentFrame = 0;
-    	//currImg = 0;
+        }
+        currentFrame = 0;
+        //currImg = 0;
     }
-    
+
     public BufferedImage[] getAnimImages() {
-    	return images;
+        return images;
     }
-    
+
     public BufferedImage getSprite() {
         return frames.get(currentFrame).getFrame();
     }
-    
+
     public void startAnim(Graphics2D crayon, int x, int y, int w, int h, ImageObserver ob) {
-    	if (animationTimer == null) {
-    		currImg = 0;
-			ActionListener taskPerformer = new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-    	crayon.drawImage(getSprite(), x, y, w, h, ob);
-				}
-			};
-			
-			animationTimer = new Timer(100, taskPerformer);
-			animationTimer.start();
-		}
+        if (animationTimer == null) {
+            currImg = 0;
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    crayon.drawImage(getSprite(), x, y, w, h, ob);
+                }
+            };
+
+            animationTimer = new Timer(100, taskPerformer);
+            animationTimer.start();
+        }
     }
-    
-    public void setCurSprite (int num) {
-    	this.currentFrame = num;
+
+    public void setCurSprite(int num) {
+        this.currentFrame = num;
     }
-    
+
     public void stopAnimation() {
-    	animationTimer.stop();
-	}
-    
+        animationTimer.stop();
+    }
+
     private void addFrame(BufferedImage frame, int duration) {
         if (duration <= 0) {
             System.err.println("Invalid duration: " + duration);
@@ -205,19 +209,17 @@ public class Animation extends JPanel implements ActionListener {
 
                 if (currentFrame > totalFrames - 1) {
                     currentFrame = 0;
-                }
-                else if (currentFrame < 0) {
+                } else if (currentFrame < 0) {
                     currentFrame = totalFrames - 1;
                 }
             }
         }
 
     }
-    
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+        // TODO Auto-generated method stub
+
+    }
 }

@@ -18,7 +18,7 @@ public class Mage extends Personnage{
 	 * Capacité spéciale, déclenchée lorsqu'on attaque un monstre
 	 * Pour le mage, plus 2 points de vie (soin) à chaque monstre tué
 	 */
-	public void capaciteSpe(){
+	protected void capaciteSpe(){
 		setPointsVie(pointsVie + 2);
 	}
 }
