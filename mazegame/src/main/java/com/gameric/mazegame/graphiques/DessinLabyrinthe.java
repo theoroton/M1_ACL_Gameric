@@ -537,8 +537,8 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			ActionListener taskPerformer = new ActionListener() {
 				public void actionPerformed(ActionEvent evt) {
 					for(int c = 0; c < 3; c++) {
-						System.out.println("Here "+c);
-						System.out.println("Img "+img);
+						//System.out.println("Here "+c);
+						//System.out.println("Img "+img);
 						crayon.drawImage(img, x, y, w, h, ob);
 						//crayon.dispose();
 					}
