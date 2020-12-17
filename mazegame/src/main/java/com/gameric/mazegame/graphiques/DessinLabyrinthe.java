@@ -303,28 +303,23 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					arrow = arrDiagonal;
 				}
 			} else {
-				switch(m.getDirection()) {
+				switch (m.getDirection()) {
 					case "UP":
 						m.setAnimation(m.getAnimationUp());
-					break;
+						break;
 					case "DOWN":
 						m.setAnimation(m.getAnimationDown());
-					break;
+						break;
 					case "LEFT":
 						m.setAnimation(m.getAnimationLeft());
-					break;
+						break;
 					case "RIGHT":
 						m.setAnimation(m.getAnimationRight());
-					break;
+						break;
 					default:
 						m.setAnimation(m.getAnimationStand());
 						break;
 				}
-				int x = personnage.getPosition().getPx()*Const.TAILLE_CASE;
-				int y = personnage.getPosition().getPy()*Const.TAILLE_CASE;
-				w = Const.TAILLE_CASE;
-				h = Const.TAILLE_CASE;
-				crayon.drawImage(personnage.getAnimation().getSprite(), x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), this);
 			}
 			
 			imgB = m.getAnimation().getSprite();
