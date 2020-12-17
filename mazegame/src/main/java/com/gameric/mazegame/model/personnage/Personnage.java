@@ -77,11 +77,21 @@ public abstract class Personnage{
 		}
 		stand[0] = new Sprite().getSprite(0, 2, this.getClass());
 
-		for (int i = 0; i < 12; i++ ) {
-			attaqueUp[i] = new Sprite().getSprite(i, 16, this.getClass());
-			attaqueDown[i] = new Sprite().getSprite(i, 18, this.getClass());
-			attaqueLeft[i] = new Sprite().getSprite(i, 17, this.getClass());
-			attaqueRight[i] = new Sprite().getSprite(i, 19, this.getClass());
+		if(!this.getClass().equals(Epeiste)) {
+			for (int i = 0; i < 12; i++) {
+				attaqueUp[i] = new Sprite().getSprite(i, 16, this.getClass());
+				attaqueDown[i] = new Sprite().getSprite(i, 18, this.getClass());
+				attaqueLeft[i] = new Sprite().getSprite(i, 17, this.getClass());
+				attaqueRight[i] = new Sprite().getSprite(i, 19, this.getClass());
+			}
+		}
+		else{
+			for (int i = 0; i < 12; i++) {
+				attaqueUp[i] = new Sprite().getSprite(i, 22, this.getClass());
+				attaqueDown[i] = new Sprite().getSprite(i, 24, this.getClass());
+				attaqueLeft[i] = new Sprite().getSprite(i, 23, this.getClass());
+				attaqueRight[i] = new Sprite().getSprite(i, 25, this.getClass());
+			}
 		}
 
 		walkingU = new Animation(walkingUp, 10);
