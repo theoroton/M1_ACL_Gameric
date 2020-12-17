@@ -258,7 +258,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			}
 		}
 		
-		//On dessine le personnage en bleu
+		//On dessine le personnage
 		if (!personnage.estMort()) {
 			switch(personnage.getDirection()) {
 				case "Nord":

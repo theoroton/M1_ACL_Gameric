@@ -309,19 +309,19 @@ public abstract class Personnage{
 
 	//Getters
 	public Animation getAnimationUp(){
-		return walkingUp;
+		return walkingU;
 	}
 
 	public Animation getAnimationRight(){
-		return walkingRight;
+		return walkingR;
 	}
 
 	public Animation getAnimationDown(){
-		return walkingDown;
+		return walkingD;
 	}
 
 	public Animation getAnimationLeft(){
-		return walkingLeft;
+		return walkingL;
 	}
 
 	public Animation getAnimationStand(){
