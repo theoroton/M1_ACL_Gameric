@@ -1,5 +1,8 @@
 package com.gameric.mazegame.model.personnage;
 
+import com.gameric.mazegame.graphiques.Animation;
+import com.gameric.mazegame.graphiques.Sprite;
+
 /**
  * 
  * @author Maeva Touchet

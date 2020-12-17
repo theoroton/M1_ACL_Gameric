@@ -78,7 +78,7 @@ public class Sprite {
                 case "Epeiste":
                     spriteSheet = loadSprite("epeiste");
                     w = spriteSheet.getWidth()/13;
-                    h = spriteSheet.getHeight()/25;
+                    h = spriteSheet.getHeight()/21;
                     x = xGrid * w;
                     y = yGrid * h;
                     break;
@@ -91,5 +91,6 @@ public class Sprite {
         }
         return spriteSheet.getSubimage(x, y, w, h) ;
     }
+		return spriteSheet;
     }
 }
