@@ -109,7 +109,7 @@ public abstract class Personnage{
 		if(this.direction == S) this.setAnimation(walkingD);
 		if(this.direction == E) this.setAnimation(walkingR);
 		if(this.direction == O) this.setAnimation(walkingL);
-		
+
 		int new_x = position.getPx() + dx;
 		int new_y = position.getPy() + dy;
 
