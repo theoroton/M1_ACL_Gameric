@@ -320,6 +320,11 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						m.setAnimation(m.getAnimationStand());
 						break;
 				}
+				int x = personnage.getPosition().getPx()*Const.TAILLE_CASE;
+				int y = personnage.getPosition().getPy()*Const.TAILLE_CASE;
+				w = Const.TAILLE_CASE;
+				h = Const.TAILLE_CASE;
+				crayon.drawImage(personnage.getAnimation().getSprite(), x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), this);
 			}
 			
 			imgB = m.getAnimation().getSprite();
