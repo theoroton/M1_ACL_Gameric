@@ -9,8 +9,6 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
@@ -99,6 +97,11 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 	private int fps = 7;
 	private int lastx = 0;
 	private int lasty = 0;
+	
+	/**
+	 * Images nécessaires pour l'affichage du choix de la classe
+	 */
+	private ImageIcon pause = new ImageIcon(getClass().getResource("/images/textures/ecrans/pause/pause1.png"));
 	
 	
 	/**
@@ -490,10 +493,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 		
 		//Si le jeu est en pause
 		if (jeu.enPause()) {
-			crayon.setColor(Const.COULEUR_PAUSE);
-			crayon.fillRect(0, 0, WIDTH, HEIGHT);
-			crayon.setColor(Color.BLACK);
-			dessinerChaineCentree(crayon, "Jeu en pause", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_PAUSE);
+			crayon.drawImage(pause.getImage(), 0, 0, WIDTH, HEIGHT, this);
 			animationTimer.stopAnimation();
 			animationTimerTep.stopAnimation();
 			active = false;

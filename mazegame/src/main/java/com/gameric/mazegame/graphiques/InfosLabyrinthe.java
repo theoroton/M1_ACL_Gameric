@@ -2,14 +2,18 @@ package com.gameric.mazegame.graphiques;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+
+import javax.swing.ImageIcon;
 
 import com.gameric.mazegame.engine.GamePainter;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.personnage.Personnage;
 
-public class InfosLabyrinthe implements GamePainter {
+public class InfosLabyrinthe implements GamePainter, ImageObserver {
 
 	/**
 	 * Largeur du dessin des infos
@@ -24,6 +28,11 @@ public class InfosLabyrinthe implements GamePainter {
 	 * Jeu à afficher
 	 */
 	private JeuLabyrinthe jeu;
+	
+	/**
+	 * Images nécessaires pour l'affichage du choix de la classe
+	 */
+	private ImageIcon pause = new ImageIcon(getClass().getResource("/images/textures/ecrans/pause/pause2.png"));
 	
 	/**
 	 * Constructeur de l'afficheur
@@ -71,8 +80,7 @@ public class InfosLabyrinthe implements GamePainter {
 		
 		//Si le jeu est en pause.
 		if (jeu.enPause()) {
-			crayon.setColor(Const.COULEUR_PAUSE);
-			crayon.fillRect(0, 0, WIDTH, HEIGHT);
+			crayon.drawImage(pause.getImage(), 0, 0, WIDTH, HEIGHT, this);
 		}
 	}
 
@@ -90,6 +98,12 @@ public class InfosLabyrinthe implements GamePainter {
 	 */
 	public int getHeight() {
 		return HEIGHT;
+	}
+
+	@Override
+	public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
