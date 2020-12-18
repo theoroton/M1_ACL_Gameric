@@ -198,6 +198,7 @@ public abstract class Personnage{
 	 * Attaque un monstre à portée avec direction d'attaque)
 	 **/
 	public void attaquer(){
+		System.out.println(direction);
 		int distance = 0;
 		//On teste chaque case
 		for(int i=0; i<labyrinthe.getHauteur(); i++){
