@@ -16,16 +16,6 @@ public class Sprite {
         BufferedImage sprite = null;
         //ClassLoader classLoader = getClass().getClassLoader();
         try {
-            System.out.println("Sprite name " +file);
-
-            sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        try {
-            System.out.println("Sprite name " +file);
 
             sprite = ImageIO.read(getClass().getResource("/images/sprites/" + file + ".png"));
         } catch (IOException e) {

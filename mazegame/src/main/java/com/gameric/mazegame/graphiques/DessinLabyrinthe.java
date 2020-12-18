@@ -260,6 +260,8 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		
 		//On dessine le personnage
 		if (!personnage.estMort()) {
+			BufferedImage imgB;
+			
 			switch(personnage.getDirection()) {
 				case "Nord":
 					personnage.setAnimation(personnage.getAnimationUp());
@@ -277,11 +279,27 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					personnage.setAnimation(personnage.getAnimationStand());
 					break;
 			}
+			imgB = personnage.getAnimation().getSprite();
+			if(personnage.getAnimation().getStopped() && active)
+				personnage.getAnimation().start();
 			int x = personnage.getPosition().getPx()*Const.TAILLE_CASE;
 			int y = personnage.getPosition().getPy()*Const.TAILLE_CASE;
 			int w = Const.TAILLE_CASE;
 			int h = Const.TAILLE_CASE;
 			crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
+		}
+		if(active) {
+			if(personnage.getPosition().getPx() != personnage.getAnimation().getlastX() || personnage.getPosition().getPy() != personnage.getAnimation().getlastY()) {
+				personnage.getAnimation().setlastX(personnage.getPosition().getPx());
+				personnage.getAnimation().setlastY(personnage.getPosition().getPy());
+				personnage.getAnimation().setCurrFrame(0);
+				//m.getAnimation().setCount(0);
+			} else {
+				//m.getAnimation().update();
+				personnage.getAnimation().plusCurrFrame();
+				//if(m.getAnimation().getCount()+1 <= fps)
+				//	m.getAnimation().setCount(m.getAnimation().getCount()+1);
+			}
 		}
 		
 		//On dessine les monstres
@@ -464,58 +482,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					
 				break;
 			}
-			/*
-										
-			if (m.getClass() == Fantome.class) {
-				crayon.setColor(Color.RED);
-				crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
-				crayon.drawImage(imgB, x, y, w, h, this);
-				//System.out.println("Before");
-				//m.getAnimation().hello();
-				//System.out.println("Before1");
-				//m.getAnimation().startAnimation(crayon, x, y, w, h, ob, m);
-				//animationMonstre.restartAnimation();
-				
-				/*if(active) {
-					animationMonstre.startAnimationMonstre(crayon, x, y, w, h, ob, m.getAnimation(), m);
-					
-				}*/
-				//System.out.println("After");
-				//monstresAnim(crayon, imgB, x, y, w, h, this);
-				/*for(int c = 0; c < 3; c++) {
-					switch(m.getDirection()) {
-						case "UP":
-							crayon.drawImage(m.getAnimation().getSprite(), x, y+c*Const.TAILLE_CASE/3, w, h, ob);
-							break;
-						case "DOWN":
-							crayon.drawImage(m.getAnimation().getSprite(), x, y-c*Const.TAILLE_CASE/3, w, h, ob);
-							break;
-						case "LEFT":
-							crayon.drawImage(m.getAnimation().getSprite(), x-c*Const.TAILLE_CASE/3, y, w, h, ob);
-							break;
-						case "RIGHT":
-							crayon.drawImage(m.getAnimation().getSprite(), x+c*Const.TAILLE_CASE/3, y, w, h, ob);
-							break;
-						default:
-							m.setAnimation(m.getAnimationStand());
-							break;
-					}
-					crayon.dispose();
-				}
-			}*/
-			 /*else if (!imgTime.isRunning()) {
-				imgTime.restart();
-			}
-					
-					
-			}*//*} else if (m.getClass() == Squelette.class) {
-				crayon.setColor(Color.RED);
-			} else {
-				crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);						
-			}*/
-			/*crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							Const.TAILLE_PERSO, Const.TAILLE_PERSO);*/
 		}
 
 		//Si le jeu est en pause
