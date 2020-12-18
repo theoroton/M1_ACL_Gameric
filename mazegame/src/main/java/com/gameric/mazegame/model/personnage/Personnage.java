@@ -204,13 +204,13 @@ public abstract class Personnage{
 		for(int i=0; i<labyrinthe.getHauteur(); i++){
 			for(int j=0; j<labyrinthe.getLargeur() ; j++){
 				Case c = labyrinthe.getCase(i,j);
-				distance = this.getDistance(this.position,c);
+				distance = Math.abs(position.getPx() - c.getPx() + position.getPy() - c.getPy());
 				//Si la case est à portée
 				if(distance <= portee){
 					//On attaque dans la direction dans laquelle on regarde
-					if( ((direction == N) && (c.getPy() >= position.getPy()) )
+					if( ((direction == N) && (c.getPy() <= position.getPy()) )
 							|| ((direction == E) && (c.getPx() >= position.getPx()) )
-							|| ((direction == S) && (c.getPy() <= position.getPy()) )
+							|| ((direction == S) && (c.getPy() >= position.getPy()) )
 							|| ((direction == O) && (c.getPx() <= position.getPx()) ) ){
 						//Si la case est vide ou un mur(fantômes)
 						//if( (c.getClass().getSuperclass() == CaseVide.class)
@@ -222,6 +222,7 @@ public abstract class Personnage{
 								//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
 								if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.getPy())) {
 									//On change l'animation
+
 									if(this.direction == N) this.setAnimation(attaqueU);
 									if(this.direction == S) this.setAnimation(attaqueD);
 									if(this.direction == E) this.setAnimation(attaqueR);
