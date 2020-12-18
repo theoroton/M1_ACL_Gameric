@@ -96,7 +96,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 	
 	private Thread gameloop;
 	private int count = 0;
-	private int fps = 3;
+	private int fps = 7;
 	private int lastx = 0;
 	private int lasty = 0;
 	
@@ -271,7 +271,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
 		}
 		//if(count == fps)
-			count = 0;
+			//count = 0;
 		//On dessine les monstres
 		for (Monstre m : labyrinthe.getMonstres()) {
 			ImageObserver ob = this;
@@ -318,19 +318,19 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 				switch(m.getDirection()) {
 					case "UP":
 						m.setAnimation(m.getAnimationUp());
-						y -= count*Const.TAILLE_CASE/fps;
+						y -= m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					case "DOWN":
 						m.setAnimation(m.getAnimationDown());
-						y += count*Const.TAILLE_CASE/fps;
+						y += m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					case "LEFT":
 						m.setAnimation(m.getAnimationLeft());
-						x -= count*Const.TAILLE_CASE/fps;
+						x -= m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					case "RIGHT":
 						m.setAnimation(m.getAnimationRight());
-						x += count*Const.TAILLE_CASE/fps;
+						x += m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					default:
 						m.setAnimation(m.getAnimationStand());
@@ -339,36 +339,25 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 			}
 			
 			imgB = m.getAnimation().getSprite();
-			
+			if(m.getAnimation().getStopped() && active)
+				m.getAnimation().start();
 			switch(m.getClass().getSimpleName()) {
 				case "Zombie":
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-2*Const.TAILLE_CASE/3-5, m.getPointsVie()*Const.TAILLE_CASE/Zombie.VIE_MAX, 3);
-					//crayon.drawImage(imgB, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob);
+
+					crayon.drawImage(imgB, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob);
 					//m.getAnimation().drawAllSprites(crayon, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob, m);
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob, m.getAnimation(), m);
 					}*/
 				break;
 				case "Fantome":
-					
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
-					if(m.getAnimation().getStopped())
-						m.getAnimation().start();
-					
+						
 					crayon.drawImage(imgB, x, y, w, h, ob);
-					System.out.println("Count xy "+x+" "+m.getAnimation().getlastX() +"|"+y+" "+m.getAnimation().getlastY());
-					if(x != m.getAnimation().getlastX() || y != m.getAnimation().getlastY()) {
-						System.out.println("Changed");
-						m.getAnimation().setlastX(x);
-						m.getAnimation().setlastY(y);
-					}
-					
-					//System.out.println("Count "+count);
-					//System.out.println("CurrFrame "+ m.getAnimation().getCurrFrame());
-					
-					//m.getAnimation().update();
+				
 					//m.getAnimation().startAnim(crayon, x, y, w, h, ob, m);
 					
 					//m.getAnimation().drawAllSprites(crayon, x, y, w, h, ob, m);
@@ -436,7 +425,19 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 					
 				break;
 			}
-			//waitForTwoSeconds();
+			if(active) {
+			if(m.getPosition().getPx() != m.getAnimation().getlastX() || m.getPosition().getPy() != m.getAnimation().getlastY()) {
+				m.getAnimation().setlastX(m.getPosition().getPx());
+				m.getAnimation().setlastY(m.getPosition().getPy());
+				m.getAnimation().setCurrFrame(0);
+				//m.getAnimation().setCount(0);
+			} else {
+				//m.getAnimation().update();
+				m.getAnimation().plusCurrFrame();
+				//if(m.getAnimation().getCount()+1 <= fps)
+				//	m.getAnimation().setCount(m.getAnimation().getCount()+1);
+			}
+			}
 		}
 		
 		//Si le jeu est en pause
@@ -450,7 +451,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 			active = false;
 		} else {
 			active = true;
-			//count++;
 		}
 		if(labyrinthe.getNiveauChange()) {
 			animationTimerTep.setGameChanged(true);
@@ -461,7 +461,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 	
 	public void waitForTwoSeconds() {
 
-        pauses = new Timer(100, new ActionListener() {
+        pauses = new Timer(3600, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {

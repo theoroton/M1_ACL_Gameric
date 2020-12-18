@@ -90,6 +90,19 @@ public class Animation {
     public int getCurrFrame() {
     	return currentFrame;
     }
+    public void setCurrFrame(int curr) {
+    	this.currentFrame = curr;
+    }
+    public void plusCurrFrame() {
+    	setCurrFrame((currentFrame+1)%totalFrames);
+    }
+    private int count = 0;
+    public int getCount() {
+    	return count;
+    }
+    public void setCount(int count) {
+    	this.count =  count;
+    }
     public int getlastX() {
     	return lastx;
     }

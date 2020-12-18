@@ -53,10 +53,10 @@ public class Squelette extends Monstre {
 				walkingUp[i] = new Sprite().getSprite(i, 8, this.getClass());//, new Sprite().getSprite(3, 0, this.getClass())};
 			}
 			
-			attaqueDown[i] = new Sprite().getSprite(i, 18, this.getClass());
+			attaqueDown[i] = new Sprite().getSprite(i, 16, this.getClass());
 			attaqueLeft[i] = new Sprite().getSprite(i, 17, this.getClass());
 			attaqueRight[i] = new Sprite().getSprite(i, 19, this.getClass());
-			attaqueUp[i] = new Sprite().getSprite(i, 16, this.getClass());
+			attaqueUp[i] = new Sprite().getSprite(i, 18, this.getClass());
 		}
 		standing[0] = new Sprite().getSprite(10, 0, this.getClass());
 
