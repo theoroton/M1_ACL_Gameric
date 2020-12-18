@@ -14,7 +14,7 @@ public class ObjetMystere extends Objet {
 	 * l'objet mystère est représenté par un "?"
 	 */
 	public ObjetMystere() {
-		super("?", 75);
+		super("?", 100);
 	}
 
 	/**

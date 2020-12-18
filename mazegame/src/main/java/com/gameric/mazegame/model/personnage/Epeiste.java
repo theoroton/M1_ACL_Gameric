@@ -15,7 +15,7 @@ public class Epeiste extends Personnage{
 	public Epeiste(){
 		super();
 		pointsVie = vieMax = 30;
-		degats = 10;
+		degats = 6;
 		portee = 1;
 
 		attaqueUp = new BufferedImage[9];
@@ -42,6 +42,6 @@ public class Epeiste extends Personnage{
 	 * Pour l'épéiste, augmentation de 2 dégâts pour chaque monstre tué
 	 */
 	protected void capaciteSpe(){
-		setDegats(degats + 2);
+		setDegats(degats + 1);
 	}
 }

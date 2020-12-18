@@ -14,9 +14,9 @@ public class Mage extends Personnage{
 	//Constructeur
 	public Mage(){
 		super();
-		pointsVie = vieMax = 10;
-		degats = 10;
-		portee = 3;
+		pointsVie = vieMax = 12;
+		degats = 12;
+		portee = 2;
 		
 		attaqueUp = new BufferedImage[7];
 		attaqueDown = new BufferedImage[7];

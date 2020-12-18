@@ -202,10 +202,10 @@ public class Labyrinthe {
 						cas = new CaseApparition(i, j);
 					//Si le caractère est un p, on crée une CaseObjet avec une potion à cette position
 					} else if (c == 'p') {
-						cas = new CaseObjet(i, j, new Potion("Potion", 5));
+						cas = new CaseObjet(i, j, new Potion("Potion", 6));
 					//Si le caractère est un a, on crée une CaseObjet avec une arme à cette positon
 					} else if (c == 'a') {
-						cas = new CaseObjet(i, j, new Arme("Arme", 2));
+						cas = new CaseObjet(i, j, new Arme("Arme", 1));
 					//Si le caractère est un ?, on crée une CaseObjet avec un objet mystère dessus
 					} else if (c == '?') {
 						cas = new CaseObjet(i, j, new ObjetMystere());

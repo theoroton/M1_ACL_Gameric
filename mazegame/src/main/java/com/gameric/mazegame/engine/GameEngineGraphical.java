@@ -62,7 +62,7 @@ public class GameEngineGraphical {
 				//Met à jour l'affichage du jeu
 				this.gui.paint();
 				//Met en attente
-				Thread.sleep(100);
+				Thread.sleep(125);
 			}
 			
 			//Si on gagne ou on perd, on affiche la fin

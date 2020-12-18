@@ -16,9 +16,9 @@ public class Archer extends Personnage{
 	//Constructeur
 	public Archer(){
 		super();
-		pointsVie = vieMax = 20;
-		degats = 5;
-		portee = 5;
+		pointsVie = vieMax = 18;
+		degats = 6;
+		portee = 3;
 		compteur = 0;
 
 
@@ -46,7 +46,7 @@ public class Archer extends Personnage{
 	 */
 	protected void capaciteSpe(){
 		compteur = compteur + 1;
-		if(compteur == 3) {
+		if(compteur == 5) {
 			setPortee(portee + 1);
 			compteur = 0;
 		}

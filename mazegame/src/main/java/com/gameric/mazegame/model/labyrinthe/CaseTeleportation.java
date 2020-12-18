@@ -15,7 +15,7 @@ public class CaseTeleportation extends CaseEffet {
 	 * @param y : position en y de la case
 	 */
 	public CaseTeleportation(int x, int y) {
-		super(x, y, 50);
+		super(x, y, 0);
 	}
 
 	/**

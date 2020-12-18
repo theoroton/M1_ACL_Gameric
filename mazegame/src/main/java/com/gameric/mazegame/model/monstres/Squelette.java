@@ -15,7 +15,7 @@ import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 
 public class Squelette extends Monstre {
 
-	public static final int VIE_MAX = 10;
+	public static final int VIE_MAX = 15;
 	
 	/**
 	 * Constructeur de la classe Squelette
@@ -24,10 +24,10 @@ public class Squelette extends Monstre {
 	 * @param l
 	 */
 	public Squelette(int x, int y, Labyrinthe l) {
-		super(x, y, l, 750, 100);
+		super(x, y, l, 450, 150);
 		portee = 3;
 		vision = 5;
-		degats = 3;
+		degats = 4;
 		traverserMur = false;
 		pointsVie = VIE_MAX;
 		

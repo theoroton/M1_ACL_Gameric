@@ -26,7 +26,7 @@ public class Zombie extends Monstre {
 	 * @param l
 	 */
 	public Zombie(int x, int y, Labyrinthe l) {
-		super(x, y, l, 1000, 50);
+		super(x, y, l, 575, 100);
 		portee = 1;
 		vision = 3;
 		degats = 5;

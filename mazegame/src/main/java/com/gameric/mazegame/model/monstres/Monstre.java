@@ -9,7 +9,6 @@ import javax.swing.Timer;
 import com.gameric.mazegame.model.labyrinthe.Case;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
-import com.gameric.mazegame.graphiques.Sprite;
 import com.gameric.mazegame.graphiques.Animation;
 
 /**

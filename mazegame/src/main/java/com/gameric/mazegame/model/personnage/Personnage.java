@@ -1,7 +1,6 @@
 package com.gameric.mazegame.model.personnage;
 
 import java.awt.image.BufferedImage;
-import com.gameric.mazegame.model.*;
 import com.gameric.mazegame.model.labyrinthe.*;
 import com.gameric.mazegame.model.monstres.Monstre;
 import com.gameric.mazegame.graphiques.*;
