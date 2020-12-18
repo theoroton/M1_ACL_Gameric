@@ -1,5 +1,7 @@
 package com.gameric.mazegame.model.personnage;
 
+import java.awt.image.BufferedImage;
+
 import com.gameric.mazegame.graphiques.Animation;
 import com.gameric.mazegame.graphiques.Sprite;
 
@@ -18,6 +20,12 @@ public class Archer extends Personnage{
 		degats = 5;
 		portee = 5;
 		compteur = 0;
+
+
+		attaqueUp = new BufferedImage[12];
+		attaqueDown = new BufferedImage[12];
+		attaqueLeft = new BufferedImage[12];
+		attaqueRight = new BufferedImage[12];
 
 		for (int i = 0; i < 12; i++) {
 			attaqueUp[i] = new Sprite().getSprite(i, 16, this.getClass());

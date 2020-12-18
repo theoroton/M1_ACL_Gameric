@@ -1,5 +1,7 @@
 package com.gameric.mazegame.model.personnage;
 
+import java.awt.image.BufferedImage;
+
 import com.gameric.mazegame.graphiques.Animation;
 import com.gameric.mazegame.graphiques.Sprite;
 
@@ -16,7 +18,12 @@ public class Epeiste extends Personnage{
 		degats = 10;
 		portee = 1;
 
-		for (int i = 0; i < 12; i++) {
+		attaqueUp = new BufferedImage[9];
+		attaqueDown = new BufferedImage[9];
+		attaqueLeft = new BufferedImage[9];
+		attaqueRight = new BufferedImage[9];
+
+		for (int i = 0; i < 9; i++) {
 			attaqueUp[i] = new Sprite().getSprite(i, 21, this.getClass());
 			attaqueDown[i] = new Sprite().getSprite(i, 23, this.getClass());
 			attaqueLeft[i] = new Sprite().getSprite(i, 22, this.getClass());

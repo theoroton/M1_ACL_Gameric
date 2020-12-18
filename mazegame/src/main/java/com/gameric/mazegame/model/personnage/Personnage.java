@@ -64,11 +64,6 @@ public abstract class Personnage{
 		walkingDown = new BufferedImage[9];
 		stand = new BufferedImage[1];
 
-		attaqueUp = new BufferedImage[12];
-		attaqueDown = new BufferedImage[12];
-		attaqueLeft = new BufferedImage[12];
-		attaqueRight = new BufferedImage[12];
-
 		for (int i = 0; i < 9; i++ ) {
 			walkingDown[i] = new Sprite().getSprite(i, 10, this.getClass());
 			walkingLeft[i] = new Sprite().getSprite(i, 9, this.getClass());
@@ -86,7 +81,7 @@ public abstract class Personnage{
 	}
 
 	//Méthodes
-
+	
 	/**
 	 * Gère le déplacement du personnage, via les coefficients dx et dy
 	 * @param dx : déplacement en x
@@ -114,7 +109,7 @@ public abstract class Personnage{
 							position.setOccupee(false);
 							position = new_position;
 							position.setOccupee(true);
-
+							
 							//Si la case sur lequel le personnage se déplace est une case à effet
 							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
 								//On exécute l'effet de la case
@@ -192,6 +187,13 @@ public abstract class Personnage{
 		}
 		return distance;
 	}
+	private boolean attaque = false;
+	public boolean getAttaque() {
+		return attaque;
+	}
+	public void setAttaque(boolean attaque) {
+		this.attaque = attaque;
+	}
 	/**
 	 * Attaque un monstre à portée avec direction d'attaque)
 	 **/
@@ -223,6 +225,7 @@ public abstract class Personnage{
 									if(this.direction == S) this.setAnimation(attaqueD);
 									if(this.direction == E) this.setAnimation(attaqueR);
 									if(this.direction == O) this.setAnimation(attaqueL);
+									attaque = true;
 
 									//On lui fait des dégats
 									m.setPointsVie(m.getPointsVie() - this.degats);

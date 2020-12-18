@@ -257,48 +257,55 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				
 			}
 		}
-		
 		//On dessine le personnage
 		if (!personnage.estMort()) {
-			BufferedImage imgB;
-			
-			switch(personnage.getDirection()) {
-				case "Nord":
-					personnage.setAnimation(personnage.getAnimationUp());
-					break;
-				case "Sud":
-					personnage.setAnimation(personnage.getAnimationDown());
-					break;
-				case "Ouest":
-					personnage.setAnimation(personnage.getAnimationLeft());
-					break;
-				case "Est":
-					personnage.setAnimation(personnage.getAnimationRight());
-					break;
-				default:
-					personnage.setAnimation(personnage.getAnimationStand());
-					break;
+			if(!personnage.getAttaque()) {
+				switch(personnage.getDirection()) {
+					case "Nord":
+						personnage.setAnimation(personnage.getAnimationUp());
+						break;
+					case "Sud":
+						personnage.setAnimation(personnage.getAnimationDown());
+						break;
+					case "Ouest":
+						personnage.setAnimation(personnage.getAnimationLeft());
+						break;
+					case "Est":
+						personnage.setAnimation(personnage.getAnimationRight());
+						break;
+					default:
+						personnage.setAnimation(personnage.getAnimationStand());
+						break;
+				}
 			}
-			imgB = personnage.getAnimation().getSprite();
-			if(personnage.getAnimation().getStopped() && active)
-				personnage.getAnimation().start();
 			int x = personnage.getPosition().getPx()*Const.TAILLE_CASE;
 			int y = personnage.getPosition().getPy()*Const.TAILLE_CASE;
 			int w = Const.TAILLE_CASE;
 			int h = Const.TAILLE_CASE;
-			crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
-		}
-		if(active) {
-			if(personnage.getPosition().getPx() != personnage.getAnimation().getlastX() || personnage.getPosition().getPy() != personnage.getAnimation().getlastY()) {
-				personnage.getAnimation().setlastX(personnage.getPosition().getPx());
-				personnage.getAnimation().setlastY(personnage.getPosition().getPy());
+			if(!personnage.getAttaque()) {
 				personnage.getAnimation().setCurrFrame(0);
-				//m.getAnimation().setCount(0);
+				crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
 			} else {
-				//m.getAnimation().update();
-				personnage.getAnimation().plusCurrFrame();
-				//if(m.getAnimation().getCount()+1 <= fps)
-				//	m.getAnimation().setCount(m.getAnimation().getCount()+1);
+				if(personnage.getClass().getSimpleName().equals("Epeiste") && (personnage.getAnimation().getCurrFrame()==4 || personnage.getAnimation().getCurrFrame()==7 )) {
+					int i = 0;
+					while(i<2) {
+						crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
+						if(personnage.getAnimation().getCurrFrame()+1 >= personnage.getAnimation().getTotalFrames()) {
+							personnage.setAttaque(false);
+							//personnage.getAnimation().setCurrFrame(0);
+						}
+						else personnage.getAnimation().plusCurrFrame();
+						i++;
+					}
+				} else {
+					crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
+				}
+				//System.out.println();
+				if(personnage.getAnimation().getCurrFrame()+1 >= personnage.getAnimation().getTotalFrames()) {
+					personnage.setAttaque(false);
+					//personnage.getAnimation().setCurrFrame(0);
+				}
+				else personnage.getAnimation().plusCurrFrame();
 			}
 		}
 		
@@ -444,39 +451,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 										crayon.drawImage(res, locationX-Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
 									}
 							}
-							/*Double rad = Math.toRadians (90);
-							arrow.setCurSprite(3);
-							
-							//System.out.println(m.getDirection());
-							if( (m.getPos_x() == personnage.getPos_x() && (m.getPos_y()>personnage.getPos_y()||m.getPos_y()<personnage.getPos_y()) )) {
-									//(m.getPos_x() > personnage.getPos_x()) ) {
-								System.out.println("yM==yP "+(m.getPos_y() == personnage.getPos_y()));
-								System.out.println("yM>yP "+(m.getPos_y() > personnage.getPos_y()));
-								System.out.println("xM==xP "+(m.getPos_x() == personnage.getPos_x()));
-								System.out.println("xM>xP "+(m.getPos_x() > personnage.getPos_x()));
-								if((m.getPos_x() == personnage.getPos_x()))
-									rad = Math.toRadians (-90);
-								
-								AffineTransform tx = AffineTransform.getRotateInstance(rad, locationX, locationY);
-								AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-								System.out.println("In Affine");
-								res = op.filter(arrow.getSprite(), null);
-							}
-							for(int v = 0; v<3;v++) {
-								if(m.getPos_y() == personnage.getPos_y()) {
-									if(m.getPos_x()<personnage.getPos_x()) // monstre -> pers
-										crayon.drawImage(res, locationX-2*Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
-									else //pers <- monstre
-										crayon.drawImage(res, locationX+Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
-								} else if(m.getPos_x() == personnage.getPos_x()) {
-									if(m.getPos_y()<personnage.getPos_y()) // monstre audessus
-										//crayon.drawImage(res, locationX-3*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*4, h*3, ob);
-										crayon.drawImage(res, locationX-Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*4, h*4, ob);
-									else //monstre endessus
-										//crayon.drawImage(res, locationX-4*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*5, h*5, ob);
-										crayon.drawImage(res, locationX-4*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*5, h*5, ob);
-								}
-							}*/
 					arrow.stop();
 					}
 					
