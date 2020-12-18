@@ -1,7 +1,5 @@
 package com.gameric.mazegame.engine;
 
-import java.io.IOException;
-
 import com.gameric.mazegame.graphiques.CardLayoutJeu;
 import com.gameric.mazegame.model.ControleurLabyrinthe;
 import com.gameric.mazegame.model.JeuLabyrinthe;
@@ -56,7 +54,7 @@ public class GameEngineGraphical {
 			}
 			
 			//Une fois que le jeu est lancé, on exécute la boucle du jeu
-			while (this.jeu.enCours() && !this.jeu.isFinished()) {
+			while ((this.jeu.enCours() || this.jeu.enPause()) && !this.jeu.isFinished()) {
 				//Récupère la commande de l'utilisateur
 				Cmd c = this.controleur.getCommand();
 				//Fait evoluer le jeu
@@ -64,7 +62,7 @@ public class GameEngineGraphical {
 				//Met à jour l'affichage du jeu
 				this.gui.paint();
 				//Met en attente
-				Thread.sleep(100);
+				Thread.sleep(125);
 			}
 			
 			//Si on gagne ou on perd, on affiche la fin

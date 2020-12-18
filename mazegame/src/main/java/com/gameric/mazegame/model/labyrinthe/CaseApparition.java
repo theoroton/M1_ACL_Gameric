@@ -1,9 +1,5 @@
 package com.gameric.mazegame.model.labyrinthe;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 import com.gameric.mazegame.model.monstres.Fantome;
 import com.gameric.mazegame.model.monstres.Monstre;
 import com.gameric.mazegame.model.monstres.Squelette;
@@ -28,7 +24,7 @@ public class CaseApparition extends CaseEffet {
 	 * @param y : position en y de la case
 	 */
 	public CaseApparition(int x, int y) {
-		super(x, y);
+		super(x, y, -50);
 		declenche = false;
 	}
 
@@ -39,6 +35,9 @@ public class CaseApparition extends CaseEffet {
 	 * @param p : Personnage sur lequel effectuer l'effet.
 	 */
 	public void faireEffet(Personnage p) {
+		//On appelle la fonction faire effect de la classe père
+		super.faireEffet(p);
+		
 		//Si l'effet n'a pas encore était déclenché
 		if (!declenche) {
 			
@@ -65,7 +64,7 @@ public class CaseApparition extends CaseEffet {
 			}
 			
 			//On crée un nouveau monstre aléatoire
-			int choix = (int) (Math.random() * (2 - 0));
+			int choix = (int) (Math.random() * (3 - 0));
 			Monstre m = null;
 			switch(choix) {
 			case 0:

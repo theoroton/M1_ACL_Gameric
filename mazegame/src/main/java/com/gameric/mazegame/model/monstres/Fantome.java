@@ -26,7 +26,7 @@ public class Fantome extends Monstre {
 	 * @param l
 	 */
 	public Fantome(int x, int y, Labyrinthe l) {
-		super(x, y, l, 500);
+		super(x, y, l, 375, 125);
 		portee = 1;
 		vision = 3;
 		degats = 2;

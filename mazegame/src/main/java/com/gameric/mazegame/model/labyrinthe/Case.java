@@ -2,8 +2,8 @@ package com.gameric.mazegame.model.labyrinthe;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.gameric.mazegame.model.monstres.Monstre;
+
 /**
  * 
  * @author Théo Roton

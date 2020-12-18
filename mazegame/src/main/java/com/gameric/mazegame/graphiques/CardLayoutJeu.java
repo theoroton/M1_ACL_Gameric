@@ -1,9 +1,7 @@
 package com.gameric.mazegame.graphiques;
 
 import java.awt.CardLayout;
-
 import javax.swing.JPanel;
-
 import com.gameric.mazegame.model.ControleurLabyrinthe;
 import com.gameric.mazegame.model.Etat;
 import com.gameric.mazegame.model.JeuLabyrinthe;
@@ -22,7 +20,7 @@ public class CardLayoutJeu extends JPanel {
 	/**
 	 * Ecran du but du jeu
 	 */
-	private EcranBut but;
+	private EcranRegles regles;
 	/**
 	 * Ecran du choix de classe
 	 */
@@ -69,7 +67,7 @@ public class CardLayoutJeu extends JPanel {
 		//Création du menu du jeu
 		menu = new EcranMenu(this, jeu);
 		//Création de l'écran des règles
-		but = new EcranBut(this);
+		regles = new EcranRegles(this);
 		//Création de l'écran du choix de classe
 		choixClasse = new EcranClasse(this);
 		//Création de l'écran des commandes
@@ -77,8 +75,8 @@ public class CardLayoutJeu extends JPanel {
 
 		//Ajout de l'écran du menu au layout
 		add(menu, "menu");
-		//Ajout de l'écran des régles au layout
-		add(but, "but");
+		//Ajout de l'écran des règles au layout
+		add(regles, "regles");
 		//Ajout de l'écran du choix de classe au layout
 		add(choixClasse, "choixClasse");
 		//Ajout de l'écran des commandes au layout
@@ -138,7 +136,11 @@ public class CardLayoutJeu extends JPanel {
 	 */
 	public void afficherFin() {
 		//On crée l'écran de fin
-		ecranFin = new EcranFin(this, jeu);
+		if (jeu.estGagne()) {
+			ecranFin = new EcranVictoire(this, jeu);
+		} else if (jeu.estPerdu()) {
+			ecranFin = new EcranDefaite(this, jeu);
+		}	
 		//On ajoute l'écrand de fin
 		add(ecranFin, "ecranFin");
 		//On affiche l'écran de fin
@@ -167,8 +169,8 @@ public class CardLayoutJeu extends JPanel {
 	/**
 	 * Méthode qui permet d'afficher le but du jeu
 	 */
-	public void afficherBut() {
-		cl.show(this, "but");
+	public void afficherRegles() {
+		cl.show(this, "regles");
 	}
 	
 	/**

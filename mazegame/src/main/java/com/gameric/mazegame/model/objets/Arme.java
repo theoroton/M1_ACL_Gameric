@@ -13,11 +13,12 @@ public class Arme extends Objet{
 	int degats;
 	//Constructeur
 	public Arme(String nom, int degats){
-		super(nom);
+		super(nom, 50);
 		this.degats = degats;
 	}
 	//Méthodes
 	public void effetObjet(Personnage p){
+		super.effetObjet(p);
 		p.setDegats(p.getDegats() + degats);
 	}
 }

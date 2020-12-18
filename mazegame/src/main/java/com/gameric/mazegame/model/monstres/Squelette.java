@@ -15,7 +15,7 @@ import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 
 public class Squelette extends Monstre {
 
-	public static final int VIE_MAX = 10;
+	public static final int VIE_MAX = 15;
 	
 	/**
 	 * Constructeur de la classe Squelette
@@ -24,10 +24,10 @@ public class Squelette extends Monstre {
 	 * @param l
 	 */
 	public Squelette(int x, int y, Labyrinthe l) {
-		super(x, y, l, 750);
+		super(x, y, l, 450, 150);
 		portee = 3;
 		vision = 5;
-		degats = 3;
+		degats = 4;
 		traverserMur = false;
 		pointsVie = VIE_MAX;
 		
@@ -53,10 +53,10 @@ public class Squelette extends Monstre {
 				walkingUp[i] = new Sprite().getSprite(i, 8, this.getClass());//, new Sprite().getSprite(3, 0, this.getClass())};
 			}
 			
-			attaqueDown[i] = new Sprite().getSprite(i, 18, this.getClass());
+			attaqueDown[i] = new Sprite().getSprite(i, 16, this.getClass());
 			attaqueLeft[i] = new Sprite().getSprite(i, 17, this.getClass());
 			attaqueRight[i] = new Sprite().getSprite(i, 19, this.getClass());
-			attaqueUp[i] = new Sprite().getSprite(i, 16, this.getClass());
+			attaqueUp[i] = new Sprite().getSprite(i, 18, this.getClass());
 		}
 		standing[0] = new Sprite().getSprite(10, 0, this.getClass());
 

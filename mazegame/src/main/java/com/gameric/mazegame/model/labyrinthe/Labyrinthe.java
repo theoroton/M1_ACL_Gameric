@@ -56,6 +56,8 @@ public class Labyrinthe {
 	 */
 	private int ySortie;
 	
+	private boolean niveauChange;
+	
 	/**
 	 * Personnage joueur du labyrinthe
 	 */
@@ -200,10 +202,10 @@ public class Labyrinthe {
 						cas = new CaseApparition(i, j);
 					//Si le caractère est un p, on crée une CaseObjet avec une potion à cette position
 					} else if (c == 'p') {
-						cas = new CaseObjet(i, j, new Potion("Potion", 5));
+						cas = new CaseObjet(i, j, new Potion("Potion", 6));
 					//Si le caractère est un a, on crée une CaseObjet avec une arme à cette positon
 					} else if (c == 'a') {
-						cas = new CaseObjet(i, j, new Arme("Arme", 2));
+						cas = new CaseObjet(i, j, new Arme("Arme", 1));
 					//Si le caractère est un ?, on crée une CaseObjet avec un objet mystère dessus
 					} else if (c == '?') {
 						cas = new CaseObjet(i, j, new ObjetMystere());
@@ -217,7 +219,7 @@ public class Labyrinthe {
 					
 					//Si le caractère est un s, on ajoute un squelette au labyrinthe à cette position
 					if (c == 's') {
-						//ajouterMonstre(new Squelette(i,j,this));
+						ajouterMonstre(new Squelette(i,j,this));
 					//Si le caractère est un z, on ajoute un zombie au labyrinthe à cette position
 					} else if (c == 'z') {
 						ajouterMonstre(new Zombie(i,j,this));
@@ -235,13 +237,12 @@ public class Labyrinthe {
 			placerPersonnage();
 			
 		} catch (FileNotFoundException e) {
-			System.out.println("Fichier non trouvé");
+			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		//Si on obtient l'exception de taille du fichier, on crée un labyrinthe par défaut à la place
 		} catch (TailleFichierException e) {
 			e.printStackTrace();
-			System.out.println("Création d'un labyrinthe par défaut");
 			largeur = 10;
 			hauteur = 10;
 			//Génération par défaut
@@ -433,6 +434,12 @@ public class Labyrinthe {
 		for (Monstre m : monstres) {
 			m.setTimer();
 		}
+	}
+	public void setNiveauChange(boolean n) {
+		this.niveauChange = n;
+	}
+	public boolean getNiveauChange() {
+		return niveauChange;
 	}
 	
 }

@@ -1,11 +1,16 @@
 package com.gameric.mazegame.graphiques;
 
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,65 +28,75 @@ public class EcranCommandes extends JPanel {
 	private CardLayoutJeu clParent;
 	
 	/**
+	 * Images nécessaires pour l'affichage des commandes
+	 */
+	private ImageIcon imageCommandes = new ImageIcon(getClass().getResource("/images/textures/ecrans/commandes/commandes.png"));
+	private ImageIcon imageJouer = new ImageIcon(getClass().getResource("/images/textures/ecrans/commandes/jouer.png"));
+	
+	/**
 	 * Constructeur de l'écran des commandes
 	 * @param c : CardLayout père
 	 */
 	public EcranCommandes(CardLayoutJeu c) {
 		clParent = c;
 		setPreferredSize(new java.awt.Dimension(544, 604));
+		setLayout(null);
 		
-		//Création du labeldes commandes
-		JLabel commandes = new javax.swing.JLabel();
-        commandes.setFont(new java.awt.Font("Gill Sans MT", 0, 18));
-        commandes.setText(commandesTexte());
+        //Création du label du titre es commandes
+        JLabel labelTitre = new javax.swing.JLabel();
+        labelTitre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitre.setFont(new java.awt.Font("Lucida Calligraphy", 1, 24));
+        labelTitre.setText("Commandes");
+		
+		//Création du label des commandes
+		JLabel labelCommandes = new javax.swing.JLabel();
+        labelCommandes.setFont(new java.awt.Font("Lucida Calligraphy", 0, 16));
+        labelCommandes.setText(commandesTexte());
 
         //Création du bouton pour lancer le jeu.
-        JButton lancerJeu = new javax.swing.JButton();
-        lancerJeu.setFont(new java.awt.Font("Tahoma", 0, 18));
-        lancerJeu.setText("Lancer le jeu");
-        lancerJeu.setPreferredSize(new java.awt.Dimension(140, 40));
+        JButton jouer = new javax.swing.JButton();
+        //On cache le bouton
+        jouer.setOpaque(false);
+        jouer.setContentAreaFilled(false);
+        jouer.setBorderPainted(false);
+        
         //Ajout de l'action qui permet de lancer le jeu au bouton
-        lancerJeu.addActionListener(new java.awt.event.ActionListener() {
+        jouer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	//On lance le jeu
             	clParent.lancerJeu();
             }
         });
-
-        //Création du label des commandes
-        JLabel labelCommandes = new javax.swing.JLabel();
-        labelCommandes.setFont(new java.awt.Font("Gabriola", 1, 28));
-        labelCommandes.setText("Commandes");
-        labelCommandes.setPreferredSize(new java.awt.Dimension(120, 50));
-
-        //Placement des éléments
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(199, 199, 199)
-                        .addComponent(lancerJeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(212, 212, 212)
-                        .addComponent(labelCommandes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(commandes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(152, Short.MAX_VALUE)));
         
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(labelCommandes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(commandes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(lancerJeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)));
+     
+        //Listener pour changer l'image du bouton quand on le survole
+        jouer.addMouseListener(new MouseListener() {      	
+        	public void mouseClicked(MouseEvent e) {}
+        	public void mousePressed(MouseEvent e) {}
+        	public void mouseReleased(MouseEvent e) {}
+        	
+        	//Ajoute une image au bouton
+        	public void mouseEntered(MouseEvent e) {
+        		jouer.setIcon(imageJouer);	
+        		jouer.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        	}
+
+        	//Enlève l'image du bouton
+        	public void mouseExited(MouseEvent e) {
+        		jouer.setIcon(null);      		
+        	}
+		});
+
+            
+        //Placement des éléments
+        labelTitre.setBounds(172, 40, 200, 50);
+        labelCommandes.setBounds(122, 150, 300, 240);
+        jouer.setBounds(177, 545, 194, 51);
+        
+        //Ajout des éléments au jpanel
+        add(labelTitre);
+        add(labelCommandes);
+        add(jouer);
 	}
 	
 	/**
@@ -108,7 +123,14 @@ public class EcranCommandes extends JPanel {
 		commandes = "<html><div>" + commandes + "</div></html>";
 		
 		return commandes;
+	}
 
+	
+	/**
+	 * Méthode paintComponent qui affiche l'image des commandes.
+	 */
+	public void paintComponent(Graphics g) {
+		g.drawImage(imageCommandes.getImage(), 0, 0, this);	
 	}
 
 }

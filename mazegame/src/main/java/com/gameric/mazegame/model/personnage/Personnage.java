@@ -1,12 +1,9 @@
 package com.gameric.mazegame.model.personnage;
 
-import com.gameric.mazegame.model.labyrinthe.Case;
-import com.gameric.mazegame.model.labyrinthe.CaseEffet;
-import com.gameric.mazegame.model.labyrinthe.CaseObjet;
-import com.gameric.mazegame.model.labyrinthe.CaseVide;
-import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
-import com.gameric.mazegame.model.labyrinthe.Mur;
+import java.awt.image.BufferedImage;
+import com.gameric.mazegame.model.labyrinthe.*;
 import com.gameric.mazegame.model.monstres.Monstre;
+import com.gameric.mazegame.graphiques.*;
 
 /**
  *
@@ -24,6 +21,7 @@ public abstract class Personnage{
 	int portee;				//Portée de l'attaque du personnage
 	Case position;			//Position du personnage
 	Labyrinthe labyrinthe;
+	int scoreTotal = 0;     //Score du joueur
 
 	String direction;		//direction dans laquelle le personnage regarde
 	public static final String N = "Nord";	//Serviront à changer la direction du Personnage
@@ -31,11 +29,58 @@ public abstract class Personnage{
 	public static final String S = "Sud";
 	public static final String O = "Ouest";
 
+	protected BufferedImage[] walkingUp;
+	protected BufferedImage[] walkingRight;
+	protected BufferedImage[] walkingLeft;
+	protected BufferedImage[] walkingDown;
+	protected BufferedImage[] stand;
+
+	protected Animation walkingU;
+	protected Animation walkingD;
+	protected Animation walkingL;
+	protected Animation walkingR;
+	protected Animation standing;
+
+	protected BufferedImage[] attaqueUp;
+	protected BufferedImage[] attaqueDown;
+	protected BufferedImage[] attaqueLeft;
+	protected BufferedImage[] attaqueRight;
+
+	protected Animation attaqueU;
+	protected Animation attaqueD;
+	protected Animation attaqueL;
+	protected Animation attaqueR;
+
+	private Animation animation = standing;	//animation courante du personnage
+
 	//Constructeurs
-	public Personnage(){ direction = E; };
+	public Personnage(){
+		direction = E;
+
+		walkingUp = new BufferedImage[9];
+		walkingRight = new BufferedImage[9];
+		walkingLeft = new BufferedImage[9];
+		walkingDown = new BufferedImage[9];
+		stand = new BufferedImage[1];
+
+		for (int i = 0; i < 9; i++ ) {
+			walkingDown[i] = new Sprite().getSprite(i, 10, this.getClass());
+			walkingLeft[i] = new Sprite().getSprite(i, 9, this.getClass());
+			walkingRight[i] = new Sprite().getSprite(i, 11, this.getClass());
+			walkingUp[i] = new Sprite().getSprite(i, 8, this.getClass());
+		}
+		stand[0] = new Sprite().getSprite(2, 0, this.getClass());
+
+		walkingU = new Animation(walkingUp, 10);
+		walkingD = new Animation(walkingDown, 10);
+		walkingL = new Animation(walkingLeft, 10);
+		walkingR = new Animation(walkingRight, 10);
+		standing = new Animation(stand, 10);
+
+	}
 
 	//Méthodes
-
+	
 	/**
 	 * Gère le déplacement du personnage, via les coefficients dx et dy
 	 * @param dx : déplacement en x
@@ -44,6 +89,11 @@ public abstract class Personnage{
 	 * 0 sinon.
 	 */
 	public void deplacer(int dx, int dy){
+		if(this.direction == N) this.setAnimation(walkingU);
+		if(this.direction == S) this.setAnimation(walkingD);
+		if(this.direction == E) this.setAnimation(walkingR);
+		if(this.direction == O) this.setAnimation(walkingL);
+
 		int new_x = position.getPx() + dx;
 		int new_y = position.getPy() + dy;
 
@@ -58,7 +108,7 @@ public abstract class Personnage{
 							position.setOccupee(false);
 							position = new_position;
 							position.setOccupee(true);
-
+							
 							//Si la case sur lequel le personnage se déplace est une case à effet
 							if (new_position.getClass().getSuperclass() == CaseEffet.class) {
 								//On exécute l'effet de la case
@@ -85,7 +135,7 @@ public abstract class Personnage{
 	}
 
 	public void ramasserObjet(){
-		if( position.getClass() == CaseObjet.class ){
+		if(position.getClass() == CaseObjet.class){
 			((CaseObjet) position).ramasserObjet(this);
 		}
 	}
@@ -118,7 +168,31 @@ public abstract class Personnage{
 		return null;
 	}
 
-	public abstract void capaciteSpe();
+	protected abstract void capaciteSpe();
+
+	private int getDistance(Case position, Case objectif){
+		int distance = 0;
+		if(position.getPx() >= objectif.getPx()){
+			distance = position.getPx() - objectif.getPx();
+		}
+		else{
+			distance = objectif.getPx() - position.getPx();
+		}
+		if(position.getPy() >= objectif.getPy()){
+			distance = distance + position.getPy() - objectif.getPy();
+		}
+		else{
+			distance = distance + objectif.getPy() - position.getPy();
+		}
+		return distance;
+	}
+	private boolean attaque = false;
+	public boolean getAttaque() {
+		return attaque;
+	}
+	public void setAttaque(boolean attaque) {
+		this.attaque = attaque;
+	}
 	/**
 	 * Attaque un monstre à portée avec direction d'attaque)
 	 **/
@@ -141,19 +215,31 @@ public abstract class Personnage{
 								//|| (c.getClass().getSuperclass() == Mur.class) ){
 							//S'il y a un monstre dessus
 							if(testMonstre(c.getPx(), c.getPy())){
-									//On récupère le monstre
-									Monstre m = getMonstre(c.getPx(), c.getPy());
-									//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
-									if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.getPy())) {
-										//On lui fait des dégats
-										m.setPointsVie(m.getPointsVie() - this.degats);
-										if (m.getPointsVie() <= 0) {
-											//On active la capacité spéciale de la classe
-											capaciteSpe();
-											labyrinthe.enleverMonstre(m);
-										}
+								//On récupère le monstre
+								Monstre m = getMonstre(c.getPx(), c.getPy());
+								//On vérifie qu'il n'y a pas d'obstacle entre le monstre et le personnage
+								if(m.checkLineBresenham(c.getPx(),c.getPy(),position.getPx(),position.getPy())) {
+									//On change l'animation
 
+									if(this.direction == N) this.setAnimation(attaqueU);
+									if(this.direction == S) this.setAnimation(attaqueD);
+									if(this.direction == E) this.setAnimation(attaqueR);
+									if(this.direction == O) this.setAnimation(attaqueL);
+									
+
+									//On lui fait des dégats
+									m.setPointsVie(m.getPointsVie() - this.degats);
+									attaque = true;
+									//Si le monstre est tué
+									if(m.getPointsVie() <= 0) {
+										//On active la capacité spéciale de la classe
+										capaciteSpe();
+										//On retire le monstre du labyrinthe
+										labyrinthe.enleverMonstre(m);
+										//On met à jour le score
+										scoreTotal += m.getScore();
 									}
+								}
 							}
 						//}
 					}
@@ -163,6 +249,10 @@ public abstract class Personnage{
 	}
 
 	//Setters
+	public void setAnimation(Animation anim){
+		animation = anim;
+	}
+
 	public void setPosition(int x, int y) {
 		if (position != null) {
 			position.setOccupee(false);
@@ -188,6 +278,10 @@ public abstract class Personnage{
 		}
 	}
 
+	public void setVieMax(int newVie){
+		vieMax = newVie;
+	}
+
 	public void setDegats(int degats){
 		this.degats = degats;
 	}
@@ -202,6 +296,46 @@ public abstract class Personnage{
 	}
 
 	//Getters
+	public Animation getAnimationUp(){
+		return walkingU;
+	}
+
+	public Animation getAnimationRight(){
+		return walkingR;
+	}
+
+	public Animation getAnimationDown(){
+		return walkingD;
+	}
+
+	public Animation getAnimationLeft(){
+		return walkingL;
+	}
+
+	public Animation getAnimationStand(){
+		return standing;
+	}
+
+	public Animation getAnimation(){
+		return animation;
+	}
+
+	public Animation getAnimationAtkUp(){
+		return attaqueU;
+	}
+
+	public Animation getAnimationAtkDown(){
+		return attaqueD;
+	}
+
+	public Animation getAnimationAtkLeft(){
+		return attaqueL;
+	}
+
+	public Animation getAnimationAtkRight(){
+		return attaqueR;
+	}
+
 	public String getStringPosition(){
 		return "(" + position.getPx() + "," +  position.getPy() + ")";
 	}
@@ -234,12 +368,11 @@ public abstract class Personnage{
 		return vieMax;
 	}
 
-	
-	public void setVieMax(int vieMax) {
-		this.vieMax = vieMax;
-	}
-
 	public int getPortee() {
 		return portee;
 	}
+
+	public int getScoreTotal(){return scoreTotal;}
+
+	public void setScoreTotal(int scoreTotal){this.scoreTotal = scoreTotal;}
 }

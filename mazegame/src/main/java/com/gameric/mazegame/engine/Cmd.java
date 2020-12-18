@@ -1,7 +1,7 @@
 package com.gameric.mazegame.engine;
 
 /**
- * @author Horatiu Cirstea
+ * @author Théo Roton
  *
  */
 public enum Cmd {

@@ -6,19 +6,15 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.MediaTracker;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 import javax.swing.*;
 
 import com.gameric.mazegame.engine.GamePainter;
-import com.gameric.mazegame.graphiques.GroupTasks;
 import com.gameric.mazegame.model.Const;
 import com.gameric.mazegame.model.JeuLabyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Case;
@@ -42,7 +38,7 @@ import com.gameric.mazegame.model.personnage.Personnage;
  * @author Théo Roton
  * Afficheur graphique du jeu
  */
-public class DessinLabyrinthe extends JPanel implements GamePainter {
+public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 	
 	/**
 	 * Largeur du dessin du labyrinthe
@@ -80,16 +76,32 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 	private BufferedImage[] arrowLeft;
 	private BufferedImage[] arrowRight;
 	private BufferedImage[] arrowUp;
-	private BufferedImage[] arrowDiagonal;
+	private BufferedImage[] arrowDiagonalDR;
+	private BufferedImage[] arrowDiagonalDL;
+	private BufferedImage[] arrowDiagonalUR;
+	private BufferedImage[] arrowDiagonalUL;
 	
 	private Animation arrDown;
 	private Animation arrLeft;
 	private Animation arrRight;
 	private Animation arrUp;
-	private Animation arrDiagonal;
+	private Animation arrDiagonalDR;
+	private Animation arrDiagonalDL;
+	private Animation arrDiagonalUR;
+	private Animation arrDiagonalUL;
 	
 	private Animation arrow = arrUp; 
-
+	
+	private Thread gameloop;
+	private int count = 0;
+	private int fps = 7;
+	private int lastx = 0;
+	private int lasty = 0;
+	
+	/**
+	 * Images nécessaires pour l'affichage du choix de la classe
+	 */
+	private ImageIcon pause = new ImageIcon(getClass().getResource("/images/textures/ecrans/pause/pause1.png"));
 	
 	
 	/**
@@ -110,29 +122,39 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		
 		for ( int count = 0; count < telepEff.length; count++ )
 			telepEff[count] = new ImageIcon(getClass().getResource("/images/textures/effects/telepEffect" + count + ".png"));
-		
 
-		arrowDown = new BufferedImage[13];
 		arrowLeft = new BufferedImage[13];
 		arrowRight = new BufferedImage[13];
-		arrowUp = new BufferedImage[13];
-		arrowDiagonal = new BufferedImage[13];
+		arrowUp = new BufferedImage[1];
+		arrowDown = new BufferedImage[1];
+		arrowDiagonalDR = new BufferedImage[9];
+		arrowDiagonalDL = new BufferedImage[13];
+		arrowDiagonalUR = new BufferedImage[1];
+		arrowDiagonalUL = new BufferedImage[1];
 		
-		for (int i = 0; i < 13; i++ ) {
-			arrowDown[i] = new Sprite().getSprite(i, 3, this.getClass());
-			arrowLeft[i] = new Sprite().getSprite(i, 1, this.getClass());
-			arrowRight[i] = new Sprite().getSprite(i, 3, this.getClass());
-			arrowUp[i] = new Sprite().getSprite(i, 3, this.getClass());
-			arrowDiagonal[i] = new Sprite().getSprite(i, 2, this.getClass());
+		for (int i = 0; i < 9; i++ ) {
+			arrowLeft[i] = new Sprite().getSprite(i, 0, this.getClass());
+			arrowRight[i] = new Sprite().getSprite(i, 1, this.getClass());
+			arrowDiagonalDR[i] = new Sprite().getSprite(i, 4, this.getClass());
+			arrowDiagonalDL[i] = new Sprite().getSprite(i, 5, this.getClass());
 			
 		}
+		arrowUp[0] = new Sprite().getSprite(0, 2, this.getClass());
+		arrowDown[0] = new Sprite().getSprite(0, 3, this.getClass());
+		arrowDiagonalUR[0] = new Sprite().getSprite(0, 6, this.getClass());
+		arrowDiagonalUL[0] = new Sprite().getSprite(0, 7, this.getClass());
+		
+		
 		arrDown = new Animation(arrowDown, 10);
 		arrLeft = new Animation(arrowLeft, 10);
 		arrRight = new Animation(arrowRight, 10);
 		arrUp = new Animation(arrowUp, 10);
-		arrDiagonal = new Animation(arrowDiagonal, 10);
+		arrDiagonalDR = new Animation(arrowDiagonalDR, 10);
+		arrDiagonalDL = new Animation(arrowDiagonalDL, 10);
+		arrDiagonalUR = new Animation(arrowDiagonalUR, 10);
+		arrDiagonalUL = new Animation(arrowDiagonalUL, 10);
 		
-		
+		start();
 		
 	}
 
@@ -195,7 +217,11 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						} else if(((CaseObjet) c).getObjet().getNom().equals("Arme")) {
 							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/epee.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						} else if (((CaseObjet) c).getObjet().getNom().equals("?")) {
-							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/box.jpg")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/mystere0.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
+						}
+					} else {
+						if (((CaseObjet) c).getObjet().getNom().equals("?")) {
+							crayon.drawImage(new ImageIcon(getClass().getResource("/images/textures/mystere1.png")).getImage(), j*Const.TAILLE_CASE, i*Const.TAILLE_CASE, Const.TAILLE_CASE, Const.TAILLE_CASE, this);
 						}
 					}
 					
@@ -239,30 +265,74 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				
 			}
 		}
-		
-		//On dessine le personnage en bleu
+		//On dessine le personnage
 		if (!personnage.estMort()) {
-			crayon.setColor(Color.BLUE);
-			crayon.fillOval(personnage.getPos_x()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							personnage.getPos_y()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							Const.TAILLE_PERSO, Const.TAILLE_PERSO);
+			if(!personnage.getAttaque()) {
+				switch(personnage.getDirection()) {
+					case "Nord":
+						personnage.setAnimation(personnage.getAnimationUp());
+						break;
+					case "Sud":
+						personnage.setAnimation(personnage.getAnimationDown());
+						break;
+					case "Ouest":
+						personnage.setAnimation(personnage.getAnimationLeft());
+						break;
+					case "Est":
+						personnage.setAnimation(personnage.getAnimationRight());
+						break;
+					default:
+						personnage.setAnimation(personnage.getAnimationStand());
+						break;
+				}
+			}
+			int x = personnage.getPosition().getPx()*Const.TAILLE_CASE;
+			int y = personnage.getPosition().getPy()*Const.TAILLE_CASE;
+			int w = Const.TAILLE_CASE;
+			int h = Const.TAILLE_CASE;
+			if(!personnage.getAttaque()) {
+				personnage.getAnimation().setCurrFrame(0);
+				crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
+			} else {
+				if(personnage.getClass().getSimpleName().equals("Epeiste") && (personnage.getAnimation().getCurrFrame()==4 || personnage.getAnimation().getCurrFrame()==7 )) {
+					int i = 0;
+					while(i<2) {
+						crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
+						if(personnage.getAnimation().getCurrFrame()+1 >= personnage.getAnimation().getTotalFrames()) {
+							personnage.setAttaque(false);
+							//personnage.getAnimation().setCurrFrame(0);
+						}
+						else personnage.getAnimation().plusCurrFrame();
+						i++;
+					}
+				} else {
+					crayon.drawImage(personnage.getAnimation().getSprite(), x-(Const.TAILLE_CASE/4), y-2*Const.TAILLE_CASE/3, w+(Const.TAILLE_CASE/3), h+(Const.TAILLE_CASE/3), this);
+				}
+				//System.out.println();
+				if(personnage.getAnimation().getCurrFrame()+1 >= personnage.getAnimation().getTotalFrames()) {
+					personnage.setAttaque(false);
+					//personnage.getAnimation().setCurrFrame(0);
+				}
+				else personnage.getAnimation().plusCurrFrame();
+			}
 		}
-		
+		//if(count == fps)
+			//count = 0;
 		//On dessine les monstres
 		for (Monstre m : labyrinthe.getMonstres()) {
-			int x = m.getPosition().getPx()*Const.TAILLE_CASE, y = m.getPosition().getPy()*Const.TAILLE_CASE, w = Const.TAILLE_CASE, h = Const.TAILLE_CASE;
 			ImageObserver ob = this;
 			BufferedImage imgB;
-			
+			int x = m.getPosition().getPx()*Const.TAILLE_CASE, y = m.getPosition().getPy()*Const.TAILLE_CASE, w = Const.TAILLE_CASE, h = Const.TAILLE_CASE;
+
 			arrow = arrUp;
 			if(m.getClass() == Squelette.class && m.getPeutDonnerDegats() == true) {
 				if(m.getPos_x() == personnage.getPos_x()) {
 					if(m.getPos_y()>personnage.getPos_y()) {
 						m.setAnimation(m.getAttaqueDown());
-						arrow = arrDown;
+						arrow = arrUp;
 					} else {
 						m.setAnimation(m.getAttaqueUp());
-						arrow = arrUp;
+						arrow = arrDown;
 					}
 				} else if (m.getPos_y() == personnage.getPos_y()) {
 					if(m.getPos_x()>personnage.getPos_x()) {
@@ -273,49 +343,41 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						arrow = arrRight;
 					}
 				} else {
-					if (m.getPos_x()>personnage.getPos_x() && m.getPos_y()>personnage.getPos_y() || m.getPos_x()<personnage.getPos_x() && m.getPos_y()>personnage.getPos_y()) {
-						m.setAnimation(m.getAttaqueDown());
-						//arrow = arrDiagonal;
-					} else
-						m.setAnimation(m.getAttaqueUp());
-						//arrow = arrDiagonal;
-					
-				}
-				/*switch(m.getDirection()) {
-					case "UP":
-						m.setAnimation(m.getAttaqueUp());
-						arrow = arrUp;
-					break;
-					case "DOWN":
-						m.setAnimation(m.getAttaqueDown());
-						arrow = arrDown;
-					break;
-					case "LEFT":
-						m.setAnimation(m.getAttaqueLeft());
-						arrow = arrLeft;
-					break;
-					case "RIGHT":
-						m.setAnimation(m.getAttaqueRight());
-						arrow = arrRight;
-					break;
-				}*/
-				if(m.getPos_x() != personnage.getPos_x() && m.getPos_y() != personnage.getPos_y()) {
-					arrow = arrDiagonal;
+					if (m.getPos_x()>personnage.getPos_x()) {
+						if(m.getPos_y()>personnage.getPos_y()) {
+							m.setAnimation(m.getAttaqueDown());
+							arrow = arrDiagonalUL;
+						} else {
+							m.setAnimation(m.getAttaqueUp());
+							arrow = arrDiagonalDL;
+						}	
+					} else 
+						if(m.getPos_y()>personnage.getPos_y()) {
+							m.setAnimation(m.getAttaqueDown());
+							arrow = arrDiagonalUR;
+						} else {
+							m.setAnimation(m.getAttaqueUp());
+							arrow = arrDiagonalDR;
+						}
 				}
 			} else {
 				switch (m.getDirection()) {
 					case "UP":
 						m.setAnimation(m.getAnimationUp());
-						break;
+						y -= m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
+					break;
 					case "DOWN":
 						m.setAnimation(m.getAnimationDown());
-						break;
+						y += m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
+					break;
 					case "LEFT":
 						m.setAnimation(m.getAnimationLeft());
-						break;
+						x -= m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
+					break;
 					case "RIGHT":
 						m.setAnimation(m.getAnimationRight());
-						break;
+						x += m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
+					break;
 					default:
 						m.setAnimation(m.getAnimationStand());
 						break;
@@ -323,12 +385,15 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			}
 			
 			imgB = m.getAnimation().getSprite();
-			
+			if(m.getAnimation().getStopped() && active)
+				m.getAnimation().start();
 			switch(m.getClass().getSimpleName()) {
 				case "Zombie":
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-2*Const.TAILLE_CASE/3-5, m.getPointsVie()*Const.TAILLE_CASE/Zombie.VIE_MAX, 3);
+
 					crayon.drawImage(imgB, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob);
+					//m.getAnimation().drawAllSprites(crayon, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob, m);
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob, m.getAnimation(), m);
 					}*/
@@ -336,10 +401,17 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				case "Fantome":
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
+						
 					crayon.drawImage(imgB, x, y, w, h, ob);
+				
+					//m.getAnimation().startAnim(crayon, x, y, w, h, ob, m);
+					
+					//m.getAnimation().drawAllSprites(crayon, x, y, w, h, ob, m);
+					
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y, w, h, ob, m.getAnimation(), m);
 					}*/
+				
 				break;
 				case "Squelette":
 					crayon.setColor(Color.RED);
@@ -350,10 +422,8 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						int px=0, py=0;
 					
 						arrow.start();
-					
-							//arrow.update();	
 							
-							switch(m.getDirection()) {
+						switch(m.getDirection()) {
 							case "UP":
 								py--;
 							break;
@@ -364,120 +434,82 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 								px--;
 							break;
 							case "RIGHT":
-								px++;
+
 								break;
 							//crayon.dispose();					
 							}
 							int locationX= personnage.getPos_x()*Const.TAILLE_CASE, locationY = personnage.getPos_y()*Const.TAILLE_CASE;
-							Double rad = Math.toRadians (90);
-							arrow.setCurSprite(3);
 							Image res = arrow.getSprite();
-							//System.out.println(m.getDirection());
-							if( (m.getPos_x() == personnage.getPos_x() && (m.getPos_y()>personnage.getPos_y()||m.getPos_y()<personnage.getPos_y()) )) {
-									//(m.getPos_x() > personnage.getPos_x()) ) {
-								System.out.println("yM==yP "+(m.getPos_y() == personnage.getPos_y()));
-								System.out.println("yM>yP "+(m.getPos_y() > personnage.getPos_y()));
-								System.out.println("xM==xP "+(m.getPos_x() == personnage.getPos_x()));
-								System.out.println("xM>xP "+(m.getPos_x() > personnage.getPos_x()));
-								if((m.getPos_x() == personnage.getPos_x()))
-									rad = Math.toRadians (-90);
-								
-								AffineTransform tx = AffineTransform.getRotateInstance(rad, locationX, locationY);
-								AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-								System.out.println("In Affine");
-								res = op.filter(arrow.getSprite(), null);
-							}
-							for(int v = 0; v<3;v++) {
-								if(m.getPos_y() == personnage.getPos_y()) {
-									if(m.getPos_x()<personnage.getPos_x()) // monstre -> pers
-										crayon.drawImage(res, locationX-2*Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
-									else //pers <- monstre
-										crayon.drawImage(res, locationX+Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
-								} else if(m.getPos_x() == personnage.getPos_x()) {
-									if(m.getPos_y()<personnage.getPos_y()) // monstre audessus
-										crayon.drawImage(res, locationX-3*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*4, h*3, ob);
-									else //monstre endessus
-										crayon.drawImage(res, locationX-4*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*5, h*5, ob);
-								}
+							if(m.getPos_y() == personnage.getPos_y()) {
+								if(m.getPos_x()<personnage.getPos_x()) // monstre -> pers
+									crayon.drawImage(res, locationX-2*Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE/2, w*2, h*2, ob);
+								else //pers <- monstre
+									crayon.drawImage(res, locationX,  locationY-Const.TAILLE_CASE/2, w*2, h*2, ob);
+							} else if(m.getPos_x() == personnage.getPos_x()) {
+								if(m.getPos_y()<personnage.getPos_y()) // monstre audessus
+									//crayon.drawImage(res, locationX-3*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*4, h*3, ob);
+									crayon.drawImage(res, locationX-3*Const.TAILLE_CASE/2,  locationY-Const.TAILLE_CASE, w*4, h, ob);
+								else //monstre endessus
+									//crayon.drawImage(res, locationX-4*Const.TAILLE_CASE,  locationY-3*Const.TAILLE_CASE, w*5, h*5, ob);
+									crayon.drawImage(res, locationX-3*Const.TAILLE_CASE/2,  locationY+Const.TAILLE_CASE, w*4, h, ob);
+							} else {
+								if (m.getPos_x()>personnage.getPos_x()) {
+									if(m.getPos_y()>personnage.getPos_y()) {
+										//DR
+										crayon.drawImage(res, locationX,  locationY, w*2, h*2, ob);
+									} else {
+										//UL
+										crayon.drawImage(res, locationX,  locationY-3*Const.TAILLE_CASE/2, w*2, h*2, ob);
+									}	
+								} else 
+									if(m.getPos_y()>personnage.getPos_y()) {
+										//DL
+										crayon.drawImage(res, locationX-Const.TAILLE_CASE,  locationY, w*2, h*2, ob);
+									} else {
+										//UR
+										crayon.drawImage(res, locationX-Const.TAILLE_CASE,  locationY-Const.TAILLE_CASE, w*2, h*2, ob);
+									}
 							}
 					arrow.stop();
 					}
 					
 				break;
 			}
-			/*
-										
-			if (m.getClass() == Fantome.class) {
-				crayon.setColor(Color.RED);
-				crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
-				crayon.drawImage(imgB, x, y, w, h, this);
-				//System.out.println("Before");
-				//m.getAnimation().hello();
-				//System.out.println("Before1");
-				//m.getAnimation().startAnimation(crayon, x, y, w, h, ob, m);
-				//animationMonstre.restartAnimation();
-				
-				/*if(active) {
-					animationMonstre.startAnimationMonstre(crayon, x, y, w, h, ob, m.getAnimation(), m);
-					
-				}*/
-				//System.out.println("After");
-				//monstresAnim(crayon, imgB, x, y, w, h, this);
-				/*for(int c = 0; c < 3; c++) {
-					switch(m.getDirection()) {
-						case "UP":
-							crayon.drawImage(m.getAnimation().getSprite(), x, y+c*Const.TAILLE_CASE/3, w, h, ob);
-							break;
-						case "DOWN":
-							crayon.drawImage(m.getAnimation().getSprite(), x, y-c*Const.TAILLE_CASE/3, w, h, ob);
-							break;
-						case "LEFT":
-							crayon.drawImage(m.getAnimation().getSprite(), x-c*Const.TAILLE_CASE/3, y, w, h, ob);
-							break;
-						case "RIGHT":
-							crayon.drawImage(m.getAnimation().getSprite(), x+c*Const.TAILLE_CASE/3, y, w, h, ob);
-							break;
-						default:
-							m.setAnimation(m.getAnimationStand());
-							break;
-					}
-					crayon.dispose();
+		
+			if(active) {
+				if(m.getPosition().getPx() != m.getAnimation().getlastX() || m.getPosition().getPy() != m.getAnimation().getlastY()) {
+					m.getAnimation().setlastX(m.getPosition().getPx());
+					m.getAnimation().setlastY(m.getPosition().getPy());
+					m.getAnimation().setCurrFrame(0);
+					//m.getAnimation().setCount(0);
+				} else {
+					//m.getAnimation().update();
+					m.getAnimation().plusCurrFrame();
+					//if(m.getAnimation().getCount()+1 <= fps)
+					//	m.getAnimation().setCount(m.getAnimation().getCount()+1);
 				}
-			}*/
-			 /*else if (!imgTime.isRunning()) {
-				imgTime.restart();
 			}
-					
-					
-			}*//*} else if (m.getClass() == Squelette.class) {
-				crayon.setColor(Color.RED);
-			} else {
-				crayon.drawImage(m.getAnimation().getSprite(), m.getPosition().getPx()*Const.TAILLE_CASE, m.getPosition().getPy()*Const.TAILLE_CASE-2*Const.TAILLE_CASE/3, Const.TAILLE_CASE, Const.TAILLE_CASE+(Const.TAILLE_CASE/3), this);						
-
-			}*/
-			/*crayon.fillOval(m.getPosition().getPx()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							m.getPosition().getPy()*Const.TAILLE_CASE + Const.TAILLE_PLACEPERSO, 
-							Const.TAILLE_PERSO, Const.TAILLE_PERSO);*/
 		}
-
+		
 		//Si le jeu est en pause
 		if (jeu.enPause()) {
-			crayon.setColor(Const.COULEUR_PAUSE);
-			crayon.fillRect(0, 0, WIDTH, HEIGHT);
-			crayon.setColor(Color.BLACK);
-			dessinerChaineCentree(crayon, "Jeu en pause", new Rectangle(WIDTH/6, HEIGHT/6, 2*WIDTH/3, HEIGHT/4), Const.FONT_PAUSE);
+			crayon.drawImage(pause.getImage(), 0, 0, WIDTH, HEIGHT, this);
 			animationTimer.stopAnimation();
 			animationTimerTep.stopAnimation();
 			active = false;
 		} else {
 			active = true;
 		}
+		if(labyrinthe.getNiveauChange()) {
+			animationTimerTep.setGameChanged(true);
+			labyrinthe.setNiveauChange(false);
+		}
 		
 	}
 	
 	public void waitForTwoSeconds() {
 
-        pauses = new Timer(2000, new ActionListener() {
+        pauses = new Timer(3600, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -488,22 +520,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
         pauses.setRepeats(false);
         pauses.start();
     }
-	private void monstresAnim(Graphics2D crayon, BufferedImage img, int x, int y, int w, int h, ImageObserver ob) {
-		if (imgTime == null) {
-			ActionListener taskPerformer = new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					for(int c = 0; c < 3; c++) {
-						System.out.println("Here "+c);
-						System.out.println("Img "+img);
-						crayon.drawImage(img, x, y, w, h, ob);
-						//crayon.dispose();
-					}
-				}
-			};
-			imgTime = new Timer(500, taskPerformer);
-			imgTime.start();
-		}
-	}
 	
 	private String checkVoisinGetImg(Labyrinthe l, int i, int j) {
 		String res = "";
@@ -598,6 +614,27 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 	 */
 	public int getHeight() {
 		return HEIGHT;
+	}
+
+	@Override
+	public void run() {
+		Thread current = Thread.currentThread();
+        while (current == gameloop) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                //do nothing
+                e.printStackTrace();
+            }
+            
+            /*Draw all of the sprites in the arrayList to the backbuffer */            
+            repaint();  //draw to the screen
+        }
+	}
+	
+	public void start() {
+		gameloop = new Thread(this);
+        gameloop.start();
 	}
 	
 }

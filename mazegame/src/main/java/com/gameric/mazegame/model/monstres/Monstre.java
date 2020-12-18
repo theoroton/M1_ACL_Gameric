@@ -9,7 +9,6 @@ import javax.swing.Timer;
 import com.gameric.mazegame.model.labyrinthe.Case;
 import com.gameric.mazegame.model.labyrinthe.Labyrinthe;
 import com.gameric.mazegame.model.labyrinthe.Mur;
-import com.gameric.mazegame.graphiques.Sprite;
 import com.gameric.mazegame.graphiques.Animation;
 
 /**
@@ -39,6 +38,8 @@ public abstract class Monstre {
 	 * La nombre des degats du monstre
 	 */
 	protected int degats = 2;
+	
+	private int score;
 	
 	protected boolean peutDonnerDegats = false;
 	
@@ -148,11 +149,12 @@ public abstract class Monstre {
 	/**
 	 * Constructeur du monstre
 	 */
-	public Monstre(int x, int y, Labyrinthe l, int v) {
+	public Monstre(int x, int y, Labyrinthe l, int v, int s) {
 		labyrinthe = l;
 		position = labyrinthe.getCase(x,y);
 		position.setOccupee(true);
 		vitesse = v;
+		score = s;
 		
 		//if (timer == null) {
 		ActionListener taskPerformer = new ActionListener() {
@@ -307,12 +309,34 @@ public abstract class Monstre {
 	public Timer getTimer() {
 		return timer;
 	}
-	
+	public void stopTimer() {
+		timer.stop();
+		stoppedTimer = true;
+	}
+	public boolean getStoppedTimer() {
+		return stoppedTimer;
+	}
+	private boolean stoppedTimer = false;
+	private Timer pauses;
+	public void setTimerSec() {
+		timer.stop();
+		pauses = new Timer(1000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //area.append("Finished Waiting, ");
+            	 timer.restart();
+            }
+        });
+        pauses.setRepeats(false);
+        pauses.start();
+	}
 	/**
 	 * Set timer qui permet de recommencer un timer.
 	 */
 	public void setTimer() {
 		timer.restart();
+		stoppedTimer = false;
 		/*timer = new Timer();
 		timer.schedule(new TimerTask() {
 			
@@ -458,4 +482,10 @@ public abstract class Monstre {
 	public void donnerDegats() {
 		this.getLabyrinthe().getPersonnage_laby().setPointsVie(this.getLabyrinthe().getPersonnage_laby().getPointsVie() - this.getDegats());
 	}
+
+	public int getScore() {
+		return score;
+	}
+	
+	
 }

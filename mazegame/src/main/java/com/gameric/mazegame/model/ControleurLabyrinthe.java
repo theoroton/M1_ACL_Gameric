@@ -1,7 +1,6 @@
 package com.gameric.mazegame.model;
 
 import java.awt.event.KeyEvent;
-
 import com.gameric.mazegame.engine.Cmd;
 import com.gameric.mazegame.engine.GameController;
 
