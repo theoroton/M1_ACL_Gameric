@@ -40,7 +40,7 @@ import com.gameric.mazegame.model.personnage.Personnage;
  * @author Théo Roton
  * Afficheur graphique du jeu
  */
-public class DessinLabyrinthe extends JPanel implements GamePainter {
+public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 	
 	/**
 	 * Largeur du dessin du labyrinthe
@@ -93,7 +93,12 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 	private Animation arrDiagonalUL;
 	
 	private Animation arrow = arrUp; 
-
+	
+	private Thread gameloop;
+	private int count = 0;
+	private int fps = 7;
+	private int lastx = 0;
+	private int lasty = 0;
 	
 	
 	/**
@@ -146,7 +151,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 		arrDiagonalUR = new Animation(arrowDiagonalUR, 10);
 		arrDiagonalUL = new Animation(arrowDiagonalUL, 10);
 		
-		
+		start();
 		
 	}
 
@@ -308,13 +313,14 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				else personnage.getAnimation().plusCurrFrame();
 			}
 		}
-		
+		//if(count == fps)
+			//count = 0;
 		//On dessine les monstres
 		for (Monstre m : labyrinthe.getMonstres()) {
-			int x = m.getPosition().getPx()*Const.TAILLE_CASE, y = m.getPosition().getPy()*Const.TAILLE_CASE, w = Const.TAILLE_CASE, h = Const.TAILLE_CASE;
 			ImageObserver ob = this;
 			BufferedImage imgB;
-			
+			int x = m.getPosition().getPx()*Const.TAILLE_CASE, y = m.getPosition().getPy()*Const.TAILLE_CASE, w = Const.TAILLE_CASE, h = Const.TAILLE_CASE;
+
 			arrow = arrUp;
 			if(m.getClass() == Squelette.class && m.getPeutDonnerDegats() == true) {
 				if(m.getPos_x() == personnage.getPos_x()) {
@@ -355,15 +361,19 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				switch(m.getDirection()) {
 					case "UP":
 						m.setAnimation(m.getAnimationUp());
+						y -= m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					case "DOWN":
 						m.setAnimation(m.getAnimationDown());
+						y += m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					case "LEFT":
 						m.setAnimation(m.getAnimationLeft());
+						x -= m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					case "RIGHT":
 						m.setAnimation(m.getAnimationRight());
+						x += m.getAnimation().getCount()*Const.TAILLE_CASE/fps;
 					break;
 					default:
 						m.setAnimation(m.getAnimationStand());
@@ -372,12 +382,15 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 			}
 			
 			imgB = m.getAnimation().getSprite();
-			
+			if(m.getAnimation().getStopped() && active)
+				m.getAnimation().start();
 			switch(m.getClass().getSimpleName()) {
 				case "Zombie":
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-2*Const.TAILLE_CASE/3-5, m.getPointsVie()*Const.TAILLE_CASE/Zombie.VIE_MAX, 3);
+
 					crayon.drawImage(imgB, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob);
+					//m.getAnimation().drawAllSprites(crayon, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob, m);
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y-2*Const.TAILLE_CASE/3, w, h+(Const.TAILLE_CASE/3), ob, m.getAnimation(), m);
 					}*/
@@ -385,8 +398,13 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 				case "Fantome":
 					crayon.setColor(Color.RED);
 					crayon.fillRect(x, y-5, m.getPointsVie()*Const.TAILLE_CASE/Fantome.VIE_MAX, 3);
+						
 					crayon.drawImage(imgB, x, y, w, h, ob);
-					//m.getAnimation().startAnimation(crayon, x, y, w, h, ob, m);
+				
+					//m.getAnimation().startAnim(crayon, x, y, w, h, ob, m);
+					
+					//m.getAnimation().drawAllSprites(crayon, x, y, w, h, ob, m);
+					
 					/*if(active) {
 						animationMonstre.startAnimationMonstre(crayon, x, y, w, h, ob, m.getAnimation(), m);
 					}*/
@@ -401,10 +419,8 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 						int px=0, py=0;
 					
 						arrow.start();
-					
-							//arrow.update();	
 							
-							switch(m.getDirection()) {
+						switch(m.getDirection()) {
 							case "UP":
 								py--;
 							break;
@@ -415,7 +431,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 								px--;
 							break;
 							case "RIGHT":
-								px++;
+
 								break;
 							//crayon.dispose();					
 							}
@@ -456,8 +472,22 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 					
 				break;
 			}
+		
+			if(active) {
+				if(m.getPosition().getPx() != m.getAnimation().getlastX() || m.getPosition().getPy() != m.getAnimation().getlastY()) {
+					m.getAnimation().setlastX(m.getPosition().getPx());
+					m.getAnimation().setlastY(m.getPosition().getPy());
+					m.getAnimation().setCurrFrame(0);
+					//m.getAnimation().setCount(0);
+				} else {
+					//m.getAnimation().update();
+					m.getAnimation().plusCurrFrame();
+					//if(m.getAnimation().getCount()+1 <= fps)
+					//	m.getAnimation().setCount(m.getAnimation().getCount()+1);
+				}
+			}
 		}
-
+		
 		//Si le jeu est en pause
 		if (jeu.enPause()) {
 			crayon.setColor(Const.COULEUR_PAUSE);
@@ -479,7 +509,7 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 	
 	public void waitForTwoSeconds() {
 
-        pauses = new Timer(2000, new ActionListener() {
+        pauses = new Timer(3600, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -490,22 +520,6 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
         pauses.setRepeats(false);
         pauses.start();
     }
-	private void monstresAnim(Graphics2D crayon, BufferedImage img, int x, int y, int w, int h, ImageObserver ob) {
-		if (imgTime == null) {
-			ActionListener taskPerformer = new ActionListener() {
-				public void actionPerformed(ActionEvent evt) {
-					for(int c = 0; c < 3; c++) {
-						//System.out.println("Here "+c);
-						//System.out.println("Img "+img);
-						crayon.drawImage(img, x, y, w, h, ob);
-						//crayon.dispose();
-					}
-				}
-			};
-			imgTime = new Timer(500, taskPerformer);
-			imgTime.start();
-		}
-	}
 	
 	private String checkVoisinGetImg(Labyrinthe l, int i, int j) {
 		String res = "";
@@ -600,6 +614,27 @@ public class DessinLabyrinthe extends JPanel implements GamePainter {
 	 */
 	public int getHeight() {
 		return HEIGHT;
+	}
+
+	@Override
+	public void run() {
+		Thread current = Thread.currentThread();
+        while (current == gameloop) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                //do nothing
+                e.printStackTrace();
+            }
+            
+            /*Draw all of the sprites in the arrayList to the backbuffer */            
+            repaint();  //draw to the screen
+        }
+	}
+	
+	public void start() {
+		gameloop = new Thread(this);
+        gameloop.start();
 	}
 	
 }
