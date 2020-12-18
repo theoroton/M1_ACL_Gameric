@@ -426,17 +426,17 @@ public class DessinLabyrinthe extends JPanel implements GamePainter, Runnable {
 				break;
 			}
 			if(active) {
-			if(m.getPosition().getPx() != m.getAnimation().getlastX() || m.getPosition().getPy() != m.getAnimation().getlastY()) {
-				m.getAnimation().setlastX(m.getPosition().getPx());
-				m.getAnimation().setlastY(m.getPosition().getPy());
-				m.getAnimation().setCurrFrame(0);
-				//m.getAnimation().setCount(0);
-			} else {
-				//m.getAnimation().update();
-				m.getAnimation().plusCurrFrame();
-				//if(m.getAnimation().getCount()+1 <= fps)
-				//	m.getAnimation().setCount(m.getAnimation().getCount()+1);
-			}
+				if(m.getPosition().getPx() != m.getAnimation().getlastX() || m.getPosition().getPy() != m.getAnimation().getlastY()) {
+					m.getAnimation().setlastX(m.getPosition().getPx());
+					m.getAnimation().setlastY(m.getPosition().getPy());
+					m.getAnimation().setCurrFrame(0);
+					//m.getAnimation().setCount(0);
+				} else {
+					//m.getAnimation().update();
+					m.getAnimation().plusCurrFrame();
+					//if(m.getAnimation().getCount()+1 <= fps)
+					//	m.getAnimation().setCount(m.getAnimation().getCount()+1);
+				}
 			}
 		}
 		
