@@ -91,5 +91,6 @@ public class Sprite {
         }
         return spriteSheet.getSubimage(x, y, w, h) ;
     }
+		return spriteSheet;
     }
 }

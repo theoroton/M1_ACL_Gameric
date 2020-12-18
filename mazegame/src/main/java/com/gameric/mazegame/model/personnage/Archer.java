@@ -1,5 +1,8 @@
 package com.gameric.mazegame.model.personnage;
 
+import com.gameric.mazegame.graphiques.Animation;
+import com.gameric.mazegame.graphiques.Sprite;
+
 /**
  * 
  * @author Maeva Touchet
@@ -15,6 +18,18 @@ public class Archer extends Personnage{
 		degats = 5;
 		portee = 5;
 		compteur = 0;
+
+		for (int i = 0; i < 12; i++) {
+			attaqueUp[i] = new Sprite().getSprite(i, 16, this.getClass());
+			attaqueDown[i] = new Sprite().getSprite(i, 18, this.getClass());
+			attaqueLeft[i] = new Sprite().getSprite(i, 17, this.getClass());
+			attaqueRight[i] = new Sprite().getSprite(i, 19, this.getClass());
+		}
+
+		attaqueU = new Animation(attaqueUp, 10);
+		attaqueD = new Animation(attaqueDown, 10);
+		attaqueL = new Animation(attaqueLeft, 10);
+		attaqueR= new Animation(attaqueRight, 10);
 	}
 	//Méthodes
 	/**
